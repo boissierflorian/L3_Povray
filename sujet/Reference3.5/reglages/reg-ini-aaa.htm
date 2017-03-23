@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>anticr&eacute;nelage - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> -
+<A href="reg-ini-ren.htm">page précédente : options de rendu</A>
+</P>
+
+<H2>options d'anticr&eacute;nelage ("antialiasing")</H2>
+<P>Lorsque POV-Ray cherche &agrave; d&eacute;terminer la couleur d'un pixel, il ne se soucie
+   pas de la couleur des pixels voisins.  Le long d'un d&eacute;grad&eacute;, ce n'est pas un
+   probl&egrave;me, mais lorsqu'on a affaire &agrave; des changements brutaux de couleur (contour
+   d'un objet et fond, par exemple), un probl&egrave;me particulier appara&icirc;t : le cr&eacute;nelage,
+   souvent appel&eacute; "marches d'escalier".  L'effet est tr&egrave;s d&eacute;plaisant, surtout sur
+   les obliques et les textures "en grille", o&ugrave; un d&eacute;sagr&eacute;able effet de moirage<I>*</I>
+   appara&icirc;t.</P>
+<P><I>Le moirage, c'est quand deux trames superpos&eacute;es produisent une interf&eacute;rence,
+      comme quand un gars avec un veston &agrave; rayures passe &agrave; la t&eacute;l&eacute;, ou comme quand
+      on superpose deux moustiquaires.</I></P>
+<P>Puisque c'est la variation brusque de couleur qui produit cet effet, il faut trouver
+   un moyen de l'adoucir.</P>
+<IMG src="aa02.png" border=2 alt="escaliers en gros plan">
+<P>La solution consiste &agrave; d&eacute;tecter d'abord ces changements de couleur, puis, quand ils
+   se produisent, &agrave; aller chercher la couleur des "sous-pixels" (subdivisions) du pixel
+   incrimin&eacute;, et puis simplement faire une moyenne de la couleur des sous-pixels, et
+   de l'utiliser comme couleur du pixel d&eacute;finitif.</P>
+<IMG src="aa03.png" border=2 alt="escaliers en gros plan">
+<P>Voici la diff&eacute;rence observ&eacute;e sur un rendu :</P>
+<TABLE> 
+<TR><TD><IMG SRC="aa04.png" alt="sans anticr&eacute;nelage" border=2></TD><TD><IMG SRC="aa05.png" alt="avec anticr&eacute;nelage" border=2></TD></TR> 
+<TR><TD>sans anticr&eacute;nelage</TD><TD>avec anticr&eacute;nelage</TD></TR>
+</TABLE>
+
+<H2>param&eacute;trage</H2>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+A, -A</TD><TD>Antialias=b</TD><TD>-</TD><TD>enclenche l'anticr&eacute;nelage (avec un seuil de 0.3)</TD></TR>
+ <TR><TD>+An.n, -An.n</TD><TD>Antialias_Threshold=n.n</TD><TD>0.3</TD><TD>sp&eacute;cifie le seuil de d&eacute;clenchement de l'anticr&eacute;nelage</TD></TR>
+ <TR><TD>+AMn</TD><TD>Sampling_Method=n</TD><TD>1</TD><TD>s&eacute;lectionne la m&eacute;thode &agrave; employer (1 ou 2)</TD></TR>
+ <TR><TD>+Rn</TD><TD>Antialias_Depth=n</TD><TD>2</TD><TD>sp&eacute;cifie la finesse de la subdivision</TD></TR>
+ <TR><TD>+J, -J</TD><TD>Jitter=b</TD><TD>+</TD><TD>enclenche l'errance d'&eacute;chantillonnage</TD></TR>
+ <TR><TD>+Jn.n, -Jn.n</TD><TD>Jitter_Amount=n.n</TD><TD>1</TD><TD>sp&eacute;cifie le taux d'errance d'&eacute;chantillonnage</TD></TR>
+</TABLE>
+<P>Le "seuil de d&eacute;clenchement" sp&eacute;cifie quelle diff&eacute;rence minimale de couleur (rgb) suffit &agrave; enclencher
+   le processus d'anticr&eacute;nelage (afin d'&eacute;viter de faire du sur&eacute;chantillonnage dans des zones o&ugrave; ce
+   n'est pas n&eacute;cessaire).  La diff&eacute;rence entre deux pixels (&lt;r1,g1,b1&gt; et &lt;r2,g2,b2&gt;) est &eacute;valu&eacute;e comme suit&nbsp;:
+    diff&eacute;rence&nbsp;=&nbsp;abs(r1-r2)&nbsp;+&nbsp;abs(g1-g2)&nbsp;+&nbsp;abs(b1-b2).</P>
+<P>Plus ce seuil est bas, plus le r&eacute;sultat sera beau, mais plus le rendu sera long aussi, puisqu'il
+   faudra lancer plus de rayons.</P>
+<P><STRONG>+Rn</STRONG>, o&ugrave; n est un entier entre 1 et 9, sp&eacute;cifie le nombre de subdivisions &agrave; 
+   effectuer pour chaque pixel qui le demande.  Comme il s'agit d'une grille de subdivision,
+   le nombre d'&eacute;chantillons suppl&eacute;mentaires sera n*n.</P>
+<P>Enfin, l'errance ("jitter") permet d'appliquer une d&eacute;viation al&eacute;atoire aux rayons primaires
+   des subdivisions des pixels, afin d'att&eacute;nuer les effets de moirages.  Sur les contours nets,
+   l'errance a tendance &agrave; "&eacute;mousser" un peu les limites, alors, selon l'image, il peut &ecirc;tre
+   utile de d&eacute;senclencher cette option.</P>
+<H3>la deuxi&egrave;me m&eacute;thode</H3>
+<P>Par l'option <STRONG>+AM2</STRONG>, on peut enclencher l'utilisation de la m&eacute;thode
+   d'anticr&eacute;nelage dite "adaptive".  Au lieu de subdiviser aveugl&eacute;ment les pixels, cette
+   m&eacute;thode pratique par subdivisions successives, et ne pratique une re-subdivision que
+   lorsque c'est n&eacute;cessaire.</P>
+<P>La valeur donn&eacute;e alors &agrave; <STRONG>+R</STRONG> prend un autre sens, et sp&eacute;cifie le nombre
+   maximal (si toutes les subdivisions ont lieu) d'&eacute;chantillons &agrave; prendre en compte.</P>
+<P>
+<TABLE border = 1>
+<TR><TD>valeur de +R</TD><TD>nombre maximal d'&eacute;chantillons</TD><TD>formule (pur le fun)</TD></TR>
+<TR><TD>1</TD><TD>9</TD><TD>2<sup>1</sup>+1</TD></TR>
+<TR><TD>2</TD><TD>25</TD><TD>2<sup>2</sup>+1</TD></TR>
+<TR><TD>3</TD><TD>81</TD><TD>2<sup>3</sup>+1</TD></TR>
+<TR><TD>4</TD><TD>289</TD><TD>2<sup>4</sup>+1</TD></TR>
+<TR><TD>5</TD><TD>1089</TD><TD>2<sup>5</sup>+1</TD></TR>
+<TR><TD>6</TD><TD>4225</TD><TD>2<sup>6</sup>+1</TD></TR>
+<TR><TD>7</TD><TD>16641</TD><TD>2<sup>7</sup>+1</TD></TR>
+<TR><TD>8</TD><TD>66049</TD><TD>2<sup>8</sup>+1</TD></TR>
+<TR><TD>9</TD><TD>263169</TD><TD>2<sup>9</sup>+1</TD></TR>
+</TABLE>
+</P>
+<P>Pour chaque pixel &agrave; r&eacute;&eacute;valuer, POV-Ray commence par &eacute;chantillonner les quatre coins du
+   pixel, et compare les couleurs obtenue.  Si leur diff&eacute;rences d&eacute;passent le seuil sp&eacute;cifi&eacute;,
+   le pixel est subdivis&eacute; en 4, et recommence &agrave; &eacute;chantillonner les coins de ces sous-pixels,
+   et ainsi de suite, mais en &eacute;vitant de re-subdiviser une zone o&ugrave; la diff&eacute;rence entre les couleurs
+   est plus faible que le seuil.</P>
+
+<P><A href="reg-ini-aff.htm">page suivante : options d'affichage</A></P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

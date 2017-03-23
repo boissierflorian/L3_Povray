@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>optimisation - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+</P>
+
+<H1>les bo&icirc;tes d'optimisation ("bounding boxes")</H1>
+<P>Le description de ce que sont les bo&icirc;tes d'optimisation n&eacute;cessite un petit rappel
+   sur le fonctionnement d'un raytracer.</P>
+<P>La t&acirc;che premi&egrave;re d'un raytracer consiste &agrave; "balayer" syst&eacute;matiquement le champ
+   de vision de la cam&eacute;ra, pixel par pixel, afin de d&eacute;terminer la couleur finale de
+   de ces pixels.  Pour chaque pixel, un premier rayon (appel&eacute; "rayon primaire",
+   qui d&eacute;marre de la position de la cam&eacute;ra et qui passe par la position du pixel
+   consid&eacute;r&eacute; dans le plan de projection), un premier rayon, donc, est trac&eacute; dans
+   l'espace, et le programme doit d&eacute;terminer si ce rayon touche ou non un objet,
+   et si oui, lequel et &agrave; quel endroit.</P>
+<P>Dans un raytracer tr&egrave;s basique (POV-Ray 1.0, par exemple), cela demande de v&eacute;rifier,
+   pour chaque objet pr&eacute;sent, si une intersection se produit avec le rayon.  Si
+   on a 1000 objets, cela signifie 1000 tests d'intersection par pixel, m&ecirc;me si
+   finalement aucun de ces tests n'aura &eacute;t&eacute; concluant.  Si on a une image avec
+   deux arbres distants, constitu&eacute;s chacun de 1500 objets, chaque pixel donnera
+   lieu &agrave; 3000 tests d'intersection, y compris ceux de l'autre arbre qu'on a aucune
+   chance de toucher, et m&ecirc;me si on tombe finalement sur le ciel.</P>
+<P>Alors, pour &eacute;viter &agrave; notre brave raytracer de perdre du temps &agrave; lancer des
+   rayons pour rien, on a invent&eacute; les bo&icirc;tes d'optimisation (concernant POV-Ray,
+   elles sont apparues dans la version 2.0).  Ce sont des parall&eacute;l&eacute;pip&egrave;des rectangles,
+   toujours parall&egrave;les au syst&egrave;me d'axes, qui "englobent" totalement les objets et
+   groupes d'objets.  Ces bo&icirc;tes sont hi&eacute;rarchis&eacute;es, c'est-&agrave;-dire qu'elles suivent
+   la structure des objets complexes (union, intersection,...), et qu'une bo&icirc;te
+   d'optimisation peut contenir un groupe d'objets, qui ont leur propre bo&icirc;te, 
+   qui, &agrave; son tour, etc...</P>
+<P>D&eacute;sormais, le rayon primaire ne va plus, dans un premier temps, s'int&eacute;resser
+   aux objets eux-m&ecirc;mes, mais &agrave; leur bo&icirc;te d'optimisation.  Si l'intersection
+   avec une de ces bo&icirc;tes est av&eacute;r&eacute;e, alors c'est le contenu de la bo&icirc;te, et
+   seulement de celle-l&agrave;, qui sera &agrave; son tour analys&eacute;.  Les autres bo&icirc;tes peuvent
+   contenir des tas d'objets, le programme n'en a cure, puisqu'il est certain de
+   ne pas risquer d'en rencontrer un seul.</P>
+
+<P>Vous pouvez jeter un coup d'oeil aux statistiques produites apr&egrave;s chaque
+   rendu, et vous verrez, pour chaque type d'objet, le nombre de tests d'intersection
+   effectu&eacute;s, et le nombre de tests couronn&eacute;s de succ&egrave;s.</P>
+
+<P>Ainsi, dans le cas de nos arbres, chaque arbre serait englob&eacute; dans une grande
+   bo&icirc;te, &agrave; l'int&eacute;rieur de laquelle se trouvent tous les composants de l'arbre,
+   eux-m&ecirc;mes contenu dans leur propre bo&icirc;te, etc...</P>
+
+<P>L'illustration ci-dessous montre cette hi&eacute;rarchie des bo&icirc;tes d'optimisation.</P>
+
+<IMG src="bounding.png" border=2 alt="bo&icirc;tes d'optimisation">
+
+<H2>min_extent et max_extent</H2>
+<P>POV-Ray 3.5 apporte deux fonctions tr&egrave;s int&eacute;ressantes : <STRONG>min_extent</STRONG> et <STRONG>max_extent</STRONG>,
+   qui permettent de conna&icirc;tre les coordonn&eacute;es de la bo&icirc;te d'optimisation d'un objet
+   ou d'un groupe d'objets.  Ces fonctions retournent un vecteur, qui correspond au
+   coin de la bo&icirc;te le plus proche ou le plus &eacute;loign&eacute; de l'origine.</P>
+<P>Elles permettent de faciliter le positionnement dans l'espace d'un objet dont on ne 
+   conna&icirc;t pas vraiment la position (apr&egrave;s une rotation,..), ou bien de d&eacute;celer un &eacute;ventuel
+   probl&egrave;me d'optimisation pour une CSG complexe.</P>
+<P>(Ce sont ces fonctions qui ont permis la r&eacute;alisation de l'illustration pr&eacute;c&eacute;dente)</P>
+<P>syntaxe : </P>
+<PRE>
+min_extent (Objet)
+max_extent (Objet)
+</PRE>
+<P>exemple : </P>
+<PRE>
+#declare Boule1 = sphere {<20,10,30>,15 pigment {YellowGreen}}
+#declare BoiteOptim = box {
+                          min_extent (Boule1),max_extent (Boule1)
+                          pigment {SteelBlue filter .9}
+                          }
+object {Boule1}
+object {BoiteOptim }
+</PRE>
+
+<H2>options de la ligne de commande</H2>
+<P>Ces options sont d&eacute;taill&eacute;es dans la section consacr&eacute;e aux options de la ligne de commande,
+   mais nous les mettons ici pour rappel.</P>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+MB, -MB</TD><TD>Bounding=b</TD><TD>+</TD><TD>enclenche l'optimisation automatique</TD></TR>
+ <TR><TD>+MBn, -MBn</TD><TD>Bounding_Threshold=n</TD><TD>25</TD><TD>sp&eacute;cifie &agrave; partir de combien d'objets il faut enclencher l'optimisation</TD></TR>
+ <TR><TD>+UL, -UL</TD><TD>Light_Buffer=b</TD><TD>+</TD><TD>enclenche l'optimisation des lumi&egrave;res</TD></TR>
+ <TR><TD>+UV, -UV</TD><TD>Vista_Buffer=b</TD><TD>+</TD><TD>enclenche l'utilisation du "vista buffer"</TD></TR>
+ <TR><TD>+UR, -UR</TD><TD>Remove_Bounds=b</TD><TD>+</TD><TD>enl&egrave;ve les optimisations manuelles des objets quand elles semblent inutiles</TD></TR>
+ <TR><TD>+SU, -SU</TD><TD>Split_Unions=b</TD><TD>-</TD><TD>enl&egrave;ve les optimisations manuelles des unions quand elles semblent inutiles</TD></TR>
+</TABLE>
+
+<P>Le "light buffer" est une optimisation similaire, sp&eacute;cifique aux sources lumineuses.  Si
+   vous avez beaucoup de sources lumineuses dans une sc&egrave;ne, genre une centaine, vous avez int&eacute;r&ecirc;t
+   &agrave; d&eacute;sactiver cette option, sinon l'&eacute;tape de parsing pourrait devenir interminable.</P>
+<P>Le "vista buffer" est une optimisation suppl&eacute;mentaire, &eacute;quivalente aux bo&icirc;tes d'optimisation,
+   mais dans le plan de l'&eacute;cran, en 2D, sous forme de rectangles.  On peut voir ces rectangles
+   en utilisant l'option <STRONG>+UD</STRONG>.</P>
+<H2>optimisation manuelle</H2>
+
+<P>En principe, le processus d'optimisation est automatis&eacute;, mais
+dans certains cas, il sera utile de d&eacute;finir manuellement l'optimisation d'un objet, &agrave; 
+l'aide de la commande <STRONG>bounded_by</STRONG>.</P>
+<PRE>
+union {
+   ...
+   ...
+   bounded_by {Objet}
+}
+</PRE>
+<P>N'importe quel objet peut &ecirc;tre utilis&eacute;, mais choisissez de pr&eacute;f&eacute;rence des volumes simples
+   (sph&egrave;res, bo&icirc;tes,..) qui sont eux-m&ecirc;mes bien optimis&eacute;s par POV-Ray.</P>
+<P>N'utilisez pas <STRONG>bounded_by</STRONG> pour modifier la forme d'un objet (en utilisant
+   un conteneur trop petit), ce n'est pas fait pour &ccedil;a, <STRONG>bounded_by</STRONG> n'a d'influence
+   que dans le plan de l'image rendue.</P>
+<P>Voyez la section consacr&eacute;e aux "modificateurs d'objets" pour plus de d&eacute;tails.</P>
+
+<H2>remarques</H2>
+<P>Si les unions sont tr&egrave;s bien optimis&eacute;es (surtout depuis POV-Ray 3.0), il n'en va pas toujours de
+   m&ecirc;me pour les intersection et les diff&eacute;rences, o&ugrave; une optimisation manuelle sera la bienvenue.
+   Utilisez les fonctions <STRONG>min_extent</STRONG> et <STRONG>max_extent</STRONG> pour visualiser
+   l'optimisation de ces objets, et ajustez manuellement si n&eacute;cessaire.</P>
+
+<P>Les objets infinis (plans, quartiques,..) ne sont pas optimis&eacute;s automatiquement, mais vous
+   pouvez les optimiser manuellement si n&eacute;cessaire.</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

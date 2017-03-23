@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>commutateurs - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+<H1>commutateurs (#switch - #case - #range)</H1>
+
+<H2>objectif</H2>
+ <P>Ex&eacute;cuter des portions de code, en fonction de la valeur d'une variable donn&eacute;e.
+    Les commutateurs permettent d'&eacute;viter la mise en place de branchements <STRONG>#if</STRONG>
+    en cascade (difficiles &agrave; g&eacute;rer).</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+#switch (Variable)
+ #case (Valeur1) 
+  (... code &agrave; executer si Variable = Valeur1 ...)
+ #break
+ 
+ #range (Valeur2,Valeur3)
+  (... code &agrave; executer si Valeur2 &lt;= Variable &lt;= Valeur3 ...)
+ #break
+
+ #else
+  (... code &agrave; ex&eacute;cuter si aucune autre condition n'a &eacute;t&eacute; remplie ...)
+
+#end
+ </PRE>
+
+<P>La variable (attention, ce n'est pas une condition !) sp&eacute;cifi&eacute;e apr&egrave;s <STRONG>#switch</STRONG>
+   va &ecirc;tre compar&eacute;e &agrave; des valeurs ou fourchettes de valeurs, et provoquer l'ex&eacute;cution
+   de portions de code suivant le r&eacute;sultat de ces comparaisons.</P>
+<P><STRONG>#case</STRONG>, suivi d'une valeur entre parenth&egrave;ses, compare cette valeur et la
+   valeur de la variable.  Si elles sont &eacute;gales, le code situ&eacute; avant <STRONG>#break</STRONG> est
+   ex&eacute;cut&eacute;, puis l'interpr&eacute;teur passe directement aux instructions situ&eacute;es apr&egrave;s <STRONG>#end</STRONG>.</P>
+<P><STRONG>#range</STRONG>, suivi de deux valeurs entre parenth&egrave;ses, v&eacute;rifie si la valeur de la variable
+   est situ&eacute;e dans la fourchette entre ces deux valeurs (comprises).  Si c'est le cas,
+   le code situ&eacute; avant <STRONG>#break</STRONG> est ex&eacute;cut&eacute;, puis l'interpr&eacute;teur passe directement aux 
+   instructions situ&eacute;es apr&egrave;s <STRONG>#end</STRONG>.</P>
+<P>On peut placer autant de tests qu'on le veut dans une directive <STRONG>#switch</STRONG>.</P>
+
+<P>Attention, le premier test qui s'av&egrave;re vrai renvoie l'interpr&eacute;teur vers <STRONG>#end</STRONG>
+   d&egrave;s que <STRONG>#break</STRONG> est rencontr&eacute;, et les tests suivants ne seront pas &eacute;valu&eacute;s.
+   Cependant, l'omission volontaire de <STRONG>#break</STRONG> permet d'&eacute;viter cela, et fait en
+   sorte que le <STRONG>#case</STRONG> ou le <STRONG>#range</STRONG> suivant soit &eacute;galement &eacute;valu&eacute;, quel que soit
+   le r&eacute;sultat.</P>
+
+<H2>exemple</H2>
+<PRE>
+#declare Var1=6;
+#switch (Var1)
+ #case (8) 
+  sphere {<0,0,0>,2 pigment {Red}} //ne sera pas ex&eacute;cut&eacute;
+ #break
+ 
+ #range (0,7)
+  sphere {<4,0,3>,2 pigment {Green}} //sera ex&eacute;cut&eacute;, puis passe &agrave; #end
+ #break
+
+ #range (8,12)                       //ne sera m&ecirc;me pas test&eacute; !
+  sphere {<4,0,3>,2 pigment {Yellow}}  
+ #break
+
+ #else
+  sphere {<0,0,0>,2 pigment {Blue}} //ne sera pas ex&eacute;cut&eacute;, puisque un des
+                                    //tests &eacute;tait vrai.
+#end
+</PRE>
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

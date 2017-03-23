@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>facets - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : facets</H1>
+<P>Ce motif est exclusivement destiné à <STRONG>normal</STRONG>.  Il donne un aspect
+"martelé" à une surface, c'est un peu le cousin du motif <STRONG>crackle solid</STRONG>
+(qui, lui, ne fonctionne pas très bien avec <STRONG>normal</STRONG>).</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.5</P>
+
+<H2>syntaxe</H2>
+<PRE>
+normal {
+ facets
+ (size Taille) // nombre décimal
+ (coords Profondeur)// nombre décimal
+}
+</PRE>
+
+<P>Ce n'est pas la peine de faire suivre <STRONG>facets</STRONG> d'une valeur, ou d'utiliser
+   <STRONG>bump_size</STRONG>, ce motif y est insensible.  Notez que l'apparence des surfaces planes
+   n'est pas affectée par ce motif.</P>
+<IMG SRC="illref-facets-01.jpg">
+
+<P>Le mot clé <STRONG>size</STRONG> suivi d'un nombre décimal spécifie la taille approximative
+   des facettes.  La taille par défaut semble être 0.1.</P>
+
+<P>Le mot clé <STRONG>coords</STRONG> enclenche un algorithme légèrement différent, qui
+   a pour principal intérêt de fonctionner aussi avec les surfaces planes.  La valeur
+   qui le suit peut être considérée comme un paramètre de "profondeur", dont l'effet
+   est similaire à celui de <STRONG>bump_size</STRONG>.</P>
+
+<IMG SRC="illref-facets-02.jpg">
+
+</BODY>
+
+</HTML>

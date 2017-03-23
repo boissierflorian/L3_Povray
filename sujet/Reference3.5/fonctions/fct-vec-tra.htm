@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>trace - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+<H1>la fonction trace</H1>
+
+<P>Cette fonction permet de trouver, sur la surface d'un objet, le premier point d'intersection avec une
+   droite donn&eacute;e.  Une application courante est la disposition automatique de plein
+   de petits objets sur un grand objet (arbres sur un terrain,...).</P>
+<P><STRONG>trace</STRONG> est une <B>fonction</B> qui retourne un <B>vecteur</B>.
+   On peut l'utiliser partout o&ugrave; un vecteur est demand&eacute;.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.5</P>
+
+<H2>syntaxe</H2>
+<PRE>
+#declare Normale_du_Point = &lt;0,0,0&gt;;
+#declare Point_Intersection = 
+  trace ( Objet,             //d&eacute;finition d'objet, ou objet d&eacute;clar&eacute;
+          Point_Depart,      //vecteur
+          Direction_Rayon,   //vecteur
+          [Normale_du_Point] //identification de vecteur
+          );
+</PRE>
+<P>L'objet vers lequel on va "lancer un rayon" peut &ecirc;tre n'importe quel type d'objet,
+   peu importe sa complexit&eacute;.  Bien entendu, la d&eacute;termination d'une intersection sur
+   un objet complexe prend plus de temps que sur un objet simple.  En fait, c'est l'algorithme
+   d'intersection d&eacute;j&agrave; pr&eacute;sent dans POV-Ray qui est mis &agrave; la disposition de l'utilisateur.</P>
+<P>Le rayon envoy&eacute; sur l'objet a deux caract&eacute;ristiques : son point de d&eacute;part et son orientation.
+   Le point de d&eacute;part est un simple point dans l'espace, tandis que la direction est d&eacute;finie
+   &agrave; l'aide d'un vecteur partant de l'origine.  Le rayon d'intersection pointera dans la m&ecirc;me
+   direction que ce vecteur.</P>
+<P>Enfin, il est possible de sp&eacute;cifier le nom d'un vecteur dans lequel la normale de la
+   surface de l'objet au point d'intersection sera stock&eacute;e.  N'oubliez pas d'initialiser
+   pr&eacute;alablement ce vecteur.</P>
+<P>La fonction <STRONG>trace</STRONG> renvoie, au final, un vecteur qui correspond aux
+   coordonn&eacute;es du premier point d'intersection entre le rayon lanc&eacute; et l'objet test&eacute;.</P>
+<H3>et si il n'y a pas d'intersection ?</H3>
+<P>Dans ce cas, la fonction retourne &lt;0,0,0&gt; comme position du point d'intersection,
+   et place &lt;0,0,0&gt; dans le vecteur qui stocke la normale de la surface en ce point.
+   Ceci est tr&egrave;s important, car c'est le seul moyen de v&eacute;rifier si une intersection a eu lieu
+   ou pas.  En effet, une normale de &lt;0,0,0&gt; n'existe pas, et il suffit de v&eacute;rifier
+   si ce vecteur est nul ou pas pour savoir si une intersection a eu lieu.  Par exemple,
+   si on "bombarde" un objet de rayons al&eacute;atoires, afin d'y placer des petits objets,
+   sans faire cette v&eacute;rification, beaucoup de petits objets se retrouveront inutilement 
+   plac&eacute;s &agrave; <0,0,0>.  Il est donc utile de conditionner le placement de ces objets &agrave; 
+   la non-nullit&eacute; de la normale.  Nous verrons cela dans les exemples.</P>
+
+<H2>exemple</H2>
+<P>Un exemple tr&egrave;s basique, une sph&egrave;re bombard&eacute;e de quelques rayons, avec placement
+de petites sph&egrave;res aux intersection.  Le code est tr&egrave;s d&eacute;taill&eacute;, mais la plupart du
+temps, on prendra quelques raccourcis.</P>
+
+<pre>
+//directives classiques...
+#include "colors.inc"
+
+//environnement
+camera {location &lt;100,100,60&gt; direction z*1 look_at &lt;0,15,0&gt;}
+light_source {&lt;400,500,300&gt; White*2}
+plane {y,0 pigment {SteelBlue}}
+
+//une ch'tite macro pour faire des fl&egrave;ches...
+#macro Fleche (Pt1,Pt2,Rayon)
+ union {
+ cylinder {Pt1,Pt2,Rayon}         
+ cone {0,Rayon,(vnormalize(Pt1-Pt2))*(Rayon*20),Rayon*3 translate Pt2}
+ no_shadow
+ }
+#end                                        
+
+//l'objet &agrave; tester
+#declare Obj1 = 
+  sphere {&lt;0,20,-10&gt;,30 pigment {OrangeRed}}
+
+//rien &agrave; d&eacute;clarer ?
+#declare Normale_du_Point = &lt;0,0,0&gt;;
+#declare r1=seed(0);
+
+//c'est ici que &ccedil;a se passe !
+#declare I=0;
+#while (I &lt; 1)                                                        
+  //d&eacute;finition des coordonn&eacute;es du rayon
+  #declare Point_Depart = &lt;rand(r1)*35+50,rand(r1)*25+60,rand(r1)*25+50&gt;;
+  #declare Orientation = &lt;-1,-1,-1&gt;;     
+  
+  
+  //une fl&egrave;che pour mat&eacute;rialiser le rayon
+  object {Fleche (Point_Depart,Point_Depart+Orientation*20,.2) pigment {OrangeRed}}
+  
+  //trouver l'intersection
+  #declare Point_Intersection = 
+    trace (Obj1, Point_Depart, Orientation, Normale_du_Point);
+  
+  //v&eacute;rifier si la normale est &agrave; &lt;0,0,0&gt;
+  #if (Normale_du_Point.x = 0 & Normale_du_Point.y = 0 & Normale_du_Point.z = 0) 
+   //oui, alors ne fais rien, puisque pas d'intersection
+  #else
+   //non, alors vas-y !
+   sphere {Point_Intersection,2 pigment {YellowGreen}}
+  #end
+  
+#declare I=I+.1;
+#end
+
+//placement de l'objet
+object {Obj1}
+</pre>
+<IMG src="trace-01.jpg" border=2 alt="">
+
+<P>La perspective est trompeuse, mais les fl&egrave;ches sont tout &agrave; fait parall&egrave;les entre elles.</P>
+
+<P>Pour voir comment on exploite la normale stock&eacute;e pour placer les objets, remplacez
+   le code de la sph&egrave;re par ceci :</P>
+<pre>
+   cylinder {&lt;0,0,0&gt;,
+             15*vnormalize (Normale_du_Point),
+             2 
+             translate Point_Intersection
+             pigment {YellowGreen}
+             }
+</pre>
+<IMG src="trace-02.jpg" border=2 alt="">
+<P>Et voil&agrave;, les petits cylindres se placent bien perpendiculairement &agrave; la surface, et &ccedil;a marche
+   avec n'importe quel objet.</P>
+<H2>remarques</H2>
+<P>Le comportement de la fonction <STRONG>trace</STRONG> avec les <B>isosurfaces</B> est
+   parfois capricieux, notamment en version Unix.  Si vous avez des probl&egrave;mes, n'h&eacute;sitez
+   pas &agrave; en faire part dans les forums de dicussion.</P>
+
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

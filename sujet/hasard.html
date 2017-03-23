@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Paramètres internes</title>
+</head>
+<body>
+<h1>Gérer le hasard dans Povray</h1>
+
+<p>Dans ce qui nous entoure, beaucoup de choses de sont pas régulières : la distribution ou l'orientation des brins d'herbe dans une prairie, la couleur des tuiles d'une toiture, etc .... Gérer ces petits détails qui font apparaître une scène plus naturelle (moins synthétique) peut être extrêmement long et fastidieux si cela est fait ... à la main ! 
+</p>
+<br>
+<p>
+Pour éviter à l'utilisateur de devoir tout décrire, il est possible de se reposer sur des fluctuations aléatoires de position, d'orientation, de taille, de couleur etc ... Pour ce faire Povray dispose d'une fonction appelée <tt>rand</tt>, qui retourne un réel aléatoire compris entre <tt>0</tt> et <tt>1</tt>. 
+</p>
+<br>
+<p>
+L'utilisation de <tt>rand</tt> s'effectue en deux étapes :
+<ul>
+<li> Tout d'abord initialiser la série de nombres aléatoires qui va être utilisée. On utilise pour ce faire la fonction <tt>seed</tt> qui retourne une information sur la série choisie à l'aide de son paramètre :<br>
+<tt>
+#declare maSerie = seed(1234);
+</tt>
+<br>
+La série de nombre aléatoire obtenue avec la graine choisie (ici <tt>1234</tt>) sera toujours la même, ce qui est évidemment intéressant pour la phase de mise au point de la scène ou dans le cadre d'animations ...
+<li> On utilise ensuite <tt>rand</tt> en lui précisant la série à utiliser :<br>
+<tt>#declare valeurAleatoire = rand(maSerie);</tt>
+<li> Remarque : n'utilisez pas ces deux fonctions de la manière suivante :<br>
+<tt>#declare valeurAleatoire = rand(seed(1234));</tt><br>
+En effet, l'appel de <tt>seed</tt> réinitialise à chaque appel la série de nombres aléatoires avec la même graine, ce qui a pour effet de vous fournir à chaque fois la même valeur de nombre aléatoire lors de l'appel de <tt>rand</tt>.
+</ul>
+</p> 
+<br>
+<h3>Travail à réaliser</h3>
+<ol>
+<li> Créez une scène composée de 20 sphères, disposées aléatoirement dans une zone cubique de côté 10. Chaque sphère aura un diamétre aléatoire compris entre <tt>0</tt> et <tt>1</tt> et sa couleur sera également aléatoire.
+<li> Modifiez votre script de manière à ce que l'on puisse générer aléatoirement, soit une sphère, soit un cube. La probabilité de générer l'un ou l'autre sera fixée à <tt>50%</tt>. Vous utiliserez pour ce faire la directive <a href="Reference3.5/directives/index-dir.htm" target="aide"><tt>#if</tt></a>.
+<li> Utilisez à présent la directive <a href="Reference3.5/directives/index-dir.htm" target="aide"><tt>#switch</tt></a> pour permettre la génération aléatoire de sphères, de cubes ou d'ellipsoïdes (sphère déformée par un <a href="Reference3.5/espace/esp-srt.htm" target="aide"><tt>scale</tt></a>). La probabilité de génération sera, pour chacun de ces trois objets, de <tt>1/3</tt>.
+</ol>
+<table>
+<center>
+<tr>
+<td><img src="Images/tp3_exo1_1.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 09" align="center"><br>
+<td><img src="Images/tp3_exo1_2.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 10" align="center"><br>
+<td><img src="Images/tp3_exo1_3.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 11" align="center"><br>
+</table>
+</center>
+<br>
+<br>
+</body>
+</html>

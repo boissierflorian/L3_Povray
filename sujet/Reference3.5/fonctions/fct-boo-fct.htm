@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"><html><head>
+ <link href="../povdocfr_style.css" rel="stylesheet" type="text/css"><title>Référence POV-Ray - licence d'utilisation</title></head> 
+
+
+<body>   
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+	<h1>fonctions booléennes et logiques</h1>
+<P>Les fonctions présentées ici ont la propriété de renvoyer une valeur booléenne,
+   ou d'utiliser un mécanisme logique. Elles sont très utiles dans les structures
+   de programmation.</P>
+
+<H3>op&eacute;rateurs relationnels</H3>
+<P>Ils renvoient une valeur booléenne selon la relation entre deux valeurs.</P>
+<P class="noindent">
+ <STRONG>(A &gt; B)</STRONG> la valeur résultante est 1 (vraie) si A est plus grand que B<BR>
+ <STRONG>(A &lt; B)</STRONG> ... si A est plus petit que B<BR>
+ <STRONG>(A = B)</STRONG> ... si A est &eacute;gal &agrave; B<BR>
+ <STRONG>(A != B)</STRONG> ... si A est diff&eacute;rent de B<BR>
+ <STRONG>(A &gt;= B)</STRONG> ... si A est plus grand que B ou &eacute;gal &agrave; B<BR>
+ <STRONG>(A &lt;= B)</STRONG> ... si A est plus petit que B ou &eacute;gal &agrave; B
+</P>
+
+<H3>op&eacute;rateurs logiques</H3>
+<P>Ils renvoient une valeur booléenne selon la relation logique de deux valeurs.</P>
+<P class="noindent">
+<STRONG>(A & B)</STRONG>  la valeur résultante est 1 (vraie) si A <b>ET</b> B sont vrais (sinon, retourne 0) ("ET" logique)<BR>
+<STRONG>(A | B)</STRONG>  ... si A et/ou B sont vrais ("OU" logique)<BR>
+<STRONG>!(A)</STRONG> vrai si A est faux, faux si A est vrai ("NON" logique)</P>
+<p><I>
+Remarque : les opérations ET et OU (AND et OR) correspondent aux intersections et unions de la CSG.
+C'est pour cela que certains logiciels utilisent le terme "opérations booléennes".</I></p>
+
+<H2>s&eacute;lecteurs</H2>
+<P>Retournent l'une ou l'autre valeur, selon une condition particuli&egrave;re.</P>
+<P class="noindent">
+<STRONG>(C ? A : B)</STRONG> Si C (qui est un op&eacute;rateur) est vrai, retourne A, sinon retourne B<BR>
+<STRONG>max(A,B)</STRONG> maximum de A et B. Retourne A si A est plus grand que B, et inversement.<BR> 
+<STRONG>min(A,B)</STRONG> minimum de A et B. Retourne A si A est plus petit que B, et inversement.<BR> 
+</P>
+
+<H2>v&eacute;rification</H2>
+<P>Renvoient une valeur bool&eacute;enne (1 ou 0) selon le r&eacute;sultat d'un test particulier.</P>
+<P class="noindent">
+<STRONG>defined(Variable)</STRONG>  retourne 1 si la Variable a &eacute;t&eacute; d&eacute;finie<BR>
+<STRONG>file_exists(NomDeFichier)</STRONG> retourne 1 si le fichier sp&eacute;cifi&eacute; existe<BR>
+</P>
+
+<H2>fonctions standard (POV-Ray 3.5)</H2>
+<P></P>
+<P>
+<STRONG>even(A)</STRONG> : retourne 1 si le nombre est pair, 0 sinon.
+<STRONG>odd(A)</STRONG> : retourne 1 si le nombre est impair, 0 sinon.
+
+</P>
+</body>
+</html>

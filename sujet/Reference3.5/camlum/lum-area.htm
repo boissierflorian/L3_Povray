@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>ombres douces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral</A> / 
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> / 
+<A href="lum-opti.htm">page précédente : options des sources lumineuses</A>
+</P>
+
+<H1>Ombres douces (area_light)</H1> 
+<H2>objectif</H2>
+ <P>Faire en sorte que les contours des ombres soient adoucis, comme dans la r&eacute;alit&eacute;.</P>
+
+<H2>explication</H2>
+<P>Les ombres nettes et tranchantes rendues par POV-Ray n'existent pas dans la r&eacute;alit&eacute;.
+En effet, toutes les sources lumineuses (en fonction des distances entre la source, l'objet
+qui provoque l'ombre et la surface qui re&ccedil;oit l'ombre) produisent des ombres aux contours plus
+ou moins adoucis.  Ce ph&eacute;nom&egrave;ne est d&ucirc; au fait que les sources lumineuses ne sont jamais des
+points, mais ont toujours une dimension plus ou moins grande : le filament d'une ampoule,
+le r&eacute;flecteur d'une lampe de bureau, le diam&egrave;tre d'un astre...</P>
+<P>POV-Ray ne permet pas d'utiliser des sources non ponctuelles, mais peut simuler, &agrave; partir
+   d'un point lumineux, la dispersion des rayons lumineux qui provoque ces ombres douces.</P>
+<P>Il suffit de sp&eacute;cifier, en plus du point de la source, la dimension et l'orientation 
+d'un quadrilat&egrave;re cens&eacute; repr&eacute;senter la surface d'&eacute;mission lumineuse.</P>
+
+<H2>syntaxe</H2>
+<PRE>
+light_source {
+       area_light        
+       &lt;Vec1&gt;,&lt;Vec2&gt;,Nbr1,Nbr2  <SPAN class="comm"> // vecteurs, d&eacute;cimaux</SPAN>
+       (jitter)               
+       (adaptive Niveau)      <SPAN class="comm">// d&eacute;cimal</SPAN>
+       (orient)               
+       (circular) 
+       }
+</PRE>
+<P>Les deux vecteurs plac&eacute;s apr&egrave;s <STRONG>area_light</STRONG> donnent la dimension et
+  l'orientation du quadrilat&egrave;re d'&eacute;mission (par rapport &agrave; l'origine).  
+  L'orientation peut s'imaginer comme le plan qui passe par l'origine et les deux vecteurs, 
+  la dimension d&eacute;pendant simplement de la longueur des vecteurs.</P>
+<P>Les deux nombres d&eacute;cimaux apr&egrave;s les vecteurs donnent respectivement le nombre de sources
+   th&eacute;oriques dispos&eacute;es sur ces vecteurs (le nombre total de sources th&eacute;oriques
+   &eacute;tant la multiplication de ces deux valeurs).</P>
+<P>L'ensemble de ces sources est automatiquement centr&eacute; par rapport &agrave; la position
+   du point lumineux principal.</P>
+<IMG SRC="area01.jpg" alt="area_light simple" border=2>
+<IMG SRC="area02.jpg" alt="sources th&eacute;oriques" border=2>
+<IMG SRC="area04.jpg" alt="sans jitter" border=2>
+<H3>circular</H3>
+<P>Le fait que la grille soit orthogonale (ou presque) a une cons&eacute;quence f&acirc;cheuse :
+   les ombres, m&ecirc;me d'objets ronds, ont tendance &agrave; &ecirc;tre un peu "carr&eacute;es".  Le mot cl&eacute;
+   <STRONG>circular</STRONG> modifie la fa&ccedil;on dont les rayons sont lanc&eacute;s, et donne
+   un meilleur r&eacute;sultat avec les ombres d'objets courbes.  Notez qu'il s'agit d'une
+   approximation (la quadrature du cercle !).</P>
+<IMG SRC="circular-demo.jpg" alt="circular" border=2>
+<H3>orient</H3>
+<P>Si un objet se trouve proche du plan d&eacute;fini par les deux vecteurs de l'<STRONG>area_light</STRONG>,
+   son ombre risque d'&ecirc;tre "&eacute;cras&eacute;e" puisqu'il ne b&eacute;n&eacute;ficie plus de la pleine &eacute;tendue des
+   sources th&eacute;oriques.  Pour rem&eacute;dier &agrave; cela, il faut utiliser le mot cl&eacute; <STRONG>orient</STRONG>
+   qui fait en sorte que, pour chaque rayon de lumi&egrave;re lanc&eacute;, la grille de sources est r&eacute;orient&eacute;e
+   de telle mani&egrave;re que celle-ci soit toujours perpendiculaire au rayon calcul&eacute;.</P>
+<P>Si <STRONG>orient</STRONG> est utilisé, <STRONG>circular</STRONG> est automatiquement activé.</P>
+<IMG SRC="orient-demo.jpg" alt="orient" border=2>
+
+<H3>jitter</H3>
+<P>Puisqu'on simule la pr&eacute;sence d'un certain nombre de sources, m&ecirc;me s'il y en a beaucoup,
+   un effet de "bandes" d'ombres successives va appara&icirc;tre.  Pour s'en d&eacute;barrasser,
+   on peut demander &agrave; POV-Ray de disperser un peu les rayons de lumi&egrave;re, &agrave; l'aide
+   du mot cl&eacute; <STRONG>jitter</STRONG> (on/off).  <b>Attention</b> : <STRONG>jitter</STRONG>,
+   &agrave; l'instar de <STRONG>crand</STRONG>, est une des rares fonctionnalit&eacute;s vraiment
+   al&eacute;atoires de POV-Ray, et le r&eacute;sultat variera l&eacute;g&egrave;rement d'un rendu &agrave; l'autre.  &Agrave;
+   &eacute;viter donc pour les animations, &agrave; moins d'avoir beaucoup de sources th&eacute;oriques.</P>
+<IMG SRC="area03.jpg" alt="avec jitter" border=2>
+
+<H3>adaptive</H3>
+<P>Enfin, le mot cl&eacute; <STRONG>adaptive</STRONG> enclenche l'utilisation d'un syst&egrave;me
+   d'&eacute;chantillonage adaptatif, qui vise &agrave; r&eacute;duire le nombre d'&eacute;chantillons calcul&eacute;s pour
+   une ombre, en r&eacute;utilisant des valeurs d&eacute;j&agrave; trouv&eacute;es pour les sources th&eacute;oriques voisines.
+   L'&eacute;chantillonage se fait par affinages successifs de la grille de sources, et cherche
+   &agrave; ne pas lancer de rayons suppl&eacute;mentaires si la variation entre deux zones voisines de
+   la grille n'est pas significative.
+<P>La valeur sp&eacute;cifi&eacute;e apr&egrave;s <STRONG>adaptive</STRONG> est un entier positif, qui
+   d&eacute;termine le nombre minimal d'&eacute;chantillons &agrave; prendre en compte : <STRONG>adaptive 0</STRONG> met en oeuvre au moins
+   4 &eacute;chantillons (2*2, les coins du quadrilat&egrave;re), <STRONG>adaptive 1</STRONG> en utilise au moins 9 (3*3),
+   <STRONG>adaptive 2</STRONG> en utilise au moins 25 (5*5), etc...  Une bonne valeur de d&eacute;part est 1,
+   une valeur trop basse produit des ombres impr&eacute;cises, mais une valeur &eacute;lev&eacute;e prend beaucoup
+   plus de temps de calcul.</P>
+<H2>exemples</H2>
+<PRE>
+light_source {
+           &lt;25,42,36&gt; White*2
+           area_light &lt;0,5,30&gt;,&lt;45,1,0&gt;,3,4
+}
+</PRE>
+
+<P>page suivante : <A href="lum-grou.htm">groupes de lumières</A></P>
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

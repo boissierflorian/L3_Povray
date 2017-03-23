@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>G&eacute;om&eacute;trie Constructive des Solides (CSG, Constructive Solid Geometry)</H1>
+
+<H2>objectif</H2>
+ <P>Grouper et combiner des solides.</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0+sup</P>
+<h2>explication</h2>
+<P>Un solide est un objet dont l'int&eacute;rieur et l'ext&eacute;rieur sont bien d&eacute;finis.</P>
+
+<p>La CSG  permet de modifier des volumes solides.  On peut, gr&acirc;ce aux fonctions int&eacute;gr&eacute;es : 
+   couper un objet avec un autre, faire une union de 2 objets (ou plus), cr&eacute;er un nouveau
+   volume par l'intersection d'objets diff&eacute;rents.</P>
+<P>
+<H2>union et merge</H2>
+<P><STRONG>union </STRONG>permet l'union de plusieurs volumes pour obtenir un seul objet.  Voici sa syntaxe :</P>
+ <PRE>
+union {
+	Objet1
+	Objet2
+	Objet3
+ ...
+ ObjetN	
+ (...modificateurs...)
+       }
+ </PRE>
+<img src="illref-csg-01.jpg">
+
+<P><STRONG>merge </STRONG>(fusion) permet, comme <STRONG>union</STRONG>, d'assembler plusieurs volumes en un seul 
+                mais ne laisse pas appara&icirc;tre les contours int&eacute;rieurs (utile pour les objets 
+                transparents ou semi-transparents). </P>
+<P>Union normale :</P>
+<img src="illref-csg-04.jpg">
+<P>Utilisation de <STRONG>merge</STRONG> :</P>
+<img src="illref-csg-05.jpg">
+
+<H2>difference</H2>
+<P><STRONG>difference </STRONG> permet d'obtenir un nouvel objet par soustraction de volume(s). Voici sa syntaxe :</P>
+ <PRE>
+difference {
+	Objet1 //la forme de laquelle on va retrancher des parties.
+
+	Objet2 //la premi&egrave;re forme de soustraction
+	Objet3 //la deuxi&egrave;me...
+	...
+ ObjetN	
+
+ (...modificateurs...)
+}
+ </PRE>
+<img src="illref-csg-02.jpg">
+<H2>intersection</H2>
+<P><STRONG>intersection </STRONG> permet d'obtenir un nouvel objet dans lequel seules les parties 
+communes sont visibles.  Sa syntaxe est semblable à celle de <STRONG>union</STRONG>.</P>
+<img src="illref-csg-03.jpg">
+<P>En interne, POV-Ray traite la fonction difference comme une intersection dont le premier
+   objet voit son int&eacute;rieur/ext&eacute;rieur invers&eacute;s.</P>
+<PRE>
+ difference {
+  object {Objet1}
+  object {Objet2}
+}
+</PRE>
+<P>...est parfaitement équivalent à...</P>
+<PRE>
+ intersection {
+  object {Objet1}
+  object {Objet2 inverse}
+}
+</PRE>
+<P><I>r&eacute;dacteurs : Denis  Noiret / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

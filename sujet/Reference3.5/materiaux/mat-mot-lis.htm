@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A>
+<A href="mat-mot-ix.htm"#indexalpha>vers l'index des motifs</A>
+</P>
+
+<H1>les motifs à liste</H1>
+<P>Ces motifs ne fonctionnent pas avec une palette de gradation, mais avec une (petite) liste de
+   valeurs successives.</P>
+<P><I>Remarque : le passage abrupt d'une valeur à l'autre dans ces motifs les rend
+      inutiles pour les normales et les isosurfaces.</I></P>
+
+<H3>brick</H3>
+<A name="brick">
+<P><I>POV-Ray 3.0</I></P>
+<P><STRONG>brick</STRONG> combine deux &eacute;l&eacute;ments, un pour la surface
+des joints, et un pour la surface de la brique.  Le mot cl&eacute; <STRONG>mortar</STRONG> suivi d'un
+nombre d&eacute;cimal sp&eacute;cifie l'&eacute;paisseur du joint de mortier, et le mot cl&eacute; <STRONG>brick_size</STRONG>
+suivi d'un vecteur sp&eacute;cifie la dimension de chaque brique.  Les valeurs par d&eacute;faut sont &lt;8,3,4.5&gt; et 0.5.
+<PRE>#declare Mur = box {... pigment {brick color DarkRed color Gray50 mortar .2}}</PRE>
+<P>Attention, toutefois, ce motif fonctionne bien sur un simple pan de mur, mais donne des r&eacute;sultats
+   peu satisfaisants si le mur change de direction (un angle droit par exemple).</P>
+</P>
+<P><I>Utilisé dans un pigment, ce motif possède, si on en spécifie pas, une liste de couleurs particulières.</I></P>
+<IMG SRC="tx-sp-26.jpg" border=2>
+
+<H3>checker</H3>
+<A name="checker">
+<P><I>POV-Ray 2.0</I></P>
+<P>'Ze grand classique du raytracing !  <STRONG>checker</STRONG> fait alterner des cubes 
+ (de 1 unit&eacute; de c&ocirc;t&eacute;) de deux sortes, &agrave; la mani&egrave;re d'un &eacute;chiquier.
+<PRE>#declare Sol = plane {y,0 pigment {checker color Black color White scale 5}}</PRE>
+</P>
+<P><I>Utilisé dans un pigment, ce motif possède, si on en spécifie pas, une liste de couleurs particulières.</I></P>
+<IMG SRC="tx-sp-27.jpg" border=2>
+
+<H3>hexagon</H3>
+<A name="hexagon">
+<P><I>POV-Ray 2.0</I></P>
+<P>Ce motif est une répétition de trois zones hexagonales visibles
+   dans le plan XZ.  Perpendiculairement à ce plan, les hexagones s'étendent indéfiniment.
+   L'hexagone situé à l'origine prend la valeur du premier
+   élément de la liste.</P>
+
+<PRE>#declare Pavage = plane {y,0 pigment {hexagon color Yellow color Blue color Black scale 15}}</PRE>
+
+<P><I>Utilisé dans un pigment, ce motif possède, si on en spécifie pas, une liste de couleurs particulières.</I></P>
+<IMG SRC="tx-sp-02.jpg" border=2>
+
+<H3>object</H3>
+<A name="object">
+<P><I>POV-Ray 3.5</I></P>
+<P>Ce motif, pour lequel on doit spécifier un objet solide, prend la valeur 0 pour les
+   points à l'extérieur de cet objet, et la valeur 1 pour les points à l'intérieur de
+   cet objet.</P>
+
+<P><I>Utilisé dans un pigment, ce motif possède, si on en spécifie pas, une liste de couleurs particulières.</I></P>
+<IMG SRC="tx-sp-object.jpg" border=2>
+
+<H2>remarque</H2>
+<P>Si un de ces motifs est utilisé dans une définition de <STRONG>media</STRONG>, il
+   est obligatoire de spécifier des <STRONG>density</STRONG>, comme ceci :</P>
+<PRE>
+media {
+  emission .05
+  density {
+   checker   
+    density {rgb 0}
+    density {rgb Red}
+    }
+  }
+</PRE>
+</BODY>
+
+</HTML>

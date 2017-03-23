@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			color - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A></P>
+		<H1>
+		   couleurs RGB (color rgb)
+		</H1>
+		
+		<H2>
+			Objectif
+		</H2>
+		<P>
+			Sp&eacute;cifier, en de nombreuses occasions (pigment, color_map, lumi&egrave;re,...), une couleur.</P>
+		<H2>
+			Compatibilit&eacute;
+		</H2>
+		<P>
+		POV-Ray 2.0+sup.<BR>
+		POV-Ray 3.0+sup. ("color" devient facultatif)
+    </P>
+		<H2>
+			Le syst&egrave;me RGB.
+		</H2>
+
+    <P>
+		Le syst&egrave;me RGB (Red Green Blue) ou RVB (Rouge Vert Bleu) est un syst&egrave;me de couleurs <B>additives</B>,
+     c'est-&agrave;-dire que, en se combinant, les couleurs tendent vers le blanc.  C'est le syst&egrave;me "naturel"
+    (en fait, un mod&egrave;le simplifi&eacute; du mod&egrave;le spectral), employ&eacute; dans les t&eacute;l&eacute;viseurs,
+     en photographie couleur...
+		</P>
+    <P>Il ne faut pas le confondre avec les syst&egrave;mes de peinture/imprimerie, qui sont des syst&egrave;mes soustractifs
+       (en se combinant, les couleurs tendent vers le noir).  Par exemple, dans ces syst&egrave;mes, le jaune est une couleur primaire,
+       tandis qu'en RGB, il faut combiner du rouge et du vert pour obtenir du jaune.</P>		
+
+    <H2>Syntaxe</H2>
+        <PRE>
+        color rgb &lt;r,g,b&gt;
+        </PRE>
+     <P>Chacune des trois valeurs se situe en principe entre 0 et 1, correspondant &agrave; une 
+        saturation de 0 &agrave; 100% de chaque composante.  Toutefois, comme souvent dans POV-Ray,
+        il est possible de sortir de ces limites et de sp&eacute;cifier des valeurs sup&eacute;rieures
+        &agrave; 1, ou m&ecirc;me des valeurs n&eacute;gatives !  Ceci est surtout utile au niveau des sources
+        lumineuses, comme moyen d'"amplifier" la lumi&egrave;re.</P>
+     <P>
+        Depuis POV-Ray 3.0, le mot cl&eacute; "color" est devenu facultatif, la simple mention de
+        rgb suffit &agrave; identifier le vecteur qui suit comme une couleur.</P>
+
+     <P>Une couleur peut &ecirc;tre repr&eacute;sent&eacute;e par une variable :</P>
+        <PRE>
+        #declare Jaune=rgb &lt;1,1,0&gt;
+        object {... pigment {Jaune}}
+        </PRE>
+     <P>Une couleur &eacute;tant un vecteur ordinaire, on peut tr&egrave;s bien les additionner, multiplier...</P>
+     <PRE>
+     White/2+Yellow  // &eacute;gal &agrave; &lt;1,1,1&gt;/2 + &lt;1,1,0&gt;, donc : &lt;.5,.5,.5&gt; + &lt;1,1,0&gt;, donc &lt;1.5,1.5,.5&gt;
+     </PRE>
+    <H2>Valeurs remarquables</H2>
+    <PRE>
+     rgb &lt;0,0,0&gt;	//noir
+     rgb &lt;1,0,0&gt;	//rouge
+     rgb &lt;0,1,0&gt;	//vert
+     rgb &lt;0,0,1&gt;	//bleu
+     rgb &lt;1,1,0&gt;	//jaune
+     rgb &lt;0,1,1&gt;	//cyan
+     rgb &lt;1,0,1&gt;	//magenta
+     rgb &lt;1,1,1&gt;	//blanc
+    </PRE>
+    <H2>Astuce</H2>
+    <P>Quand un logiciel (de dessin, par exemple) vous donne des valeurs cod&eacute;es de 0 &agrave; 255,
+       il est tr&egrave;s simple de faire la conversion sans se froisser un neurone :
+       </P>
+    <PRE>
+     #declare MaCouleur = rgb &lt;241,21,130&gt;/255
+    </PRE>
+
+<P><I>auteur : Fabien Mosen</I>		</P>
+	</BODY>
+	
+</HTML>

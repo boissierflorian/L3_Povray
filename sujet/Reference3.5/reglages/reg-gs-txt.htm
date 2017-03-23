@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>hf_gray_16 - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> - 
+<A href="reg-gs-tex.htm">page précédente : noise_generator,...</A>
+</P>
+
+<H1>charset</H1>
+
+<H2>objectif</H2>
+ <P>Indiquer quel jeu de caractères est employé pour les chaînes.</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 3.5</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+global_settings {
+        charset ascii / utf8 / sys
+        }
+</PRE>
+<P>Le jeu de caractères choisi sera utilisé pour TOUTES les chaînes spécifiées
+   dans la scène, y compris les noms de fichiers !</P>
+<P><STRONG>ascii</STRONG> est le jeu de caractères par défaut, mais il accepte
+   uniquement les caractères ASCII standard de 0 à 127.</P>
+<P><STRONG>utf8</STRONG> spécifie l'emploi du jeu de caractères 
+ <A href="http://www.unicode.org">unicode</A>.  C'est le seul moyen de placer
+ des caractères spéciaux dans vos objets texte : accents, symboles, lettres
+ grècques,...</P>
+<P><STRONG>sys</STRONG> n'est pas actuellement implémenté.</P>
+
+<H2>remarque</H2>
+<P>Un caractère unicode se place dans une chaîne comme ceci : \uNNNN, NNNN
+   étant le numero à quatre chiffres (en hexadécimal) que vous pouvez trouver dans les
+   tables unicode. Exemple pour "sphère" :</P>
+   <PRE>#declare MaChaine = "sph\u00E8re"</PRE>
+
+
+<P>page suivante : <A href="reg-gs-amb.htm">la lumière ambiante</A></P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>

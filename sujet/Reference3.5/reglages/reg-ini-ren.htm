@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>options - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> -
+<A href="reg-ini-gen.htm">page précédente : généralités</A>
+</P>
+
+<P>"n" repr&eacute;sente une valeur enti&egrave;re, "n.n" repr&eacute;sente une valeur d&eacute;cimale, "b"
+   repr&eacute;sente une valeur bool&eacute;enne (on/off), "c", repr&eacute;sente une cha&icirc;ne.</P>
+
+<H2>options de l'image rendue</H2>
+
+<H3>taille de l'image</H3>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+Wn</TD> <TD>Width=n</TD>  <TD>320</TD> <TD>largeur de l'image, en pixels</TD></TR>
+ <TR><TD>+Hn</TD> <TD>Height=n</TD> <TD>200</TD> <TD>hauteur de l'image, en pixels</TD></TR>
+</TABLE>
+
+<H3>rendu d'une zone partielle de l'image</H3>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+SCn</TD>   <TD>Start_Column=n</TD>   <TD>0</TD>   <TD>premi&egrave;re colonne de la zone, en pixels</TD></TR>
+ <TR><TD>+SCn.n</TD> <TD>Start_Column=n.n</TD> <TD>0</TD>   <TD>premi&egrave;re colonne de la zone, en fraction de la largeur</TD></TR>
+ <TR><TD>+ECn</TD>   <TD>End_Column=n</TD>     <TD>...</TD> <TD>derni&egrave;re  colonne de la zone, en pixels</TD></TR>
+ <TR><TD>+ECn.n</TD> <TD>End_Column=n.n</TD>   <TD>1</TD>   <TD>derni&egrave;re colonne de la zone, en fraction de la largeur</TD></TR>
+
+ <TR><TD>+SRn</TD>   <TD>Start_Row=n</TD>   <TD>0</TD>   <TD>premi&egrave;re ligne de la zone, en pixels</TD></TR>
+ <TR><TD>+SRn.n</TD> <TD>Start_Row=n.n</TD> <TD>0</TD>   <TD>premi&egrave;re ligne de la zone, en fraction de la hauteur</TD></TR>
+ <TR><TD>+ERn</TD>   <TD>End_Row=n</TD>     <TD>...</TD> <TD>derni&egrave;re  ligne de la zone, en pixels</TD></TR>
+ <TR><TD>+ERn.n</TD> <TD>End_Row=n.n</TD>   <TD>1</TD>   <TD>derni&egrave;re ligne de la zone, en fraction de la hauteur</TD></TR>
+</TABLE>
+<P>Ces options permettent d'obtenir le rendu d'une zone partielle de l'image, ce qui
+peut par exemple servir &agrave; faire un essai sur un petit objet (dans tout son contexte et
+avec la r&eacute;solution finale), ou bien &agrave; scinder un rendu entre plusieurs machines (et
+recoller les morceaux &agrave; la fin).</P>
+
+<H3>interruption et reprise d'un rendu</H3>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+X, -X</TD>    <TD>Test_Abort=b</TD>       <TD>+</TD> <TD>enclenche la possibilit&eacute; d'interrompre le rendu &agrave; tout moment</TD></TR>
+ <TR><TD>+Xn, -Xn</TD>  <TD>Test_Abort_Count=n</TD> <TD>1</TD> <TD>enclenche la possibilit&eacute; d'interrompre le rendu tous les n pixels</TD></TR>
+ <TR><TD>+C, -C</TD>    <TD>Continue_Trace=b</TD>   <TD>-</TD> <TD>enclenche la reprise d'un rendu interrompu (si une image partielle existe)</TD></TR>
+ <TR><TD>+GIc, -GI</TD> <TD>Create_Ini=c</TD>       <TD>-</TD> <TD>g&eacute;n&egrave;re un fichier .ini (du nom sp&eacute;cifi&eacute;) contenant toutes les options du rendu courant</TD></TR>
+</TABLE>
+<P>L'option GI permet de g&eacute;n&eacute;rer "au vol" un fichier .ini contenant tous les param&egrave;tres du fichier
+   .ini courant et de la ligne de commande courante.  Il suffira ensuite d'utiliser le fichier .ini
+   cr&eacute;&eacute; (portant le nom sp&eacute;cifi&eacute; apr&egrave;s GI), tout seul, pour obtenir un rendu identique.</P>
+
+<P><A href="reg-ini-aaa.htm">page suivante : options d'antialiasing</A></P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+</HTML>

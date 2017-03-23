@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>global_settings - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+</P>
+
+<H1>global_settings - param&egrave;tres d'une sc&egrave;ne</H1>
+
+ <P><STRONG>global_settings</STRONG> est un mot cl&eacute; fourre-tout, qui permet de regrouper un certain nombre de param&egrave;tres
+ de la sc&egrave;ne. Vous pouvez le d&eacute;clarer n'importe o&ugrave; dans la sc&egrave;ne, &agrave; l'exclusion de l'int&eacute;rieur
+ d'une autre d&eacute;claration (c'est-&agrave;-dire en dehors de tout objet, cam&eacute;ra, source lumineuse, etc...).
+ Vous pouvez aussi l'utiliser plusieurs fois en configurant des
+ param&egrave;tres diff&eacute;rents &agrave; chaque fois. Quoi que vous
+ d&eacute;clariez pour un param&egrave;tre donn&eacute;, ce sera toujours la derni&egrave;re d&eacute;claration (dans l'ordre d'apparition
+ dans la sc&egrave;ne) qui sera prise en compte, et ceci pour la sc&egrave;ne enti&egrave;re. Si vous d&eacute;clarez <STRONG>number_of_waves 5</STRONG>
+ pour un premier motif ripples, puis vous d&eacute;clarez <STRONG>number_of_waves 10</STRONG> juste avant un second motif ripples,
+ les deux motifs utiliseront <STRONG>number_of_waves 10</STRONG> (puisque c'est la derni&egrave;re d&eacute;claration de ce param&egrave;tre
+ dans le fichier).
+ </P>
+
+<H2>Exemple</H2>
+ <PRE>
+global_settings {
+	max_trace_level 50  <SPAN class="comm">//pr&eacute;voir &eacute;norm&eacute;ment de r&eacute;flexions, r&eacute;fractions et cie,
+                            //a&iuml;e a&iuml;e a&iuml;e le temps de calcul...</SPAN>
+	assumed_gamma  2.1  <SPAN class="comm">// r&eacute;gler gamma</SPAN>
+	ambient_light  1.5  <SPAN class="comm">// &eacute;claircir la sc&egrave;ne
+</SPAN>}
+
+....
+
+global_settings {
+	ambient_light  0.8  <SPAN class="comm">// finalement j'ai chang&eacute; d'avis, j'assombris la sc&egrave;ne...</SPAN>
+}
+</PRE>
+ 
+<P>page suivante : <A href="reg-gs-max.htm">max_trace_level, adc_bailout, max_intersections</A></P>
+
+<P><I>R&eacute;dacteur : Christophe Bouffartigue (Bouf)</I></P>
+
+</BODY>
+
+</HTML>

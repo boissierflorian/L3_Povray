@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>manipulation de fichiers - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+		
+ <H1>lecture/&eacute;criture de donn&eacute;es dans un fichier</H1>
+
+<H2>objectif</H2>
+<P>Lire et &eacute;crire des donn&eacute;es dans un simple fichier ASCII, afin de les conserver
+   pour l'image suivante d'une animation, ou pour un rendu ult&eacute;rieur...</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.0+sup</P>
+
+<H2>syntaxe</H2>
+<H3>format du fichier</H3>
+<P>Il s'agit d'un fichier ASCII, o&ugrave; une s&eacute;rie de valeurs de type d&eacute;cimal, cha&icirc;ne
+   ou vecteur sont simplement s&eacute;par&eacute;es par une virgule.</P>
+
+<H3>ouverture d'un fichier</H3>
+<PRE>
+#fopen Identif "nom_du_fichier" read | write | append
+</PRE>
+<P>Identif est un nom donn&eacute; au fichier &agrave; ouvrir, comme le nom que l'on donne &agrave; un objet.  Le
+   nom (le vrai) du fichier &agrave; ouvrir est suivi de <STRONG>read</STRONG>, <STRONG>write</STRONG>, ou <STRONG>append</STRONG>, 
+   qui sp&eacute;cifient si le fichier est destin&eacute; &agrave; &ecirc;tre lu, &eacute;crit, ou &agrave; recevoir des donn&eacute;es suppl&eacute;mentaires.</P>
+
+<H3>fermeture d'un fichier</H3>
+<PRE>
+#fclose Identif </PRE>
+<P>Ferme le fichier d&eacute;sign&eacute; par Identif.  Si un fichier n'a pas &eacute;t&eacute; ferm&eacute; dans le script,
+   il le sera automatiquement une fois le script compl&egrave;tement interpr&eacute;t&eacute;.</P>
+
+<H3>lecture dans un fichier</H3>
+<PRE>
+#read (Identif,Var1,Var2,Var3...) </PRE>
+<P>Lit s&eacute;quentiellement (pas &agrave; pas) le contenu du fichier d&eacute;sign&eacute; par Identif (qui doit
+   donc avoir &eacute;t&eacute; pr&eacute;alablement ouvert), et passe les valeurs successives trouv&eacute;es
+   dans le fichier vers les variables.  Ces variables peuvent avoir &eacute;t&eacute; d&eacute;clar&eacute;es
+   pr&eacute;c&eacute;demment ou pas (dans ce cas, le type de variable sera automatiquement d&eacute;tect&eacute;).
+   </P>
+<P>En cas de tentative de lecture du contenu du fichier au del&agrave; des derni&egrave;res donn&eacute;es,
+   le fichier est automatiquement ferm&eacute;, et son identificateur est inhib&eacute;.  Cela
+   signifie qu'on peut d&eacute;tecter la fin du fichier &agrave; l'aide de la fonction bool&eacute;enne
+   <STRONG>defined (Identif)</STRONG>, qui renverra 0 si le fichier a &eacute;t&eacute; ferm&eacute;.</P>
+
+<H3>&eacute;criture dans un fichier</H3>
+<PRE>#write (Identif,Var1,Var2,Var3...) </PRE>
+<P>&Eacute;crit s&eacute;quentiellement (pas &agrave; pas) les variables sp&eacute;cifi&eacute;es dans le fichier d&eacute;sign&eacute; 
+   par Identif.  Attention, les virgules de s&eacute;paration et les guillemets (pour les cha&icirc;nes)
+   ne sont pas automatiquement g&eacute;n&eacute;r&eacute;s par <STRONG>#write</STRONG>, et il faudra prendre
+   soin de provoquer leur &eacute;criture.
+   </P>
+<PRE>#write (Identif,Var1, "," ,Var2, "," ,Var3, ",") </PRE>
+<P>Si <STRONG>#fopen</STRONG> a &eacute;t&eacute; r&eacute;gl&eacute; sur <STRONG>write</STRONG>, le fichier sera compl&egrave;tement &eacute;cras&eacute; par le nouveau contenu,
+   et si <STRONG>append</STRONG> a &eacute;t&eacute; s&eacute;lectionn&eacute;, le contenu existant est conserv&eacute;, et se voit augment&eacute;
+   des nouvelles &eacute;critures.</P>
+
+<H2>exemple</H2>
+<PRE>
+#declare r1=seed(0);
+
+        //ouverture d'un fichier pour &eacute;criture (qui n'a pas besoin de pr&eacute;exister)
+#fopen Data1 "data.txt" write
+
+        //&eacute;criture de 20 vecteurs al&eacute;atoires
+#declare I=0;
+#while (I &lt; 20) 
+  #declare Couleur = &lt;rand(r1),rand(r1),rand(r1)&gt;;
+  #write (Data1,Couleur,",")
+#declare I=I+1;
+#end
+        //fermeture du fichier
+#fclose Data1
+
+        //ouverture d'un fichier pour lecture
+#fopen Data1 "data.txt" read
+
+        //lecture des 20 vecteurs, utilis&eacute;s comme couleurs
+#declare I=0;
+#while (I &lt; 20) 
+  #read (Data1,Coul_01)
+  sphere {&lt;0,0,I&gt;,1 pigment {rgb Coul_01}}
+#declare I=I+1;
+#end
+
+        //fermeture du fichier
+#fclose Data1
+
+camera {location &lt;0,10,-10&gt; look_at &lt;0,0,5&gt;}
+light_source {&lt;100,1500,100&gt; rgb &lt;.8,.8,.9&gt;*2 }
+</PRE>
+
+<H2>restrictions de lecture et écriture de fichiers</H2>
+<P>Afin d'éviter que des petits malins ne profitent des possibilités
+de programmation de POV-Ray pour créer un virus ou un autre genre de 
+script malicieux, certaines versions de POV-Ray 3.5 (actuellement,
+la version Windows) disposent d'options pour permettre ou interdire
+la lecture et l'écriture de fichiers.  Reportez-vous à la documentation
+spécifique de votre version pour plus de précisions.</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

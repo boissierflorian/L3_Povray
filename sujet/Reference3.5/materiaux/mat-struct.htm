@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>structure des matériaux</H1>
+
+<P>Le système de matériaux de POV-Ray est basé sur un ensemble de "composants"
+   assemblés dans une structure logique.  Chacun de ces composants définit une
+   caractéristique particulière des matériaux : couleurs, aspect de surface, etc...</P>
+
+<center><img src="illref-mat-struct.png"></center>
+
+<P class="noindent">
+<b>Couleur</b> : une couleur, opaque ou transparente.<BR>
+<b>Motif</b> : répétition spatiale, suivant une forme, une régularité,... d'un ensemble 
+   de couleurs ou d'autres choses.<BR><BR>
+<b>Pigment</b> : répartition de la ou des couleurs d'une surface.<BR>
+<b>Finish</b> : caractéristiques de "finition" d'une surface, réflexion, rehauts,...<BR>
+<b>Normal</b> : apparences de grain, relief,... d'une surface.<BR><BR>
+<b>Interior</b> : caractéristiques de l'intérieur des objets, réfraction, densité,...<BR>
+<b>Media</b> : densité de "particules" à l'intérieur des objets, flammes, poussière,...<BR><BR>
+<b>XX_map</b> : palette constituée d'éléments de même nature (couleurs, pigments,...).<BR><BR>
+<b>Texture</b> : structure regroupant les caractéristiques de la surface d'un matériau 
+(<strong>pigment</strong> + <strong>finish</strong> + <strong>normal</strong>)
+   ou une combinaison de sous-structures de <strong>texture</strong>.<BR><BR>
+<b>Material</b> : structure regroupant, pour la commodité de la syntaxe, <strong>texture</strong> et <strong>interior</strong> (sinon,
+   il serait impossible de créer une définition de verre coloré sous un seul nom, par exemple).</P>
+
+<P>pigment, finish, normal et interior peuvent être utilisés isolément, en tout
+   ou en partie :</P>
+<PRE>
+object {
+ MonObjet
+  pigment {Red filter .5}
+  normal {bumps .5}
+  interior {ior 1.5}
+}
+</PRE>
+<P>...ou bien s'inscrire dans une structure plus générale ou plus complète :</P>
+<PRE>
+object {
+ MonObjet
+ material {
+  texture {
+   pigment {...}
+   finish {...}
+	 }
+  interior {...
+	 media {...}
+	}
+ }
+}
+</PRE>
+<P>Tous les composants peuvent être déclarés :</P>
+<PRE>
+#declare MaCouleur = color rgb <1,1,0>;
+
+#declare MonPigment = pigment {MaCouleur filter .5}
+
+#declare MaTexture = 
+ texture {
+   pigment {MonPigment}
+	 finish {phong .7}
+ } 
+</PRE> 
+</BODY>
+
+</HTML>

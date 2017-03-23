@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>adc_bailout - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> - 
+<A href="reg-gs-gen.htm">page précédente : généralités</A>
+</P>
+
+<H1>max_trace_level, adc_bailout et max_intersections</H1>
+
+<H2>Objectifs</H2>
+<P> Ces trois réglages permettent une optimisation du rapport entre la qualité de rendu et la vitesse,
+    par une gestion appropriée (selon la scène) du nombre de calculs effectués.
+
+<H2>Compatibilit&eacute;</H2>
+<P>POV-Ray 2.0 (max_trace_level), POV-Ray 3.0+sup (adc_bailout), POV-Ray 3.5 (max_intersections)</P>
+
+<H2>Syntaxe</H2>
+<PRE>
+    global_settings {
+       max_trace_level NiveauRecursionMax  <SPAN class="comm">//nombre entier</SPAN>
+       adc_bailout NuanceLimite            <SPAN class="comm">//nombre d&eacute;cimal</SPAN>
+       max_intersections TaillePile        <SPAN class="comm">//nombre entier</SPAN>
+       }
+</PRE>
+
+<H3>max_trace_level</H3>
+<P>    Lorsque POV-Ray &eacute;value la couleur d'un pixel d'une image, il lance un certain nombre
+    de rayons &agrave; travers la sc&egrave;ne, selon les propri&eacute;t&eacute;s de r&eacute;flexion et de r&eacute;fraction qu'il
+    rencontre.  Si, &agrave; un moment, un rayon se retrouve dans un volume ferm&eacute; r&eacute;fl&eacute;chissant,
+    il pourrait rebondir &agrave; l'infini et ne jamais donner de r&eacute;sultat.</P>
+<P> C'est pour &eacute;viter ce genre de probl&egrave;me qu'existe le param&egrave;tre <STRONG>max_trace_level</STRONG>.
+    Il sp&eacute;cifie le nombre de niveaux de r&eacute;cursivit&eacute; (les rebonds, en quelque sorte) que
+    peut atteindre un rayon avant que POV-Ray ne cesse de le relancer.  Chaque fois qu'un
+    rayon rencontre une surface transparente, r&eacute;fringente ou r&eacute;fl&eacute;chissante, un niveau
+    de r&eacute;cursivit&eacute; est "consomm&eacute;", au fil du trajet de ce rayon.</P>
+<P> Par d&eacute;faut, <STRONG>max_trace_level</STRONG> est fix&eacute; &agrave; 5, ce qui est relativement peu (il faut
+    dire que &ccedil;a date de 1991...).  D&egrave;s qu'on emploie du verre avec insistance, il
+    n'est pas inutile de monter cette valeur &agrave; 15 ou 25.  La valeur maximale est de 255, mais n'oubliez pas
+    que cela peut consommer beaucoup de mémoire.</P>
+
+<H3>adc_bailout</H3>
+<P>Cependant, dans certaines zones de l'image, le rayon pourrait continuer &agrave; rebondir
+   jusqu'&agrave; la limite fix&eacute;e par <STRONG>max_trace_level</STRONG>, sans que les rebonds suppl&eacute;mentaires
+   n'influencent vraiment la couleur du pixel r&eacute;sultant.</P>
+<P>C'est pr&eacute;cis&eacute;ment le r&ocirc;le de <STRONG>adc_bailout</STRONG> ("Adaptive Depth Control", ou "contr&ocirc;le
+   adaptif de profondeur (de r&eacute;cursivit&eacute;)") : dire &agrave; POV-Ray de stopper ses calculs
+   lorsqu'un calcul suppl&eacute;mentaire n'affecte pas la couleur finale du pixel de mani&egrave;re
+   plus importante que le seuil fix&eacute; par le param&egrave;tre.  La valeur par d&eacute;faut est de
+   1/255, ce qui veut dire que si un calcul de rayon suppl&eacute;mentaire apporte une diff&eacute;rence
+   de couleur inf&eacute;rieur &agrave; 1/255e de la valeur de la couleur pr&eacute;c&eacute;dente, les calculs
+   sont interrompus et on passe au pixel suivant.</P>
+<P>1/255 correspond &agrave; la plus petite diff&eacute;rence repr&eacute;sentable par une image en 24 bits (16
+   millions de couleurs).  On aura donc int&eacute;r&ecirc;t &agrave; augmenter un peu cette valeur, en essayant
+   de rester en dessous de la limite perceptible par l'oeil.</P>
+
+<H3>max_intersections</H3>
+<p>
+POV-Ray poss&egrave;de, en interne, un syst&egrave;me de "pile" permettant de sauvegarder
+des valeurs pour une utilisation ult&eacute;rieure, ce qui &eacute;vite de refaire
+toujours les m&ecirc;mes calculs. Dans cette pile sont stock&eacute;es des
+informations sur les intersections entre les rayons lanc&eacute;s et les objets
+atteints par ces rayons.
+</p><p>
+
+ La profondeur de cette pile est par d&eacute;faut de 64, ce qui est amplement suffisant pour
+ la plupart des sc&egrave;nes. Mais, pour certaines sc&egrave;nes complexes, il peut arriver
+ que cette valeur ne suffise pas. POV-Ray ne s'arr&ecirc;tera pas pour autant de calculer,
+ mais la sc&egrave;ne pourrait &ecirc;tre rendue de mani&egrave;re incorrecte.</p>
+ <p>Lorsque ce cas arrive, POV-Ray &eacute;crit en fin de calcul, dans la liste des statistiques
+ (onglet Messages, sous Windows), le message suivant:</P>
+<PRE>I-Stack Overflows</PRE>
+<P>
+ Si ce message appara&icirc;t, vous devez sp&eacute;cifier une valeur de max_intersections plus grande.
+ Essayez plusieurs valeurs, jusqu'&agrave; ce que le message disparaisse des statistiques.</p>
+
+
+
+
+<H2>remarques</H2>
+<P>Pour des images de qualit&eacute; "normale", on peut tout &agrave; fait r&eacute;gler l'<STRONG>adc_bailout</STRONG> sur
+   des valeurs telles que 1/16 ou 1/8... (surtout si on a un <STRONG>max_trace_level</STRONG> élevé)</P>
+
+<P>page suivante : <A href="reg-gs-gam.htm">gamma</A></P>
+  <P><I>R&eacute;dacteurs : Fabien Mosen, Christophe Bouffartigue</I></P>
+
+</BODY>
+
+</HTML>

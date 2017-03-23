@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les media - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-mat.htm">vers l'index des mat&eacute;riaux</A>
+</P>
+
+<H1>media - types de dispersion</H1>
+
+<P><I>note : les diagrammes pr&eacute;sents dans la documentation originale de POV-Ray
+      sont assez mal comment&eacute;s, et nous ne les reproduisons pas ici, faute de
+      pouvoir les expliquer correctement.  Si quelqu'un a quelque comp&eacute;tences
+      en cette mati&egrave;re, toute information serait la bienvenue.</I></P>
+
+<P>Type <STRONG>1</STRONG> : dispersion <I>isotrope</I>, o&ugrave; l'angle sous lequel est vue la
+   dispersion lumineuse n'a pas d'incidence sur son intensit&eacute;.  C'est le type que l'on choisira
+   pour les premiers tests lors de la d&eacute;finition de l'atmosph&egrave;re d'une sc&egrave;ne.</P>
+
+<IMG src="disp-1.jpg" border=2 alt="type 1">
+
+<P>Types <STRONG>2</STRONG> et <STRONG>3</STRONG> : mod&egrave;les de dispersion de George Mie,
+   respectivement "haze" (brumeux) et "murky" (brouill&eacute;). Cette dispersion est tr&egrave;s directionnelle,
+   particuli&egrave;rement la "murky".</P>
+
+<IMG src="disp-2.jpg" border=2 alt="type 2">
+<IMG src="disp-3.jpg" border=2 alt="type 3">
+
+<P>Type <STRONG>4</STRONG> : mod&egrave;le de Rayleigh, o&ugrave; l'intensit&eacute; de l'effet d&eacute;pend de
+   l'angle du rayon incident.  C'est un mod&egrave;le qui convient bien &agrave; la simulation
+   de milieux &agrave; tr&egrave;s petites particules, comme l'air.</P>
+
+<IMG src="disp-4.jpg" border=2 alt="type 4">
+
+<P>Type <STRONG>5</STRONG> : dispersion selon le mod&egrave;le de Henyey-Greenstein.  Ce type
+   s'accompagne du param&egrave;tre <STRONG>eccentricity</STRONG> (par d&eacute;faut : 0) qui contr&ocirc;le
+   la directionnalit&eacute; de l'effet.  La valeur par d&eacute;faut est &eacute;quivalente &agrave; une dispersion
+   isotrope.  Les images qui suivent montrent le r&eacute;sultat avec des valeurs d'eccentricit&eacute;
+   de 0, .5, .8 et .9.  On remarquera que la progression n'est pas lin&eacute;aire, et que, en
+   mati&egrave;re de media, il est parfois dangereux de "pousser" des valeurs en croyant forcer
+   l'apparition de quelque chose...</P>
+
+<IMG src="disp-5a.jpg" border=2 alt="type 5, eccentricity 0">
+<IMG src="disp-5b.jpg" border=2 alt="type 5, eccentricity .5">
+<IMG src="disp-5c.jpg" border=2 alt="type 5, eccentricity .8">
+<IMG src="disp-5d.jpg" border=2 alt="type 5, eccentricity .9">
+
+<H2>extinction</H2>
+<P>Le param&egrave;tre <STRONG>extinction</STRONG>, suivi d'une valeur entre 0 et 1 (d&eacute;faut : 1)
+   indique la proportion de lumi&egrave;re qui est renvoy&eacute;e par le media.  La valeur 1 indique
+   que la totalit&eacute; de la lumi&egrave;re "intercept&eacute;e" par le media est renvoy&eacute;e, tout autre valeur
+   serait physiquement incorrecte, mais peut permettre d'obtenir le r&eacute;sultat visuel voulu.</P>
+
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

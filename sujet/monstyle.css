@@ -1,0 +1,51 @@
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+.MATH    { font-family: "Century Schoolbook", serif; }
+.MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
+.BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+
+/* implement both fixed-size and relative sizes */
+SMALL.XTINY		{ font-size : xx-small }
+SMALL.TINY		{ font-size : x-small  }
+SMALL.SCRIPTSIZE	{ font-size : smaller  }
+SMALL.FOOTNOTESIZE	{ font-size : small    }
+SMALL.SMALL		{  }
+BIG.LARGE		{  }
+BIG.XLARGE		{ font-size : large    }
+BIG.XXLARGE		{ font-size : x-large  }
+BIG.HUGE		{ font-size : larger   }
+BIG.XHUGE		{ font-size : xx-large }
+
+/* heading styles */
+H1		{  }
+H2		{  }
+H3		{  }
+H4		{  }
+H5		{  }
+
+/* mathematics styles */
+DIV.displaymath		{ }	/* math displays */
+TD.eqno			{ }	/* equation-number cells */
+
+
+/* document-specific styles come next */
+BODY {background-image : URL("paper01.jpg");
+			background-repeat : repeat;
+			font-size : 10pt;
+			color : black;
+			margin-left : 5%}
+	H1 {text-align : center ; font-size : 22pt; color : darkblue}
+	H1.rouge {color : red}
+	H1.vert {color : green}
+	H1.bleu {color : blue}
+	H2, H3, H4, H5, H6 {margin-left : -4% ; color : darkblue}
+	H2 {font-size : 18pt}
+	H3 {font-size : 16pt}
+	H4 {font-size : 14pt}
+	H5 {font-size : 12pt}
+	H6 {font-size : 10pt}
+	TT{color:green;font-size : 90%}
+	PRE{color:green;font-size : 90%}
+	I{color:green}
+	B{color : darkblue}
+	BLOCKQUOTE {background-color : white; font-style : italic}
+	#evidence {color : red ; font-size: 105%}

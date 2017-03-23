@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>warp spherical, etc... - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index général de l'aide</A> - <A href="index-mat.htm">vers l'index des motifs</A></P>
+
+<H1>warp - spherical, cylindrical, toroidal et planar</H1>
+
+<PRE>
+warp {
+	spherical
+	(orientation Vecteur)
+ (dist_exp Décimal)
+}
+warp {
+	cylindrical
+	(orientation Vecteur)
+ (dist_exp Décimal)
+}
+warp {
+	toroidal
+	(orientation Vecteur)
+ (dist_exp Décimal)
+ (major_radius Décimal)
+}
+</PRE>
+<P>Ces types de <STRONG>warp</STRONG> prennent la surface du motif comprise entre <0,0> et <1,1>
+   sur le plan XY, et la projettent dans l'espace un peu à la manière d'une <STRONG>image_map</STRONG>,
+   selon le mode de projection choisi.  Les règles d'application géométrique du motif sont les
+   mêmes que pour les <STRONG>image_map</STRONG>.</P>
+<pre>
+#declare Pig1 = 
+ pigment {checker color YellowGreen color OrangeRed
+          scale .1}
+
+plane  {y,0 pigment {Pig1 warp {spherical}}}
+sphere {0,1 pigment {Pig1 warp {spherical}}}
+</pre>
+
+<P>Autre exemple, avec un <STRONG>warp toroidal</STRONG> :</P>
+<pre>
+plane  {y,0 pigment {Pig1 warp {toroidal}}}
+torus {1,.5 pigment {Pig1 warp {toroidal}}}
+</pre>
+
+<P><I>auteurs : Fabien Mosen / Christophe Bouffartigue</I></P>
+</BODY>
+
+</HTML>

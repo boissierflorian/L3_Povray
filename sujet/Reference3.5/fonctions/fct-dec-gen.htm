@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - licence d'utilisation</TITLE>
+</HEAD>
+
+<BODY>   
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+	<H1>nombres d&eacute;cimaux - définition</H1>
+
+<P>POV-Ray ne conna&icirc;t pas les nombres entiers naturels mais uniquement les nombres r&eacute;els.
+Donc, il n'y a pas de distinction entre entiers et d&eacute;cimaux, tous les
+   nombres s'emploient de la m&ecirc;me mani&egrave;re.</P>
+<P>Les d&eacute;cimaux accept&eacute;s par POV-Ray peuvent prendre des valeurs allant  
+   de 2.2*10<sup>-308</sup> &agrave; 1.8*10<sup>308</sup>
+(ce qui correspond au format "flottant double pr&eacute;cision" de la norme IEEE 754 de 1985, que 
+ les architectures 32 bits utilisent).</P>		
+
+ <H2>syntaxe</H2>
+<P>Bien entendu, le signe d&eacute;cimal est un point.</P>
+<PRE>15.556</PRE>
+<P>Un nombre n&eacute;gatif est pr&eacute;c&eacute;d&eacute; du signe "-" (un positif peut &ecirc;tre pr&eacute;c&eacute;d&eacute; de "+", mais
+   &ccedil;a n'a pas beaucoup d'int&eacute;r&ecirc;t !)
+</P>
+<PRE>-25.87</PRE>
+<P>On peut utiliser la notation scientifique [mantisse]E[exposant] ou [mantisse]e[exposant].</P>
+<PRE>154000 = 154*pow(10,3) = 154e3</PRE>
+<P>Les 0 "errants" apr&egrave;s la d&eacute;cimale sont automatiquement omis.</P>
+<PRE>1.48700 devient 1.487</PRE>
+<P>Le 0 plac&eacute; avant la d&eacute;cimale peut &ecirc;tre &eacute;lud&eacute; s'il est seul. </P>
+<PRE>0.541 peut s'&eacute;crire .541</PRE>
+<P>On peut employer <STRONG>#declare</STRONG> ou <STRONG>#local</STRONG> (voir la section "d&eacute;clarations") pour stocker une valeur d&eacute;cimale.  N'oubliez pas le point-virgule à la fin, obligatoire pour les
+déclarations de décimaux.</P>
+<PRE>#declare Nombre1 = 45.0478;</PRE>
+<P>Une op&eacute;ration impliquant des d&eacute;cimaux peut remplacer un nombre d&eacute;cimal (pour toutes les
+   op&eacute;rations possibles, voyez la section "op&eacute;rations sur les nombres d&eacute;cimaux").</P>
+<PRE>#declare Nombre2 = 0.541/4;</PRE>
+
+<P><I>Aide précieuse pour toute cette section : Thierry Charles, Francis Delanativité et François Dispot.</I></P>
+</BODY>
+
+</HTML>  

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML><HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>le syst&egrave;me de coordonn&eacute;es - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide </A> -
+<A href="index-esp.htm">vers l'index des repères spatiaux</A></P>
+
+<H1>le syst&egrave;me de coordonn&eacute;es de POV-Ray</H1> 
+<P>Puisque l'&eacute;criture d'un script n&eacute;cessite la manipulation de donn&eacute;es tridimensionnelles,
+il importe de bien comprendre comment fonctionne le syst&egrave;me de coordonn&eacute;es utilis&eacute;.</P>
+<P>Le "monde" dans lequel sont d&eacute;crits les objets est "balis&eacute;" par trois axes : x, y et z.
+   Ces axes sont perpendiculaires entre eux, et on peut s'imaginer que chaque "paire"
+   d'axes forme un plan.</P>
+<P>En chaque point de ces axes existe une valeur, qui correspond &agrave; la distance (positive
+ou n&eacute;gative) entre l'origine de l'axe et le point consid&eacute;r&eacute;.  Les trois axes se croisent
+&agrave; l'endroit de leurs origines.</P>
+<IMG src="coord-01.jpg" border=2 alt="syst&egrave;me de coordonn&eacute;es">
+<P>Ce syst&egrave;me, o&ugrave; +z pointe &agrave; l'"arri&egrave;re" du plan d&eacute;fini par x et y (si x est l'abscisse
+   et y est l'ordonn&eacute;e), est appel&eacute; "syst&egrave;me main gauche", on verra plus tard pourquoi.
+   Conceptuellement, on peut voir ce syst&egrave;me comme si on &eacute;tait en face d'un tableau, et
+   que z exprime la profondeur derri&egrave;re le tableau.  Bien entendu, en travaillant sur
+   une sc&egrave;ne, on peut conceptualiser comme on veut ce rapport &agrave; l'observateur.  Par exemple,
+   votre serviteur aime bien travailler avec la cam&eacute;ra dans le "monde positif", regardant
+   plut&ocirc;t dans la direction de l'origine.  D'une mani&egrave;re g&eacute;n&eacute;rale, ce syst&egrave;me d'axe implique
+   une notion d'immersion dans la sc&egrave;ne.</P>
+
+<H3>remarques sur les autres syst&egrave;mes d'axes</H3>
+
+<P>D'autres syst&egrave;mes d'axes existent, le plus courant &eacute;tant le syst&egrave;me "main droite",
+   o&ugrave; on consid&egrave;re qu'on travaille &agrave; partir d'un plan horizontal, et que l'axe +z
+   d&eacute;crit une "&eacute;l&eacute;vation" vers l'observateur.  En pratique, cela revient &agrave; permuter
+   les axes +y et +z.  C'est un syst&egrave;me d'axes fr&eacute;quemment rencontr&eacute; dans les logiciels
+   de CAO, qui fonctionnent beaucoup sur une notion de passage de la 2D (le plan)
+   &agrave; la 3D (les volumes dispos&eacute;s sur le plan), et, par contamination, beaucoup de
+   logiciels d'images de synth&egrave;se.  Malheureusement, Moray, le modeleur le plus abouti
+   d&eacute;di&eacute; &agrave; POV-Ray, a pris le pli d'adopter ce syst&egrave;me.</P>
+
+<P>Si vous devez importer des &eacute;l&eacute;ments de sc&egrave;ne cr&eacute;&eacute;s dans un logiciel qui
+   utilise un syst&egrave;me "main droite", vous pouvez :
+<BR>- soit permuter toutes les valeurs de x et y, &lt;14,54,75&gt; devenant &lt;14,75,54&gt;,
+      ce qui est un peu fastidieux si ce n'est pas automatis&eacute;, mais permet de continuer
+      &agrave; travailler dans le syst&egrave;me habituel.
+<BR>- soit changer le vecteur <STRONG>right</STRONG> de la cam&eacute;ra, ce qui fera passer
+      POV-Ray (qui a de la souplesse, lui !) en syst&egrave;me "main droite"&nbsp;: <STRONG>right x*-4/3</STRONG>.
+</P>
+
+<H3>main gauche, main droite</H3>
+<P>En plus d'&ecirc;tre un bon moyen mn&eacute;motechnique, cette m&eacute;taphore sera utile
+   pour travailler avec les rotations d'objets.  C'est tr&egrave;s simple : le pouce, l'index et le majeur sont respectivement les axes x, y et z
+   dans le sens positif, ce qui en syst&egrave;me "main gauche" donnera : </P>
+<IMG src="maing.jpg" border=2 alt="main gauche">
+<P>et en syst&egrave;me "main droite" :</P>
+<IMG src="maind.jpg" border=2 alt="main droite">
+
+<H2>points et vecteurs</H2>
+
+<P>Chaque point dans l'espace peut &ecirc;tre d&eacute;crit comme une combinaison de trois positions
+   sur ces trois axes, selon une syntaxe de type &lt;x,y,z&gt;. L'origine se note &lt;0,0,0&gt;.
+   L'illustration suivante montre la correspondance entre un point dans l'espace, et
+   sa position sur les trois axes.</P>
+<IMG src="coord-02.jpg" border=2 alt="rep&eacute;rage d'un point dans l'espace">
+<P>Rappel : un vecteur est un segment de droite qui a une origine, une direction,
+   un sens et une intensit&eacute; (longueur).  Pour simplifier, on peut dire que c'est un
+   segment de droite avec un point de d&eacute;part (l'origine) et un point d'arriv&eacute;e
+   (duquel d&eacute;pendent la direction, l'intensit&eacute; et le sens).</P>
+<P>Dans POV-Ray, il n'y a pas de distinction entre la notation d'un point et celle
+   d'un vecteur.  Lorsqu'un vecteur est demand&eacute;, son origine implicite est &lt;0,0,0&gt;,
+   et son point d'arriv&eacute;e est le point sp&eacute;cifi&eacute;.  Ce n'est pas un probl&egrave;me, puisque
+   les vecteurs servent &agrave; donner une direction (pour <STRONG>plane</STRONG>,..)
+   ou une direction et une intensit&eacute; (pour <STRONG>turbulence</STRONG>,..), etc...</P>
+
+
+<H2>particularit&eacute;s</H2>
+<P>Afin d'exploiter au mieux les &eacute;l&eacute;ments du syst&egrave;me d'axes, il faut savoir qu'il existe
+   des variables pr&eacute;d&eacute;finies qui permettent de gagner du temps de dactylographie.</P>
+<PRE>
+x = &lt;1,0,0&gt;
+y = &lt;0,1,0&gt;
+z = &lt;0,0,1&gt;
+
+//donc, au lieu d'&eacute;crire
+
+ plane {&lt;0,1,0&gt;,0 ... rotate &lt;0,0,45&gt;}
+
+//on peut &eacute;crire
+
+ plane {y,0 ... rotate z*45} //z*45 = &lt;0,0,1&gt;*45 = &lt;0,0,45&gt;
+
+</PRE>
+<P>On dispose aussi de ce qui s'appelle la "promotion des vecteurs"&nbsp;;
+   partout o&ugrave; un vecteur est demand&eacute;, on peut utiliser un nombre d&eacute;cimal,
+   qui sera interpr&eacute;t&eacute; comme un vecteur dont les trois valeurs sont identiques.</P>
+<PRE>
+cylinder {<0,0,0>,<20,20,20>,15 pigment {rgb <0.5,0.5,0.5>}}
+// peut s'&eacute;crire : 
+cylinder {0,20,15 pigment {rgb 0.5}}
+
+</PRE>
+<P>Et enfin, il existe un moyen d'extraire une des valeurs d'un vecteur :</P>
+<PRE>
+si Vec1 = &lt;12,54,68&gt;,
+alors Vec1.x = 12
+      Vec1.y = 54
+      Vec1.z = 68
+
+</PRE>
+
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>
+

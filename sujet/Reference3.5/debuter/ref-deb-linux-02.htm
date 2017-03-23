@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			prise en main rapide - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> 
+/ <A href="index-deb.htm">index des débuts</A> / 
+    page précédente : <A href="ref-deb-linux-01.htm">introduction</A></P>
+		
+<H1>prise en main de POV-Ray pour Linux - installation simple</H1>
+
+<P><I>On considère ici que vous ne voulez pas vous amuser à recompiler
+POV-Ray pour Linux et que vous souhaitez faire une installation de
+POV-Ray accessible à tous les utilisateurs de la machine, et que vous
+avez les droits "root" (administrateur).<br>
+Mefiance avec les privilèges root, c'est le moyen idéale de faire des dégats...
+</I></P>
+
+<P>En principe, l'installation est aisée, accessible a tous avec juste
+quelques notions de système Unix. La première chose à faire, c'est de
+décompresser l'archive dans le répertoire désiré : <BR>
+<span class="code">/usr/local/lib</span><BR> 
+est un bon choix (c'est là que l'on place généralement les
+applications non installées par la distribution), mais vous pouvez
+l'installer où bon vous semble.
+</p>
+
+<p>
+Passez en mode administrateur (root) afin d'avoir le droit de procéder à l'installation :
+</P>
+<pre>
+zorro$ su
+Password: ...
+</pre>
+<P>
+Passez dans le répertoire d'installation et lancez la commande de décompression :
+</P>
+<pre>
+root$ cd /usr/local/lib
+root$ tar zxvf /home/zorro/povlinux.tgz
+</PRE>
+<P>Vous devriez voir une liste de fichiers qui commence et termine comme ceci :</P>
+<PRE>
+povray-3.5/
+povray-3.5/include/
+povray-3.5/include/ash.map
+[...]
+povray-3.5/povray-3.5/gamma.gif.txt
+povray-3.5/povray-3.5/README
+povray-3.5/povray-3.5/README.unix
+
+</PRE>
+<P>
+Cette commande a du créer un repertoire povray-3.5/.
+vous pouvez le verifier en tapant:
+</P>
+<PRE>
+root$ ll pov* -d
+...
+drwxr-xr-x    5 root      root          4096 déc  7 16:15 povray-35/
+...
+</PRE>
+<P>Si les droits (drwxr-xr-x) ou les propriétaires ( root&nbsp;&nbsp;&nbsp;&nbsp;root) ne sont pas les bons il faut les changer avec :</P>
+<PRE>
+root$ chown root.root -R ./povray-35/
+root$ chmod 755 povray-35/
+</PRE>
+
+<P>POV-Ray est maintenant installé sommairement. Placez-vous dans le répertoire d'installation 
+   de POV :</P>
+<PRE>cd povray31/</PRE>
+<P>Faisons un petit essai en lançant POV-Ray avec quelques options :</P>
+
+<PRE>
+root$ cd povray-35/
+root$ ./povray -I./scenes/advanced/skyvase.pov -L./include/ +V +D -w320 -h240 +FT +Ovase.tga
+</PRE>
+<P>... ce qui devrait lancer le rendu de la scène Skyvase </p>
+
+<IMG SRC="vase.jpg" ALIGN="middle">
+
+<p>
+...qui s'affiche point par point et doit afficher, à la fin, quelque chose de ce style :
+</P>
+
+<pre>
+[...]
+
+Displaying...
+Using 16 bit TrueColor visual...
+  0:00:08 Rendering line  240 of  240.        
+Done Tracing
+Statistics for ./scenes/advanced/skyvase.pov, Resolution 320 x 240
+----------------------------------------------------------------------------
+Pixels:           76800   Samples:           76800   Smpls/Pxl: 1.00
+Rays:            318615   Saved:              2210   Max Level: 13/20
+----------------------------------------------------------------------------
+Ray->Shape Intersection          Tests       Succeeded  Percentage
+----------------------------------------------------------------------------
+CSG Intersection                668313           90888     13.60
+Plane                          3302204         1604455     48.59
+Quadric                        1022150          424963     41.58
+Sphere                         1533225          299416     19.53
+Bounding Object                 511075          157238     30.77
+----------------------------------------------------------------------------
+Calls to Noise:             333910   Calls to DNoise:         593290
+----------------------------------------------------------------------------
+Shadow Ray Tests:          1168020   Succeeded:                27065
+Reflected Rays:             241815
+----------------------------------------------------------------------------
+Smallest Alloc:                 10 bytes   Largest:            89508
+Peak memory used:           337784 bytes
+----------------------------------------------------------------------------
+Time For Trace:    0 hours  0 minutes   8.0 seconds (8 seconds)
+    Total Time:    0 hours  0 minutes   8.0 seconds (8 seconds)
+</pre>
+
+<p>
+...et enregistrer le resultat dans un fichier nommé vase.tga.
+</p>
+
+<p>Le temps de rendu depend bien entendu de votre machine ! (ici un pIII 1Ghz).</p>
+
+<p>vous pouvez ensuite effacer le ficher : </p>
+
+<PRE>
+root$ rm ./vase.tga
+</PRE>
+
+
+<P> page suivante : <A href="ref-deb-linux-03.htm">installation affinée</A></P>
+    
+	<P><I>Auteur : Guilloud Cyril</I></P>
+</BODY>
+</HTML>

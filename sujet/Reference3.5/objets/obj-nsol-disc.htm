@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>disc - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>disc</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er un disque ("ah que c'est un disque &agrave; Johnny ?").</P>
+<img src="illref-disc-00.jpg">
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 2.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+disc {
+  Centre,      //vecteur
+  Normale,     //vecteur
+  Rayon,       //nombre d&eacute;cimal
+ (Rayon_Trou)  //nombre d&eacute;cimal
+ (..modificateurs d'objets..)
+ (..transformations..)
+ (..mat&eacute;riau..)
+ }
+ </PRE>
+
+<P>Un disque est un objet infiniment fin, une surface d&eacute;limit&eacute;e par un cercle.
+   Il se d&eacute;finit par un centre, un vecteur de normale (vecteur perpendiculaire
+   au plan du disque) qui donne l'orientation du disque, un rayon ext&eacute;rieur,
+   et, &eacute;ventuellement, le rayon d'un trou au centre du disque.</P>
+
+<H2>exemple</H2>
+ <PRE>
+#declare Disque_45_Tours = union {
+disc {<0,0,0>,y,8.75,4.25 texture {Vinyle}}
+disc {<0,0,0>,y,4.25,1.8 texture {Label}}
+}
+ </PRE>
+
+<H2>CSG</H2>
+  <P>Faute de poss&eacute;der un int&eacute;rieur, le disque ne fonctionne bien qu'avec les unions.</P>
+<P><I>En réalité, le disque a un 'intérieur' qui correspond à l'intérieur du plan dans lequel il
+      se trouve, mais c'est sans utilité.</I></P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

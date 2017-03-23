@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			filter, transmit - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A></P>
+		<H1>
+		   filter et transmit
+		</H1>
+		
+		<H2>
+			objectif
+		</H2>
+		<P>
+			Sp&eacute;cifier le degr&eacute; de transparence filtr&eacute;e ou non-filtr&eacute;e d'une couleur.</P>
+		<H2>
+			compatibilit&eacute;
+		</H2>
+		<P>
+    	POV-Ray 2.0+sup. (filter)
+		POV-Ray 3.0+sup. (transmit, rgbft)
+    </P>
+		<H2>
+			syntaxe
+		</H2>
+    <PRE>
+    pigment {Green filter .8}
+    pigment {Green transmit .5}
+    pigment {Green filter .2 transmit .3}
+    pigment {rgbft &lt;0,1,0,.2,.3&gt;}
+    </PRE>
+  <H3>filter</H3>
+      <P>
+      Le mot cl&eacute; <STRONG>filter</STRONG> donne &agrave; une couleur la propri&eacute;t&eacute; de laisser passer la lumi&egrave;re qui
+      passe &agrave; travers une surface, tout en colorant &agrave; son tour cette lumi&egrave;re.  Cela veut dire que
+      si une lumi&egrave;re blanche passe &agrave; travers un objet filtrant jaune, les objets frapp&eacute;s par la
+      lumi&egrave;re apr&egrave;s le filtre seront &eacute;clair&eacute;s en jaune.  C'est &eacute;galement valable pour les
+      objets vus (par la cam&eacute;ra) &agrave; travers un objet filtrant.
+      </P>
+      <P>Le filtre observe les r&egrave;gles naturelles des m&eacute;langes de couleurs, ce qui veut dire
+       qu'un objet rouge vu &agrave; travers un filtre bleu sera pratiquement noir.</P>
+      <IMG src="filtran01.jpg" alt="effets de filter" border=2>
+  <H3>transmit</H3>
+      <P>Ce mot cl&eacute; permet de sp&eacute;cifier une transparence non-filtr&eacute;e, c'est-&agrave;-dire que 
+         m&ecirc;me si les surfaces concern&eacute;es laissent para&icirc;tre ce qui se situe derri&egrave;re elles,
+         elles n'ont aucune influence sur la couleur de la lumi&egrave;re.  
+     </P>
+      <IMG src="filtran02.jpg" alt="effets de transmit" border=2>
+  <H3>inclusion dans &lt;r,g,b&gt;</H3>
+     <P>Il est &eacute;galement possible de sp&eacute;cifier des valeurs de <STRONG>filter</STRONG> et <STRONG>transmit</STRONG> dans une
+         "extension" du vecteur <STRONG>rgb</STRONG>, &agrave; l'aide de <STRONG>rgbf</STRONG>, <STRONG>rgbt</STRONG>, et <STRONG>rgbft</STRONG>.</P>
+    <PRE>
+    rgbf &lt;1,1,0,.5&gt; // = rgb &lt;1,1,0&gt; filter .5
+    rgbt &lt;1,1,0,.5&gt; // = rgb &lt;1,1,0&gt; transmit .5
+    rgbft &lt;1,1,.5,.5&gt; // = rgb &lt;1,1,0&gt;  filter .5 transmit .5
+    </PRE>
+    <H2>sch&eacute;ma r&eacute;capitulatif</H2>
+<P>L'illustration ci-dessous montre 10*10 sph&egrave;res ayant des valeurs de <STRONG>filter</STRONG> et de <STRONG>transmit</STRONG>
+   variant de 0 &agrave; 1.  Il faut faire deux observations : <BR>
+   - la transparence totale (objet "invisible") est atteinte avec <STRONG>transmit 1 filter 0</STRONG><BR>
+   - lorsque la somme des deux valeurs exc&egrave;de 1, l'objet devient "lumineux", et fait passer
+     davantage de lumi&egrave;re qu'il n'en re&ccedil;oit, ce qui peut &ecirc;tre utile pour mod&eacute;liser une diode,
+     ou d'autres choses...
+</P> <IMG src="filtran03.jpg" alt="combinaisons syst&eacute;matiques de filter et transmit" border=2>
+
+<H2>valeurs hors limites</H2>
+<P>Lorsque les valeurs
+   de <STRONG>transmit</STRONG> excèdent la fourchette 0 - 1.  Au delà de 1, les couleurs vues
+   par transparence sont multipliées par la couleur et la valeur de l'objet filtrant, donnant
+   un aspect "brûlé", saturé et contrasté aux éléments qui se trouvent derrière.  Si la valeur
+   de <STRONG>transmit</STRONG> est négative, les couleurs seront inversées comme sur un..
+   négatif !</P>
+<P><I>Attention !  Si vous utilisez cette fonctionnalité pour pacer un filtre spécial
+   quelque part dans votre scène, prenez soin d'affecter <STRONG>no_shadow</STRONG> à l'objet
+   filtre, afin d'éviter le filtrage des rayons lumineux, qui donnerait des résultats
+   bizarres.</I></P>
+    <H2>remarques</H2>
+     <P>Attention, lorsque vous utilisez beaucoup d'objets transparents, veillez
+        &agrave; ajuster la variable <STRONG>max_trace_level</STRONG> (dans <STRONG>global_settings</STRONG>).</P>
+     <P><B>LA</B> bourde universelle : donner une valeur de <STRONG>filter</STRONG> &agrave; 
+        une surface noire !  &Ccedil;a ne marche pas !  Du noir transparent, &ccedil;a n'existe pas !
+        En fait, les <STRONG>filter</STRONG> sont des op&eacute;rations de multiplication, donc
+        du noir (0) multipli&eacute; par n'importe quoi, &ccedil;a donnera toujours du noir !</P>
+     <P>Par contre, <STRONG>transmit</STRONG> fonctionnera normalement avec du noir.</P>
+
+<P><I>auteur : Fabien Mosen</I>		</P>
+	</BODY>
+	
+</HTML>

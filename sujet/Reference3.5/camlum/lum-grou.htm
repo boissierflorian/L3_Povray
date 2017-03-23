@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>ombres douces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral</A> / 
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> / 
+<A href="lum-area.htm">page précédente : les ombres douces</A>
+</P>
+
+<H1>groupes de lumières</H1> 
+<H2>objectif</H2>
+ <P>Éclairer des objets de manière ciblée, sans éclairer toute la scène.
+    Très utile lorsqu'on a une scène dont l'ambiance globale est réussie,
+    mais que l'on veut tricher un peu sur l'éclairage d'un objet en
+    particulier.</P>
+
+<H2>syntaxe</H2>
+<PRE>
+light_group {
+  light_source {...}
+
+  Objet1
+  Objet2
+  ...
+
+  (global_lights on/off) <SPAN class="comm">//booléen</SPAN>
+}
+</PRE>
+<P>Le groupe se compose donc d'une source lumineuse (ou plusieurs, éventuellement),
+   et d'un ou plusieurs objets.  Ces objets seront éclairés exclusivement par cette
+   source, et cette source n'illuminera que ces objets-là.</P>
+<P>Si le mot clé <STRONG>global_lights</STRONG> est activé, les objets seront
+   éclairés aussi par les autres sources de la scène, mais la lumière du groupe
+   se contentera toujours d'éclairer uniquement les objets du groupe.</P>
+
+<H2>exemple</H2>
+<PRE>
+#include "colors.inc"
+
+camera {location &lt;20,30,70&gt; look_at &lt;0,10,0&gt; angle 30}
+
+light_source {&lt;50,50,0&gt; Blue}
+
+sphere {&lt;0,5,0&gt;,5 pigment {White}}   
+
+light_group {                      
+ sphere {&lt;12,5,0&gt;,5 pigment {White}}                         
+ light_source {&lt;50,50,50&gt; OrangeRed}
+ }
+
+light_group {                      
+ sphere {&lt;-12,5,0&gt;,5 pigment {White}}                         
+ light_source {&lt;50,50,50&gt; YellowGreen}
+ global_lights
+ }
+
+plane {y,0 pigment {White}}
+</PRE>
+<IMG SRC="lgroup.jpg" border=2>
+<P>Il y a une lumière générale bleue.  La sphère du milieu n'appartient pas à un groupe,
+   elle est donc bleue.  La sphère de gauche est rouge et seulement rouge parce qu'elle
+   appartient à un groupe qui contient une lumière rouge.  Enfin, la sphère de droite
+   reçoit la lumière verte de la source de son groupe, mais également du bleu de la
+   lumière générale (à cause de <STRONG>global_lights</STRONG>), elle vire donc un peu au cyan.</P>
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

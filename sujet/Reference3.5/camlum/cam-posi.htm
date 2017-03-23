@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>camera - documentation POV-Ray en fran&ccedil;ais</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> /
+ page précédente : <A href="cam-came.htm">généralités sur la caméra</A>
+</P>
+<H1>camera - positionnement</H1>
+
+<H2>syntaxe</H2>
+
+ <P><STRONG>location</STRONG> sp&eacute;cifie le point de vue de l'observateur, c'est la position de son oeil.</P>
+ <IMG SRC="cam-ill-01.jpg">
+
+ <P><STRONG>right</STRONG> et <STRONG>up</STRONG> sp&eacute;cifient le rapport hauteur/largeur de l'image, ainsi que le syst&egrave;me d'axes 
+    employ&eacute;.  Le vecteur <STRONG>right</STRONG> indique dans quelle direction se trouve le c&ocirc;t&eacute; droit de l'&eacute;cran, 
+    et le vecteur <STRONG>up</STRONG> indique dans quelle direction se trouve le dessus de l'&eacute;cran.</P>
+ <P>Les valeurs par d&eacute;faut <STRONG>right 4/3*x</STRONG> et <STRONG>up y*1</STRONG> d&eacute;finissent un cadrage dont la largeur vaut 
+    4/3 sur l'axe X et 1 sur l'axe Y, c'est &agrave; dire que l'image aura une largeur &eacute;gale &agrave; 4/3 fois 
+    sa hauteur. Il est bien entendu que le format de rendu (en pixels) doit correspondre &agrave; ce
+    rapport, sinon l'image sera d&eacute;form&eacute;e.  Si on veut faire une image avec un cadrage carr&eacute;, on 
+    &eacute;crira donc <STRONG>right x*1</STRONG> et <STRONG>up y*1</STRONG>, en ajustant le format de sortie aussi (400*400 pixels, 
+    par exemple).</P>
+ <P>On peut &eacute;galement utiliser <STRONG>right</STRONG> et <STRONG>up</STRONG> pour changer le syst&egrave;me d'axes.  Pour passer en 
+    "syst&egrave;me main droite", avec le Z au-dessus, comme dans Moray, 3DS ou AutoCAD, il suffit 
+    de sp&eacute;cifier : <STRONG>right x*-4/3</STRONG>.</P>
+ <IMG SRC="cam-ill-03.jpg">
+
+ <P><STRONG>direction</STRONG> est le vecteur qui d&eacute;termine la "direction primaire" de la cam&eacute;ra (la direction 
+    de "derri&egrave;re l'&eacute;cran", ou le plan de projection), et la distance entre le point de 
+    l'observateur (<STRONG>location</STRONG>) et le plan de projection (d&eacute;fini par <STRONG>right</STRONG> et <STRONG>up</STRONG>). Selon vos besoins, vous pouvez utiliser <STRONG>angle</STRONG> (plus intuitif) ou <STRONG>direction</STRONG> (plus prévisible) pour changer le champ de vision.</P>
+ <IMG SRC="cam-ill-05.jpg">
+
+ <P><STRONG>sky</STRONG>, c'est le vecteur qui pointe vers le ciel.  Imaginons : votre t&ecirc;te est une cam&eacute;ra,
+    et votre oeil est la <STRONG>location</STRONG>.  Vous avez une antenne sur la t&ecirc;te, et cette antenne,
+    c'est le vecteur <STRONG>sky</STRONG>.  Quel que soit l'endroit vers lequel vous regardez, cette antenne
+    vous forcera &agrave; garder l'inclinaison de la t&ecirc;te le plus possible dans sa direction.  G&eacute;om&eacute;triquement,
+    votre axe de sym&eacute;trie et l'antenne resteront toujours dans un m&ecirc;me plan commun.  Donc, 
+    si on veut que la cam&eacute;ra ait l'air de "pencher la t&ecirc;te" ou m&ecirc;me de se retrouver la t&ecirc;te 
+    en bas, il faut modifier ce vecteur <STRONG>sky</STRONG>, dont la valeur par d&eacute;faut est <STRONG>sky y*1</STRONG>.</P>  
+ <IMG SRC="cam-ill-04.jpg">
+
+ <P><STRONG>angle</STRONG> est l'angle de vision de la cam&eacute;ra.  Plus cet angle est petit, plus le champ
+     de vision est restreint, plus on zoome fort sur le sujet, et invers&eacute;ment.  L'angle est
+     donn&eacute; en degr&eacute;s, de 0 &agrave; 180 pour une projection en perspective "classique", on peut aller
+     plus loin avec certains modes de projection, on verra &ccedil;a plus tard.  Un deuxième
+     angle peut être spécifié lorsqu'on utilise la projection <STRONG>spherical</STRONG>.</P>
+ <IMG SRC="cam-ill-06.jpg">
+
+  <P><STRONG>look_at</STRONG> est le point vers lequel l'observateur regarde.  Dans tous les cas,
+     ce point sera, fort logiquement, au centre exact de l'image rendue.</P>   
+ <IMG SRC="cam-ill-02.jpg">
+
+<P>page suivante : <A href="cam-flou.htm">profondeur de champ (flou)</A></P>
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

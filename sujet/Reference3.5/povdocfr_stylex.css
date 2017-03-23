@@ -1,0 +1,169 @@
+/*-----------------attributs du body-------------------------------------*/
+BODY {
+
+/*background-color: #D1D4DF;*/ 
+background-color: #DDE2EE;
+color: black;}
+
+/*-----------------attributs du texte courant----------------------------*/
+P {            font-weight: 600; 
+                font-size: 1em;
+                line-height: 1.2em; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+                font-style: normal;
+		color: black;
+	        text-align: justify;
+                text-indent: 1em;
+		margin-right: 5em;
+		margin-left: 5em;
+                font-weight: 400;
+                }
+PRE {           font-weight: bold; 
+                font-size: 1em;
+                line-height: 1em; 
+                font-family:  monospaced, monospace; 
+		color: #323E6D;
+                font-style: normal;
+		text-indent: 0em;
+	        text-align: left;
+		margin-right: 1em;
+		margin-left: 5em;
+                margin-bottom: 0em;
+		}
+
+P A {text-indent: 0em; margin-right: 0em; margin-left: 0em; text-align: left;}
+
+I {color: #326D4E;}
+STRONG {font-weight: 800; color: red;}
+
+.noindent {text-indent: 0em; margin-right: 0em; margin-left: 5em; text-align: left;}
+.noindent2 {text-indent: 0em; margin-right: 0em; margin-left: 0em; text-align: center;}
+.citations {font-style: italic; font-weight: 600;}
+.afaire {color: #AAAAAA;}
+.nouveau {color: #4E9946;}
+.comm {color: #4E9946;}
+.code {font-weight: bold; font-family:  monospaced, monospace; color: #323E6D;}
+/*-----------------attributs des listes----------------------------------*/
+OL {            font-weight: 600; 
+                font-size: 12pt;
+                line-height: 15pt; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+                font-style: normal;
+		color: #000000;
+                margin-left: 2em;
+	        text-align: left;
+                text-indent: 0em;
+                 }
+
+LI { list-style: disc outside }
+
+UL {            font-weight: 600; 
+                font-size: 12pt;
+                line-height: 15pt; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+                font-style: normal;
+		color: #000000;
+                margin-left: 2em;
+	        text-align: left;
+                text-indent: 0em;
+                 }
+
+/*-----------------attributs des images----------------------------------*/
+.illustr {align: center;}
+
+IMG {border-width: 2px;
+     border-color: #000000;
+     border-style: solid 
+    }
+
+/*-----------------attributs des tableaux--------------------------------*/
+/*
+TD {     color: black; 
+         font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+         background-color: #E8F6EE;
+         }
+.tableau {font-style: normal; 
+          font-weight: 400; 
+          margin-right: 0em; 
+          margin-left: 0em;
+          }
+.tabcol {background-color: #D0D6FF;}
+*/
+/*-----------------attributs des titres--------------------------------*/
+H1 {            font-weight: 600; 
+                font-size: 1.5em;
+                line-height: 1.5em; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+		color: #333333;
+                font-style: normal;
+		text-indent: 0em;
+	        text-align: center;
+		margin-right: 1em;
+		margin-left: 1em;
+                margin-bottom: 0em;
+                border-style : solid;
+                border-width: 2px;
+                border-color: #AAAAAA;
+                background-color: #FFFFFF;
+		}
+H2 {            font-weight: 600; 
+                font-size: 1.1em;
+                line-height: 1.2em; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+                font-style: normal;
+		color: #333333;
+                background-color: white;
+		text-indent: 0em;
+	        text-align: left;
+		width: 25pc;
+		margin-left: 2em;
+                border-style : solid;
+                border-width: 2px;
+                border-color: #333333;
+                margin-bottom: 0em;
+                text-decoration: none;
+                padding-left: 1em;
+		}
+H3 {            font-weight: bold; 
+                font-size: 1em;
+                line-height: 1em; 
+                font-family: "trebuchet ms", helvetica, arial, sans-serif; 
+		color: white;
+                background-color: #333333;
+		text-indent: 0em;
+	        text-align: left;
+                width: 20pc;
+		margin-right: 2em;
+		margin-left: 3em;
+                margin-bottom: .1em;
+                padding-left: 1em;
+                padding-bottom: .2em;
+		}
+H4 {            font-weight: bold; 
+                font-size: .9em;
+                line-height: .9em; 
+                font-family: "times","times new roman",serif; 
+                font-style: italic;
+		color: red;
+		background-color: white;
+		text-indent: 0em;
+	        text-align: left;
+		margin-right: 2em;
+		margin-left: 4em;
+                margin-bottom: 0em;
+		}
+H5 {            font-weight: bold; 
+                font-size: .9em;
+                line-height: .9em; 
+                font-family: "times","times new roman",serif; 
+                font-style: italic;
+		color: #FF00FF;
+		background-color: white;
+		text-indent: 0em;
+	        text-align: left;
+		margin-right: 2em;
+		margin-left: 5em;
+                margin-bottom: 0em;
+		}
+
+

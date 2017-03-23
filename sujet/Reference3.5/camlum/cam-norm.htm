@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>camera - documentation POV-Ray en fran&ccedil;ais</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> /
+ page précédente : <A href="cam-proj.htm">modes de projection</A>
+</P>
+<H1>caméra : perturbation de la normale</H1>
+
+<H2>objectif</H2>     
+<P>Perturber, &agrave; l'aide d'un motif, le rayon de la cam&eacute;ra, comme si la surface de l'objectif
+   &eacute;tait irr&eacute;guli&egrave;re.</P>
+
+<H2>compatibilit&eacute;</H2>     
+<P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>     
+<PRE>
+ camera {... 
+         normal {...}
+        }
+</PRE>
+<P>Il suffit donc de rajouter une d&eacute;finition de normale, comme pour une texture, &agrave; la d&eacute;finition
+   de la cam&eacute;ra.  Cette d&eacute;finition de normale peut comporter tous les modificateurs habituels
+   applicables aux normales des textures : transformations, normal_maps, etc...</P>
+<P>On peut utiliser cette fonction avec tous les types de cameras.</P>
+
+<H2>exemples</H2>     
+<P>La sc&egrave;ne de d&eacute;part, sans perturbation :</P>
+ <IMG src="cam-n01.jpg" border=2 alt="">
+<PRE>normal {bumps .1}</PRE>
+ <IMG src="cam-n02.jpg" border=2 alt="">
+<PRE>normal {bumps .5}</PRE>
+ <IMG src="cam-n03.jpg" border=2 alt="">
+<P>..et la version Canal+, pour les images un peu os&eacute;es :</P>
+<PRE>normal {marble .01 rotate z*90 frequency 50}</PRE>
+ <IMG src="cam-n04.jpg" border=2 alt="">
+
+<H2>remarques</H2>
+ <P>- L'espace du motif qui occupe le champ de la cam&eacute;ra est compris entre &lt;0,0,0&gt; et &lt;1,1,0&gt;,
+   un peu comme pour une <STRONG>image_map</STRONG>.</P>
+  <P>- seul un "vrai" raytracer peut faire ce genre de choses, de m&ecirc;me que les projections non-planes.
+     Le mode de fonctionnement des syst&egrave;mes "scanline", m&ecirc;me s'ils utilisent le raytracing pour les
+     r&eacute;flexions et r&eacute;fractions, leur interdit ce type de d&eacute;formations au niveau de la projection.
+     (nanan&egrave;re-euh).</P>
+
+</BODY>
+
+</HTML>

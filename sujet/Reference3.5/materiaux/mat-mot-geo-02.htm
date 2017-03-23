@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> -
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>les motifs géométriques (radial ... wood)</H1>
+
+<P>Ces motifs ont une géométrie régulière, répétitive.  Certains devront être 
+   assortis d'un peu de turbulence pour donner les meilleurs résultats (wood, marble,..).</P>
+
+<A name="radial">
+<H3>radial</H3> 
+<P><I>POV-Ray 2.0</I></P>
+<P>Ce motif déploie ses valeurs uniformément en tournant autour de l'axe Y, un peu
+   comme s'il s'agissait des méridiens successifs d'un globe imaginaire.
+Par défaut, <STRONG>radial</STRONG> effectue un tour complet avec les valeurs
+   de 0 à 1.  On aura donc souvent recours au modificateur <STRONG>frequency</STRONG>
+   pour changer cela.</P>
+<pre>pigment {radial ... frequency 8}</pre>
+<P><I>Utilisé dans un <STRONG>pigment</STRONG>, ce motif possède une <STRONG>color_map</STRONG> spécifique par défaut.</I></P>
+ <IMG SRC="tx-sp-17.jpg" border=2>
+
+<A name="spiral1">
+<H3>spiral1</H3>
+<P><I>POV-Ray 3.0</I></P> 
+<P>Ce motif possède une allure, euh.., spiralée !  La spirale tourne autour de l'axe Z.
+   Le nombre entier, qui suit impérativement le mot clé du motif, spécifie le nombre de 
+   spirales qui partent de l'origine</P>
+<pre>pigment {spiral1 4 ...}</pre>
+ <IMG SRC="tx-sp-20.jpg" border=2>
+
+<A name="spiral2">
+<H3>spiral2</H3>  
+<P><I>POV-Ray 3.0</I></P>
+<P>Similaire à <STRONG>spiral1</STRONG>, à ceci près que ce sont des <I>doubles</I> 
+   spirales, tournant en sens opposé les unes des autres, qui partent de l'origine.
+   Le nombre de spirales après le mot clé est également requis.</P>
+<pre>pigment {spiral2 7 ...}</pre>
+ <IMG SRC="tx-sp-21.jpg" border=2>
+
+<A name="wood">
+<H3>wood</H3>
+<P><I>POV-Ray 2.0</I></P>
+<P>Ce motif se déploie en cylindres concentriques dont l'axe se situe sur Z, à la
+   manière des cernes concentriques d'un tronc couché sur Z.  Un peu de <STRONG>turbulence</STRONG>
+   sera nécessaire pour donner le grain caractéristique des veines de bois.</P>
+<P><I>Utilisé dans un <STRONG>pigment</STRONG>, ce motif possède une <STRONG>color_map</STRONG> spécifique par défaut.</I></P>
+<pre>pigment {wood ... warp {turbulence 0.35}}</pre>
+<IMG SRC="tx-sp-24.jpg" border=2>
+</BODY>
+
+</HTML>

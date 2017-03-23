@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			macros - Référence POV-Ray		</TITLE>
+	</HEAD>
+
+	
+	<BODY>
+		<P>
+		<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+  <A href="index-dir.htm">vers l'index des directives</A>
+		</P>
+		
+		<H1>
+			&nbsp; Macro
+		</H1>
+		
+		<H2>
+			Objectif
+		</H2>
+		<P>
+		Cr&eacute;er une fonction, une proc&eacute;dure, un module, complexe ou pas, qui sera
+		param&eacute;trable &agrave; chaque appel.</P>
+    <P>
+		Cette macro pourra donner, en sortie, une forme, un nombre, une
+		texture, ou un objet complexe, arbre, biblioth&egrave;que, fen&ecirc;tre, herbe,
+		lens flare, engrenage h&eacute;lico&iuml;dal, etc...
+		</P>
+		
+		<H2>
+			Compatibilit&eacute;
+		</H2>
+		<P>
+		POV-Ray 3.1+sup.</P>
+		
+		<H2>
+			Explication
+		</H2>
+    <P>Une macro est un ensemble, plus ou moins complexe, de commandes &eacute;ventuellement
+       "nourries" de param&egrave;tres sp&eacute;cifi&eacute;s au moment ou la macro sera invoqu&eacute;e dans le
+       script.</P>
+		<P>
+     L'usage des macros permet de simplifier les scripts et de r&eacute;aliser des op&eacute;rations
+     complexes inimaginables autrement.  Une fois la macro &eacute;crite, elle pourra &ecirc;tre r&eacute;employ&eacute;e
+     ind&eacute;finiment par un simple appel.  Les macros ont fait avancer POV-Ray un peu plus vers
+     le monde de la programmation et certains probl&egrave;mes ne sont solubles qu'&agrave; l'aide de macros.
+    </P>
+		<P>Il est utile de conna&icirc;tre les <A href="dir-dec.htm">variables locales</A>, lorsqu'on
+     crée des #macros.</P>
+		<H2>
+			Syntaxe
+		</H2>
+<P>
+			Cr&eacute;ation -
+</P>
+<PRE>
+<SPAN class="comm">// nom de la macro avec nom des param&egrave;tres</SPAN>
+#macro Ma_Macro (Parametre_1,...,Parametre_n)
+
+<SPAN class="comm">// d&eacute;veloppement de la macro</SPAN>
+	blabla Parametre_1	<SPAN class="comm">	//appel des param&egrave;tres</SPAN>
+	.../....
+	blabla Parametre_n
+#end
+</PRE>
+<P>			Appel - On donne des valeurs concr&egrave;tes aux param&egrave;tres.
+			(Parametre_1,...,Parametre_n)</P>
+<PRE>
+Ma_Macro(5,..,2)
+</PRE>
+		
+		<H2>
+			Exemple
+		</H2>
+		<P>
+		Cr&eacute;ation de la Macro avec 5 param&egrave;tres
+		</P>
+<PRE> 
+	<SPAN class="comm">// d&eacute;claration de la macro avec nom des param&egrave;tres</SPAN>
+
+#macro Faire_Fenetre (Largeur_Ext, Hauteur_Ext, Largeur_Int, Hauteur_Int, Profondeur)
+
+	<SPAN class="comm">// d&eacute;veloppement de la macro avec appel des param&egrave;tres</SPAN>
+
+	#local Horz = (Hauteur_Ext - Hauteur_Int)/2;
+	#local Vert = (Largeur_Ext - Largeur_Int)/2;
+	difference{
+		box{&lt;0,0,0&gt,&lt;Largeur_Ext,Hauteur_Ext,Profondeur&gt;}
+		box{&lt;Vert,Horz,-0.1&gt;,&lt;Largeur_Ext-Vert,Hauteur_Ext-Horz,Profondeur+0.1&gt; }
+		translate &lt;-Largeur_Ext/2,-Hauteur_Ext/2,0&gt; // pour centrer
+	}
+
+#end
+
+</pre>
+		<P>
+		Appel de la Macro
+		</P>
+<PRE>
+Faire_Fenetre(5,5,4,4,15) <SPAN class="comm">// appelle la macro avec passage des param&egrave;tres</SPAN>
+
+object {Faire_Fenetre(5,5,3,3,1) pigment {Red} } <SPAN class="comm">// ou bien pour avoir un pigment</SPAN>
+
+union  {
+        Faire_Fenetre(5,5,1,1,1) pigment {Blue} <SPAN class="comm">// une autre mani&egrave;re</SPAN>
+        object {...}
+        ...
+        }
+</PRE>
+<P>
+<img src="macro1.jpg" width="160" height="120" border=2 alt="Faire_Fenetre(5,5,3,3,1)">
+	Fenetre(5,5,3,3,1)
+<img src="macro2.jpg" width="160" height="120" border=2 alt="Faire_Fenetre(5,5,1,1,1)">
+	Fenetre(5,51,1,1)
+	</P>
+		
+<P><I>auteur : Martial Rameaux</I></P>
+	</BODY>
+	
+</HTML>

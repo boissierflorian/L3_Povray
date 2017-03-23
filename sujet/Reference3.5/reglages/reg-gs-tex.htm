@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>hf_gray_16 - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+<A href="reg-gs-hfg.htm">page précédente : hf_gray_16</A>
+</P>
+
+<H1>noise_generator, irid_wavelength et number_of_waves</H1>
+
+<H2>objectif</H2>
+ <P>Ces réglages concernent les textures, permettant d'affiner certains de leurs comportements.</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 3.0 +sup. (irid_wavelenght, number_of_waves)<BR>
+ POV-Ray 3.5 (irid_wavelenght, number_of_waves)</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+global_settings {
+        noise_generator Generateur  <SPAN class="comm">//nombre entier</SPAN>      
+        irid_wavelength &lt;Couleur&gt;  <SPAN class="comm">//Couleur
+</SPAN>        number_of_waves NbrOndes   <SPAN class="comm"> //nombre entier   </SPAN>   
+        }
+</PRE>
+
+<H2>noise_generator</H2>
+<P>Pour produire ses motifs à "bruit fractal" (tels que <STRONG>bozo</STRONG>, <STRONG>granite</STRONG>,..),
+POV-Ray utilise un algorithme général pour générer ce bruit.  Plusieurs algorithmes différents
+sont proposés, et noise_generator vous permet de sélectionner celui qui vous convient le mieux,
+au cas par cas.</P>
+<P>Le générateur spécifié dans <STRONG>global_settings</STRONG> sera utilisé pour tous les
+motifs de la scène, sauf ceux pour lesquels un autre <STRONG>noise_generator</STRONG>
+aura été expressément spécifié comme modificateur de motif.</P>
+<H3>générateur 1 : classique</H3>
+<P>C'est le même générateur que celui qu'on trouvait dans POV-Ray 3.0.  C'est également celui
+qui est employé par défaut dans POV-Ray 3.5.  Il a cependant un petit défaut : dans certaines
+situations, il fait apparaître des "plateaux" (zones où la valeur du motif est constante).</P>
+<IMG SRC="reg-gs-noise1a.jpg"><IMG SRC="reg-gs-noise1b.jpg"><IMG SRC="reg-gs-noise1c.jpg">
+
+<H3>générateur 2 : classique modifié</H3>
+<P>Il s'agit d'une version modifiée du générateur 1, qui résoud le problème des plateaux
+   en modifiant l'étendue des valeurs (en gros, c'est comme si il était moins contrasté). </P>
+<IMG SRC="reg-gs-noise2a.jpg"><IMG SRC="reg-gs-noise2b.jpg">
+
+<H3>générateur 3 : bruit de Perlin</H3>
+<P>Sensé présenter une bonne solution générale aux problèmes des autres générateurs,
+   celui-ci souffre d'une régularité apparente, qu'on aimera ou pas (plutôt pas !).</P>
+<IMG SRC="reg-gs-noise3a.jpg"><IMG SRC="reg-gs-noise3b.jpg">
+
+<H2>irid_wavelenght</H2>
+<P>Permet de sp&eacute;cifier les longeurs d'ondes dominantes pour le calcul de l'iridescence (enclench&eacute;e
+   par le mot cl&eacute; <STRONG>irid</STRONG> dans un <STRONG>finish</STRONG>).</P>
+<P>Normalement, la valeur par d&eacute;faut (rgb <0.25,0.18,0.14>) est parfaitement ad&eacute;quate.
+   Ce r&eacute;glage est juste l&agrave; pour vous permettre de faire joujou si l'envie vous en prend.</P>
+
+<H2>number_of_waves</H2>
+<P>Les motifs <STRONG>ripples</STRONG> et <STRONG>waves</STRONG> sont g&eacute;n&eacute;r&eacute;s par
+   l'addition d'un certain nombre d'ondes simples, 10 par d&eacute;faut.  Le param&egrave;tre
+   <STRONG>number_of_waves</STRONG> permet de sp&eacute;cifier un autre nombre d'ondes,
+   ce qui aura des r&eacute;percussions sur l'aspect de toute la sc&egrave;ne.</P>
+
+<P>page suivante : <A href="reg-gs-txt.htm">charset</A></P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>

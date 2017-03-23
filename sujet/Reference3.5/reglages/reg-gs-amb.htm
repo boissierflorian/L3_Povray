@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>ambient_light - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> - 
+<A href="reg-gs-txt.htm">page précédente : charset</A>
+</P>
+
+<H1>ambient_light</H1>
+
+<H2>objectif</H2>
+ <P>R&eacute;gler le niveau de la lumi&egrave;re ambiante d'une sc&egrave;ne.</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+global_settings {
+        ambient_light <Couleur>  <SPAN class="comm">//couleur</SPAN>
+       }
+ </PRE>
+ 
+ <P>La lumi&egrave;re ambiante est utilis&eacute;e par POV-Ray pour simuler grossi&egrave;rement l'effet de r&eacute;flexion diffuse,
+ qui est responsable de l'&eacute;clairage des zones qui sont partiellement ou compl&egrave;tement dans l'ombre.
+ <STRONG>ambient_light</STRONG> est l&agrave; pour modifier facilement l'intensit&eacute; de l'&eacute;clairage ambiant sans avoir &agrave; modifier
+ toutes les d&eacute;clarations "<STRONG>ambient</STRONG>" qui se trouvent dans les "finish" de toutes les textures utilis&eacute;es
+ dans la sc&egrave;ne (y compris les finish par d&eacute;faut...). Cela permet aussi d'obtenir des effets int&eacute;ressants,
+ par exemple en modifiant la couleur de la lumi&egrave;re ambiante.</P>
+
+ <P>La valeur par d&eacute;faut de la lumi&egrave;re ambiante est rgb &lt;1,1,1&gt;. On peut sp&eacute;cifier une couleur avec
+ un canal filter ou transmit (rgbft &lt;.6,.8,.5,.6,.2&gt;, par exemple), mais seules les composantes rgb
+ sont prises en compte. La valeur d'ambient r&eacute;ellement utilis&eacute;e lors du rendu est celle-ci:</P>
+ 
+ <P>ambient = (ambient du finish)*(ambient_light)</P>
+ 
+<H2>exemple</H2>
+ <PRE> 
+//pour assombrir la sc&egrave;ne
+global_settings { ambient_light rgb .8 }
+
+//pour &eacute;claircir la sc&egrave;ne
+global_settings { ambient_light rgb 1.2 }
+
+//pour donner un aspect bleut&eacute; aux ombres
+global_settings { ambient_light rgb <.9, .9, 1.2> }
+
+ </PRE>
+ 
+<H2>Remarque</H2>
+  <P><STRONG>ambient_light</STRONG> est un param&egrave;tre influent lorsqu'on utilise la radiance. La radiance &eacute;tant
+  destin&eacute;e elle-aussi &agrave; mod&eacute;liser (de mani&egrave;re plus pr&eacute;cise) l'effet de la r&eacute;flexion diffuse, on
+  aura tendance &agrave; minimiser l'effet de la lumi&egrave;re ambiante &agrave; l'aide de <STRONG>ambient_light</STRONG>.</P>
+
+<P>page suivante : <A href="reg-gs-rad.htm">la radiance</A></P>
+
+  <P><I>R&eacute;dacteur: Christophe Bouffartigue (Bouf)</I></P>
+
+</BODY>
+
+</HTML>

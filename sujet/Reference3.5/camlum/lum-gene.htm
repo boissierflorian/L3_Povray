@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>les lumieres. documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral</A>
+<H1>Les sources de lumi&egrave;re</H1> 
+
+<H2>objectif</H2>
+
+ <P>Le r&ocirc;le d'une source lumineuse est d'apporter de l'&eacute;clairage dans une sc&egrave;ne. 
+    C'est une sorte d'objet invisible qui projette de la lumi&egrave;re sur les autres objets.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P class="noindent">
+ POV-Ray 2.0+sup<BR>
+ POV-Ray 3.0+sup : att&eacute;nuation, shadowless<BR>
+ POV-Ray 3.1+sup : media_attenuation, media_interaction<BR>
+ POV-Ray 3.5+sup : cylinder, groupes, rayons parall&egrave;les, ombres douces circulaires, orient, projected_through. 
+</P>
+
+<H2>syntaxe g&eacute;n&eacute;rale</H2>
+<PRE>
+light_source {
+       &lt;Position&gt;           <SPAN class="comm">// vecteur</SPAN>
+       Couleur              <SPAN class="comm">// vecteur de couleur</SPAN>
+       
+       <SPAN class="comm">//--contrainte de forme--</SPAN>
+       (spotlight | cylinder)
+       (parallel)             
+       (point_at &lt;Point&gt;)     <SPAN class="comm">// vecteur</SPAN>
+       (radius Angle1)        <SPAN class="comm">// d&eacute;cimal</SPAN>
+       (falloff Angle2)       <SPAN class="comm">// d&eacute;cimal</SPAN>
+
+       <SPAN class="comm">//--ombres douces--</SPAN>
+       (area_light         
+       &lt;Vec1&gt;,&lt;Vec2&gt;,Nbr1,Nbr2  <SPAN class="comm"> // vecteurs, d&eacute;cimaux</SPAN>
+       )
+       (jitter)               
+       (adaptive Niveau)      <SPAN class="comm">// d&eacute;cimal</SPAN>
+       (orient)               
+       (circular)             
+
+       <SPAN class="comm">//--effets--</SPAN>
+       (fade_distance)        <SPAN class="comm">// d&eacute;cimal</SPAN>
+       (fade_power)           <SPAN class="comm">// d&eacute;cimal</SPAN>
+       (shadowless)           
+       (looks_like {MonObjet})     <SPAN class="comm">// objet</SPAN>
+       (media_interaction)    
+       (media_attenuation)    
+       (projected_trough {MonObjet})<SPAN class="comm">// objet</SPAN>
+       }
+</PRE>
+<P>Une lumi&egrave;re est un objet comme un autre, qui peut se d&eacute;clarer, subir des
+  transformations de type <STRONG>rotate</STRONG>, <STRONG>translate</STRONG>.., faire partie d'un autre
+  objet...</P>
+
+<H2>CSG</H2>
+<P><STRONG>union</STRONG> fonctionne normalement, mais <STRONG>difference</STRONG> et <STRONG>intersection</STRONG> sont ignor&eacute;s,
+   puisqu'ils sont illogiques.  Toutefois, si vous voulez faire une op&eacute;ration de soustraction
+   avec des lumi&egrave;res, lisez la remarque concernant les lumi&egrave;res n&eacute;gatives.</P>
+
+<H2>remarques</H2>
+<P>Il ne faut pas h&eacute;siter &agrave; utiliser des valeurs de couleurs d&eacute;passant les 100%.  Une
+sc&egrave;ne ne comportant qu'une seule lumi&egrave;re de couleur White (&lt;1,1,1&gt;) para&icirc;tra
+terne.  On peut directement travailler avec des valeurs telles que White*2, cela
+donnera plus de "p&ecirc;che" &agrave; vos images.</P>
+
+<P>Dans le m&ecirc;me ordre d'id&eacute;es, on peut &eacute;galement utiliser des valeurs n&eacute;gatives !!</P>
+<PRE>light_source {<12,47,22> White*-1 ... }</PRE>
+<P>Cela cr&eacute;era une source qui "absorbe la lumi&egrave;re" l&agrave; o&ugrave; atterrissent ses rayons, ce qui
+peut &ecirc;tre utile pour diminuer l'action d'une source normale, ou pour cr&eacute;er des
+effets sp&eacute;ciaux.</P>
+
+<P>Une astuce "artistique" : n'utilisez pas de lumi&egrave;res totalement blanches, ajoutez
+   toujours une petite tension de couleur &agrave; vos sc&egrave;nes : rgb &lt;1,1,.95&gt; donnera une
+   ambiance plus chaude, rgb &lt;.95,.97,1&gt; donnera plus de piquant, etc...</P>
+
+<P>page suivante : <A href="lum-form.htm">types de sources lumineuses</A></P>
+
+<P><I>auteurs : Rodolphe Gelaude / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"><html><head>
+ <link href="../povdocfr_style.css" rel="stylesheet" type="text/css"><title>Référence POV-Ray - licence d'utilisation</title></head> 
+
+
+<body>   
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+	<h1>fonctions manipulant des chaînes</h1>
+<P class="noindent"><STRONG>asc(Chaine)</STRONG> valeur ASCII (entre 0 et 255) du premier caract&egrave;re de la cha&icirc;ne</P>
+
+<P class="noindent">
+
+<STRONG>chr(A)</STRONG> retourne le caract&egrave;re dont la valeur ASCII est l'entier A.
+
+Les valeurs admises vont de 0 &agrave; 255.  Dans le cas de l'usage d'un objet text, sachez que les
+
+caract&egrave;res ASCII de valeur sup&eacute;rieure &agrave; 127 d&eacute;pendent de la fonte TrueType utilis&eacute;e.  Beaucoup
+
+de fontes TrueType utilisent le jeu de caract&egrave;res Latin-1 (ISO 8859-1), mais pas toutes.</P>
+
+
+
+<P class="noindent">
+
+<STRONG>concat(Chaine1,Chaine2,...)</STRONG> permet de concat&eacute;ner plusieurs cha&icirc;nes de caract&egrave;res
+
+pour n'en former qu'une seule.  Tout identificateur de cha&icirc;ne peut &ecirc;tre sp&eacute;cifi&eacute; : 
+
+une cha&icirc;ne entre guillemets, une variable contenant une cha&icirc;ne, une fonction qui retourne une cha&icirc;ne...
+
+Au minimum, il faut sp&eacute;cifier deux &eacute;l&eacute;ments, mais on peut en sp&eacute;cifier autant qu'on le souhaite
+
+(&agrave; condition qu'elles ne fassent, ensemble, pas plus de 256 caract&egrave;res).</P>
+
+
+
+<P class="noindent">
+
+<STRONG>str(A,L,P)</STRONG> transforme le nombre d&eacute;cimal A en cha&icirc;ne de caract&egrave;res (ce qui permet de
+
+l'utiliser dans un objet texte, ou dans les messages de la console).  Le param&egrave;tre
+
+L indique la longueur minimale de la cha&icirc;ne et le type d'alignement &agrave; gauche si la cha&icirc;ne
+
+est plus courte que la longueur minimale.  Si L est positif, alors l'alignement se
+
+fait avec des blancs.  Si L est n&eacute;gatif, l'alignement se fait avec des z&eacute;ros.  La valeur
+
+absolue de L d&eacute;termine la longueur minimale de la cha&icirc;ne format&eacute;e.  Si la cha&icirc;ne doit
+
+&ecirc;tre plus longue, elle sera automatiquement ajust&eacute;e pour contenir tous les chiffres.
+
+Le param&egrave;tre (entier) P sp&eacute;cifie le nombre de chiffres &agrave; placer apr&egrave;s le signe d&eacute;cimal
+
+(la virgule, mais c'est un point !).  Si P est n&eacute;gatif, ce nombre d&eacute;pendra du compilateur
+
+utilis&eacute; pour la version de POV-Ray utilis&eacute;e.</P>
+
+
+
+<P class="noindent">
+
+<STRONG>strlwr(Chaine)</STRONG> retourne une cha&icirc;ne qui est la version en minuscules
+
+de la chaine.</P>
+
+
+
+<P class="noindent">
+
+<STRONG>substr(Chaine,P,L)</STRONG> retourne une sous-cha&icirc;ne qui fait partie de Chaine, 
+
+en partant du caract&egrave;re situ&eacute; &agrave; la position P (en commen&ccedil;ant par 0), jusque L caract&egrave;res plus loin.  Par exemple,
+
+substr("ornithorinque",6,3) retourne la cha&icirc;ne "ori".  Si la sous-cha&icirc;ne outrepasse la
+
+cha&icirc;ne donn&eacute;e, une erreur se produit.</P>
+
+
+<P class="noindent">
+<STRONG>strcmp(Chaine1,Chaine2)</STRONG> compare Chaine1 et Chaine2.  Retourne 0 si les deux cha&icirc;nes 
+sont identiques&nbsp;; un nombre positif si Chaine1 suit Chaine2 dans l'ordre de classement ASCII&nbsp;; sinon, 
+retourne un nombre n&eacute;gatif.</P>
+
+<P class="noindent"><STRONG>strlen(Chaine)</STRONG> longueur de la Chaine, retourne un entier qui repr&eacute;sente le nombre de caract&egrave;res dans la cha&icirc;ne</P>
+
+
+<P class="noindent">
+
+<STRONG>strupr(Chaine)</STRONG> retourne une cha&icirc;ne qui est la version en majuscules de la chaine.
+
+</P>
+
+<P>Certaines op&eacute;rations retournant des nombres d&eacute;cimaux utilisent les cha&icirc;nes, voyez
+
+la section consacr&eacute;e aux d&eacute;cimaux.</P>
+
+
+<P class="noindent"><STRONG>val(Chaine)</STRONG> retourne un nombre d&eacute;cimal qui est repr&eacute;sent&eacute; par le texte de la cha&icirc;ne.
+Exemple&nbsp;: <STRONG>val ("25.741")</STRONG> retournera le nombre 25.741</P>
+
+<P class="noindent">
+<STRONG>vstr(NbrElem,Vecteur,Separateur,LongMin,NbDecim)</STRONG> transforme un vecteur (Vecteur) en chaîne
+avec certains paramètres.  NbrElem est le nombre de composants du vecteur, Separateur est une chaîne
+comprenant le caractère utilisé pour séparer les composants ("," en général), LongMin est la longueur
+minimale (nombre de caractères) de la chaîne résultante.  Si la chaîne 'utile' est plus courte, des
+espaces seront ajoutés après chaque séparateur.  Enfin, NbDecim spécifie le nombre de décimales
+à afficher.
+</P>
+
+<H2>macros standard de POV-Ray 3.5</H2>
+<P>Dans "strings.inc" :</P>
+
+<P class="noindent">
+<STRONG>CRGBStr(C, MinLen, Padding)</STRONG> : conversion d'un vecteur de couleur opaque en chaîne.
+</P>
+
+<P class="noindent">
+<STRONG>CRGBFTStr(C, MinLen, Padding)</STRONG> : conversion d'un vecteur de couleur transparente en chaîne.
+</P>
+
+<P class="noindent">
+<STRONG>Str(A)</STRONG> : version simplifiée de <STRONG>str</STRONG>, utilisant les paramètres apr défaut.
+
+<P class="noindent">
+<STRONG>VStr2D(V)</STRONG> et <STRONG>VStr(V)</STRONG> : créer une chaîne à partir d'un vecteur, avec la présentation
+classique des vecteurs.</P>
+
+<P class="noindent">
+<STRONG>Vstr2D(V,L,P)</STRONG> et <STRONG>Vstr(V,L,P)</STRONG> : comme les précédents, mais avec des options supplémentaires.
+</P>
+
+<P class="noindent">
+<STRONG>Triangle_Str(A, B, C)</STRONG> et <STRONG>Smooth_Triangle_Str(A, NA, B, NB, C, NC)</STRONG> :
+écrire dans une chaîne la définition d'un triangle à partir de ses données.
+</P>
+
+<P class="noindent">
+<STRONG>Parse_String(String)</STRONG> : interprète une chaîne comme si c'était une instruction.
+</P>
+
+</body>
+</html>

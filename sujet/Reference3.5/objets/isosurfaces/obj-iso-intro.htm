@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les isosurfaces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A>
+ / <A href="../index-obj.htm">vers l'index des objets</A>
+ / <A href="obj-iso-fct.htm">page suivante : déclarations et combinaisons</A>
+</P>
+<H1>les isosurfaces</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er des objets dont la forme est d&eacute;finie par une ou plusieurs fonctions math&eacute;matiques.</P>
+<IMG SRC="illref-iso-00.jpg">
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.5</P>
+
+<H2>principe</H2>
+ <P>Ces fonctions sont &eacute;valu&eacute;es dans l'espace tridimensionnel (ce sont des "fonctions de x, y et z"),
+et tous les points pour lesquels la valeur de la fonction est &eacute;gale ou inf&eacute;rieure &agrave; un seuil ("threshold")
+donn&eacute; font partie du volume de l'objet.</P>
+<P>Un petit exemple en 2D pour bien comprendre : </P>
+<PRE>fonction : y + sin (x) * 2</PRE>
+<P>En chaque case du graphe, on applique la fonction ci-dessus, et on regarde la valeur
+ obtenue.  Si cette valeur est inférieure ou égale à zero, on la colorie en vert !</P>
+<IMG SRC="illref-iso-pr-01.jpg">
+<IMG SRC="illref-iso-pr-02.jpg">
+<IMG SRC="illref-iso-pr-03.jpg">
+<P>Au final, la surface obtenue est composée de tous les points dont la valeur est
+  inférieure ou égale au seuil choisi (zero).  Une <STRONG>isosurface</STRONG>, c'est
+  la même chose, mais en 3D !</P>
+
+<H2>syntaxe &eacute;l&eacute;mentaire</H2>
+<P>Nous aborderons tout d'abord les isosurfaces les plus simples, afin de bien assimiler
+   le concept.  Plus loin, nous introduirons progressivement les autres fonctionnalit&eacute;s et
+   raffinements des isosurfaces.</P>
+ <PRE>
+isosurface { 
+  function {...} 
+  threshold Seuil   
+  contained_by {
+                box {...} / sphere {...}
+               }
+  max_gradient Valeur
+}
+</PRE>
+<P><STRONG>function</STRONG> contient la fonction (<STRONG>f(x,y,z)</STRONG>) qui produit
+  une valeur en chaque point de l'espace.</P>
+<P><STRONG>threshold</STRONG> d&eacute;finit le seuil auquel la valeur d'un point doit &ecirc;tre
+   &eacute;gale ou inf&eacute;rieure pour que ce point fasse partie du volume cr&eacute;&eacute;.</P>
+
+<P>La plupart des isosurfaces ayant la propri&eacute;t&eacute; de s'&eacute;tendre &agrave; l'infini, il est n&eacute;cessaire
+   de les contenir dans un volume limitant, d&eacute;fini par <STRONG>contained_by</STRONG>, et
+   qui peut &ecirc;tre soit une sph&egrave;re, soit une bo&icirc;te.  Par défaut, c'est une boîte
+   de dimensions <STRONG><-1,-1,-1>,<1,1,1></STRONG>.</P>
+<P>L'option <STRONG>max_gradient</STRONG> suivie d'une valeur (commencez à 2 ou 3 pour des surfaces
+   simples) est une réglage d'optimisation du calcul.  Nous verrons cela en détail quelques
+   pages plus loin.</P>
+
+<H2>rigueur math&eacute;matique</H2>
+<P>Pour plus de rigueur math&eacute;matique, et surtout pour plus de souplesse d'usage, nous nous 
+efforcerons d'utiliser une valeur de 0 pour le seuil des surfaces.</P>
+<P>Par exemple, la formule g&eacute;n&eacute;rale d'une sph&egrave;re, c'est <STRONG>x&#178;+y&#178;+z&#178;=Rayon</STRONG>,
+   ce qui nous fait &eacute;crire :</P>
+<PRE>
+isosurface {
+   function {x*x + y*y + z*z}
+   threshold Rayon
+   ...
+}
+</PRE>
+<P>Ce qui est parfaitement valable, mais posera peut-&ecirc;tre des probl&egrave;mes si on veut
+   combiner plusieurs fonctions.  Il est donc conseill&eacute; de recourir &agrave; une formulation
+   du type <STRONG>x&#178;+y&#178;+z&#178;-Rayon = 0</STRONG></P>
+<PRE>
+isosurface {
+   function {x*x + y*y + z*z - Rayon}
+   threshold 0
+   ...
+}
+</PRE>
+<P><I>note : on peut utiliser la fonction <STRONG>pow(A,B)</STRONG> pour élever
+      à une puissance.  L'utilisation de ^ comme symbole de puissance n'est plus
+      permise dans la version finale de POV-Ray 3.5.</I></P>
+<PRE>
+   function {pow(x,2) + pow(y,2) + pow(z,2) - Rayon}
+</PRE>
+
+<H2>exemples</H2>
+ <H3>un plan</H3>
+<PRE>
+//====== contexte utilis&eacute; pour tous les exemples ====================
+#declare Check1 = pigment {checker color YellowGreen color OrangeRed}
+camera {location <2,1.6,1.2> direction z*1 look_at <0,0,0>}
+box {-1,1 pigment {White transmit .7} no_shadow} //montre le conteneur
+light_source {<40,50,30> White*2}
+//===================================================================
+
+isosurface { 
+  function {x*0 + y*1 + z*0} 
+  threshold 0   
+  contained_by {box {-1,1}}
+  
+  pigment {Check1}
+}
+</PRE>
+<IMG src="iso-demo-01.png" border=2 alt="" width=160 height=120>
+<P>Pour obtenir un plan perpendiculaire &agrave; l'axe x, on &eacute;crira <STRONG>x*1 + y*0 + z*0</STRONG>, etc..</P>
+
+ <H3>un plan oblique</H3>
+<pre>
+isosurface { 
+  function {x*1 + y*1 + z*0} 
+  threshold 0   
+  contained_by {box {-1,1}}
+}
+</pre>
+<IMG src="iso-demo-02.png" border=2 alt="" width=160 height=120>
+<P>La pente est bien entendu fonction des coefficients appliqu&eacute;s &agrave; x, y et z.</P>
+
+ <H3>un cylindre</H3>
+<pre>
+#declare Rayon = 1;
+isosurface { 
+  function {x*x + y*y + z*0 - Rayon} 
+  threshold 0   
+  contained_by {box {-1,1}}
+}
+</pre>
+<IMG src="iso-demo-03.png" border=2 alt="" width=160 height=120>
+<P>Ceci donne un cylindre "couch&eacute;" sur l'axe z.  On remarquera qu'il s'agit en fait
+   de l'extrusion de l'&eacute;quation du cercle (x^2 + y^2).</P>
+
+ <H3>une sphere</H3>
+<pre>
+#declare Rayon = 1;
+isosurface { 
+  function {pow(x,2) + pow(y,2) + pow(z,2) - Rayon} 
+  threshold 0   
+  contained_by {box {-1,1}}
+}
+</pre>
+<IMG src="iso-demo-04.png" border=2 alt="" width=160 height=120>
+<P>En appliquant la puissance 2 dans le 3<sup>eme</sup> plan, on passe du cylindre &agrave; la sph&egrave;re.</P>
+
+<H3>une parabole</H3>
+<pre>
+isosurface { 
+  function {pow(x,2) + y*1 + pow(z,2)} 
+  threshold 0   
+  contained_by {box {-1,1}}
+}
+</pre>
+<IMG src="iso-demo-05.png" border=2 alt="" width=160 height=120>
+
+<h2>CSG</H2>
+<P><STRONG>union</STRONG> et <STRONG>merge</STRONG> fonctionnent sans probl&egrave;mes,
+   mais si vous employez une isosurface dans une op&eacute;ration de <STRONG>difference</STRONG>
+   ou d'<STRONG>intersection</STRONG>, vous devrez alors pr&eacute;ciser &agrave; l'aide du mot cl&eacute;
+   <STRONG>max_trace</STRONG> (&agrave; ne pas confondre avec celui des "global settings")
+   combien de surfaces un rayon est susceptible de rencontrer en traversant votre isosurface.</P>
+<pre>
+#declare Rayon = 1;
+isosurface { 
+  function {pow(x,2) + pow(y,2) + pow(z,2) - Rayon} //sph&egrave;re
+  threshold 0   
+  contained_by {box {-1,1}}
+  max_trace 2
+}
+</pre>
+
+<P><I>auteur : Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>
+

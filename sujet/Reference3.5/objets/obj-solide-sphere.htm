@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</HEAD>
+
+<BODY>      
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>sphere</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;&eacute;r une sph&egrave;re.</P>
+<IMG src="povfr-sph-01.jpg" border=2>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+sphere {
+        Centre,  <SPAN class="comm">// vecteur</SPAN>
+        Rayon    <SPAN class="comm">// nombre décimal</SPAN>
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+       }
+ </PRE>
+
+<H2>exemple</H2>
+ <PRE> 
+sphere {<12,14,45>,8 pigment {Red}}    
+ </PRE>
+ 
+<H2>CSG</H2>
+  <P>fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis</P>
+<H2>remarque</H2>
+  <P>de par sa grande optimisation, la sphere convient particuli&egrave;rement comme
+     volume de d&eacute;limitation (bounding shape)</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Connect_Spheres(PtA, RadiusA, PtB, RadiusB)</STRONG>
+<BR>
+ Crée un cône qui connecte deux sphères (à créer distinctement).  Voyez la page des cônes
+ pour d'autres connexions cônes/sphères.
+<BR>
+<IMG src="povfr-sph-03.jpg" border=2>
+<BR>
+<STRONG>Spheroid(Center, Radius)</STRONG>
+<BR>
+ Crée une sphère dont les rayons sur chaque axe peuvent être différents.
+<BR>
+<IMG src="povfr-sph-02.jpg" border=2>
+</P>
+
+</BODY>
+
+</HTML>

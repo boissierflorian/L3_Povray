@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>superellipsoid - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>super ellipso&iuml;de</H1>
+<H2>objectif</H2>
+ <P>Cr&eacute;er un &lt;inspirez&gt; <B>ellipso&iuml;de super quadrique</B> &lt;expirez!&gt;. Cela peut ressembler,
+ en fonction des param&egrave;tres, &agrave; un cube ou un cylindre, avec des ar&ecirc;tes arrondies. On peut
+ aussi g&eacute;n&eacute;rer des formes un peu plus bizarres...</P>
+<IMG SRC="illref-super-01.jpg">
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+superellipsoid {
+        &lt;e,n&gt; <SPAN class="comm">// vecteur à deux dimensions "e" et "n"</SPAN>
+
+        (..modificateurs d'objets..)
+        (..mat&eacute;riau..)
+       }
+ </PRE>
+
+ <P>Pour ceux qui sont int&eacute;ress&eacute;s par la d&eacute;finition math&eacute;matique du
+ super ellipso&iuml;de, voyez en fin de page. Ici, nous allons
+ plut&ocirc;t nous int&eacute;resser aux effets du vecteur < e, n >.</P>
+ 
+ <P>Quels que soient les param&egrave;tres, cet objet tient toujours dans un cube d&eacute;fini par
+ box {&lt;-1,-1,-1&gt;,&lt;1,1,1&gt;}. Les param&egrave;tres <I>e</I> et <I>n</I> sont appel&eacute;s les exposants
+ est-ouest et nord-sud, et doivent &ecirc;tre strictement sup&eacute;rieurs &agrave; z&eacute;ro.</P>
+
+ <P>Partons d'abord du vecteur &lt;0.01, 0.01&gt;, et faisons varier la premi&egrave;re composante jusqu'&agrave; 1
+ (de gauche &agrave; droite, de haut en bas), puis jusqu'&agrave; 4 (derni&egrave;re ligne).<br>
+ <CENTER><IMG SRC="povfr-supelli-01.jpg"BORDER=2></IMG></CENTER>
+ </P>
+ 
+ <P>Le vecteur &lt;0.01, 0.01&gt; nous donne quasiment un cube (mais ne nous y trompons pas, ses ar&ecirc;tes
+ sont en fait tr&egrave;s l&eacute;g&egrave;rement arrondies...), puis au fur et &agrave; mesure que <I>e</I> augmente vers 1,
+ l'arrondi des ar&ecirc;tes qui sont parall&egrave;les <b>&agrave; l'axe z</b> devient de plus en plus visible, pour obtenir
+ finalement l'allure d'un cylindre (<I>e = 1</I>). En augmentant encore <I>e</I>, les ar&ecirc;tes
+ continuent de s'incurver, pour donner cette forme &eacute;toil&eacute;e.
+ </P>
+ 
+ <P>En fixant <I>e</I>, et en faisant varier <I>n</I>, on obtiendra &agrave; peu pr&egrave;s le m&ecirc;me effet,
+ &agrave; la diff&eacute;rence que ce sont les ar&ecirc;tes parall&egrave;les <b>aux axes x et y</b> qui seront
+ modifi&eacute;es.<br>
+ <CENTER><IMG SRC="povfr-supelli-02.jpg" BORDER=2></IMG></CENTER>
+ </P>
+ 
+<H2>exemples</H2>
+
+ <P>Deux exemples tr&egrave;s utiles: la bo&icirc;te arrondie et le cylindre arrondi.</P>
+
+ <PRE>
+ #declare Rond = .2 // on fixe l'arrondi
+ superellipsoid { &lt;Rond, Rond&gt; }	// la bo&icirc;te
+ superellipsoid { &lt;1, Rond&gt; }		// le cylindre, ax&eacute; sur z
+ </PRE>
+
+<H2>CSG</H2>
+  <P>Fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis.</P>
+
+<H2>Remarques</H2>
+  <P>Le super ellipso&iuml;de n'est pas r&eacute;put&eacute; pour sa rapidit&eacute; de calcul, loin de l&agrave;. On l'utilisera donc
+  avec parcimonie, surtout dans les op&eacute;rations de CSG.</P>
+  <P>De plus, des valeurs tr&egrave;s petites (inf&eacute;rieures &agrave; 0.1, environ) pour <I>e</I> et <I>n</I> peuvent conduire &agrave; des erreurs de
+  pr&eacute;cision dans les calculs, et l'objet risque de s'afficher avec quelques "imperfections"...</P>
+  <P>Il existe une macro standard qui crée des tores à profil superellipsoïde, voyez la page des tores.</P>
+
+<H2>pour les matheux</H2>
+<P>L'&eacute;quation du super ellipso&iuml;de est la suivante : </P>
+<PRE>
+f(x,y,z) = (|x|^(2/e) + |y|^(2/e))^(e/n) + |z|^(2/n) - 1
+</PRE>
+<P>On vous avait pr&eacute;venus...</P>
+
+  <P><I>R&eacute;dacteur: Christophe Bouffartigue (Bouf)</I></P>
+  
+</BODY>
+
+</HTML>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>les motifs fractals</H1>
+<P>Ces motifs utilisent des algorithmes fractals bien connus.  Afin de bien comprendre la
+   portée de certains de leurs paramètres, voyez la page sur les fractales dans la section
+   des concepts généraux.</P>
+
+<H3>mandelbrot</H3>
+<P>Ce motif représente le célèbre ensemble de Benoît Mandelbrot avec les options suivantes :</P>
+<PRE>
+mandel NbIterations  // Entier (entre 2 et 33)
+ (exponent Exposant) // Entier
+ (interior Type,Facteur) // Entier , Décimal
+ (exterior Type,Facteur) // Entier , Décimal
+</PRE>
+<P>Le nom du motif est suivi du nombre d'itérations, dont dépend la 'précision' du résultat.</P>
+<IMG src="illref-mot-mandel-01.jpg">
+<P>L'option <STRONG>exponent</STRONG> permet de spécifier la valeur de l'exposant dans la
+   formule Z = Z<sup>x</sup> + C.  Plus cet exposant est élevé, plus le calcul est long, surtout
+   au-delà de 4.  La valeur par défaut est 2.</P>
+<P>Les options<STRONG>interior</STRONG> et <STRONG>exterior</STRONG> contrôlent la façon
+   dont les valeurs des zones du motif seront réparties.  La partie intérieure, c'est l'ensemble
+   des points pour lesquels la formule converge.  C'est l'îlot 'cardioïde' au centre du motif.</P>
+<P>L'extérieur, c'est tout ce qu'il y a autour (c'est à dire les contours successifs pour les
+   niveaux d'itérations inférieurs à la valeure maximale).</P>
+<P>Le type d'<STRONG>interior</STRONG> ou <STRONG>exterior</STRONG> a la signification suivante :<BR>
+(les illustrations modifient uniquement <STRONG>exterior</STRONG>)<BR>
+0 : Prend la valeur 1 <BR>
+<IMG src="illref-mot-mandel-02.jpg"><BR>
+1 : Pour exterior, la valeur dépendra du nombre d'itération avant que le seuil de convergence/divergence
+    soit atteint.  Cette valeur ne sera pas affectée par le facteur.<BR>
+1 : Pour interior, la valeur dépendra de la valeur absolue du plus petit point dans l'orbite
+    du point calculée (euuuuh...).<BR>
+<IMG src="illref-mot-mandel-03.jpg"><BR>
+2 : La valeur sera la partie réelle du dernier point dans l'orbite.<BR>
+<IMG src="illref-mot-mandel-04.jpg"><BR>
+3 : La valeur sera la partie imaginaire du dernier point dans l'orbite.<BR> 
+<IMG src="illref-mot-mandel-05.jpg"><BR>
+4 : La valeur sera le carré de la partie réelle du dernier point dans l'orbite.<BR>
+<IMG src="illref-mot-mandel-06.jpg"><BR>
+5 : La valeur sera le carré de la partie imaginaire du dernier point dans l'orbite.<BR>
+<IMG src="illref-mot-mandel-07.jpg"><BR>
+6 : La valeur sera la valeur absolue du dernier point dans l'orbite.<BR>
+<IMG src="illref-mot-mandel-08.jpg">
+</P>
+<P>Le facteur qui suit multiplie le résultat avant de renvoyer la valeur définitive du motif en un point.</P>
+<P>Par défaut, <STRONG>interior</STRONG> est réglé à 0 et <STRONG>extérior</STRONG> est
+   réglé à 1.</P>
+<H3>julia</H3>
+<P>La fractale de Gaston Julia est un sous-ensemble de celle de Mandelbrot.  En fait, c'est
+   l'ensemble de Mandelbrot qui est le 'catalogue' de tous les ensembles de Julia possibles :
+   à chaque point du Mandelbrot correspond un ensemble de Julia !  Voici la syntaxe :</P>
+<PRE>
+julia &lt;Complexe&gt; //Nombre complexe
+      NbIterations     // Entier
+ (exponent Exposant) // Entier
+ (interior Type,Facteur) // Entier , Décimal
+ (exterior Type,Facteur) // Entier , Décimal
+
+</PRE>
+<IMG src="illref-mot-julia-01.jpg">
+<P>Le nombre complexe donne la position de l'ensemble dans le plan des nombres complexe.
+   Il s'exprime sous la forme d'un vecteur à deux composants, la partie réelle et
+   la partie imaginaire.  L'illustration ci-dessus utilise le nombre complexe &lt;.5,.1&gt;.</P>
+
+<H3>magnet</H3>
+<P>Une autre variante 'magnétique' des motifs fractals.  Syntaxe :</P>
+<PRE>
+magnet 
+ TypeMagnet
+ mandel / julia &lt;Complexe&gt; 
+ NbIterations     // Entier
+ (exponent Exposant) // Entier
+ (interior Type,Facteur) // Entier , Décimal
+ (exterior Type,Facteur) // Entier , Décimal
+</PRE>
+<IMG src="illref-mot-magnet-01.jpg">
+<P>TypeMagnet peut prendre la valeur 1 ou 2, et il faut choisir entre les algorithmes
+   <STRONG>julia</STRONG> et <STRONG>mandel</STRONG>.</P>
+
+</BODY>
+
+</HTML>

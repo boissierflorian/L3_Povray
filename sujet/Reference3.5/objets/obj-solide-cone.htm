@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>c&ocirc;ne - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>c&ocirc;ne</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er un p&eacute;t... heu... un c&ocirc;ne.</P>
+<IMG SRC="povfr-cone-01.jpg" border=2>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 2.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+cone {
+   Centre_1, <SPAN class="comm">// vecteur</SPAN> 
+   Rayon_1,  <SPAN class="comm">// nombre décimal</SPAN>
+   Centre_2, <SPAN class="comm">// vecteur</SPAN>
+   Rayon_2   <SPAN class="comm">// nombre décimal</SPAN>	
+   (open)
+
+   (..modificateurs d'objets..)
+   (..transformations..)
+   (..mat&eacute;riau..)
+       }
+ </PRE>
+
+ <P><strong>cone</strong> permet de cr&eacute;er un c&ocirc;ne, &eacute;ventuellement tronqu&eacute;. L'axe du c&ocirc;ne est d&eacute;fini par
+ les deux vecteurs <b>Centre_1</b> et <b>Centre_2</b>, <b>Rayon_1</b> et <b>Rayon_2</b>
+ &eacute;tant les rayons respectifs. Pour avoir un c&ocirc;ne non tronqu&eacute;, utilisez une valeur nulle (0) pour
+ un des deux rayons.</P>
+
+ <P>Normalement, les extr&eacute;mit&eacute;s du c&ocirc;ne sont ferm&eacute;es, mais on peut obtenir un c&ocirc;ne creux, &eacute;vid&eacute;,
+ en ajoutant le mot cl&eacute; <strong>open</strong> dans la d&eacute;claration du c&ocirc;ne.<br>
+ </P>
+ <P><I>Attention, &agrave; l'instar du cylindre, <STRONG>open</STRONG> ne modifie pas les propri&eacute;t&eacute;s 
+    int&eacute;rieur/ext&eacute;rieur du c&ocirc;ne, qui r&eacute;agit toujours de la m&ecirc;me mani&egrave;re en CSG.</I></P>
+
+<H2>exemple</H2>
+ <PRE>
+ // un p&acirc;t&eacute; de sable
+ cone {&lt;0,0,0&gt;,8,&lt;0,12,0&gt;,6 texture {Sable} }
+ </PRE>
+
+<H2>CSG</H2>
+  <P>Fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis.</P>
+
+<H2>remarque</H2>
+  <P>Dans le cas de c&ocirc;nes tronqu&eacute;s, la bo&icirc;te d'optimisation (bounding box) plac&eacute;e automatiquement
+     par POV-Ray englobe le c&ocirc;ne jusqu'&agrave; la pointe "th&eacute;orique" (qui appara&icirc;trait si on prolongeait
+     le c&ocirc;ne).  Si la diff&eacute;rence entre les deux rayons est tr&egrave;s faible, la bo&icirc;te d'optimisation
+     g&eacute;n&eacute;r&eacute;e sera inutilement grande, et il devient pr&eacute;f&eacute;rable d'utiliser <STRONG>bounded_by</STRONG> pour red&eacute;finir
+     cette bo&icirc;te manuellement.</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P><STRONG>Supercone(EndA, A, B, EndB, C, D)</STRONG></P> 
+ <P>Créer un cône dont les extrémités sont elliptiques, au lieu d'être circulaires.</P>
+<IMG SRC="povfr-cone-02.jpg" border=2>
+
+<P><STRONG>Connect_Spheres(PtA, RadiusA, PtB, RadiusB)</STRONG></P>
+<P>Créer un cône qui s'ajuste sur deux sphères.</P>
+<IMG SRC="povfr-cone-03.jpg" border=2>
+
+<P><STRONG>Round_Cone_Union(PtA, RadiusA, PtB, RadiusB, EdgeRadius), Round_Cone_Merge(PtA, RadiusA, PtB, RadiusB, EdgeRadius), Round_Cone(PtA, RadiusA, PtB, RadiusB, EdgeRadius, UseMerge) </STRONG></P>
+<P>Créer un cône aux arêtes adoucies.</P>
+<IMG SRC="povfr-cone-04.jpg" border=2>
+
+<P><STRONG>Round_Cone2_Union(PtA, RadiusA, PtB, RadiusB), Round_Cone2_Merge(PtA, RadiusA, PtB, RadiusB), Round_Cone2(PtA, RadiusA, PtB, RadiusB, UseMerge)</STRONG></P>
+<P>Créer un cône terminé par deux sphères.  Le cône s'adapte aux sphères.</P>
+<IMG SRC="povfr-cone-05.jpg" border=2>
+
+<P><STRONG>Round_Cone3_Union(PtA, RadiusA, PtB, RadiusB), Round_Cone3_Merge(PtA, RadiusA, PtB, RadiusB), Round_Cone3(PtA, RadiusA, PtB, RadiusB, UseMerge)</STRONG></P>
+<P>Créer un cône terminé par deux sphères.  Les sphères s'adaptent au cône.</P>
+
+
+
+
+
+
+<P><I>R&eacute;dacteurs : Christophe Bouffartigue (Bouf) / Fabien Mosen</I></P>
+</BODY>
+</HTML>

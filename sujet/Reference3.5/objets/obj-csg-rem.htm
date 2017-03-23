@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>CSG : remarques diverses</H1>
+
+<H2>Surfaces co&iuml;ncidentes</H2>
+<PRE>
+cylinder {<0,0,0>,<5,0,0>,5 pigment {OrangeRed}}
+box {<0,0,0>,<5,5,5> pigment {YellowGreen}}
+</PRE>
+<P>Le code ci-dessus d&eacute;montre un petit probl&egrave;me : certaines surfaces de ces deux volumes
+   sont parfaitement co&iuml;ncidentes, et, dans cette zone, les couleurs des deux volumes
+   se m&eacute;langent de mani&egrave;re d&eacute;sordonn&eacute;e.  Cela est d&ucirc; au fait que POV-Ray est incapable
+   de d&eacute;cider si le point o&ugrave; le rayon a atterri appartient &agrave; l'un ou l'autre volume; alors,
+   parfois c'est l'un, parfois c'est l'autre, et si leurs textures sont diff&eacute;rentes, voil&agrave;
+   le r&eacute;sultat :</P>
+
+   <IMG src="coinc01.jpg" alt="probl&egrave;me des surfaces co&iuml;ncidentes" border=2>
+
+<P>La solution consiste &agrave; l&eacute;&eacute;&eacute;&eacute;&eacute;g&egrave;rement d&eacute;caler ou agrandir/r&eacute;duire l'objet, afin
+   de cr&eacute;er une diff&eacute;rence microscopique et de permettre &agrave; POV-Ray de d&eacute;terminer
+   tr&egrave;s nettement quelle surface il rencontre.</P>
+<PRE>
+cylinder {<0,0,0>,<5,0,0>,5 pigment {OrangeRed}}
+box {<0,0,0>,<5,5,5> translate x*0.0001 pigment {YellowGreen}} //d&eacute;calage d'un 10 000&egrave;me d'unit&eacute;
+</PRE>
+<P> 
+   Le probl&egrave;me est r&eacute;solu !  Pr&eacute;cisons que le m&ecirc;me probl&egrave;me (et la m&ecirc;me solution) intervient
+   dans le cas des op&eacute;rations de diff&eacute;rences.</P>
+<IMG src="coinc02.jpg" alt="probl&egrave;me r&eacute;solu" border=2>
+
+<H2>Assignation de mat&eacute;riaux</H2>
+ <p>L'attribution des mat&eacute;riaux peut se faire de fa&ccedil;on globale
+ sur la totalit&eacute; du nouveau volume g&eacute;n&eacute;r&eacute;, mais aussi de fa&ccedil;on 
+ ind&eacute;pendante sur chaque volume composant la forme finale.  Si certains composants
+ de l'op&eacute;ration ont d&eacute;j&agrave; un mat&eacute;riau, celui-ci restera, et seuls les composants
+ sans mat&eacute;riau adopteront le mat&eacute;riau global.</P>
+<PRE>
+#declare Objet1 = sphere {... pigment {Yellow}}
+#declare Objet2 = box {...}
+#declare Objet3 = cylinder {...}
+
+union {
+ object {Objet1}
+ object {Objet2 pigment {Red}}
+ object {Objet3}
+ pigment {Green}
+}
+</PRE>
+<P>Dans l'union résultante, Objet1 sera jaune, Objet2 sera rouge, et Objet3 deviendra vert.</P>
+
+<H2>hiérarchie et transformations</H2>
+<P>Le nombre de volumes composant une CSG n'est pas limit&eacute;.  Toutes les combinaisons
+sont possibles :</P>
+ <pre>
+union{
+	difference{
+		{forme 1}
+		{forme 2}
+		      }
+	union {
+	    {forme 3}
+	    {forme 4}	
+		  }
+   }	
+   </pre>
+
+<H2>objets non-solides</H2>
+<P>Les objets ne poss&eacute;dant pas d'int&eacute;rieur et d'ext&eacute;rieur (triangle, disque,..) ne fonctionnent 
+   pas avec <STRONG>difference</STRONG> et <STRONG>intersection</STRONG>.  Par contre, ils fonctionnent normalement dans une <STRONG>union</STRONG>.
+   La m&ecirc;me remarque est valable pour les sources lumineuses.</P>
+
+<H2>Optimisation des diff&eacute;rences</H2>
+
+<P>Dans certains cas, la fa&ccedil;on de structurer une <STRONG>difference</STRONG> influence fortement
+   le temps de parsing/calcul de l'image.  Imaginez que vous voulez cr&eacute;er une bo&icirc;te perc&eacute;e 
+   de nombreux trous &agrave; intervalles r&eacute;guliers.</P>
+<PRE>
+difference {
+  box {<0,0,0>,<1,20,20> pigment {Red}}//la bo&icirc;te dans laquelle on va percer les trous
+
+        #declare i=0;    //la double boucle pour disposer les "soustrayants"
+         #while (i < 10)
+        #declare j=0;
+         #while (j < 10)
+                sphere {<1,1+i*2,1+j*2>,.5 pigment {Yellow}} //l'objet qui soustrait
+         #declare j=j+1;
+         #end
+        #declare i=i+1;
+        #end        
+ }
+</PRE>
+<P>L'inconv&eacute;nient de cette fa&ccedil;on de faire, c'est que, &agrave; chaque fois qu'il rencontre
+   la bo&icirc;te rouge, POV-Ray va faire un test d'intersection suppl&eacute;mentaire pour CHAQUE
+   sph&egrave;re jaune, pour voir si elles sont dans le trajet.  Plus il y aura d'&eacute;l&eacute;ments
+   soustrayants, plus le processus sera ralenti !</P>
+<P>Le code qui suit adopte une autre approche, en cr&eacute;ant une petite bo&icirc;te perc&eacute;e
+   d'une seule sph&egrave;re, puis en faisant une <STRONG>union</STRONG> d'une centaine de ces bo&icirc;tes.</P>
+<PRE>
+#declare Element = 
+difference {
+  box {<0,0,0>,<1,2,2> pigment {Red}}
+  sphere {<1,1,1>,.5 pigment {Yellow}}
+  }
+
+union {
+        #declare i=0;
+         #while (i < 10)
+        #declare j=0;
+         #while (j < 10)
+             object {Element translate <0,i*2,j*2>}   
+         #declare j=j+1;
+         #end
+        #declare i=i+1;
+        #end        
+ }
+</PRE>
+<P>L'objet r&eacute;sultant est strictement identique, mais il est trac&eacute; SIX FOIS plus vite !!</P>
+<P>&Agrave; vous, donc, d'estimer, lorsque c'est possible, quelle est la meilleure approche
+   dans la construction d'une CSG.</P>
+<P><I>r&eacute;dacteurs : Denis  Noiret / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

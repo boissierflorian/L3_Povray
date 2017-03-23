@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les isosurfaces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A>
+ / <A href="../index-obj.htm">vers l'index des objets</A>
+ / <A href="obj-iso-fct.htm">page précédente : déclarations et combinaisons</A>
+ / <A href="obj-iso-pig.htm">page suivante : pigments et motifs 3D</A>
+
+</P>
+<H1>isosurfaces : optimisation et précision</H1>
+
+<P>Le processus de calcul des isosurfaces consiste, très grossièrement, à 'observer'
+   la variation de la fonction le long du rayon traversant le volume qui la délimite.
+   Cette variation est appelée, en anglais, gradient (dégradé).</P>
+<P>Afin de ne pas perdre trop de temps à chercher des variations qui ne se produiront
+   pas, POV-Ray a besoin qu'on lui donne une valeur maximale pour ce gradient, à
+   l'aide du mot clé <STRONG>max_gradient</STRONG>, suivi d'un nombre décimal.</P>
+<P>Plus une surface possède de circonvolutions, plus un <STRONG>max_gradient</STRONG>
+   élevé sera nécessaire pour la rendre correctement.  Si il est trop faible, 
+   la surface apparaîtra craquelée, ou n'apparaîtra pas du tout !  Si il est trop
+   élevé, POV-Ray perdra du temps à faire des calculs inutiles !  Essayons ceci :</P>
+<PRE>
+#declare Fct_PlanY = function {y}
+
+isosurface {
+ function {Fct_PlanY(x,y,z) + sin(x*10)*0.2 + cos (z*20)*0.1}
+ max_gradient 1 
+ contained_by {box {-1,1}}
+ ...
+}
+</PRE>
+<IMG SRC="illref-iso-pre-01.jpg">
+<P>Oulaaah !  Ça craque de partout !  Essayons avec un <STRONG>max_gradient</STRONG> de 5 :</P>
+<IMG SRC="illref-iso-pre-02.jpg">
+<P>Ah !  C'est mieux !  Mais si nous regardons dans les messages statistiques de POV-Ray
+   après le rendu (juste avant le tableau), nous pouvons lire ceci :</P>
+D
+<PRE>
+Warning: The maximum gradient found was 2.957, but max_gradient of
+the isosurface was set to 5.000. Adjust max_gradient to
+get a faster rendering of the isosurface.
+</PRE>
+
+<P>POV-Ray nous avertit que la variation maximale qu'il a trouvé en rendant l'objet 
+est de 2.957, alors que la valeur donnée était 5.  Il a donc perdu bêtement du temps,
+et vous avec, et ce serait une bonne idée de mettre une valeur de 3 la prochaine fois !</P>
+<P>Attention toutefois, cette valeur 'trouvée' n'est valable que pour cette résolution,
+   ce cadrage-là, etc...  Avant de lander un rendu final, il est bon de vérifier à nouveau
+   la pertinence des valeurs de <STRONG>max_gradient</STRONG> données.</P>
+
+<H2>evaluate</H2>
+<P>Il y a un moyen semi-automatique d'optimiser la valeur de la variation.  Au lieu
+   du mot clé <STRONG>max_gradient</STRONG>, on spécifie le mot clé <STRONG>evaluate</STRONG>,
+   suivi de trois valeurs décimales.</P>
+<P>La première représente la valeur de <STRONG>max_gradient</STRONG> minimale qui sera
+   employée pendant le calcul.  La deuxième est une sur-estimation à ajouter à la
+   valeur minimale (au moins 1).  La troisième, enfin, est une atténuation (entre 0 et 1).
+   Exemple, pour la fonction vue plus haut :</P>
+<PRE>evaluate 2,2,0.9</PRE>
+<P>Ainsi, pendant le rendu, POV-Ray tentera d'ajuster automatiquement, dynamiquement, 
+   sa valeur de <STRONG>max_gradient</STRONG> pour obtenir un bon rapport entre la
+   justesse du rendu et la vitesse de calcul.</P>
+
+<H2>accuracy</H2>
+<P>Ce mot clé suivi d'un nombre décimal (une fraction de 1) spécifie la précision
+   avec laquelle POV-Ray détermine l'intersection avec l'isosurface.  Pour certaines
+   formes complexes, il pourrait s'avérer utile de diminuer cette valeur (plus petite,
+   plus précis).  La valeur par défaut est de 0.001 .</P>
+<H2>contained_by</H2>
+<P>Encore un petit mot sur le volume limitant l'isosurface : veillez à le dimensionner
+   le plus 'serré' possible autour de la surface.  Sinon, le <STRONG>max_gradient</STRONG>
+   nécessaire pour un bon rendu augmentera proportionnellement à la taille excessive
+   du contenant.</P>
+<H2>résumé de la syntaxe</H2>
+<P>Voici, pour mémoire, la syntaxe complète des isosurfaces, maintenant que nous avons
+   tout abordé :</P>
+ <PRE>
+isosurface { 
+  function {...} 
+
+  threshold Seuil   
+  contained_by {
+                box {...} / sphere {...}
+               }
+  max_gradient Variation           // décimal
+  evaluate VarMin, VarSur, VarAtt  // décimaux
+  accuracy Precision               // décimal
+}
+</PRE>
+<P>Seule la fonction est obligatoire.</P>
+<P><I>auteur : Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>
+

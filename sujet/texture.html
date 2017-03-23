@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Texture</title>
+</head>
+<body>
+<h1>Les matériaux avec POVRay</h1>
+<h2>Définition</h2>
+<p>
+Dans POVRay une <a href="Reference3.5/materiaux/mat-tex-gen.htm" target="aide">
+<tt>texture</tt></a> est une structure permettant de regrouper les 
+propriétés qui caractérisent un matériau : 
+</p>
+<p>
+On retiendra la forme classique d'une texture <br>
+<tt>
+texture {<br>
+ &nbsp;&nbsp;&nbsp;pigment {...}<br>
+ &nbsp;&nbsp;&nbsp;normal {...}<br>
+ &nbsp;&nbsp;&nbsp;finish {...}<br>
+}
+</tt>
+</p>
+<h2>La couleur</h2>
+<p>
+Le champ <a href="Reference3.5/materiaux/mat-pig-gen.htm" target="aide">
+<tt>pigment</tt> </a>
+ d'une texture permet de définir la couleur d'un objet.
+</p>
+<p>
+Pour définir une couleur unie on pourra écrire :<br>
+<tt>
+&nbsp;&nbsp;pigment {color rgb &lt;r,v,b &gt;}
+</tt><br>
+où r, v et b sont des décimaux compris entre 0 et 1 qui représentent
+ respectivement des niveaux de rouge, de vert et de bleu.
+</p>
+<p> On pourra aussi utiliser une couleur prédéfinie dans le fichier
+ <tt>colors.inc</tt>.<br>
+ Par exemple : <tt>pigment {color White}</tt>, 
+ <tt>pigment {color Black}</tt>, <tt>pigment {color Red}</tt>, ...
+</p>
+<p> On peut aussi utiliser une notation simplifiée :
+ <tt>pigment {rgb &lt;0, 1, 0 &gt;}</tt> ou <tt>pigment {Green}</tt>.
+</p>
+<h2>La surface</h2>
+Le champ <a href="Reference3.5/materiaux/mat-nor-gen.htm" target="aide">
+<tt>normal</tt></a> 
+d'une texture permet de caractériser la surface d'un objet.
+<h2>Le modèle d'illumination</h2>
+Le champ <tt>finish </tt>permet de définir les qualités de réflexion
+<a href="Reference3.5/materiaux/mat-fin-gen.htm" target="aide">
+ambiante, diffuse
+</a>
+et
+<a href="Reference3.5/materiaux/mat-fin-spe.htm" target="aide">spéculaire</a> 
+d'un matériau.
+<p>
+Usuellement on utilisera la structure <tt>finish</tt> suivante<br>
+<tt>
+finish {<br>
+&nbsp;&nbsp;ambient refAmbiant&nbsp;// vecteur <br>
+&nbsp;&nbsp;diffuse refDiffuse&nbsp;// décimal<br>
+&nbsp;&nbsp;specular intensiteEclat&nbsp;// décimal<br>
+&nbsp;&nbsp;roughness tailleEclat&nbsp;&nbsp;&nbsp;// décimal<br>
+&nbsp;&nbsp;reflection {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;min&nbsp;&nbsp;&nbsp;//couleur<br>
+&nbsp;&nbsp;&nbsp;&nbsp;max&nbsp;&nbsp;&nbsp;//couleur<br>
+&nbsp;&nbsp;}<br>
+}
+</tt><br>
+
+<ul>
+<li>le vecteur <tt>refAmbiant</tt> sera utilisé pour l'éclairement
+ des parties cachées ;</li>
+ <li>le décimal <tt>refDiffuse</tt> définit l'intensité de la réflection
+  diffuse du matériau ;</li>
+  <li>les décimaux <tt>intensiteEclat</tt> et <tt> tailleEclat</tt> 
+  définissent respectivement l'intensité et la taille de l'éclat lumineux
+   apparaissant sur le matériau ;</li>
+   <li>les champs <tt>specular</tt> et <tt>roughness</tt> ne définissent pas
+   la réflexion spéculaire du matériau : c'est à dire sa capacité à réfléchir
+    la lumière à la manière d'un miroir ;</li>
+   <li>c'est le bloc <tt>reflection</tt> qui la définit : les décimaux 
+   <tt>min</tt> et <tt>max</tt> définissent respectivement les intensités
+   minimale et maximale de la réflexion.</li>
+</ul>
+</p>
+<p>
+Pour obtenir un miroir parfait on pourra utiliser la  texture suivante<br>
+<tt>
+texture{<br>
+&nbsp;&nbsp;pigment{Black}<br>
+&nbsp;&nbsp;finish{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ambient 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diffuse 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reflection {1}<br>
+&nbsp;&nbsp;}<br>
+}
+</tt>
+<p>Il existe dans PoVRay d'autres méthodes permettant de réaliser l'illumination d'une scène. Elles ne seront
+pas abordées dans le cadre de ces Tps d'initiation. Rien ne vous empêche de les tester en dehors de ces séances&nbsp;!</p>
+</p>
+<h2>Travail à réaliser</h2>
+<p>
+<img src="Images/deuxiemescene.png" width="20%" height="20%" border="0"
+ hspace="5" vspace="5" alt="deuxième scène" align="left">
+L'image ci-contre repésente une boule placée sur une table rudimentaire composée d'un pied
+ cubique et d'un plateau parallélépipédique. La table est posée sur un sol horizontal.
+ </p>
+ <p>
+ Des <a href ="Reference3.5/objets/index-obj.htm" target="aide">primitives de base</a> sont utilisées : <tt>box</tt> pour le pied et le plateau, 
+ <tt>sphere</tt> pour la boule et <tt>plan</tt> pour le sol.
+ </p>
+ <p>
+ Un pigment avec motif a été utilisé pour le sol : <tt>pigment {checker Green, White}</tt>.
+ </p>
+ La couleur de fond a été fixée à l'aide de l'instruction <tt>background { color SummerSky }</tt>.
+ </p>
+ <p>La scène est éclairée par une source de lumière blanche.
+ </p>
+ <ol>
+ <li>&Eacute;crivez dans un fichier nommé <span id="evidence">deuxiemescene.pov</span> le script permettant
+ de créer cette image.
+</li>
+<li> Il existe d'autres <a href ="Reference3.5/materiaux/mat-mot-lis.htm" target="aide">motifs à liste</a> 
+que <tt>checker</tt>. Testez-en quelques-uns pour le sol.
+</li>
+<li>Utilisation des champs <tt>ambient</tt> et <tt>diffuse</tt>.<br clear="all">
+Le champ <tt>pigment</tt> d'une texture définit l'apparence qu'aurait l'objet s'il était totalement éclairé : 
+c'est à dire si tous les points de sa surface étaient face à la source de lumière. 
+Les champs <tt>ambient</tt> et <tt>diffuse</tt> permettent de gérer les quantités de lumière ambiante et diffuse
+réfléchies par la surface de l'objet. Ces deux champs ont des valeurs par défaut : respectivement 0.1 et 0.6.<br>
+ Ce sont ces valeurs par défaut qui ont été utilisées en l'absence du composant <tt>finish</tt> dans 
+ les deux premières scènes que vous avez composées.
+ <ul>
+<li> Introduisez un composant <tt>finish</tt> dans la définition de la texture de la sphère et positionnez à 0
+ les champs <tt>ambient</tt> et <tt>diffuse</tt>. Observation&nbsp;?
+ </li>
+ <li>Rétablissez les valeurs par défaut.</li> 
+ <li>Choisissez <tt>White</tt> comme couleur de la sphère et positionnez le champ <tt>ambient</tt> à 1 et le champ 
+ <tt>diffuse</tt> à 0. Vous obtenez ainsi une boule étincellante sans partie ombragée.
+ </li>
+ </ul>
+  </li>
+<li>
+Utilisation de <tt>specular</tt>.<br>
+<ul>
+<li>Utilisez le champ <a href="Reference3.5/materiaux/mat-fin-spe.htm" target="aide">specular</a> pour créer
+ un éclat lumineux sur la sphère.
+ </li>
+  <li>Testez l'action du champ <tt>metallic</tt>
+  </li>
+</ul> 
+</li>
+<li>Utilisation de <tt>reflection</tt><br>
+Le composant <a href="Reference3.5/materiaux/mat-fin-spe.htm" target="aide">reflection</a> sert à gérer
+ la réflectivité de la surface d'un objet. Il s'agit de l'effet miroir. 
+ <ul>
+	<li>Placez un bloc <tt>reflection</tt> dans le <tt>finish</tt> de la texture de votre boule. Testez différentes 
+	utilisations possibles de ce bloc <tt>reflection</tt>&nbsp;:
+	<ul>
+	<li> bloc à un paramètre : le matériau a la même réflectivité quelque soit l'angle de vue ;
+	 </li>
+	 <li> bloc à deux paramètres : une couleur <tt>min</tt> qui est la couleur de réflexion de la surface
+	 vue perpendiculairement (réflectivité minimale) et une couleur <tt>max</tt> qui est la couleur de réflexion 
+	 de la surface vue de manière rasante (réflectivité maximale).</li>
+	 </ul>
+	</li>
+	<li>Vous terminerez vos tests en donnant à la boule un aspect fortement métallique.</li>
+	<li><a href="Reference3.5/directives/dir-dec.htm" target="aide">Déclarez</a> une texture qui servira à
+	décrire le matériau composant le pied et le plateau de la table. Ce matériau aura un aspect rougeâtre et
+	être fortement réfléchissant. Utilisez cette texture dans le composant <tt>texture</tt> des primitives 
+	décrivant la table.</li>
+</ul>
+</li>
+</ol>
+</body>
+</html>

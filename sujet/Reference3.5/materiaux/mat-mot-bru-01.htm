@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+ <H1>les motifs à base de bruit fractal (agate ... crackle)</H1>
+<P>Ces motifs sont basés sur un algorithme de bruit fractal, et ont un aspect
+   irrégulier, sans répétition, mais homogène.</P>
+
+<H3>agate</H3> 
+<P><I>POV-Ray 2.0</I></P>
+ <P><STRONG>agate</STRONG> est un motif en bandes (comme <STRONG>marble</STRONG>) mais avec une fonction de turbulence int&eacute;gr&eacute;e 
+    (diff&eacute;rente de la <STRONG>turbulence</STRONG> habituelle).  Il est possible de contr&ocirc;ler le taux de turbulence
+    &agrave; l'aide du mot cl&eacute; <STRONG>agate_turb</STRONG> suivi d'un nombre décimal.</P>
+<P><I>Utilisé dans un <STRONG>pigment</STRONG>, ce motif possède une <STRONG>color_map</STRONG> spécifique par défaut.</I></P>
+ <IMG SRC="tx-sp-01.jpg" border=2>
+
+<H3>bozo</H3>
+<P><I>POV-Ray 2.0</I></P>
+  <P>Imaginez que les temp&eacute;ratures des diff&eacute;rents courants d'airs qui parcourent l'espace
+     environnant soient repr&eacute;sent&eacute;es par des couleurs, afin de visualiser les zones chaudes
+     et les zones froides.  Eh bien, &ccedil;a ressemblerait plus ou moins &agrave; un motif <STRONG>bozo</STRONG> !
+</P>
+<P><I>Utilisé dans un <STRONG>pigment</STRONG>, ce motif possède une <STRONG>color_map</STRONG> spécifique par défaut.</I></P>
+ <IMG SRC="tx-sp-03.jpg" border=2>
+
+<H3>bumps</H3>
+<P><I>POV-Ray 2.0</I></P>
+ <P>En r&eacute;alit&eacute;, <STRONG>bumps</STRONG> est strictement identique &agrave; <STRONG>bozo</STRONG>.  Leur existence distincte est due au fait que,
+   avant POV-Ray 3.0, <STRONG>bumps</STRONG> &eacute;tait destin&eacute; aux normales, et <STRONG>bozo</STRONG> aux pigments.</P>
+
+<H3>cells</H3>
+<P><I>POV-Ray 3.5</I></P>
+ <P><STRONG>cells</STRONG> est un motif qui attribue &agrave; chaque cube (de 1 unit&eacute; de c&ocirc;t&eacute;)
+   de l'espace une valeur al&eacute;atoire.  Techniquement, ce motif est bas&eacute; sur <STRONG>crackle</STRONG>.
+   Attention, ce motif a des transitions de valeurs abruptes, et ne convient donc pas en normales
+   ou isosurfaces.</P>
+<IMG SRC="tx-sp-28.jpg" border=2>
+
+<H3>crackle</H3>
+<P><I>POV-Ray 3.0 + options apparues dans POV-Ray 3.5</I></P>
+<P>Ce motif produit une géométrie à l'allure craquelée.</P>
+ <IMG SRC="tx-sp-06.jpg" border=2>
+
+<P>On peut, éventuellement, lui adjoindre l'un des mots clés suivants, qui modifient profondément
+   son aspect : 
+ <BR><STRONG>form</STRONG>, suivi d'un décimal entre 0 et 1, produit un motif tacheté.<BR>
+ <IMG SRC="tx-sp-29.jpg" border=2>
+ <BR><STRONG>metric</STRONG> est suivi d'un entier positif, qui interviendra dans la formule
+     de calcul de la valeur du motif (une formule de détermination de distance).  Si ce nombre
+     est égal à 1, le motif sera égal à un motif <STRONG>cells</STRONG>.  Avec une valeur de 2,
+     ce sera un crackle normal.  Avec une valeur de 3, ça donnera ceci :<BR>
+ <IMG SRC="tx-sp-30.jpg" border=2><BR>
+     ...des valeurs plus élevées donneront des bordures plus "tordues", qui peuvent être
+     intéressantes, mais gare au temps de calcul !<BR>
+  <STRONG>offset</STRONG>, suivi d'un nombre décimal, peut être utilisé pour arrondir
+  les arêtes du motif.<BR>
+ <IMG SRC="tx-sp-31.jpg" border=2><BR>
+   <STRONG>solid</STRONG> permet d'obtenir une couleur unie sur tout la surface de chaque
+   parcelle du motif.  Très pratique pour faire du zinc ou du granite.  Même remarque que pour <STRONG>cells</STRONG>.<BR>
+   <IMG SRC="tx-sp-32.jpg" border=2><BR>
+</P>
+<P><I>Mais si vous voulez produire une <STRONG>normal</STRONG> dans ce style, il existe le
+      motif <STRONG>facet</STRONG>.</I></P>
+</BODY>
+
+</HTML>

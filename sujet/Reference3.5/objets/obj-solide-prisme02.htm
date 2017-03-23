@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>splines - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+	<BODY>
+
+<P >
+<A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="obj-solide-prisme01.htm">vers la page des prismes</A> /
+<A href="index-obj.htm">vers l'index des objets</A>
+</P>
+ <H1>les splines pour les prismes</H1>
+
+
+<P>Les prismes poss&egrave;dent une forme d&eacute;termin&eacute;e par une spline.  Cette spline est d&eacute;crite
+   au moyen d'un certain nombre de points (coordonn&eacute;es x,y) dans le plan XY, ainsi que
+   le choix du mode de passage entre les points : lin&eacute;aire, quadratique ou cubique.</P>
+<P>La notion la plus importante &agrave; saisir, c'est celle de fermeture de la spline.  En
+   effet, pour pouvoir g&eacute;n&eacute;rer un volume &agrave; partir de cette courbe, par extrusion ou r&eacute;volution,
+   il est n&eacute;cessaire qu'elle d&eacute;crive un p&eacute;rim&egrave;tre ferm&eacute;.</P>
+<P>Afin d'assurer cette fermeture, il faut une correspondance entre le d&eacute;but de la courbe
+   et sa fin.  Ainsi, pour une spline lin&eacute;aire, le dernier point doit &ecirc;tre &eacute;gal au premier.
+   Pour une spline quadratique, les deux derniers points doivent &ecirc;tre &eacute;gaux aux deux premiers.
+   Et pour une spline cubique, les trois derniers points doivent correspondre aux trois premiers.</P>
+<P>En pratique, c'est assez simple &agrave; mettre en oeuvre.  Imaginons une s&eacute;rie de 7 points,
+   de P1 &agrave; P7.  Pour une spline lin&eacute;aire : </P>
+   <PRE>
+les points seront : P1,P2,P3,P4,P5,P6,P7,  P1 (ce qui fait 8 points au total)
+   </PRE>
+<IMG src="spline01.jpg" border=2 alt="spline du 1er degr&eacute;">
+<P>Pour une spline quadratique</P>
+   <PRE>
+les points seront : P1,P2,P3,P4,P5,P6,P7,  P1,P2 (...9 points au total)
+   </PRE>
+<IMG src="spline02.jpg" border=2 alt="spline du 2eme degr&eacute;">
+<P>Pour une spline cubique</P>
+   <PRE>
+les points seront : P1,P2,P3,P4,P5,P6,P7,  P1,P2,P3 (...10 points au total)
+   </PRE>
+<IMG src="spline03.jpg" border=2 alt="spline du 3eme degr&eacute;">
+
+
+
+	<H3>remarque</H3>
+<P>Les splines quadratiques (2e degr&eacute;) n'ont pas (ou rarement) de tangente, ni d&eacute;riv&eacute;e 
+   (et pour cause !) aux points de contr&ocirc;le, ce qui signifie que la courbe sera le plus 
+   souvent "bris&eacute;e" &agrave; cet endroit.  Par contre, les cubiques en poss&egrave;dent.</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+
+</HTML>

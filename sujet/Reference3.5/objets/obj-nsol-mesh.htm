@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		 
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		 
+		<TITLE>
+			mesh - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+		<H1>
+			mesh
+		</H1>
+		<H2>
+			objectif
+		</H2>
+		 
+		<P>
+		Cr&eacute;er un maillage de triangles.
+		</P>
+<IMG src="povfr-ill-mesh-01.jpg">
+		<H2>
+			compatibilit&eacute;
+		</H2>
+ 
+		<P class="noindent">
+		POV-Ray 2.0 +sup.<BR>
+  POV-Ray 3.0 +sup. : textures individuelles.
+  POV-Ray 3.5 +sup. : inside_vector
+		</P>
+		<H2>
+			syntaxe
+		</H2>
+		 
+<PRE>
+mesh {
+       triangle {Point_1, Point_2, Point_3 
+                 (texture...) 
+                 }          
+       triangle {Point_4, Point_5, Point_6 
+                 (texture...) 
+                 }          
+       ...
+        (inside_vector Vecteur)
+
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+        }
+</PRE>
+		<P>
+Un <STRONG>mesh</STRONG> (maillage) est simplement le regroupement d'un certain nombre de triangles, comme
+dans une <STRONG>union</STRONG>.  Cependant, contrairement à une <STRONG>union</STRONG>, l'emploi de multiples copies d'un même <STRONG>mesh</STRONG> consomme très peu de mémoire.  Vous pouvez donc vous permettre de
+faire <i>beaucoup</i> de copies d'un même mesh dans une scène.
+		</P>
+<P>
+ Chaque triangle composant le mesh peut être doté de sa propre texture, et vous pouvez également
+spécifier une texture générale.  Attention, les textures individuelles doivent avoir été préalablement
+déclarées, et pas détaillées "au vol".  Donc, ne faites pas :
+</P>
+<PRE>
+ mesh {
+  triangle {&lt;..&gt;,&lt;..&gt;,&lt;..&gt; texture {pigment {..} finish {..}}}
+ }
+</PRE>
+<P>mais faites :</P>
+<PRE>
+#declare MaTexture =  texture {pigment {..} finish {..}}
+ mesh {
+  triangle {&lt;..&gt;,&lt;..&gt;,&lt;..&gt; texture {MaTexture}}
+ }
+</PRE>
+<P>Le mot-clé optionnel <STRONG>inside_vector</STRONG>, suivi d'un vecteur de direction, 
+permet à celui-ci de bien fonctionner dans des opérations de CSG.  En principe, n'importe 
+quel vecteur fera l'affaire !
+</P>
+<P>
+ Les mesh ne sont pas destinés à être générés "à la main", mais plutôt à permettre l'importation
+dans POV-Ray d'objets créés dans un modeleur.  Quoique...
+</P>
+		<H2>
+			exemple
+		</H2>
+  <P>...quoique dans l'exemple ci-dessous, nous générons un objet en mesh à l'aide d'une boucle : 
+un cône plissé !</P>
+<PRE>
+#declare T_Jaune = texture {pigment {YellowGreen}}
+#declare T_Rouge = texture {pigment {OrangeRed}}
+
+mesh {
+ #declare Pas = 20; // détermine le nombre (fréquence) des plis
+ #declare I=0;
+ #while (I &lt; 360)
+  #declare Pt1 = vrotate (y*10,z*(I));
+  #declare Pt2 = vrotate (y*8,z*(I+Pas/2));
+  #declare Pt3 = vrotate (y*8,z*(I-Pas/2));
+   triangle {&lt;0,0,+10&gt; Pt1 Pt2 texture {T_Jaune}}
+   triangle {&lt;0,0,+10&gt; Pt1 Pt3 texture {T_Rouge}}
+   triangle {&lt;0,0,-10&gt; Pt1 Pt2 texture {T_Rouge}}
+   triangle {&lt;0,0,-10&gt; Pt1 Pt3 texture {T_Jaune}}
+  #declare I=I+Pas;
+  #end
+  inside_vector &lt;0,1,0&gt;
+}
+</PRE>
+<IMG src="povfr-ill-mesh-02.jpg">
+<P>La boucle sert à 'placer' des points de hauteur alternée, sur un parcours circulaire, 
+pour former la dentelure centrale.  Au passage, on 'tend' des triangles entre ces points
+et la pointe du cône.</P>
+		<H2>
+			CSG
+		</H2>
+		<P>
+À condition d'être bien "fermés" (pas de trous dans le maillage), et d'employer
+le mot clé <STRONG>inside_vector</STRONG>, les <STRONG>mesh</STRONG> fonctionnent
+très bien en CSG.
+		</P>
+		<H2>
+			remarques
+		</H2>
+		<P>
+			</P>
+		  
+		<P>		<I>			R&eacute;dacteur: Fabien Mosen		</I>		</P>
+		  
+	</BODY>
+</HTML>

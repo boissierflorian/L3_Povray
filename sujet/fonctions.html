@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Paramètres internes</title>
+</head>
+<body>
+<h1>Les fonctions Povray</h1>
+
+Le langage de script de Povray vous autorise à créer des fonctions (ou plus exactement des <a href="Reference3.5/directives/dir-mac-gen.htm">macros</a>), proches de ce qui existe dans les langages de programmation traditionnels.
+
+<h1>Application</h1>
+
+Ecrire la macro de prototype suivant : <tt> rondelle(diam_ext, diam_int, epaisseur)</tt> qui crée une rondelle (un cylindre creux) avec la signification suivante pour les paramètres :
+<ul>
+<li> <tt>diam_ext</tt> le diamètre extérieur de la rondelle ;
+<li> <tt>diam_int</tt> son diamètre interieur ;
+<li> <tt>epaisseur</tt> son épaisseur.
+</ul>
+Par défaut, la rondelle sera créée dans le plan <tt>Oxz</tt>, centrée en <tt>O</tt> et posée sur le plan <tt>Oxz</tt>. La couleur (ou la texture) ne sera pécisée qu'au moment de l'appel de la macro. A titre d'exemple, l'exécution du code suivant donnera la figure en regard :<br>
+<center>
+<table>
+<tr>
+<td><tt>
+object {<br>
+&nbsp;&nbsp;rondelle(2,1.5, 1.0)&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;pigment {Red}<br>
+}<br>
+<br>
+object {<br>
+&nbsp;&nbsp;rondelle(3, 2, 0.2)<br> 
+&nbsp;&nbsp;pigment {Green}<br>
+&nbsp;&nbsp;translate <-2, 3, 0><br> 
+&nbsp;&nbsp;rotate<0,0,40><br>
+}<br>
+</tt>
+<td><img src="Images/tp3_exo3_1.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 09" align="center"><br>
+</table>
+</center>
+
+
+<br>
+<br>
+</body>
+</html>

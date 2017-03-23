@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>splines lathe - documentation POV-Ray en français</TITLE>
+	</HEAD>
+
+
+<body>
+<P >
+<A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="obj-solide-lathe01.htm">vers la page des lathes</A> /
+<A href="index-obj.htm">vers l'index des objets</A>
+</P>
+
+<h1>Les types de splines pour les lathes</h1>
+<p>
+<a href="lathe-demo.pov">Fichiers de générateurs de splines</a><br>
+Utilisez le fichier lathe_demo.pov pour faire des essais comme dans les exemples !
+</p>
+
+<h2>un dessin vaux mieux qu'un...</h2>
+<p>
+<strong>Linear_spline</strong><br>
+la courbe suit les points et forme une ligne brisée.<BR>
+<pre>exemple : <12,40>,<08,30>,<19,25>,<22,15>,<15,05>,<00,00></pre>
+</p>
+<IMG src="latsp-01.jpg" border=2 alt="spline du 1er degré">
+
+<p>			
+<strong>quadratic_spline</strong><br>
+Dans l'intervalle entre deux points, la position du point précédent détermine l'inclinaison de 
+la courbe jusqu'au point suivant.  La position du troisième point n'est pas prise en compte. 
+Si les quadratiques paraissent plus lisses que les linéaires, en général, au point de transition,
+ce n'est pas le cas, car l'inclinaison (la pente de la fonction, pour les matheux) n'est pas la 
+même de chaque côté du point.<BR>
+<pre>exemple : <35,40>,<08,38>,<09,25>,<22,15>,<15,05>,<00,00></pre>
+</p>
+
+<IMG src="latsp-02.jpg" border=2 alt="spline du 2e degré">
+
+<p>	
+<strong>cubic_spline</strong><br>
+Avec les cubiques le problème des transitions est résolu.  Le troisième point étant un point de 
+contrôle, les courbes sont parfaitement continues, même aux points de transition.<BR>
+<pre>exemple : <35,30>,<08,38>,<05,30>,<22,15>,<08,00>,<30,00></pre>
+</p>
+
+<IMG src="latsp-03.jpg" border=2 alt="spline du 3e degré">
+
+<p>Une <strong>bezier_spline</strong> est une courbe dont les segments sont définis par
+   deux extrémités et deux tangentes (les tangentes de la courbe à chacune des extrémités).
+   Une <strong>bezier_spline</strong> est donc définie par un ensemble de points groupés
+   par quatre.  Pour chaque segment de la courbe, les points 1 et 4 sont les extrémités,
+   et les points 2 et 3 les points de controle (la tangente au point 1 est le segment de droite
+   entre les points 1 et 2, et celle au point 4 est la droite entre 3 et 4).  On peut bien entendu
+   utiliser autant de segments de 4 points qu'on le souhaite, mais on a généralement intérêt
+   à faire en sorte que les segments se joignent (point 4 = point 5,..).<BR>
+<pre>exemple : <05,40>,<10,20>,<30,10>,<05,00></pre><BR>
+<pre>exemple : <05,40>,<20,25>,<30,10>,<05,00></pre>
+
+
+</p>
+
+<table>
+<tr>
+<td>
+<IMG src="latsp-04.jpg" border=2 alt="spline de Bezier">
+</td>
+<td>
+<IMG src="latsp-04b.jpg" border=2 alt="spline de Bezier"></td>
+</tr>
+</table>
+
+<H2>remarques</H2>
+<p>Le nombre de points par courbe dépend du type de spline.  Pour les <strong>linear_spline</strong>
+  nous aurons n-1 segments. Pour une <strong>quadratic_spline</strong> le nombre de segments est 
+  égale à n-2 car le dernier point est utilisé pour l'inclinaison, (il faudra au moins trois points 
+  pour une quadratique). Pour une <strong>cubique_spline</strong>  c'est n-3 segments avec le premier
+  et dernier servant à l'inclinaison  (il faudra au moins quatre points). la 
+  <strong>bezier_spline</strong> demande un multiple de quatre points .</p> 
+</P>
+<P>
+Les problèmes liés à la fermeture éventuelle de la courbe génératrice sont les mêmes qu'avec les
+prismes.  Reportez-vous à la page qui explique les 
+<A href ="obj-solide-prism02.htm">splines appliquées aux prismes</A> 
+pour une explication détaillée. 
+</P>
+
+<p>
+<SPAN class=noindent>
+<i> Rédacteur : Martial Rameaux</i><br>
+<A href="obj-solide-lathe01.htm">vers la page des lathes </A> /
+<A href="../index.htm">vers l'index général de l'aide</A>
+</SPAN>
+</p>
+
+
+</body>
+
+</html>

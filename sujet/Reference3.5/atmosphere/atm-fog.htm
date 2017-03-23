@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML><HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>le brouillard - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><a href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</a> /
+<a href="index-atm.htm">vers l'index des effets atmosphériques</a>
+</P>
+
+<H1>le brouillard</H1> 
+<H2>compatibilit&eacute;</H2>
+<P class="noindent">
+POV-Ray 2.0
+<BR>POV-Ray 3.1 : brouillard de surface ("layered fog"), filter et transmit</P>
+<H2>syntaxe</H2>
+
+<P>La commande <STRONG>fog</STRONG> se place n'importe o&ugrave; dans le script, en dehors de toute autre d&eacute;finition</P>
+
+<PRE>
+//brouillard simple :
+fog {
+    color rgbft Couleur   //vecteur de couleur
+    distance Distance     //d&eacute;cimal
+    turbulence TurbVect   //vecteur    
+     omega Omega          //d&eacute;cimal
+     lambda Lambda        //d&eacute;cimal
+     octaves Octaves      //d&eacute;cimal
+
+    (.. modificateurs d'objets ..)
+    }
+
+//brouillard de surface :
+fog {
+    fog_type 2
+    color rgbft Couleur   //vecteur de couleur
+    distance Distance     //d&eacute;cimal
+    up Direction          //vecteur
+    fog_offset Decalage   //d&eacute;cimal
+    fog_alt Decroissance  //d&eacute;cimal
+    turbulence TurbVect   //vecteur    
+     omega Omega          //d&eacute;cimal
+     lambda Lambda        //d&eacute;cimal
+     octaves Octaves      //d&eacute;cimal
+    turb_depth Profondeur //d&eacute;cimal          
+
+    (.. modificateurs d'objets ..)
+    }
+</PRE>
+
+<P>Dans le cas du brouillard le plus simple, il suffit de sp&eacute;cifier la couleur du brouillard,
+et la distance (par rapport &agrave; l'observateur) &agrave; laquelle le brouillard sera compl&egrave;tement satur&eacute;
+(= aura la couleur sp&eacute;cifi&eacute;e).  &Eacute;ventuellement, on peut sp&eacute;cifier des valeurs de <STRONG>filter</STRONG> et <STRONG>transmit</STRONG>,
+ce qui permettra de quand m&ecirc;me laisser voir les objets qui sont dans le brouillard, m&ecirc;me apr&egrave;s
+la distance sp&eacute;cifi&eacute;e.</P>
+<P>Il est &eacute;galement possible de sp&eacute;cifier une turbulence, qui fonctionne exactement comme la
+   turbulence des pigments, y compris dans l'utilisation de <STRONG>lambda</STRONG>, 
+   <STRONG>omega</STRONG> et <STRONG>octaves</STRONG>.  L'option <STRONG>turb_depth</STRONG>, 
+   propre au brouillard, permet d'ajuster l'&eacute;chelle de la turbulence le long du rayon de 
+   l'observateur (rayon entre l'oeil et un point de la sc&egrave;ne)&nbsp;; sa valeur par d&eacute;faut 
+   est de 0.5.</P>
+<P>L'utilisation d'un brouillard de surface s'enclenche en sp&eacute;cifiant <STRONG>fog_type 2</STRONG>.
+   Ce type de brouillard subit, en plus de l'augmentation de densit&eacute; avec la profondeur, une
+   diminution de densit&eacute; avec l'altitude.  Le param&egrave;tre <STRONG>up</STRONG>, qui vaut &lt;0,1,0&gt;
+   par d&eacute;faut, sp&eacute;cifie l'axe le long duquel le brouillard se d&eacute;grade.  Parfois, il peut
+   &ecirc;tre int&eacute;ressant de changer ce param&egrave;tre, par exemple pour cr&eacute;er un "mur" de brouillard
+   vertical.  Le param&egrave;tre <STRONG>fog_offset</STRONG> sp&eacute;cifie &agrave; quelle distance (&agrave; partir
+   de l'origine &lt;0,0,0&gt; et le long de l'axe <STRONG>up</STRONG>) le brouillard commence
+   &agrave; se d&eacute;grader.  <STRONG>fog_alt</STRONG> sp&eacute;cifie la "cadence" du d&eacute;grad&eacute;, des valeurs
+   plus &eacute;lev&eacute;es donnant un d&eacute;grad&eacute; plus long (valeur par d&eacute;faut&nbsp;: 0, le brouillard est stopp&eacute; net).</P>
+
+<H2>exemples</H2>
+<PRE>
+//brouillard de base
+fog {White distance 200}
+
+//brouillard de surface
+fog {
+ fog_type 2
+ distance 50
+ YellowGreen
+ fog_offset 10 //le d&eacute;grad&eacute; ne commencera qu'&agrave; une altitude de 10
+ fog_alt 5     
+}
+</PRE>
+
+<H2>remarques</H2>
+<P>On peut utiliser plusieurs d&eacute;finitions de brouillard, ce qui aura pour r&eacute;sultat de cumuler
+   les effets de tous les brouillards pr&eacute;sents.  Cela permet de jouer sur des profondeurs
+   diff&eacute;rentes, et d'enrichir l'&eacute;tagement de la sc&egrave;ne, particuli&egrave;rement avec les brouillards
+   couch&eacute;s.</P>
+<P>Comme tous les effets atmosph&eacute;riques, le brouillard n'appara&icirc;tra que si la cam&eacute;ra ne se
+trouve pas &agrave; l'int&eacute;rieur d'un objet, ou si cet objet est <STRONG>hollow</STRONG>.  Attention,
+donc, si vous utilisez une sph&egrave;re ou autre chose pour faire un ciel ou un environnement quelconque,
+veillez &agrave; placer <STRONG>hollow</STRONG> dans la d&eacute;finition de ces objets.</P>
+
+<H2>CSG</H2>
+<P>Comme on peut s'y attendre, un brouillard ne peut pas faire partie d'une op&eacute;ration
+   de CSG, mais on peut le d&eacute;clarer quand m&ecirc;me :</P>
+<PRE>
+ #declare Brouill01 = fog {...}
+ ..
+ fog {Brouill01 rotate ...}
+</PRE>
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

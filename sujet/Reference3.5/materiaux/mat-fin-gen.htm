@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>finish - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<body>
+
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>finish - généralités + luminosité + effets</H1>
+
+<P>Le <STRONG>finish</STRONG> contr&ocirc;le l'aspect de "finition" d'une surface, et sa fa&ccedil;on de
+r&eacute;agir &agrave; la lumi&egrave;re.  Cette surface peut ainsi &ecirc;tre matte, brillante, r&eacute;fl&eacute;chissante,...</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 2.2+sup.<BR>
+   POV-Ray 3.0+sup. (irid)<BR>
+   POV-Ray 3.5 (r&eacute;flexion variable)</P>
+
+<H2>syntaxe</H2>
+<P>Pour la commodité de la lecture, nous allons scinder la syntaxe de <STRONG>finish</STRONG>
+   en groupes logiques.  Sachez que tous ces éléments peuvent être utilisés simultanément !</P>
+
+<H2>r&eacute;actions &agrave; la lumi&egrave;re</H2>
+<PRE>finish {
+        ambient LumAmbiante   // Vecteur
+        diffuse LumDiffuse    // Décimal
+        brilliance Brilliance // Décimal
+}</PRE>
+<h3>ambient</h3>
+<P>
+Dans POV-Ray, les parties d'un objet qui ne sont pas directement &eacute;clair&eacute;es par 
+une source lumineuse devraient, en principe, &ecirc;tre totalement obscures.  Afin d'&eacute;viter
+&agrave; ces zones non &eacute;clair&eacute;es d'&ecirc;tre totalement noires et indiff&eacute;renci&eacute;es, POV-Ray
+permet de sp&eacute;cifier un niveau d'&eacute;clairage minimum, qui sera appliqu&eacute; aux surfaces
+qui ne re&ccedil;oivent pas de lumi&egrave;re.</P>
+
+<P><STRONG>ambient</STRONG> d&eacute;termine ce niveau d'&eacute;clairage minimum.  Sa 
+  par d&eacute;faut est de 0.1, ce qui repr&eacute;sente une luminosit&eacute; relativement faible.
+  La luminosit&eacute; r&eacute;sultante dans le rendu d&eacute;pend de la formule suivante : <BR>
+  <I>lumi&egrave;re_ambiante = <STRONG>ambient</STRONG>_du_<STRONG>finish</STRONG>_de_l'objet * param&egrave;tre_global_<STRONG>ambient_light</STRONG></I>
+  </P>
+<P>Pour plus de d&eacute;tails sur <STRONG>ambient_light</STRONG>, voyez la section
+   des param&egrave;tres globaux.</P>
+
+<P>La valeur donn&eacute;e &agrave; <STRONG>ambient</STRONG> &eacute;tant en fait un vecteur de couleur (o&ugrave; filter
+   et transmit sont ignor&eacute;s), on peut l'utiliser pour colorer les zones d'ombres d'une fa&ccedil;on
+   particuli&egrave;re, et ainsi donner une certaine atmosph&egrave;re &agrave; la sc&egrave;ne.</P>
+<IMG src="fi-07.jpg" border=2 alt="ambiant faible / ambiant &eacute;lev&eacute;">
+
+<h3>diffuse</h3>
+<P><STRONG>diffuse</STRONG> contr&ocirc;le la proportion entre la quantit&eacute; de lumi&egrave;re re&ccedil;ue directement par l'objet
+et ce qui sera "renvoy&eacute;" vers la cam&eacute;ra.  La valeur par d&eacute;faut est de 0.6, ce qui signifie
+que 60% de la lumi&egrave;re qui frappe l'objet sera "renvoy&eacute;e" vers la cam&eacute;ra (et que 40% de la
+lumi&egrave;re est absorb&eacute;e par l'objet !).</P>
+
+<P>Les valeurs par d&eacute;faut sont souvent de bonnes valeurs. G&eacute;n&eacute;ralement,
+<STRONG>ambient</STRONG> varie entre 0.1 et 0.2 tandis que <STRONG>diffuse</STRONG> varie entre 0.5 et 0.7.
+Mais il y a des exceptions. Pour un objet en verre, de faibles valeurs d'<STRONG>ambient</STRONG> et <STRONG>diffuse</STRONG> 
+sont souvent meilleures, puisque le verre est un mat&eacute;riau qui prend l'essentiel de son aspect en fonction de son environnement.
+</P>
+<IMG src="fi-08.jpg" border=2 alt="diffuse faible / diffuse &eacute;lev&eacute;">
+
+<h3>brilliance</h3>
+<P>
+Selon qu'un point d'une surface forme un angle plus ou moins prononc&eacute; avec la cam&eacute;ra et une source
+lumineuse, l'intensit&eacute; d'&eacute;clairage de ce point sera diff&eacute;rente.  Plus cet angle sera faible (plus
+la cam&eacute;ra et la lumi&egrave;re seront "face &agrave;" la surface), plus l'&eacute;clairage du point sera intense.  Cet
+angle est appel&eacute; "angle d'incidence".</P>
+<P><STRONG>brilliance</STRONG> contr&ocirc;le la "rapidit&eacute;" du d&eacute;grad&eacute; de la lumi&egrave;re sur une surface en fonction de l'angle d'incidence.
+Plus sa valeur est basse, plus le d&eacute;grad&eacute; est court et brutal.  Plus sa valeur est &eacute;lev&eacute;e, plus le passage
+de l'&eacute;clairage minimal &agrave; l'&eacute;clairage maximal est progressif (valeur par d&eacute;faut : 1.0).  On peut se servir d'une valeur basse
+pour &eacute;liminer les nuances de tons et donner un c&ocirc;t&eacute; "cartoon" (dessin en aplats) &agrave; une image.
+</P>
+<IMG src="fi-03.jpg" border=2 alt="brilliance normale / brilliance faible">
+
+<H2>effets sp&eacute;ciaux</H2>
+<PRE>
+finish {
+        crand Variation       // Décimal
+
+        irid {
+             I_Intensite             // Décimal
+             thickness I_Epaisseur   // Décimal 
+             turbulence I_Turbulence // Vecteur
+             }
+}
+</PRE>
+
+<h3>crand</h3>
+<P><STRONG>crand</STRONG> permet de donner &agrave; une surface un aspect rugueux, granuleux, un peu
+comme du sable ou du b&eacute;ton brut.  Cet effet est obtenu au moment du rendu,
+en variant au hasard la luminosit&eacute; des pixels, dans la limite fix&eacute;e par la valeur 
+de <STRONG>crand</STRONG> (valeur par d&eacute;faut : 0).</P>
+<P><b>Attention</b> : <STRONG>crand</STRONG> est une des rares propri&eacute;t&eacute;s tout &agrave; fait
+al&eacute;atoires de POV-Ray.  Cela signifie que, d'un rendu &agrave; l'autre, la texture
+aura un aspect l&eacute;g&egrave;rement diff&eacute;rent, ce qui peut &ecirc;tre particuli&egrave;rement ennuyeux
+pour une animation.  De plus, puisque tout se passe au niveau des pixels du rendu,
+l'effet varie selon la r&eacute;solution de l'image finale.  On &eacute;vitera donc <STRONG>crand</STRONG>,
+et on lui substituera le plus souvent, par exemple, un <STRONG>normal {bumps ...}</STRONG> bien serr&eacute; !
+</P>
+<IMG src="fi-04.jpg" border=2 alt="un peu de crand / beaucoup de crand">
+
+<h3>iridescence</h3>
+
+<P>Le mot cl&eacute; <STRONG>irid</STRONG> permet de simuler les nuances iris&eacute;es (couleurs d'arc-en-ciel)
+   qui apparaissent sur les bulles de savon, flaques de mazout,...</P>
+<P><STRONG>thickness</STRONG> ("&eacute;paisseur") fait varier la densit&eacute; des bandes color&eacute;es,
+   des valeurs plus faibles correspondant &agrave; un "film" iridescent plus fin, et donc
+   parcouru de plus nombreuses bandes color&eacute;es.</P>
+<P><STRONG>turbulence</STRONG>, qui est ind&eacute;pendant du mot cl&eacute; homonyme, donne le taux
+   de turbulence appliqu&eacute; &agrave; la surface, un peu comme si on soufflait plus ou moins
+   fort sur la bulle de savon.</P>
+<P>Il est conseill&eacute; d'aller jeter un coup d'oeil sur le param&egrave;tre global <STRONG>irid_wavelenght</STRONG>.</P>
+
+<IMG src="fi-09.jpg" border=2 alt="r&eacute;flexion floue sur le plan">
+<P><I>auteur : Fabien Mosen</P></I>
+</body>
+</html>

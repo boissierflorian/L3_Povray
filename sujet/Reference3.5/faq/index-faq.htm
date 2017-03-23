@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - index</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+ <H1>Foire Aux Questions</H1>
+ <H2>Q1 : J'ai des zones noires qui apparaissent dans mes objets transparents !</H2>
+ <P>Les rayons de POV-Ray "comptent" le nombre de parois successives qu'ils
+    traversent (transparence) ou sur lesquelles ils rebondissent (réflexion),
+    et s'arrêtent à une limite donnée, afin d'éviter de rebondir indéfiniment.
+    Cette limite est définie par :
+ <SPAN class="code">
+global_settings {
+        max_trace_level Nombre
+       } 
+ </SPAN> 
+Par défaut, elle est fixée à 5, ce qui est déjà trop peu pour un simple verre 
+à vin sans vin.  Passez à 10 ou 15, et n'oubliez pas <STRONG>adc_bailout</STRONG>
+(toujours dans <STRONG>global_settings</STRONG>) pour optimiser le nombre de
+trajets des rayons.
+</P>
+
+ <H2>Q2 : J'ai des petits points aléatoires qui apparaissent sur mes objets !</H2>
+<P>Il s'agit très probablement d'un problème de "surfaces coïncidentes".
+Dans un objet formé par un assemblage CSG de primitives, qu'il s'agisse 
+d'une union, d'une différence, etc..., si certaines surfaces se superposent
+exactement, POV-Ray ne peut pas déterminer quelle surface il "voit", alors,
+une fois c'est l'une, une fois c'est l'autre !  Résultat : un enchevêtrement
+aléatoire de points sur la surface.  Solution : décaler (<STRONG>translate</STRONG>) 
+ou étirer (<STRONG>scale</STRONG>) légèrement l'un des objets.</P>
+
+<H2>Q3 : Je n'arrive pas à rendre mon objet noir transparent !</H2>
+<P>Ben non !  La transparence filtrée (<STRONG>filter</STRONG>) est, en gros, 
+   une opération de multiplication.  Si on multiplie du noir (&lt;0,0,0&gt;) par
+   quoi que ce soit, on obtiendra toujours du noir (&lt;0,0,0&gt; * 5214.21 = &lt;0,0,0&gt;).
+   Vous pouvez soit employer une nuance de gris, soit utiliser la transparence
+   non-filtrée (<STRONG>transmit</STRONG>).  Cela est également vrai pour les parties
+   noires d'une <STRONG>image_map</STRONG> qu'on rend transparente.</P>
+<H2>Q4 : J'essaie d'utiliser les media, et rien n'apparaît !</H2>
+  <P>À tout hasard, vous n'auriez pas oublié d'ajouter <STRONG>hollow</STRONG> à votre
+     objet contenant le media ?  Ou peut-être la caméra se trouve-t-elle à l'intérieur
+     d'un objet qui n'est pas <STRONG>hollow</STRONG> ?</P>  
+</BODY>
+
+</HTML>

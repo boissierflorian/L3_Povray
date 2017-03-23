@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : density_file</H1>
+<P>Ce motif, créé à l'origine pour les media, utilise un fichier de données tridimensionnelles
+   qui donne une "carte de densités" dans l'espace, un peu comme ce que donnent les scanners
+   d'imagerie médicale.
+</P>
+<IMG SRC="illref-cerv01.jpg"><IMG SRC="illref-cerv02.jpg">
+<P>à gauche : cerveau normal - à droite : cerveau de POViste</P>
+<H2>compatibilité</H2>
+<P><I>POV-Ray 3.1+sup</I></P>
+<H2>syntaxe</H2>
+<PRE>
+pigment { // ou density, etc...
+ density_file df3 "nom_fichier.df3"
+ (interpolate Type) //entier 
+
+ (... modificateurs de motifs ...)
+
+ } 
+}
+</PRE>
+<P>Juste après le mot clé <STRONG>density_file</STRONG>, on spécifie le type de fichier
+   (actuellement, seul le <b>df3</b> est implémenté), puis le nom de ce fichier. Le mot
+   clé optionnel <STRONG>interpolate</STRONG>, suivi de la valeur 1 (la seule implémentée)
+   enclenchera l'utilisation d'une interpolation trilinéaire, pour adoucir les transitions
+   entre les voxels*.</P>
+<P>L'ensemble des données contenues dans le fichier seront représentées dans un espace
+   allant de &lt;0,0,0&gt; à &lt;1,1,1&gt;, peu importe la résolution du fichier.</P>
+<P><I>* : en 2D, pixels = PICTure ELements; en 3D, voxels = VOlume ELements.</I></P>
+
+<H2>exemple</H2>
+<PRE>
+sphere {0,10 hollow
+ pigment {Clear}
+ interior {
+  media {
+   emission .25
+   intervals 10
+   density {
+    density_file df3 "spiral.df3"
+    interpolate 1
+    scale 10
+   }
+  }
+}
+}
+</PRE>
+<IMG SRC="tx-sp-33.jpg">
+<P><I>Le fichier "spiral.df3" vient en standard avec POV-Ray.</I></P>
+<H2>le format de fichier df3</H2>
+<P>Il s'agit d'une sorte de format d'image bitmap en niveaux de gris,
+   mais en 3D !  Chaque voxel a donc une coordonnée (x,y,z), et une
+   valeur comprise entre 0 et 255 (qui sera réinterprétée de 0 à 1
+   par POV-Ray).</P>
+<P>Le fichier binaire commencera par 6 octets (3 x 16 bits) représentant
+   le nombre de voxels sur chacun des trois axes.  Ensuite, un certain
+   nombre (resolution-X * resolution-Y * resolution-Z) d'octets donneront
+   chacun la densité d'un voxel, comprise entre 00 et FF (0 et 255),
+   en balayant le volume dans l'ordre X, Y, Z.</P>
+<P>Un petit exemple sera le bienvenu : Un ensemble de 27 voxels compris
+   dans un 'cube' de 3 voxels de côté.  Les voxels 1 à 9 ont une densité
+   maximale (FF, 255, 1), les voxels 10 à 18 ont une densité nulle (0),
+   et les voxels 19 à 27 ont une densité moyenne (AA, 170, 0.66), sauf
+   le 23 qui a une densité nulle.</P>
+<IMG SRC="illref-dens-02.jpg">
+<P>Le fichier commence donc en donnant la résolution sur les trois axes :</P>
+<PRE>
+00 03
+00 03
+00 03
+</PRE>
+<P>Et se poursuit par les valeurs des voxels, en balayant X, puis Y, puis Z :</P>
+<PRE>
+FF FF FF
+FF FF FF
+FF FF FF
+
+00 00 00 
+00 00 00
+00 00 00
+
+AA AA AA
+AA 00 AA
+AA AA AA
+</PRE>
+<P>Et voici le fichier résultant, vu (et créé !) dans un éditeur hexadécimal :</P>
+<IMG SRC="illref-dens-01.jpg">
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Fonctions prédéfinies</title>
+</head>
+<body>
+<h1>Les fonctions prédéfinies</h1>
+
+Povray fournit quelques <a href="Reference3.5/fonctions/index-fct.htm" target="aide">fonctions prédéfinies</a> permettant d'évaluer des formules plus ou moins complexes. Vous allez étudier certaines d'entre-elles au traver du problème du positionnement d'objets sur la surface d'un autre objet. 
+
+<h3>Utilisation des fonctions trigonométriques</h3> 
+
+Les fonctions trigonométriques usuelles sont disponibles sous Povray (Notez que leur argument doit être passé en radians ...). On rappelle les formules suivantes, qui permettent de calculer les coordonnées 2D et 3D à partir des coordonnées polaires et sphériques :
+<center>
+<table border="0">
+
+<tr>
+<td><center>Coordonnées polaires<br><tt>x = R.cos(&theta)<br>z = R.sin(&theta)<br></tt></center></td>
+<td><center><img src="Images/spherique.png" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="coordonnées polaires" align="center"><br></center></td>
+<td><center>Coordonnées sphériques</center><br><tt>x = R.cos(&theta).cos(&phi)<br>y = R.sin(&phi)<br>z = R.sin(&theta).cos(&phi)<br></tt></td>
+</tr>
+</table>
+</center>
+
+<br>
+
+<center>
+<table>
+<tr>
+<td>1.En utilisant les coordonnées polaires, construisez l'objet qui apparaît dans la figure ci-contre. A titre d'indication, il est constitué d'une sphère à laquelle on a ôté de nombreuses petites sphères au niveau de son équateur.
+<td><img src="Images/tp4_exo1.png" width="100%" height="100%" border="0" hspace="5" vspace="5" alt="scène sphere" align="left"><br>
+<tr>
+<td>2.En utilisant cette fois les coordonnées sphériques, construisez un objet qui ressemble à celui de la figure Y. Il a été construit à partir d'une sphère creuse, trouée par de nombreuses sphères plus petites, placées aléatoirement sur sa surface et de rayon variable.<td><img src="Images/tp4_exo2.png" width="100%" height="100%" border="0" hspace="5" vspace="5" alt="scène sphere" align="left"><br>
+</table>
+</center>
+
+
+
+<h3>Utilisation de la fonction <tt>trace</tt></h3>
+
+<p>Le calcul d'une position sur la surface d'un objet peut parfois être extrêmement compliqué, dès lors que l'objet en question n'est pas un objet simple. Pensez par exemple à ce que vous devriez faire pour calculer une position particulière sur un objet issu d'opérations CSG ou d'un Modèle Numérique de Terrain.
+<p>Povray fournit une fonction très intéressante pour ce genre de problème : la<a href="Reference3.5/fonctions/fct-vec-tra.htm" target="aide"> fonction <tt>trace</tt></a>, qui fonctionne sur le principe du lancer de rayons (Ca tombe bien puisque c'est justement ce que sait très bien faire povray !!!).
+<p>Pour les questions qui suivent, on vous fournit le script suivant, qui permet la modélisation (très simple) d'un arbre de type sapin.<br>
+<br>
+<tt>
+// un modèle simple de sapin<br>
+// centré sur l'axe 0y - dans <-0.3, 0.0, -0.3> - <-0.3, 0.5, -0.3><br>
+#declare sapin = union {<br>
+&nbsp;&nbsp;cylinder { <0,0,0>,<0,0.25,0>, 0.1 pigment {color Brown} }<br>
+&nbsp;&nbsp;cone { <0,0.25,0>,0.3,<0,0.35,0>, 0.0 pigment {color Green} }<br>
+&nbsp;&nbsp;cone { <0,0.30,0>,0.3,<0,0.40,0>, 0.0 pigment {color Green} }<br>
+&nbsp;&nbsp;cone { <0,0.35,0>,0.3,<0,0.45,0>, 0.0 pigment {color Green} }<br>
+&nbsp;&nbsp;cone { <0,0.40,0>,0.3,<0,0.50,0>, 0.0 pigment {color Green} }<br>
+}<br>
+</tt>
+Le but de ce script n'est pas d'être réaliste (loin s'en faut ...) mais rapide à calculer ...
+
+<center>
+<table>
+<tr>
+<td>1. Ecrire un script permettant de positionner des sapins sur un plan d'équation <tt>y=0</tt>, pour x et z prenant leurs valeurs dans <tt>[-450,450]</tt>, SANS UTILISER la fonction <tt>trace</tt>. Les sapins devront avoir un écartement de 50 unités. Pensez à appliquer un <tt>scale</tt> sur les objets <tt>sapin</tt> pour qu'il soient visibles ...
+<td><img src="Images/tp4_exo3.png" width="100%" height="100%" border="0" hspace="5" vspace="5" alt="scène sphere" align="left"><br>
+<tr>
+<td>2. Modifiez à présent votre script de manière à utiliser <tt>trace</tt>.<br>
+<tr>
+<td>3. On souhaite à présent remplacer le plan horizontal par un modèle numérique de terrain. Faites les modifications nécessaires sur votre script (notez que vous êtes ici obligés d'utiliser la fonction <tt>trace</tt> pour calculer la hauteur de chaque sapin).
+<td><img src="Images/tp4_exo4.png" width="100%" height="100%" border="0" hspace="5" vspace="5" alt="scène sphere" align="left"><br>
+<tr>
+<td>4. Modifiez le script de manière à ce que les sapins ne soient plus disposés de manière aussi régulière ...
+<td><img src="Images/tp4_exo5.png" width="100%" height="100%" border="0" hspace="5" vspace="5" alt="scène sphere" align="left"><br></table>
+</center>
+
+
+</body>
+</html>

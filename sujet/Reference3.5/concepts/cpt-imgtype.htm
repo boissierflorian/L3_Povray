@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			Référence - fichiers bitmap	</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> 
+/ <A href="index-cpt.htm">vers l'index des concepts généraux</A></P>
+
+	<H1>Les formats de fichiers pour les images bitmap</H1>
+<P>L'utilisation de POV-Ray n&eacute;cessite la manipulation fr&eacute;quente d'images bitmap, aussi bien en 
+   entr&eacute;e (pour une image_map, un height_field,...) qu'en sortie (rendu, puis &eacute;ventuelle conversion,...).</P>
+<P>Cette page est donc destin&eacute;e &agrave; vous donner des informations sur les types de fichiers utilisés par POV-Ray.</P>
+<P>En bas de page, vous trouverez des liens vers des logiciels gratuits de visionnage / traitement d'images.</P>
+
+<H2>BitMaP (.BMP)</H2>
+<P>Le BMP est le format d'image standard pour Windows, généralement sans compression.  C'est
+   le format de sortie par défaut de POV-Ray pour Windows.</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>2, 16, 256, Grayscale, 16M.</TD> <TD>optionnelle (peu performante)</TD> <TD>Oui</TD> <TD>Oui</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>(non pertinent)</TD> <TD>?</TD> <TD>non</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Graphic Interchange Format (.GIF)</H2>
+<P>Cr&eacute;&eacute; par Compuserve pour r&eacute;duire les temps de chargements des images sur ses services en ligne,
+   le GIF est le premier format d'image &agrave; int&eacute;grer un syst&egrave;me de compression.</P>
+<P>Pour des raisons longues à exposer (voyez <A href="http://www.burnallgifs.org">http://www.burnallgifs.org</A>),
+   ce format est tombé en désuétude ces derniers temps, jusqu'à disparaître temporairement de POV-Ray.
+   Mais, vu l'imminence de la déchéance du brevet concerné, POV-Ray 3.5 continuera à pouvoir lire ce format.</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>2, 16, 256, Grayscale.</TD> <TD>Oui, sans pertes.</TD> <TD>Oui</TD> <TD>Non</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>méfiance</TD> <TD>http://www.burnallgifs.org</TD> <TD>?</TD> <TD></TD> </TR>
+</TABLE>
+<H2>.IFF</H2>
+<P>Le format d'image IFF, issu de l'Amiga, est un héritage des origines de POV-Ray, dont
+   l'ancêtre DKB-Trace avait été écrit pour cette plate-forme (pour les p'tits jeunes :
+   c'était un ordinateur personnel très performant de l'âge d'or de la micro-informatique
+   au milieu des années 80).</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>Oui</TD> <TD>Non</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>?</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Joint Photographic Expert Group (.JPG, .JPEG)</H2>
+<P>Créé au début des années 90 afin d'offrir une solution au problème de la taille des fichiers
+   d'images, le JPEG est le premier format populaire à proposer une compression "destructive".
+  En gros, si un pixel bleu turquoise clair est voisin d'un pixel bleu turquoise clair avec une
+  subtile note indigo, le deuxième pixel est modifié pour avoir la même couleur que le premier,
+  et l'étape de compression finale sera beaucoup plus efficace, puisqu'il y aura davantage
+  d'informations redondantes.  L'ampleur de la destruction (et donc le taux de compression)
+  est réglable, généralement entre 0 et 100, mais elle est irréversible !  À vous, selon
+  la destination de l'image, de trouver, par tâtonnements, quel est le bon compromis entre
+  la taille finale de l'image et sa qualité.</P>
+<P>Ce prodédé de compression convient très bien aux images en "tons continus" (typiquement, les
+   photographies), mais se montre méchant avec les dessins au trait, et les images comportant
+   des couleurs pures (rouge, vert, bleu) et des contrastes marqués.  Afin de minimiser ces
+   effets, certains (trop rares) convertisseurs d'images proposent d'ajuster la grille de
+   pré-échantillonnage (par exemple : 1x2x2, ou 1x1x1).</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>Grayscale, 16 M.</TD> <TD>Oui, AVEC pertes.</TD> <TD>Oui</TD> <TD>Non</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>libre</TD> <TD>http://www.jpeg.org</TD> <TD>Non</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>.PGM</H2>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>Oui</TD> <TD>Non</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>?</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Portable Network Graphics (.PNG)</H2>
+<P>Cr&eacute;&eacute; pour suppl&eacute;er aux limitations du GIF (nombre de couleurs et brevet), le PNG partage avec
+   lui la propri&eacute;t&eacute; de compresser sans pertes.  Permettant l'encodage en 16 millions de couleurs,
+   le PNG permet &eacute;galement de conserver une information sur la gamma employ&eacute;e pour la cr&eacute;ation
+   de l'image.  H&eacute;las, peu de logiciels exploitent cette option (POV-Ray le fait).</P>
+<P>POV-Ray permet également de spécifier un nombre de bits (codage des couleurs) personnalisé
+   pour la sortie en PNG.  Voyez la page traitant des options de sortie.</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>16, 256, Grayscale, 16 M, etc...</TD> <TD>Oui, sans pertes.</TD> <TD>Oui</TD> <TD>Oui (+fn)</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>libre</TD> <TD>http://www.png.org</TD> <TD>Oui</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>.PPM</H2>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>Oui</TD> <TD>Non</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>?</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Targa (.TGA)</H2>
+<P>Le TGA est un format d'image simple, sans compression, et est le format de sortie par défaut
+   de POV-Ray sur certaines plate-formes.</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>Grayscale, 16M.</TD> <TD>optionnelle (peu performante)</TD> <TD>Oui</TD> <TD>Oui</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>(non pertinent)</TD> <TD>?</TD> <TD>non</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Tagged Image File Format (.TIFF)</H2>
+<P>Créé voici de nombreuses années, le TIFF était, en son temps, le format utilisé en cas
+   d'échange de fichiers entre des plateformes différentes (particulièrement Mac / PC), ce
+   qui lui vaut, malgré l'existence de meilleures alternatives, d'être encore utilisé
+   régulièrement de nos jours.</P>
+<TABLE  border=1 align=center width=100%>
+ <TR> <TD>COULEURS</TD> <TD>COMPRESSION</TD> <TD>LU PAR POV-Ray</TD> <TD>&Eacute;CRIT PAR POV-Ray</TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>Oui</TD> <TD>?</TD> </TR>
+ <TR> <TD>LICENCE</TD> <TD>PLUS D'INFOS</TD> <TD>CANAL ALPHA</TD> <TD></TD> </TR>
+ <TR> <TD>?</TD> <TD>?</TD> <TD>?</TD> <TD></TD> </TR>
+</TABLE>
+
+<H2>Visionneuses et convertisseurs</H2>
+<P>En utilisant POV-Ray, vous aurez fréquemment besoin de visionner, convertir,... des images
+   bitmap.  Il en existe de très performants (rapides et complets), et, dans l'esprit de POV-Ray,
+   ceux que nous listons ici sont gratuits :</P>
+
+<P><b>XNView</b> : <A href="http://www.xnview.com/">http://www.xnview.com/</A>, pour Windows, Linux, FreeBSD, etc...</P>
+<P><b>IrfanView</b> : <A href="http://www.irfanview.com/">http://www.irfanview.com/</A>, pour Windows.</P>
+
+	<P><I>	R&eacute;dacteur : Fabien Mosen	</I><br>
+	<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+</P>
+
+</BODY>
+</HTML>

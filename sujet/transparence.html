@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>La transparence</title>
+</head>
+<body>
+<h1>La transparence</h1>
+<p>
+La transparence se gère en POVRay avec la définition d'une 
+<a href="Reference3.5/materiaux/mat-coul-02.htm" target="aide">
+couleur transparente</a>.
+</p>
+<p>
+POVRay est capable de prendre en compte 
+<a href="Reference3.5/materiaux/mat-int-ior.htm" target="aide">la réfraction</a>.
+</p>
+<p>
+En résumé voici comment peuvent être repésentées les caractéristiques d'un matériau 
+dans une structure <tt>material</tt><br>
+<tt>
+material{<br>
+&nbsp;&nbsp;texture{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pigment{...}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;normal{...}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;finish{...}<br>
+&nbsp;&nbsp;}//texture<br>
+&nbsp;&nbsp;interior{..}<br>
+}//material
+</tt>
+</p>
+<h2>Travail à réaliser</h2>
+<p>Vous allez rendre le plateau de la table à la fois réfléchissant et transparent. Vous mettrez aussi en place 
+la réfraction pour ce plateau.</p>
+<p>Vous conserverez la texture définie pour la table. Mais dans la composante <tt>texture</tt> du plateau 
+vous ajouterez un bloc <tt>pigment</tt> qui introduira les modificateurs <tt>filter</tt> et <tt>transmit</tt> dont
+vous ferez varier les valeurs.</p>
+<p>Introduisez la réfraction en utilisant un bloc <tt>interior</tt> dans la définition du plateau.</p>
+<p>Vous pourriez obtenir par exemple :<br><br><br>
+<div align="center">
+<img src="Images/deuxiemescenefinale.png" width="480" height="360" border="0" alt="Scène finale " align="middle">
+</div>
+</p>
+
+</body>
+</html>

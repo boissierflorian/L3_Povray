@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>options des sources lumineuses - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral</A> / 
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> / 
+<A href="lum-form.htm">page précédente : types de sources lumineuses</A>
+</P>
+
+<H1>Options communes &agrave; tous les types de sources lumineuses</H1> 
+
+<H2>rayons parall&egrave;les</H2>
+<P>Il suffit de placer le mot cl&eacute; <STRONG>parallel</STRONG> ainsi qu'un <STRONG>point_at</STRONG>, et tous les
+   rayons de lumi&egrave;re seront parall&egrave;les au vecteur d&eacute;fini par la position et <STRONG>point_at</STRONG>.
+   Tous ces rayons lumineux sont &eacute;mis &agrave; partir du plan (invisible) dont la normale est le vecteur pr&eacute;cit&eacute;.
+En cas d'utilisation de <STRONG>fade_distance</STRONG>, c'est la position de la source qui d&eacute;termine l'att&eacute;nuation.</P>
+
+<H2>shadowless</H2>
+<P>Le mot cl&eacute; <STRONG>shadowless</STRONG> permet &agrave; une source lumineuse de passer au travers
+des objets de la sc&egrave;ne, sans provoquer d'ombre (y compris quand la lumi&egrave;re est dans un objet).  C'est utile pour cr&eacute;er une lumi&egrave;re de
+"remplissage" orient&eacute;e, qui abaisse un peu le contraste des ombres, ou pour placer une source
+lumineuse &agrave; l'int&eacute;rieur d'un objet repr&eacute;sentant un luminaire.</P>
+
+<P><I><b>Attention</b> : utiliser <STRONG>shadowless</STRONG> avec <STRONG>spotlight</STRONG> transforme la source conique
+en source simple (et sans ombres).</I></P>
+<P><I><b>Attention (2)</b> : une lumi&egrave;re affect&eacute;e par <STRONG>shadowless</STRONG> ne provoquera pas non plus de
+      r&eacute;flexion sp&eacute;culaire (<STRONG>phong</STRONG>, <STRONG>specular</STRONG>,..) sur les objets.</I></P>
+
+<H2>looks_like</H2>
+<P>Ce mot cl&eacute; d&eacute;suet (presque inutile depuis l'apparition de shadowless) permet de sp&eacute;cifier
+   un objet qui "mat&eacute;rialisera" la source lumineuse.  Cet objet sera automatiquement dot&eacute;
+   de l'attribut <STRONG>no_shadow</STRONG>, mais vous devrez toutefois r&eacute;gler sa luminosit&eacute;
+   apparente selon les besoins.</P>
+
+<H2>fade_distance, fade_power</H2>
+<P>Par d&eacute;faut, les rayons lumineux ne perdent pas leur intensit&eacute; avec la distance.  Afin de
+   produire un r&eacute;sultat plus r&eacute;aliste, on peut sp&eacute;cifier la distance &agrave; laquelle la lumi&egrave;re
+   commence &agrave; perdre son &eacute;nergie avec <STRONG>fade_distance</STRONG>.  On peut aussi sp&eacute;cifier
+   de quelle mani&egrave;re (lin&eacute;aire, cubique,...) cette perte se produit, avec <STRONG>fade_power</STRONG>.</P>
+<P><I><b>Attention</b> : si fade_distance est plus grand que 1, l'intensit&eacute; &agrave; l'approche de la source
+   <b>augmente</b>, de telle mani&egrave;re que, &agrave; la distance sp&eacute;cifi&eacute;e, son intensit&eacute; soit &eacute;gale
+   &agrave; la couleur donn&eacute;e.</I></P>
+<P><I><b>Remarque</b> : l'att&eacute;nuation ne se produit que pour les rayons provenant directement
+   des sources lumineuses, et ne concerne pas les rayons r&eacute;fl&eacute;chis ou r&eacute;fract&eacute;s.</I></P>
+
+<H2>media_attenuation, media_interaction</H2>
+<P><STRONG>media_attenuation</STRONG> (on/off) sp&eacute;cifie si l'intensit&eacute; de la lumi&egrave;re est att&eacute;nu&eacute;e quand elle passe &agrave; travers un <STRONG>media</STRONG></P>
+<P><STRONG>media_interaction</STRONG> (on/off) sp&eacute;cifie si la source lumineuse interagit avec les <STRONG>media</STRONG>
+   qui sont sur sa trajectoire.  </P>
+<P>Ces deux mots cl&eacute;s sont activ&eacute;s (<STRONG>on</STRONG>) par d&eacute;faut.</P>
+
+<H2>projected_through</H2>
+<P>Permet de spécifier un objet qui agit comme un "masque" : seuls les rayons lumineux
+   qui rencontrent cet objet (invisible) seront pris en compte.  C'est un peu comme
+   une ombre à l'envers.</P>
+
+<P>page suivante : <A href="lum-area.htm">les ombres douces (area lights)</A></P>
+
+<P><I>auteurs : Rodolphe Gelaude / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>texture</H1>
+
+<P><STRONG>texture</STRONG> est une structure qui permet de regrouper des définitions
+   de <STRONG>pigment</STRONG>, <STRONG>normal</STRONG> et <STRONG>finish</STRONG>, et
+   permet également d'autres manipulations.</P>
+
+<H2>texture {...}</H2>
+<P>Voici la forme la plus classique d'une <STRONG>texture</STRONG> : </P>
+<PRE>
+texture {
+ pigment {...}
+ normal {...}
+ finish {...}
+}
+</PRE>
+<P>La principale utilité de cette structure est de déclarer tout un ensemble de
+   définitions plus ou moins complexes d'un seul coup :</P>
+<PRE>
+#declare MaTexture = 
+texture {
+ pigment {...}
+ normal {...}
+ finish {...}
+}
+
+object {...
+        texture {MaTexture} 
+       }
+</PRE>
+<P>Bien entendu, toutes les sous-structures ne doivent pas forcément être présentes, et
+   on peut très bien 'compléter' une texture au moment où on l'appelle :</P>
+<PRE>
+#declare MaTexture =
+ texture {
+  pigment {Red}
+  normal {crackle .5}
+}
+
+object {...
+        texture {MaTexture} 
+        finish {reflection {.1 .5}}
+}
+</PRE>
+<P>Mais vous ne pouvez pas, par exemple, modifier la couleur du pigment qui était
+   défini dans la texture !</P>
+<H2>texture avec motif et palette de textures</H2>
+<P>Équivalent du <STRONG>pigment_map</STRONG> pour les pigments, voici <STRONG>texture_map</STRONG> :</P>
+<PRE>
+texture {
+ gradient y
+ texture_map {
+   [0.0 MaTexture1]
+   [0.5 pigment {Red} finish {phong .7}]
+   [1.0 MaTexture2]
+ }
+}
+</PRE>
+<IMG src="illref-mat-tex-01.jpg">
+
+<H2>texture avec material_map</H2>
+<P>Ce type particulier de texture permet de répartir des textures sur une surface,
+   dont les zones sont déterminées par les couleurs d'une image bitmap.</P>
+
+<PRE>
+texture {
+ material_map {
+           png / tga / ppm / pgm / jpeg / tiff / sys 
+           "Nom_du_Fichier"
+           (map_type 0 / 1 / 2 / 5)
+           (once)
+
+ }
+ texture {...} //texture pour l'index 0
+ texture {...} //texture pour l'index 1
+ texture {...} //texture pour l'index 2
+ ...
+}
+</PRE>
+<IMG src="illref-mat-tex-02.jpg">
+<IMG src="illref-mat-tex-03.jpg">
+<P>Pour la première partie de la syntaxe, voyez la page du motif <STRONG>image_pattern</STRONG>.</P>
+<P>Lorsque l'image ne comporte pas de palette indexée, c'est la composante rouge qui détermine
+   la valeur d'une zone (entre 0 et 255).</P>
+
+<P>De nos jours, cette structure est plutôt obsolète, et sera avantageusement remplacée par 
+   une <STRONG>texture_map</STRONG> utilisant le motif <STRONG>image_pattern</STRONG>.
+
+<H2>textures 'en couches'</H2>
+<P>On peut superposer des textures différentes, très simplement, en spécifiant
+   les textures les unes après les autres, en allant des plus opaques aux plus
+   transparentes (sinon ça ne sert pas à grand chose !) :</P>
+<PRE>
+object {Palissade
+         texture {Bois} 
+         texture {Peinture_Ecaille}
+       }
+</PRE>
+<IMG src="illref-mat-tex-04.jpg">
+<P></P>
+</BODY>
+</HTML>

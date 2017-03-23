@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>options - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> -
+<A href="reg-ini-aff.htm">page précédente : options d'affichage</A>
+</P>
+
+<P>"n" repr&eacute;sente une valeur enti&egrave;re, "n.n" repr&eacute;sente une valeur d&eacute;cimale, "b"
+   repr&eacute;sente une valeur bool&eacute;enne (on/off), "c", repr&eacute;sente une cha&icirc;ne.</P>
+
+<H2>options du fichier de l'image</H2>
+
+<H3>nom et type du fichier</H3>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+F, -F</TD><TD>Output_to_File=b</TD><TD>+</TD><TD>enclenche la sauvegarde de l'image dans un fichier</TD></TR>
+</TABLE>
+<P>Bien entendu, cette option est activ&eacute;e par d&eacute;faut.  Si le cr&eacute;pitement d'un disque dur vous
+   tape sur les nerfs, vous pouvez d&eacute;sactiver cette option pendant les phases de test.</P>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+Onom_de_fichier</TD><TD>Output_File_Name=nom_de_fichier</TD><TD>(nom du script)</TD><TD>sp&eacute;cifie le nom du fichier de l'image</TD></TR>
+</TABLE>
+<P>Par d&eacute;faut, le nom du script .pov est utilis&eacute; comme nom de l'image, mais vous pouvez en
+   sp&eacute;cifier un diff&eacute;rent.</P>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+Fcn, -Fcn</TD><TD>Output_File_Type=c , Bits_Per_Color=n</TD><TD>(selon syst&egrave;me)</TD><TD>s&eacute;lectionne le type de fichier &agrave; &eacute;crire et le nombre de couleurs</TD></TR>
+ <TR><TD>+UA, -UA</TD><TD>Output_Alpha=b</TD><TD>-</TD><TD>enclenche l'&eacute;criture d'un canal alpha</TD></TR>
+</TABLE>
+<P>Les formats disponibles sont : <STRONG>C</STRONG> pour le TGA-24 bits compress&eacute;, 
+   <STRONG>N</STRONG> pour le PNG, <STRONG>P</STRONG> pour le PPM (Unix),
+   <STRONG>S</STRONG> pour le format syst&egrave;me par d&eacute;faut, et <STRONG>T</STRONG>
+   pour le TGA-24 bits normal.</P>
+<P>Par d&eacute;faut, tous ces formats sont &eacute;crits en 8 bits par canal (16 millions de couleurs),
+   mais on peut (quand le format le permet) changer cette valeur.  Le nombre de couleurs
+   est &eacute;gal &agrave; (NombreDeBitsParCanal<sup>2</sup>)<sup>3</sup>.  Exemple, pour obtenir un
+   fichier PNG en 32 000 couleurs :</P>
+<PRE>+FN5</PRE>
+<P>Pour les formats qui le permettent (actuellement PNG et TGA), on peut demander &agrave; POV-Ray
+   d'ajouter aux canaux RGB un canal invisible, appel&eacute; "canal alpha" qui contient une information
+   de transparence.  Ce canal est cod&eacute; sur 8 bits (256 niveaux), mais POV-Ray se contente
+   d'&eacute;crire un 0 si le rayon primaire (rayon qui part de la cam&eacute;ra) 
+   touche un objet non-transparent, et 255 si le rayon primaire touche un objet transparent.
+   Certains logiciels de dessin permettent d'&eacute;diter ce canal, le r&eacute;sultat pouvant &ecirc;tre
+   utilis&eacute; dans une <STRONG>image_map</STRONG>, qui peut tenir compte de ce canal.</P>
+<P>Le format PNG stocke (automatiquement) aussi le r&eacute;glage de gamma courant, afin de permettre
+   aux rares logiciels qui repectent totalement cette norme d'ajuster l'affichage au moment
+   de la visualisation.</P>
+
+<H3>tampon</H3>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+B, -B</TD><TD>Buffer_Output=b</TD><TD>+</TD><TD>enclenche l'utilisation du tampon de sauvegarde</TD></TR>
+ <TR><TD>+Bn, -Bn</TD><TD>Buffer_Size=n</TD><TD>1</TD><TD>sp&eacute;cifie la taille (en nombre de lignes) du tampon</TD></TR>
+</TABLE>
+<P>Par d&eacute;faut, POV-Ray sauve le fichier de l'image &agrave; chaque nouvelle ligne trac&eacute;e.  Pour les
+   petits rendus rapides, on peut sp&eacute;cifier une taille de tampon ("buffer"), en lignes, plus
+   grande, afin de ne pas trop solliciter le disque dur.</P>	
+
+<H2>histogramme de la sollicitation du microprocesseur</H2>
+<P>Ces options permettent de rendre sous forme d'image les statistiques
+   de sollicitation du processeur, en attribuant des valeurs en fonction
+   du temps relatif de rendu des zones de l'image.  Accessoirement, le r&eacute;sultat
+   peut servir &agrave; g&eacute;n&eacute;rer un <STRONG>height_field</STRONG> (que le premier
+   qui arrive &agrave; faire un beau truc avec <B><I>&ccedil;a</I></B> me le signale !)</P>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+HTc</TD><TD>Histogram_Type=c</TD><TD>-</TD><TD>enclenche le rendu de l'histogramme et s&eacute;lectionne le format d'image</TD></TR>
+ <TR><TD>+HNc</TD><TD>Histogram_Name=c</TD><TD>"histgram"</TD><TD>sp&eacute;cifie le nom du fichier de l'histogramme</TD></TR>
+ <TR><TD>+HSx.y</TD><TD>Histogram_Grid_Size=x.y</TD><TD>1.1</TD><TD>sp&eacute;cifie la taille des zones, en pixels</TD></TR>
+</TABLE>
+
+<P>Les formats d'images disponibles sont, comme pour l'image rendue, N, P
+   S, T, &agrave; l'exception de C qui produit un fichier ASCII o&ugrave; les valeurs
+   num&eacute;riques sont s&eacute;par&eacute;es par des virgules.  L'option X fait en sorte
+   qu'aucune sortie ne soit produite (quel int&eacute;r&ecirc;t ? !).  Dans le cas
+   des formats TGA et PPM, le codage rouge/vert, &agrave; la mani&egrave;re de <STRONG>hf_gray16</STRONG>
+   est utilis&eacute; (voir ce dernier pour plus de d&eacute;tails).  Le format PNG
+   utilise 65 000 niveaux de gris, plus une zone a sollicit&eacute; de calculs,
+   plus elle sera claire.</P>
+<P>Le nom par d&eacute;faut de l'image de l'histogramme est "histgram" suivi de
+   l'extension qui correspond au type choisi.</P>
+<P>La taille par d&eacute;faut des zones est de 1.1 (1 en x et 1 en y).  Pour obtenir une
+  "mosa&iuml;que" dont les &eacute;l&eacute;ments font 10*15 pixels, on &eacute;crira&nbsp;:</P>
+<pre>+HS10.15</pre>
+
+<P><A href="reg-ini-int.htm">page suivante : options de l'interpréteur</A></P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

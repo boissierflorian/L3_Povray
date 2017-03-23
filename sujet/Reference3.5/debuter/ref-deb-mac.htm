@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			prise en main rapide - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A></P>
+		
+<H1>prise en main rapide de POV-Ray 3.5 pour Mac OS</H1>
+
+<H2>Logiciels nécessaires :</H2>
+<P>
+StuffIt Expander[TM] 6.0.1 de Aladdin Software.<br>
+<img src="expender.png">
+<BR>
+Permet de décompresser les fichiers téléchargés. StuffIt Expander permet aussi de monter des images créées par Shrinkwrap ou Apple Disk Copy.<br><br>Pour télécharger une copie GRATUITE de Expander, visitez le site web de <a href="http://www.aladdinsys.com/expander/index.html" target=_blank>Aladdin.</a>
+<BR>
+L'extension &quot;CarbonLib&quot; est nécessaire pour utiliser POV-Ray 3.5. Sous MacOS 8.1, il faut au minimum la version 1.0.4, sous MacOS 8.6 et supérieur, il faut la version 1.6 au minimum.<br><br>
+Cette extension est téléchargeable à partir du site d'<a href="http://www.info.apple.com/support/downloads.html" target=_blank>Apple</a>, dans la section &quot;Mise à jour logiciels&quot;.
+</P>
+
+<H2>Téléchargement :</H2>
+<P>		POV-Ray 3.50 se télécharge à partir du site 
+<a href="http://www.povray.org/download/" target=_blank>POV-Ray</a>.
+<br>Une fois le téléchargement effectué, vous trouver sur votre disque dur 
+le fichier : POV_RAY_35.IMG.<BR>	<img src="img_file.png"></P>
+<P>
+Suivant la configuration de votre Mac, vous pouvez soit double-cliquer sur cette icône, 
+soit déplacer celle-ci sur l'icône de StuffIt Expander. Un disque virtuel 
+apparaît alors sur le bureau.<BR>
+		<img src="img_mounted.png">
+</P>
+
+<H2>Installation :</H2>
+<P>Pour installer POV-Ray, il suffit de déplacer l'icône du disque virtuel vers le disque dur ou dans un sous-dossier. Un nouveau dossier portant le même nom que le disque virtuel est créé. Nous pouvons maintenant démonter le disque virtuel en déplaçant celui-ci vers la Corbeille.<br><br>Si nous ouvrons ce dossier, cette image doit apparaître :<BR>
+<img src="window01.png"></P>
+<P>
+Nous devons apporter une petite modification à cette installation :<br>
+-Supprimer le programme "POV-Ray Mac 3.5"<br>
+-Ouvrir le dossier "POV-Ray Mac 3.5 folder"<br>
+<img src="window02.gif" width=505 height=164><BR>
+-Créer un alias de &quot;POV-Ray Mac 3.5&quot; (Sélectionner le fichier puis appuyer sur COMMAND-M).<br>
+-Déplacer cet alias dans le dossier supérieur, sur le bureau, dans le dossier "Menu Pomme",...
+en fait ou vous voulez ! <i>C'est cette icône qui servira à lancer POV-Ray.</i>
+</P>
+<H2>Premi&egravere image :</H2>
+<P>
+Une fois le programme lancé, nous allons créer notre première image.
+Dans le menu &quot;File&quot;, nous choisissons &quot;New&quot;.
+Dans la fenêtre qui apparaît, nous tapons le texte suivant :
+</P>
+
+<pre>
+#include "colors.inc"
+
+camera { location &lt;40,50,36&gt; look_at &lt;0,15,0&gt; }
+
+plane {
+	y,0 
+	pigment { checker color OrangeRed color YellowGreen scale 10 }
+	rotate y*-30
+	}
+
+sphere {
+	&lt;0,19,0&gt;,19
+	pigment { SteelBlue filter 0.5 transmit 0.2 } 
+	finish { reflection 0.4 phong 0.7 }
+	}
+        
+light_source { &lt;45,80,125&gt; White*2 }
+
+fog { White distance 550 }
+</pre>
+<P>
+Nous enregistrons sous le nom "essai".
+Dans le menu "Edit", nous choisissons "image Setting".
+Dans l'onglet "Output" nous sélectionnons :<br>
+-Image Size : 320x240<br>
+-Save image as : PICT (MacOS)<br>
+Dans le menu "Render", nous choisissons "Render essai Setting".<br>
+Après quelques secondes nous obtenons l'image suivante :<BR>
+<img src="resulat.jpg"><BR>
+Le fichier PICT est enregistré dans le même dossier que le dossier source.
+</P>
+
+</body>
+</html>
+
+
+
+
+
+

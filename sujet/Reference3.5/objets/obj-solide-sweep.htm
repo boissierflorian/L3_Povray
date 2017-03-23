@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>sphere_sweep - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>sphere_sweep ("glissé de sphère" !)</H1>
+
+<H2>objectif</H2>
+ <P>Créer des objets filiformes avec une épaisseur variable.</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.5 +sup.</P>
+
+<H2>explication</H2>
+<P>Une sphere_sweep est créée à partir du volume occupé par le parcours d'une sphère
+    le long d'une spline. Le rayon de la sphère peut varier aux points de contrôle 
+    de la spline.  Une application typique : les câbles !</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+sphere_sweep {
+  linear_spline / b_spline / catmull_rom_spline
+  Nombre_Spheres,       <SPAN class="comm">// entier</SPAN>
+  Centre_1, Rayon_1,    <SPAN class="comm">// vecteur, décimal</SPAN> 
+  Centre_2, Rayon_2,    
+  ...                   
+  Centre_n, Rayon_n     
+  (tolerance Tolerance) <SPAN class="comm">// décimal</SPAN>
+
+  (..modificateurs d'objets..)
+  (..transformations..)
+  (..mat&eacute;riau..)
+}</PRE>
+<P>Il n'est pas possible de déclarer une spline pour l'utiliser dans votre objet sphere_sweep, 
+   car une spline traditionnelle ne contient pas l'information du rayon aux points de contrôle.</P>
+<P>Il faud d'abord spécifier le type de spline à employer (les images suivantes sont construites avec des points 
+   de contrôle identiques) : </P>
+<P>
+    - <strong>linear_spline</strong><br>
+<IMG SRC="spline1.jpg" BORDER=2></IMG><br><br>
+    - <strong>b_spline</strong><br>
+<IMG SRC="spline2.jpg" BORDER=2></IMG><br><br>
+    - <strong>catmull_rom_spline</strong><br>
+<IMG SRC="spline3.jpg" BORDER=2></IMG><br><br>
+</P>
+<P>
+ La <strong>linear_spline</strong>, porte bien son nom. Elle se contente en effet de relier les sphères avec des sortes de cônes.
+ On constate que la <strong>b_spline</strong> ne passe pas exactement sur les points, tandis que la <strong>catmull_rom_spline</strong> le fait.</P>
+<P>
+ Si le rendu de la <STRONG>sphere_sweep</STRONG> montre quelques imperfections, il est nécessaire d'écrire 
+ le mot-clef <strong>tolerance</strong> suivi
+ de la nouvelle tolérance (la valeur par défaut est 0.000001). Essayez
+ une valeur telle que 1.0e-4 ou plus, ça devrait jouer...<br>
+</P>
+
+<H2>exemple</H2>
+ <PRE>
+// La spline ci-dessus en version b_spline
+sphere_sweep {
+  b_spline,
+  11,
+  < -10,1, 0>, 0.1
+  < -8, 3, 0>, 0.2
+  < -6, 4, 0>, 0.1
+  < -4, 2, 0>, 0.2
+  < -2, -3, 0>, 0.1
+  < 0,  0, 0>, 0.2
+  < 2,  -4, 0>, 0.1
+  < 4,  3, 0>, 0.2
+  < 6,  4, 0>, 0.1
+  < 8,  -1, 0>, 0.2
+  < 10, 0, 0>, 0.1
+  tolerance 1.0e-4
+}
+ </PRE>
+
+<H2>CSG</H2>
+  <P>Fonctionne bien en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis. Il est cependant déconseillé
+     d'utiliser une <STRONG>sphere_sweep</STRONG> avec une opération de mélange (merge), de petits trous pourraient se présenter entre les objets mélangés.</P>
+
+<H2>remarques</H2>
+  <P>- Si les taches noires persistent (on dirait une pub pour de la lessive), essayez de changer la méthode d'anticrénelage, en ajoutant Sampling_Method=2 (+AM2)
+     dans le fichier .ini ou la ligne de commande.</P>
+  <P>- Souvent, il est plus intéressant d'utiliser une fonction <STRONG>spline</STRONG> pour répartir
+       plein de sphères et de cônes que d'utiliser <STRONG>sphere_sweep</STRONG>.  En pratique, seul
+       un problème de consommation de mémoire vous fera choisir cette dernière.</P>
+
+  <P><I>R&eacute;dacteur: Pierrick Zoss</I></P>
+  
+</BODY>
+
+</HTML>

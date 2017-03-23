@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			vecteurs - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+		<H1>les vecteurs	 - définition</H1>
+
+<P>Dans POV-Ray, un vecteur est le plus souvent un moyen de sp&eacute;cifier les coordonn&eacute;es
+   d'un point en 2D ou en 3D.</P>
+
+<P>Math&eacute;matiquement, un vecteur, qui est repr&eacute;sent&eacute; par une fl&egrave;che, a quatre caract&eacute;ristique :
+   une origine (point de d&eacute;part), un sens, une direction, et une longueur (ou intensit&eacute;).
+   Dans POV-Ray, l'origine implicite du vecteur est toujours l'origine du syst&egrave;me d'axes
+   (&lt;0,0,0&gt;), et son sens, sa direction et sa longueur sont d&eacute;termin&eacute;s par la coordonn&eacute;e, qui
+   est en quelque sorte le point d'arriv&eacute;e.</P>
+<P>Dans la majorit&eacute; des cas, le vecteur ne servira qu'&agrave; rep&eacute;rer un point de l'espace, mais il 
+   sert parfois &agrave; sp&eacute;cifier une direction et une intensit&eacute;, pour la turbulence par exemple.</P>		
+
+ <H2>syntaxe</H2>
+ <P>un vecteur 2D :</P>
+<P><SPAN class="code">&lt;x,y&gt;</SPAN> ou <SPAN class="code">&lt;u,v&gt;</SPAN></P>
+ <P>un vecteur 3D :</P>
+ <PRE>&lt;x,y,z&gt;</PRE>
+
+ <P>Les vecteurs peuvent &ecirc;tre d&eacute;clar&eacute;s via <STRONG>#declare</STRONG> ou <STRONG>#local</STRONG>,
+   et il est possible d'extraire la valeur d&eacute;cimale d'un des composants d'un vecteur.  N'oubliez
+   pas le point-virgule apr&egrave;s chaque d&eacute;claration de vecteur.</P>
+ <PRE>
+#declare Vecteur1 = &lt;12,8,35&gt;
+#declare Machin1 = Vecteur1.x;  //Machin1 vaudra 12
+#declare Machin2 = Vecteur1.y;  //Machin2 vaudra 8
+#declare Machin3 = Vecteur1.z;  //Machin3 vaudra 35
+</PRE>
+
+<P>Si, au lieu d'un vecteur, vous sp&eacute;cifiez un nombre d&eacute;cimal, celui-ci sera automatiquement
+   converti en un vecteur dont tous les composants sont &eacute;gaux &agrave; ce nombre.  C'est ce qu'on
+   appelle la "promotion".</P>
+ <PRE>
+sphere {0,1} //&eacute;quivaut &agrave; ...
+sphere {&lt;0,0,0&gt;,1}
+ </PRE>
+<P>Attention, si vous sp&eacute;cifiez un vecteur comportant moins de composants que le vecteur
+   attendu par POV-Ray, les autres composants vaudront 0.</P>
+<pre>
+sphere {&lt;12,5&gt;,1} //&eacute;quivaut &agrave; ...
+sphere {&lt;12,5,0&gt;,1}
+</pre>
+<P>Enfin, toute expression math&eacute;matique valide retournant un nombre d&eacute;cimal peut &ecirc;tre
+   entr&eacute;e comme composant d'un vecteur :</P>
+<pre>
+sphere {&lt;A+B,C*(D+E),pow(A,D)&gt;,2}
+</pre>
+
+<H2>op&eacute;rations sur les vecteurs</H2>
+<P>Additions, soustractions, etc..</P>
+<pre>
+&lt;a,b,c&gt; + &lt;d,e,f&gt; = &lt;a+d,b+e,c+f&gt;
+&lt;a,b,c&gt; * &lt;d,e,f&gt; = &lt;a*d,b*e,c*f&gt;
+...
+</pre>
+<P>..et ainsi de suite, l'expression &eacute;tant &eacute;valu&eacute;e composant par composant.</P>
+<P>Multiplication d'un vecteur par un nombre décimal :</P>
+<PRE>&lt;2,5,4&gt;*4 = &lt;8,20,16&gt;</PRE>
+<P>Cela relève en fait de la "promotion" :</P>
+<PRE>&lt;2,5,4&gt;*4 = &lt;2,5,4&gt;*&lt;4,4,4&gt;</PRE>
+
+
+<H2>couleurs</H2>
+<P>Des vecteurs sont &eacute;galement utilis&eacute;s pour d&eacute;finir les couleurs, mais leur emploi
+   pr&eacute;sente parfois quelques particularit&eacute;s.  Voyez donc la section consacr&eacute;e aux couleurs.</P>
+<H2>vecteurs pr&eacute;d&eacute;finis</H2>
+<P>Ces vecteurs ne peuvent pas &ecirc;tre red&eacute;finis.  Leur usage apporte un peu de confort
+   au moment du codage, et surtout plus de lisibilit&eacute;.</P>
+
+<PRE>
+x = <1, 0, 0>
+y = <0, 1, 0>
+z = <0, 0, 1>
+t = <0, 0, 0, 1>
+u = <1, 0>
+v = <0, 1>
+
+//exemple : 
+plane {<0,1,0>,0}  //&eacute;quivaut &agrave; ..
+plane {y,0}        //qui est plus lisible
+
+//autre exemple :
+object {Machin translate <12,0,0>}  //&eacute;quivaut &agrave; ..
+object {Machin translate x*12}
+</PRE>
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

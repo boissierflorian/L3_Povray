@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>camera - documentation POV-Ray en fran&ccedil;ais</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> /
+ page précédente : <A href="cam-posi.htm">positionnement de la caméra</A>
+</P>
+<H1>camera - profondeur de champ</H1>
+
+<H2>syntaxe</H2>     
+   <P>Depuis POV-Ray 3.0, la cam&eacute;ra a la possibilit&eacute;, par un syst&egrave;me d'&eacute;chantillonnage statistique,
+      de simuler le flou d&ucirc; &agrave; la profondeur de champ.</P>
+   <P><STRONG>blur_samples</STRONG> est le nombre maximum d'&eacute;chantillons suppl&eacute;mentaires qui sont pris 
+   pour chaque pixel.  Le syst&egrave;me consiste en fait, en plus du pixel dont on s'occupe vraiment, 
+   &agrave; aller regarder la couleur d'un certain nombre de pixels voisins, et puis de faire une moyenne 
+   de la couleur de ceux-ci.  Ce nombre de pixels voisins, c'est le "blur_samples".  Une valeur
+   de 0 court-circuite le processus de calcul de la profondeur de champ.  Si la valeur est trop 
+   faible, le r&eacute;sultat sera assez granuleux.  Pour obtenir un flou bien lisse et r&eacute;gulier, il
+   faut ajuster la valeur en fonction de l'importance du flou et de la qualit&eacute; d&eacute;sir&eacute;e.  Il n'est 
+   pas inutile de recourir &agrave; des valeurs aussi &eacute;lev&eacute;es que 1000 ou davantage pour les rendus finaux...
+   </P>
+   <P><STRONG>aperture</STRONG> (qui veut dire "ouverture") permet de r&eacute;gler l'intensit&eacute; du flou.  C'est un peu
+   comme quand on ferme l&eacute;g&egrave;rement les yeux pour mieux distinguer quelque chose, plus l'aperture est
+   petite, plus les choses sont nettes !  Et inversement, bien s&ucirc;r.</P>
+   <P><STRONG>focal_point</STRONG> est le point au niveau duquel tout est net.  Tout ce qui se trouve avant ou apr&egrave;s
+   ce point redevient progressivement plus flou.  C'est le point de "mise au point".</P>
+   <P><STRONG>confidence</STRONG>, exprim&eacute; entre 0 et 1, dit &agrave; quel point le r&eacute;sultat des moyennes successives 
+   pour un pixel doivent s'approcher de la "bonne" valeur avant d'arr&ecirc;ter de prendre des &eacute;chantillons 
+   suppl&eacute;mentaires.</P>      
+   <P><STRONG>variance</STRONG> indique quelle est la plus faible diff&eacute;rence de couleur perceptible, usuellement 1/128.</P>
+   <P>En gros, la "variance" donne le seuil en de&ccedil;&agrave; duquel on ne voit pas la diff&eacute;rence entre deux
+   couleurs, et "confidence" dit &agrave; quel point POV-Ray doit &ecirc;tre exigeant sur la proximit&eacute; entre la couleur
+   courante et l'hypoth&eacute;tique couleur finale.</P>
+   <P>Pour augmenter la qualit&eacute; de rendu, il faut augmenter la "confidence" et/ou diminuer la "variance".</P>
+   <P><I>Note : si quelqu'un trouve une mani&egrave;re plus claire d'expliquer ces deux mots-cl&eacute;s, qu'il se manifeste !!</I></P>
+
+<H2>astuce</H2>
+  <P>Fran&ccedil;ois Dispot a mis au point (!!) un syst&egrave;me pour faciliter l'utilisation de la profondeur
+     de champ : il suffit alors de sp&eacute;cifier deux points entre lesquels les objets sont nets.</P>
+  <P>On peut trouver la documentation compl&egrave;te (en fran&ccedil;ais) de cette macro sur : <A href="http://www.wozzeck.net/images/DoF_fr.html">http://www.wozzeck.net/images/DoF_fr.html</A></P>
+ <PRE>
+#macro DoF(
+   Location, //le vecteur "location" (le m&ecirc;me que sur la cam&eacute;ra)
+   Width,    //largeur de l'image finale en pixels; diminuer pour augmenter la nettet&eacute;.
+   Angle,    //en degr&eacute;s
+   LookAt,   //le vecteur "look_at"
+   Plane1,   //1er point de nettet&eacute;
+   Plane2    //2eme point de nettet&eacute;
+   )
+
+#render "Depth of Field control plug-in V 1.0/n"
+
+#local Unary= vnormalize(LookAt-Location);
+#local Alpha= vdot(Unary, Plane1-Location); //1st sharp distance
+#local Beta = vdot(Unary, Plane2-Location); //last sharp distance
+#if (Alpha = Beta)
+   debug ("   Both control points are at the same distance/n")
+   error
+   #end
+#if (Alpha &lt;= 0)
+   debug ("   1st control point is behind camera/n")
+   error
+   #end
+#if (Beta &lt;= 0)
+   debug ("   2nd control point is behind camera/n")
+   error
+   #end
+#local d=2/(1/Alpha+1/Beta);        //distance to focal point
+#local H=2/(1/Alpha-1/Beta);        //Hyperfocal distance
+#local F=18/tan(radians(Angle/2));  //Equivalent focal length (in mm) in 35mm
+#local e=36/Width;                  //Diameter of confusion center is 1 pixel, in 35mm film mm.
+
+#local A=e*H/F;                     //Aperture (in units, NOT f-stops)
+#local FocalPoint=Location+d*Unary; //(in units)
+
+#debug concat("   aperture ", str(A, 0, 3), "/n")
+#debug concat("   focal_point &lt;", str(FocalPoint.x, 0, 3), ", ", str(FocalPoint.y, 0, 3), ", ", str(FocalPoint.z, 0, 3), "&gt;/n")
+
+aperture A
+focal_point FocalPoint
+
+#end
+
+ </PRE>
+ <P><B>Usage : </B> Il faut appeler la macro DoF (...) &agrave; l'endroit o&ugrave; on sp&eacute;cifie les param&egrave;tres de profondeur de champ de la cam&eacute;ra.</P>
+
+<P>page suivante : <A href="cam-proj.htm">modes de projection</A></P>
+
+</BODY>
+
+</HTML>

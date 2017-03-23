@@ -1,0 +1,16 @@
+export PATH="$PATH:/usr/local/lib/povray31/"
+
+----
+
+1) verifier que le repertoire /usr/local/bin est dans le path
+-> echo $PATH 
+doit comporter   /bin:/usr/bin:/usr/X11R6/bin:/usr/local/bin:
+sinon l'ajouter par export PATH="$PATH:/usr/local/bin"
+
+2) en root : cd /usr/local/bin
+
+3) ln -s /home/guilloud/3d/pov/povray31/x-povray ./povray 
+
+ liste de packages  rpm : http://linux.inrialpes.fr/linux/rpm2html/search.php?query=povray&submit=Search+...&system=&arch=
+
+ http://packages.debian.org/stable/graphics/povray.html

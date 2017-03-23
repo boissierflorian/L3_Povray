@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>warp turbulence - Référence POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index général de l'aide</A> - <A href="index-mat.htm">vers l'index des motifs</A></P>
+
+<H1>warp - généralités et turbulence</H1>
+
+<P><STRONG>warp</STRONG> permet d'appliquer aux motifs des modifications spatiales, 
+  suivant des algorithmes particuliers, essentiellement destinés à briser leur régularité.</P>
+<P>Il se place parmi les autres modificateurs de motifs, plus particulièrement avec
+   <STRONG>scale</STRONG>, <STRONG>rotate</STRONG>, et <STRONG>translate</STRONG>, avec
+   lesquels il interagit au niveau de l'ordre des transformations.</P>
+
+<H2>turbulence</H2>
+  <P>Imaginez que les motifs soient en fait un liquide composé de plusieurs liquides colorés
+     entremêlés.  Si vous soufflez doucement sur ce liquide, vous allez provoquer de petits
+     tourbillons, vaguelettes, et les couleurs seront un peu secouées.  C'est plus ou moins
+     ce que fait <STRONG>turbulence</STRONG>.</P>
+<H2>syntaxe</H2>
+<PRE>
+warp {
+ turbulence TurbVec // vecteur
+ omega Omega     // nombre décimal
+ lambda Lambda   // nombre décimal
+ octaves Octaves // nombre entier
+}
+</PRE>
+  <P>turbulence est suivi d'un vecteur, qui indique en quelque sorte dans quelle direction
+     et avec quelle force on souffle sur le motif.</P>
+  <PRE>pigment {... warp {turbulence <1,.1,0>}}</PRE>
+  <P>...veut dire qu'on "souffle" un bon coup dans la direction x, un tout petit peu dans la direction
+     y, et pas du tout vers z.</P>
+  <P>En fait, pour appliquer de la turbulence, POV-Ray effectue quelques déplacements (pseudo-)aléatoires
+     sur les points qui constituent le motif.  On peut contrôler la façon dont ce déplacement s'effectue
+     à l'aide de trois mots clés :</P>
+  <P><STRONG>octaves</STRONG> : suivi d'un entier, spécifie le nombre de ces déplacements successifs (de 1 à 10).
+     La valeur par défaut est 6, ce qui est déjà beaucoup.</P>
+  <P><STRONG>lambda</STRONG> : spécifie à quel point chaque nouveau déplacement peut (statistiquement) être
+     différent du précédent.  La valeur par défaut est de 2, ce qui est beaucoup.  Des valeurs
+     plus faibles rendent la turbulence plus "sage".</P>
+  <P><STRONG>omega</STRONG> : spécifie quelle est le rapport de distance entre deux déplacement successifs.
+     La valeur par défaut de 0.5 fait en sorte que chaque déplacement est deux fois plus court
+     que le précédent (et, ici, les musiciens comprendront pourquoi on parle d'"octaves").</P>
+   <P>Exemple :</P>
+  <PRE>pigment {... warp {
+                    turbulence <1,.1,0>
+                     octaves 5  // 5 déplacements
+                     lambda 1.5 // variation de direction un peu moins forte que d'hab'
+                     omega 1/3  // chaque déplacement aura 1/3 de la longueur du précédent
+																			}
+                    }
+  </PRE>
+
+<P><I>Note</I> : plus la valeur d'<STRONG>octaves</STRONG> est grande, plus il y a de déplacements à calculer, et
+donc plus le rendu de ce motif sera long à éxécuter. Veillez donc à utiliser une valeur d'<STRONG>octaves</STRONG>
+qui vous convient, plutôt que d'utiliser la valeur pas défaut qui est assez élevée.</P>
+
+<TABLE>
+<TR>
+  <TD><IMG src="octaves1.jpg" border=2></TD><TD><IMG src="octaves2.jpg" border=2></TD><TD><IMG src="octaves3.jpg" border=2></TD><TD><IMG src="octaves4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>octaves 1</STRONG></TD><TD><STRONG>octaves 2</STRONG></TD><TD><STRONG>octaves 4</STRONG></TD><TD><STRONG>octaves 10</STRONG></TD>
+</TR>
+<TR>
+  <TD><IMG src="lambda1.jpg" border=2></TD><TD><IMG src="lambda2.jpg" border=2></TD><TD><IMG src="lambda3.jpg" border=2></TD><TD><IMG src="lambda4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>lambda 1</STRONG></TD><TD><STRONG>lambda 2</STRONG></TD><TD><STRONG>lambda 4</STRONG></TD><TD><STRONG>lambda 8</STRONG></TD>
+</TR>
+<TR>
+  <TD><IMG src="omega1.jpg" border=2></TD><TD><IMG src="omega2.jpg" border=2></TD><TD><IMG src="omega3.jpg" border=2></TD><TD><IMG src="omega4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>omega .2</STRONG></TD><TD><STRONG>omega .4</STRONG></TD><TD><STRONG>omega .6</STRONG></TD><TD><STRONG>omega .8</STRONG></TD>
+</TR>
+</TABLE>
+
+<H2>fonction de turbulence pour les vecteurs</H2>
+
+<P>La fonction <strong>vturbulence()</strong> renvoie les valeurs de <strong>turbulence</strong> utilisées
+par POV-Ray. Cela permet, entre autres, de disposer de vecteurs (pseudo-)aléatoires qui sont relativement
+cohérents dans l'espace, c'est-à-dire, que le vecteur généré pour un point donné de l'espace sera similaire
+en longueur et en direction à celui généré pour un autre point proche du premier.</P>
+
+<P><strong>vturbulence(Lbd, Omg, Oct, Pt)</strong> renvoie un vecteur dépendant des 4 paramètres
+qu'on lui passe, les 3 premiers ayant la même signification que pour <strong>turbulence</strong>. Ce vecteur
+correspond donc au déplacement généré par <strong>turbulence 1 octaves Oct lambda Lbd omega Omg</strong>
+appliqué au point Pt.</P>
+
+<H2>remarque</H2>
+<P>POV-Ray 3.5 dipose toujours, en héritage des anciennes versions, d'un mot clé <STRONG>turbulence</STRONG>,
+   directement applicable à un motif, en dehors d'une structure <STRONG>warp</STRONG>.  Toutefois,
+   cette fonctionnalité a l'inconvénient de réaliser la turbulence AVANT toute autre transformation,
+   empêchant donc un réglage fin de l'effet.  En conséquence, nous vous conseillons d'utiliser
+   exclusivement <STRONG>warp {turbulence ...}</STRONG>, qui convient à toutes les situations.</P>
+
+<P><I>auteurs : Fabien Mosen / Christophe Bouffartigue</I></P>
+</BODY>
+
+</HTML>

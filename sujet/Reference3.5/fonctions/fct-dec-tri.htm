@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>op&eacute;rations sur les nombres d&eacute;cimaux - documentation POV-Ray en fran&ccedil;ais	</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+<H1>nombres décimaux - fonctions trigonométriques</H1>
+<P>Un petit aide-mémoire graphique tout d'abord :</P>
+<IMG SRC="illref-trigo.jpg">
+
+<H2>sinus et cosinus</H2>
+<P class="noindent">
+<STRONG>sin(A)</STRONG> sinus de A (A = angle en radians)<BR>
+<STRONG>asin(A)</STRONG> arc-sinus de A (en radians)<BR>
+<STRONG>sinh(A)</STRONG> sinus hyperbolique de A (A = argument)<BR>
+<STRONG>asinh(A)</STRONG> argument-sinus hyperbolique de A (en radians)<BR>
+<BR>
+<STRONG>cos(A)</STRONG> cosinus de A (A = angle en radians)<BR>
+<STRONG>acos(A)</STRONG> arc-cosinus de A (en radians)<BR>
+<STRONG>cosh(A)</STRONG> cosinus hyperbolique de A (A = argument)<BR>
+<STRONG>acosh(A)</STRONG> argument-cosinus hyperbolique de A<BR>
+
+</P>
+
+<H2>tangentes</H2>
+<P class="noindent">
+<STRONG>tan(A)</STRONG> tangente de A (A = angle en radians)<BR>
+<STRONG>atan2(A,B)</STRONG> arc-tangente de A/B (en radians)
+           pour obtenir l'arc-tangente de A, utilisez&nbsp;: atan2(A,1)<BR>
+<STRONG>tanh(A)</STRONG> tangente hyperbolique de A (A = argument)<BR>
+<STRONG>atanh(A)</STRONG> argument-tangente hyperbolique de A<BR>
+</P>
+
+<H2>degrés et radians</H2>
+<P class="noindent">
+<STRONG>degrees(A)</STRONG> convertit les radians en degr&eacute;s<BR>
+
+<STRONG>radians(A)</STRONG> convertit les degr&eacute;s en radians.
+           Par exemple, pour obtenir le cosinus de 45&#176;&nbsp;:
+<STRONG>cos (radians (45))</STRONG><BR>
+<BR><I>remarque : ceux qui souhaitent travailler uniquement en
+degr&eacute;s peuvent facilement se faire un jeu de macros du genre :</I><BR>
+</P>
+<PRE>
+#macro cos_d (Angle)
+  cos (radians (Angle))
+#end
+</PRE>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

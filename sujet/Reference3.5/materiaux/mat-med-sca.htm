@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les media - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-mat.htm">vers l'index des mat&eacute;riaux</A>
+</P>
+
+<H1>media - scattering (dispersion)</H1>
+<P>Le "scattering" est la mani&egrave;re dont la lumi&egrave;re se diffuse dans les atmosph&egrave;res
+  un peu plus dense que la normale : brouillard, poussi&egrave;re, fum&eacute;e,...</P>
+<P>Cet effet est d&ucirc; au fait que les particules (eau, pollens,..) pr&eacute;sentes dans
+   l'air "accrochent" la lumi&egrave;re, et laissent une trace visible.</P>
+
+<H2>syntaxe</H2>
+<pre>
+media {
+...
+scattering {Type, 
+            Couleur
+           [eccentricity Excentricite]
+           [extinction Extinction]
+           }
+}
+</pre>
+<P>Le type d&eacute;finit la mani&egrave;re dont la lumi&egrave;re se diffuse dans l'atmosph&egrave;re.  Dans la r&eacute;alit&eacute;,
+   un filet de lumi&egrave;re vu de face ou presque est plus intense que s'il est vu de c&ocirc;t&eacute;.  C'est
+   cela qui est d&eacute;termin&eacute; par les 5 types de <STRONG>scattering</STRONG> disponibles.</P>
+<P>Type <STRONG>1</STRONG> : dispersion <I>isotrope</I>, o&ugrave; l'angle sous lequel est vue la
+   dispersion lumineuse n'a pas d'incidence sur son intensit&eacute;.  C'est le type que l'on choisira
+   pour les premiers tests lors de la d&eacute;finition d'un tel media.</P>
+<P>Types <STRONG>2</STRONG>, <STRONG>3</STRONG>, <STRONG>4</STRONG> et <STRONG>5</STRONG>
+   : mod&egrave;les de dispersion o&ugrave; l'intensit&eacute; de l'effet varie suivant l'angle de vision.
+   Ces mod&egrave;les sont d&eacute;taill&eacute;s dans la page suivante.</P>
+
+<H2>exemple</H2>
+
+<PRE>
+//dispositif g&eacute;n&eacute;ral
+#include "colors.inc"
+camera {location &lt;250,150,250&gt; direction z*1 look_at &lt;0,120,0&gt;}
+plane {y,0 pigment {SteelBlue}}
+
+//une petite sph&egrave;re qui se met dans le trajet de la lumi&egrave;re
+sphere {&lt;0,160,0&gt;,30 pigment {OrangeRed} finish {phong .7}}
+
+//le conteneur du media
+sphere {&lt;0,120,0&gt;,120 hollow pigment {White transmit 1}
+ interior {
+   media {  
+          intervals 10
+          samples 1,4
+          scattering {
+                      1,
+                      White*.005
+            } 
+}         
+}
+}
+
+light_source {&lt;0,300,-250&gt; White*1}
+</PRE>
+<BR>
+<IMG src="illref-mat-med-01.jpg">
+<P>
+Voil&agrave; : un petit media qui accroche la lumi&egrave;re, et on voit bien la 'trace d'ombre' de
+la sph&egrave;re dans la 'poussi&egrave;re'.  Dans le principe, ce n'est jamais beaucoup plus
+compliqu&eacute; que cela, mais on se retrouve assez facilement &agrave; s'arracher les cheveux
+pour arriver &agrave; faire 'fonctionner' un media comme on le souhaite.  Le probl&egrave;me, c'est
+que chaque sc&egrave;ne est un cas particulier, et nous ne pouvons que formuler quelques
+conseils pour vous aider :
+</P>
+<P><BR>
+- Gardez toujours &agrave; l'esprit que l'&eacute;chantillonnage du media d&eacute;pend de la taille
+  absolue du conteneur.  Donc, veillez &agrave; ce que le conteneur soit arriv&eacute; &agrave; sa
+  taille d&eacute;finitive avant de lui appliquer un media, sinon l'allure de celui-ci
+  sera diff&eacute;rente.<BR>
+- Relisez bien la page pr&eacute;c&eacute;dente, qui parle des options d'&eacute;chantillonnage, qui
+  s'appliquent pareillement &agrave; la dispersion.  Tirez parti du <STRONG>mode</STRONG> d'&eacute;chantillonnage, afin de contr&ocirc;ler
+  l'aspect final du media.<BR>
+- Essayer d'incorporer rapidement le media &agrave; la sc&egrave;ne, et d'&eacute;laborer l'&eacute;clairage
+  de mani&egrave;re ad&eacute;quate.  Mettez d'abord votre media au point avec une seule source,
+  la principale, puis ajoutez les autres lumi&egrave;res une &agrave; une, en observant leur
+  influence sur l'aspect du media.<BR>
+- Ne modifiez qu'un seul param&egrave;tre &agrave; la fois !  Assurez-vous tout d'abord que le
+  param&egrave;tre de couleur soit bon, et, comme dans l'exemple ci-dessus, utilisez un
+  multiplicateur pour contr&ocirc;ler son intensit&eacute;.<BR>
+- N'oubliez pas "hollow" !!
+</P>
+
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

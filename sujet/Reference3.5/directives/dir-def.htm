@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Ifdef - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+
+<H1>#ifdef, #ifndef, #undef (contr&ocirc;le des d&eacute;clarations) </H1>
+
+<H2>objectif</H2>
+ <P>V&eacute;rifier si un identificateur a &eacute;t&eacute; d&eacute;clar&eacute;, pas d&eacute;clar&eacute; ou d&eacute;truire un identificateur</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.0 +sup.<BR>
+ POV-Ray 3.5 (éléments des tableaux)<BR>
+ </P>
+
+<H2>#ifdef</H2>
+<PRE>#ifdef (Variable) ... #else ... #end</PRE>
+ <P>Permet de conditionner l'exécution d'une série d'instructions à l'existence préalable
+    d'une variable.  Cette variable peut contenir un nombre, un objet, etc...  Exemple :</P>
+
+<PRE>
+#ifdef (Ma_Sphere)  // Ma_Sphere n'existe pas Pov-Ray va &agrave; #else
+
+ object {Ma_Sphere pigment {Red} translate &lt;2,5,0&gt; }
+
+#else // Pov-Ray ex&eacute;cute la ligne suivante
+
+  #declare Ma_Sphere = sphere {0,1 pigment {Green} translate &lt;2,5,0&gt;} 
+
+#end
+</PRE>
+<P>La section <STRONG>#else</STRONG> ('sinon') est facultative.  Pour vérifier si une valeur
+   à l'intérieur d'un tableau a été définie, la syntaxe est celle-ci :</P>
+
+<PRE>#ifdef (MonTableau[Position])</PRE>
+
+<H2>#ifndef (Variable)</H2>
+<P>Semblable à <STRONG>#ifdef</STRONG>, mais, ici, c'est la <b>non-existence</b> 
+   de la variable qui déclenchera l'exécution des instructions qui suivent.</P>
+
+<H2>#undef (Variable)</H2>
+<P>Permet de 'vider' une variable, comme si elle n'avait jamais été déclarée.</P>
+<PRE>#undef (Ma_Sphere)</PRE>
+
+<H2>remarques</H2>
+<P>Voyez la page consacrée à <STRONG>#include</STRONG> pour une explication sur la manière d'utiliser
+   les directives vues ci-dessus pour éviter les inclusions redondantes.</P>
+
+ <P><I>R&eacute;dacteur: Martial Rameaux</I></P>
+  <P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+</BODY>
+
+</HTML> 

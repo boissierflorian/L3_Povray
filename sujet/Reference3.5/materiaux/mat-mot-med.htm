@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>les motifs pour les media</H1>
+<P>Ces motifs ont été spécialement créés pour être employés dans une densité de <STRONG>media</STRONG>,
+   afin de limiter la part dense d'un media à l'intérieur
+   d'un volume simple.  Ainsi, on aura la certitude que le media ne "touche"
+   pas les parois de son contenant.  Ils sont cependant utilisables partout ailleurs (<STRONG>pigment</STRONG>,..).
+</P>
+
+<H3>boxed</H3>
+<A name="boxed">
+<P><I>POV-Ray 3.0</I></P>
+<P><STRONG>boxed</STRONG> d&eacute;ploie les valeurs de 1 &agrave; 0 suivant une succession de cubes de plus en plus grands,
+   centr&eacute;s sur l'origine.  Au del&agrave; de &lt;-1,-1,-1&gt;,&lt;1,1,1&gt;, la valeur 0 occupe
+   tout l'espace.</P>
+ <IMG SRC="tx-sp-04.jpg" border=2>
+
+<H3>cylindrical</H3> 
+<A name="cylindrical">
+<P><I>POV-Ray 3.0</I></P>
+<P>Ce motif déploie les valeurs de 1 à 0 suivant une succession de cylindres axés sur Y. Au-delà
+   du cylindre {&lt;0,-1,0&gt;,&lt;0,1,0&gt;,1}, la valeur 0 occupe tout l'espace restant.</P>
+ <IMG SRC="tx-sp-07.jpg" border=2>
+
+<H3>planar</H3> 
+<A name="planar">
+<P><I>POV-Ray 3.0</I></P>
+ <P><strong>planar</strong> d&eacute;ploie ses valeurs en fonction de l'&eacute;loignement du plan x-z. Pour tous les
+ points de ce plan, le motif renvoie la valeur 1. Puis, la valeur retourn&eacute;e d&eacute;croit lin&eacute;airement
+ jusqu'&agrave; une distance d'une unit&eacute; o&ugrave; il atteint la valeur 0. Partout au-del&agrave;, le motif prend la valeur 0.
+ </P>
+ <IMG SRC="tx-sp-15.jpg" border=2>
+
+<H3>spherical</H3>
+<A name="spherical">
+<P><I>POV-Ray 3.0</I></P>
+<P>Ce motif déploie les valeurs de 1 à 0 suivant une succession de sphères centrées sur
+   l'origine. Au-delà de la sphère de rayon 1, la valeur 0 occupe tout l'espace restant.</P>
+ <IMG SRC="tx-sp-19.jpg" border=2>
+
+</BODY>
+
+</HTML>

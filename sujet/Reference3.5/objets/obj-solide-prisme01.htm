@@ -1,0 +1,185 @@
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>prismes - documentation francophone de POV-Ray</title>
+<link href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<P >
+<A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A>
+</P>
+<h1>prisme</h1>
+
+<h2>
+objectif</h2>
+<P>Cr&eacute;er un objet prismatique, c'est-&agrave;-dire une surface polygonale
+extrud&eacute;e perpendiculairement &agrave; sa surface.  L'extrusion peut &ecirc;tre lin&eacute;aire (les faces
+lat&eacute;rales sont droites) ou conique (les faces se rejoignent en un point au sommet).
+On peut ainsi obtenir un prisme triangulaire, pentagonal, hexagonal, &eacute;toil&eacute;, 
+patato&iuml;de,.. ou encore se faire des lettres de l'alphabet, si on n'arrive pas
+&agrave; trouver la police parfaite.</P>
+<h2>compatibilit&eacute;</h2>
+
+<P>POV-Ray 3.0 +sup.</P>
+
+<H2>important !</H2>
+<P>Il y a, dans le comportement de POV-Ray (il faut bien qu'il ait des petits d&eacute;fauts aussi !),
+   une anomalie notoire en ce qui concerne les coordonn&eacute;es des points d'un prisme.</P>
+<P>En effet, le prisme &eacute;tant (apparemment) extrud&eacute; le long de l'axe Y, les coordonn&eacute;es
+   de ses points doivent, selon la doc originale, &ecirc;tre donn&eacute;s sous forme de vecteurs &lt;x,z&gt;,
+   ce qui est assez bizarre, vu que tous les autres cas de vecteurs 2D se donnent sous la forme
+   &lt;x,y&gt;.</P>
+<P>Voici ce qui se passe r&eacute;ellement : en fait, POV-Ray prend les coordonn&eacute;es que vous lui
+   donnez comme des vecteurs &lt;x,y&gt;, et extrude le prisme dans la direction -Z (la
+   base se retrouvant &agrave; -Z*Z_Base, et l'extr&eacute;mit&eacute; &agrave; -Z*Z_Extrem), et enfin,
+   ni vu ni connu, applique une rotation de 90&#176; sur l'axe X (rotate x*90) !</P>
+<P>On comprend (un peu) pourquoi il est plus confortable d'imaginer que l'extrusion se
+   fait sur +Y, mais cela pose de gros probl&egrave;mes lorsqu'on veut manipuler les vecteurs
+   &agrave; l'aide de fonctions telles que <STRONG>vrotate</STRONG>,.. !!!  C'est &eacute;galement la
+   raison pour laquelle les extrusions coniques ont la pointe vers le bas !</P>
+<P>Aussi, &agrave; la lumi&egrave;re de cette explication, nous avons choisi, dans cette page, 
+   de consid&eacute;rer que les coordonn&eacute;es se donnent dans le plan XY, et que l'extrusion
+   se situe en -Z, sachant qu'une rotation "automatique" de 90&#176; sur l'axe X sera appliqu&eacute;e.</P>
+
+<h2>syntaxe</h2>
+
+<pre>prism {
+       linear_sweep / conic sweep
+       linear_spline / quadratic_spline / cubic_spline / bezier_spline
+       Z_Extrem,     <SPAN class="comm">// nombre d&eacute;cimal</SPAN>
+       Z_Base,       <SPAN class="comm">// nombre d&eacute;cimal</SPAN>
+       Nb_Points     <SPAN class="comm">// nombre entier</SPAN>
+       &lt;x1,y1&gt;, &lt;x2,y2&gt;, ..., &lt;xn,yn&gt;  <SPAN class="comm">// vecteurs 2D</SPAN>
+       (open)
+
+       (..modificateurs d'objets..)
+       (..transformations..)
+       (..mat&eacute;riau..)
+       }
+</pre>
+<P>
+Le premier param&egrave;tre d&eacute;finit le type d'extrusion
+qui sera effectu&eacute;. Il y a deux possibilit&eacute;s: <STRONG>linear_sweep</STRONG>
+et <STRONG>conic_sweep</STRONG>. <STRONG>conic_sweep</STRONG> indique que le prisme prendra
+une apparence conique, c'est-&agrave;-dire que surface diminuera 
+le long de l'axe d'extrusion, allant jusqu'&agrave;
+une taille nulle (un point) si on le veut. <STRONG>linear_sweep</STRONG>, par contre,
+ne modifie pas la taille du profil, et ainsi l'extr&eacute;mit&eacute;
+et la base seront identiques.</P>
+
+<p>Le type de profil indique comment POV-Ray interpr&eacute;tera la s&eacute;rie
+de points d&eacute;finissant le profil. <STRONG>linear_spline</STRONG> est la m&eacute;thode
+la plus simple, chaque point &eacute;tant joint &agrave; ses voisins par
+une ligne droite. Les deux autres possibilit&eacute;s, <STRONG>quadratic_spline</STRONG>
+et <STRONG>cubic_spline</STRONG>, permettent d'avoir un profil liss&eacute;, par contre
+une certaine vigilance est n&eacute;c&eacute;ssaire (quand
+au nombre et placement des points) pour obtenir ce que l'on veut.  Des explications
+sur l'utilisation de ces types de profil peuvent &ecirc;tre trouv&eacute;es
+dans <A href="obj-solide-prisme02.htm">les splines appliqu&eacute;es aux prismes</A>.</P>
+
+<p><b>Z_Extrem</b> et <b>Z_Base</b> d&eacute;finissent les distances de
+la base et de l'extr&eacute;mit&eacute; du prisme par rapport &agrave; l'origine. <b>Nb_Points</b> indique le
+nombre de points qui font partie du profil. Le dernier point doit &ecirc;tre
+le m&ecirc;me que le premier, donc un point sera compt&eacute; deux fois. Par
+exemple: un prisme hexagonal n&eacute;cessiterait 7 points. Il y
+a une exception &agrave; cette r&egrave;gle: il est possible d'&eacute;num&eacute;rer
+plusieurs s&eacute;ries de points, chacune correspondant &agrave; un profil
+ferm&eacute;. La premi&egrave;re s&eacute;rie sera celle du prisme "premier",
+et les autres serviront &agrave; faire des trous dans ce prisme.</P>
+<p>Enfin, une s&eacute;rie de coordonn&eacute;es (x, y) servent &agrave;
+d&eacute;finir la forme du profil.</P>
+
+<P>Le mot cl&eacute; optionnel <STRONG>open</STRONG>, comme pour les cylindres et les c&ocirc;nes, permet de
+   laisser les extr&eacute;mit&eacute;s du prisme ouvertes.</P>
+
+<h2>exemples</h2>
+<P>Prenons l'exemple du prisme hexagonal inscrit dans un cercle de rayon &eacute;gal &agrave; 1.</P>
+<pre>
+#declare P3=pi/3; //60&#176;, en radians, puisque les fonctions trigo veulent des radians
+
+prism {
+  linear_sweep  // extrusion normale
+  linear_spline // les c&ocirc;t&eacute;s du prisme seront plans
+  0,2,7         // de z = -0 &agrave; z = -2, le profil ayant 7 points
+  &lt;cos(0*P3),sin(0*P3)&gt;,
+  &lt;cos(1*P3),sin(1*P3)&gt;,
+  &lt;cos(2*P3),sin(2*P3)&gt;,
+  &lt;cos(3*P3),sin(3*P3)&gt;,
+  &lt;cos(4*P3),sin(4*P3)&gt;,
+  &lt;cos(5*P3),sin(5*P3)&gt;,
+  &lt;cos(0*P3),sin(0*P3)&gt;
+  pigment {YellowGreen}
+  rotate x*-90  //correction de l'orientation du prisme
+}
+</PRE>
+
+<p>Ce qui donne, selon le type d'extrusion&nbsp;:</P>
+<TABLE> 
+<TR><TD>
+  <IMG SRC="prism01.jpg" alt="" border=2>
+</TD><TD>
+  <IMG SRC="prism02.jpg" alt="" border=2>
+</TD></TR> 
+<TR><TD>linear sweep</TD><TD>conic sweep</TD></TR>
+</TABLE>
+<P>Attention, quelles que soient les distances de la base et de l'extr&eacute;mit&eacute;, la pointe
+   d'un prisme conique se trouve toujours sur l'origine, et la forme inchang&eacute;e se trouve
+   toujours &agrave; -Z*1.  Si les distances sp&eacute;cifi&eacute;es sont diff&eacute;rentes de 0 et 1, le prisme
+   sera tronqu&eacute; et/ou amplifi&eacute; vers -Z.</P>
+
+<H3>formes imbriqu&eacute;es</H3>
+<P>Voyons maintenant comment faire un "trou" dans un prisme&nbsp;:</P>
+<pre>
+prism {
+  linear_sweep  
+  linear_spline
+  0,1,10         //un total de 10 points
+  &lt;0,0&gt;,&lt;2,0&gt;,&lt;2,2&gt;,&lt;0,2&gt;,&lt;0,0&gt;,              //un carr&eacute;
+  &lt;.1,.1&gt;,&lt;1.8,.2&gt;,&lt;1.6,1.9&gt;,&lt;.2,1.6&gt;,&lt;.1,.1&gt; //un quadrilat&egrave;re &agrave; l'int&eacute;rieur du carr&eacute;
+  pigment {YellowGreen}
+  rotate x*-90   //correction de l'orientation du prisme       
+  scale &lt;3,3,1&gt;
+}
+</pre>
+  <IMG SRC="prism03.jpg" alt="" border=2>
+<P>Quand vous faites ce genre d'op&eacute;rations, veillez &agrave; bien structurer (comme ci-dessus)
+   les diff&eacute;rentes formes.  Et si vous placez un trou &agrave; l'int&eacute;rieur d'un trou, eh bien,
+   &ccedil;a deviendra un plein !</P>
+
+<H3>utilisation avec les fonctions vectorielles</H3>
+<P>Un petit parasol pliss&eacute;, qui est un v&eacute;ritable casse-t&ecirc;te &agrave; mettre au point
+   si on croit que les coordonn&eacute;es se donnent en x,z (que les fonctions vectorielles
+   ne comprennent &eacute;videmment pas !).  Quand on SAIT (c'est avec une forme
+   de ce type que j'ai d&eacute;couvert le pot-aux-roses) que c'est en r&eacute;alit&eacute; x,y, &ccedil;a
+   va tout seul !</P>
+<PRE>
+prism {
+linear_spline
+conic_sweep
+0,5,72
+#declare boucle=0;
+#while (boucle &lt; 36)
+,vrotate (&lt;1.0,0&gt;,&lt;0,0,boucle*10&gt;),
+ vrotate (&lt;1.2,0&gt;,&lt;0,0,5+boucle*10&gt;)
+#declare boucle = boucle+1;
+#end                         
+open
+  rotate x*-90  //correction de l'orientation du prisme   
+pigment {YellowGreen}
+}  
+</PRE>
+  <IMG SRC="prism04.jpg" alt="un parasol chinois !" border=2>
+<h2>CSG</h2>
+<P>Le prisme a un int&eacute;rieur et un ext&eacute;rieur bien d&eacute;fini, et fonctionne donc parfaitement en CSG.</P>
+
+<h2>Remarques</h2>
+<P>L'utilisation du mot-cl&eacute; <b>open</b> &eacute;limine la base et la
+face sup&eacute;rieure du prisme, ne laissant que les faces lat&eacute;rales.
+Le comportement en CSG ne sera pas modifi&eacute;.</P>
+
+<p><i>R&eacute;dacteur: Serge Larocque</i></P>
+</body>
+</html>
+

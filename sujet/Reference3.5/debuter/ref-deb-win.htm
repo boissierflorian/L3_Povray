@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			prise en main rapide - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+		
+<H1>prise en main rapide de POV-Ray 3.5 pour Windows</H1>
+ <H2>téléchargement</H2>
+<P><I>Pendant la période de beta-test de POV-Ray 3.5, l'adresse de téléchargement est
+      celle-ci : 
+      <A href="http://www.povray.org/binaries/windows/beta.html">
+       http://www.povray.org/binaries/windows/beta.html</A>.
+       En bas de la page, cliquez sur "download now".
+      </I></P>
+ <H2>installation</H2>
+ <P><I>L'installation de POV-Ray 3.5 a été notablement simplifiée, comparé à celle de
+       POV-Ray 3.1.</I></P>
+	<P>En principe, l'installation est tr&egrave;s facile, toute automatique, avec juste quelques
+      petites r&eacute;ponses &agrave; fournir.</P>
+   <P>Après un premier message de bienvenue (cliquez sur "next"), vous êtes invités à lire 
+      la licence du logiciel (cliquez sur "display license agreement"), et à cocher ensuite 
+      la mention "I agree", qui vous permettra de cliquer à nouveau sur "next".</P>
+   <P>Vous devez à présent choisir un répertoire d'installation pour POV-Ray ("browse")
+      ou accepter celui proposé par défaut (..\Program Files\POV-Ray for Windows v3.5).
+   <P><I>Malheureusement, &agrave; cause de quelques donn&eacute;es inscrites dans la "base de registration",
+      l'installation de POV-Ray ne peut &ecirc;tre impun&eacute;ment d&eacute;plac&eacute;e par la suite.</I></P>
+   <P>Si il existe déjà une installation de POV-Ray dans ce répertoire, il vous sera demandé
+      si il faut faire des backups des fichiers remplacés, mais si tel était le cas, vous
+      n'avez de toutes façons pas besoin de cette explication.</P>
+   <P>Ensuite,on vous demande dans quel groupe de programmes (du menu "démarrer") POV-Ray doit 
+      placer ses raccourcis.  Choisissez ce groupe, et cliquez sur "next" pour démarrer le
+      processus d'installation.
+   <P>Une fois l'installation terminée, vous pouvez cocher la case "run a short test render",
+      qui aura pour effet de lancer un petit rendu destiné à vérifier la bonne installation
+      de POV-Ray.  Après ce rendu, POV-Ray s'éclipsera.  Cliquez sur "finish".</P>
+   <P><I>Les fichiers portant les extensions .inc et .pov ont été associées à POV-Ray.
+         Par défaut, les images rendues seront placées dans le même répertoire que
+         le fichier de scène, mais vous pouvez changer cela ultérieurement.</I></P>
+
+ <H2>fonctionnement g&eacute;n&eacute;ral de POV-Ray</H2>
+   <P>A partir de scripts, de simples fichiers textes contenant des descriptions d'objets,
+      de textures et de lumi&egrave;res, et portant, par convention, l'extension ".pov" (&eacute;tant
+      un simple fichier texte ASCII, on pourrait lui donner une autre extension, mais c'est
+      sans int&eacute;r&ecirc;t), POV-Ray 
+      cr&eacute;e, sur base d'un certain nombre d'options, des images de synth&egrave;se en rendu 
+      photor&eacute;aliste.</P>
+   <P>Ce syst&egrave;me de scripts est un v&eacute;ritable langage de programmation, mais il est
+      beaucoup plus simple et parlant que n'importe quel Basic !</P>
+   <P>Prenez la peine de lire attentivement ces quelques lignes de script et de faire
+      la relation avec l'image qu'elles produisent, et vous verrez tout de suite
+      que &ccedil;a n'a rien de sorcier.</P>
+<PRE>
+#include "colors.inc"
+
+camera {location  <40,50,36>
+        look_at <0,15,0>}
+
+plane {y,0 
+       pigment {checker color OrangeRed color YellowGreen
+                scale 10
+               }
+       rotate y*-30
+       }
+
+sphere {<0,19,0>,19
+        pigment {SteelBlue filter .5 transmit .2} 
+        finish {reflection .4 phong .7}
+        }
+        
+light_source {<45,80,125> White*2}
+
+fog {White distance 550}
+</PRE>
+<P>... donnera cette image :</P>
+<IMG src="deb-demo.jpg" border=2 alt="">
+
+ <H2>premi&egrave;re sc&egrave;ne, premier rendu</H2>
+   <P>Assez invariablement, la fen&ecirc;tre d'application de POV-Ray pr&eacute;sente les &eacute;l&eacute;ments
+      suivants : une barre de menus d&eacute;roulants, quelques boutons sur des barres d'outils
+      glissantes, et surtout une s&eacute;rie d'onglets abritant des fichiers de sc&egrave;nes ouverts.</P>
+   <P>Outre les fichiers ".pov" qui contiennent les &eacute;l&eacute;ments principaux d'une sc&egrave;ne,
+      on utilise aussi souvent des fichiers ".inc", qui contiennent des d&eacute;finitions de
+      variables, des objets pr&eacute;d&eacute;finis, etc...  "colors.inc" que nous venons d'utiliser
+      est un de ces fichiers.  Le langage contenu dans les fichiers .inc est bien entendu
+      le m&ecirc;me que partout, et le fait d'appeler un fichier .inc par l'instruction #include
+      revient en fait &agrave; faire un copier/coller de son contenu &agrave; l'endroit de l'appel.</P>
+   <P>Dans les menus, faites File/New, vous aurez un nouvel onglet "untitled" qui appara&icirc;tra.
+      Collez-y le script donn&eacute; plus haut, sauvez (File/Save, ou bouton "Save") le fichier
+      sous le nom que vous voulez, s&eacute;lectionnez la r&eacute;solution de sortie dans la petite
+      liste d&eacute;roulante &agrave; gauche, et appuyez sur le bouton "Run" (ou menus Render/Start Render,
+      ou encore Alt+G).</P>
+   <P>L'image r&eacute;sultante a &eacute;t&eacute; automatiquement sauv&eacute;e dans le r&eacute;pertoire que vous aviez
+      où se trouve la source (sauf indication contraire), au format BMP (Windows BitMaP).  D'autres formats
+      de sortie sont possibles, voyez la rubrique "réglages" dans cette Référence.</P>
+   <P>&Agrave; partir de l&agrave;, commencez &agrave; modifier un peu la sc&egrave;ne, puis relancez le rendu, "pour
+      voir", et essayez de comprendre un peu mieux les m&eacute;canismes.  Commencez &agrave; consulter
+      la documentation pour conna&icirc;tre le fonctionnement d&eacute;taill&eacute; des instructions du script ci-dessus,
+      et puis d'autres &eacute;l&eacute;ments (ils sont tr&egrave;s nombreux !).</P>
+   <P>Essayez de survoler un maximum de fonctions, sans trop vous arr&ecirc;ter, histoire d'avoir
+      une vue d'ensemble de ce qui est possible, puis, quand vous en aurez directement besoin,
+      approfondissez.</P>
+   <P>Un dernier conseil : il existe quelques outils de mod&eacute;lisation "visuelle" pour POV-Ray.
+      Ils ont leur utilit&eacute;, mais les utiliser sans avoir acquis un minimum de ma&icirc;trise
+      du syst&egrave;me de script, c'est risquer de passer &agrave; c&ocirc;t&eacute; de la montre en or !</P>
+	</BODY>
+	<P><I>Auteur : Fabien Mosen</I></P>
+</HTML>

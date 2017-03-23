@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>text - documentation POV-Ray en français		</TITLE>
+	</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>l'objet texte</H1>
+<H2>objectif</H2>
+<P>créer du texte en 3D</P><IMG 
+src="obj-solide-text_fichiers/povfr-txt-01.jpg"> 
+<H2>compatibilité</H2>
+<P>POV-Ray 2.0 +sup.</P>
+<H2>syntaxe</H2><PRE>text {
+        ttf "nomdelapolice.ttf"      // éventuellement chemin complet
+        "Chaîne de caractères"       // caractètes alphanumérique
+        Epaisseur ,                  // nombre décimal
+        Espacement                   // vecteur
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..matériau..)
+       }
+ </PRE>
+<P>Le texte sans épaisseur, autrement dit la face des caractères commence à l'origine et se developpe le long de l'axe +x. L'épaisseur se fait le long de l'axe +z</P>
+<P>Seules les polices TrueType fonts (ttf) et TrueType Collections (ttc) sont supportés.</P>
+<P>L'espacement horizontal (crénage) est géré en interne par POV-Ray en incluant les informations de la police. Le vecteur obligatoire "Espacement" peut définir un déplacement supplémentaire entre chaque caractère. En général "Espacement" est à de <0,0,0>, mais on ne peut décaler les caractères sur les axes X et Y (Z sera ignoré). Par exemple, spécifier 0.1*x ajoutera 0.1 unité d'espace entre chaque caractère.</P>
+<P>En principe, une unité d'espace vertical correspondra à la hauteur d'une ligne de texte, interligne comprise (à condition que la fonte soit réalisée rigoureusement). Un caractète utilise 50 à 75% d'un unité de hauteur.</P>
+<P>Seuls les caractères imprimables sont utilisables, donc pas de retour chariot, saut de ligne et autres tabulations.</P>
+<P>Pour accéder facilement à vos fontes, spécifiez le chemin dans le fichier "povray.ini". par exempe: Library_Path=C:\WINDOWS\Fonts</P>
+
+<H2>exemple</H2><PRE> 
+text { ttf "arial.ttf" "text" 0.4, &lt;0,0,0&gt; pigment {Yellow}}    
+ </PRE>
+<H2>CSG</H2>
+<P>Fonctionne parfaitement en CSG, l'intérieur et l'extérieur étant bien 
+définis.</P>
+
+<H2>remarque</H2>
+<P>Afin d'obtenir un rendu correct des caractères accentués (pour ne pas avoir l'accent tué), il faut, dans les global_settings, paramétrer charset avec utf8.</P>
+<PRE>global_settings { charset utf8 }
+-
+-
+-
+#declare Chaine = concat("On peut aussi ",chr(233),"crire en rond") 
+text {
+    ttf "arial.ttf" Chaine 0.4,
+    <0,0,0>
+    pigment { color rgb <0.8,1,0.3> }}</PRE>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class=noindent><STRONG>Bevelled_Text(Font, String, Cuts, BevelAng, BevelDepth, Depth, Offset, UseMerge)</STRONG>
+<BR>Crée du texte 3D chanfreiné.<BR>
+
+<IMG src="povfr-txt-02.jpg">
+<PRE>
+Font         =   nom de la police
+String       =   chaîne de caractères
+Cuts         =   Le nombre de coupe qui permet d'obtenir le chanfrein (nb élevé = rendu plus long)
+BevelAng     =   Angle du chanfrein en degré
+BevelDepth   =   Profondeur du chanfrein 
+Depth        =   Epaisseur
+Offset       =   Espacement
+UseMerge     =   0: merge ; 1: pas merge</PRE>
+
+<BR><STRONG>Circle_Text(Font, Text, Size, Thickness, Radius, Inverted, Justification, Angle)</STRONG> <BR>Crée du texte avec le haut ou la base des caractères aligné sur un arc de cercle.<BR>
+
+<IMG src="povfr-txt-03.jpg">
+<PRE>
+Font          =  nom de la police
+Text          =  chaîne de caractères
+Size          =  Taille des caractères, agit comme scale
+Thickness     =  Epaisseur
+Radius        =  Rayon du chemin circulaire
+Inverted      =  0: bases alignés ; 1: hauts alignés
+Justification =  1: Alignement gauche ; 2: Alignement Droite ; 3: Alignement Centré
+Angle         =  Angle à partir duquel le chemin circulaire commence (0° sur l'axe x et 90° sur l'axe y)</PRE>
+
+<BR><STRONG>TextWidth( Font, Text, Size )</STRONG> <BR>Retourne la largeur d'un texte spécifique dont on connait la police et la valeur de l'échelle employée. Cette macro peut être utilisée pour une mise en position de textes et d'objets. Comme cette macro tient compte des espaces pouvant être placés avant et/ou après la chaîne de caractères, il se peut que la largeur retournée soit plus grande que la largeur retournée par les fonctions min_extent and max_extent de la "bounding box" de cette même chaîne de caractères.<BR>
+<PRE>Font     =  nom de la police utilisée.
+Text     =  chaîne de caractères pour laquelle on désire connaître la largeur.
+Size     =  dimension de l'échelle à laquelle sont mis les caractères.</PRE>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		 
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		 
+		<TITLE>
+			triangle - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+		<H1>
+			triangle et smooth_triangle
+		</H1>
+		<H2>
+			objectif
+		</H2>
+		 
+		<P>
+		Cr&eacute;er des triangles sans &eacute;paisseur.
+		</P>
+<IMG SRC="illref-triangle-00.jpg">
+		<H2>
+			compatibilit&eacute;
+		</H2>
+ 
+		<P>
+		POV-Ray 2.0 +sup.
+		</P>
+		<H2>
+			syntaxe
+		</H2>
+		 
+<PRE>
+triangle {
+          Point_1, // vecteur
+          Point_2, // vecteur
+          Point_3  // vecteur
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+        }
+</PRE>
+		<P>
+		Rien de bien compliqu&eacute;, le triangle est la surface comprise entre les
+		trois points   donn&eacute;s.  Si les trois points sont align&eacute;s (= font
+		partie d'une m&ecirc;me droite), POV-Ray   ne pourra pas mat&eacute;rialiser le
+		triangle et vous signalera un 'triangle d&eacute;g&eacute;n&eacute;r&eacute;',
+		sans   toutefois emp&ecirc;cher le rendu de la sc&egrave;ne.
+		</P>
+		<IMG src="triangle01.jpg" border=2 alt="un triangle !">
+		<P>
+		Il est &eacute;galement possible de sp&eacute;cifier un vecteur de normale
+		&agrave; chaque coin du triangle,   ce qui a pour effet de "tordre"
+		visuellement le triangle, mais sans changer sa g&eacute;om&eacute;trie  
+		r&eacute;elle.  Seuls l'ombrage, les highlights et les r&eacute;flexions seront
+		modifi&eacute;s.  Par d&eacute;faut,   ces vecteurs de normale sont
+		perpendiculaires &agrave; la surface du triangle.
+		</P>
+<pre>
+smooth_triangle {
+          Point_1,   // vecteur
+          Normale_1, // vecteur
+          Point_2,   // vecteur
+          Normale_2, // vecteur
+          Point_3    // vecteur
+          Normale_3, // vecteur
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+        }
+</pre>
+		<H2>
+			exemple
+		</H2>
+		<P>
+		Voici un exemple tr&egrave;s simple de 
+		<STRONG>
+			smooth_triangle
+		</STRONG>
+		, qui montre tr&egrave;s   clairement comment la "fausse" normale des coins
+		affecte l'apparence du triangle.
+		</P>
+<PRE>
+//les &eacute;l&eacute;ments classiques...
+#include "colors.inc"
+camera {location &lt;100,100,100&gt; direction z*1 look_at &lt;0,0,0&gt;}
+light_source {&lt;40,50,30&gt; White*2}
+
+//la petite macro pour faire les fl&egrave;ches
+#macro Fleche (Pt1,Pt2,Rayon) 
+union { cylinder {Pt1,Pt2,Rayon}          
+        cone {0,Rayon,(vnormalize(Pt1-Pt2))*(Rayon*20),Rayon*3 translate Pt2} 
+        no_shadow }
+#end
+
+//d&eacute;claration des coins et des normales correspondantes
+#declare P1=&lt;20,-20,70&gt;;  
+#declare N1=&lt;0,.5,1&gt;;
+#declare P2=&lt;70,0,-40&gt;;   
+#declare N2=&lt;.1,.5,0&gt;;
+#declare P3=&lt;-50,40,-20&gt;; 
+#declare N3=&lt;0,1,0&gt;;
+
+//le triangle
+smooth_triangle {P1,N1,P2,N2,P3,N3 pigment {YellowGreen} finish {phong .9}}
+
+//les fl&egrave;ches
+object {Fleche (0,vnormalize(N1)*5,.1) pigment {OrangeRed} scale 10 translate P1}
+object {Fleche (0,vnormalize(N2)*5,.1) pigment {OrangeRed} scale 10 translate P2}
+object {Fleche (0,vnormalize(N3)*5,.1) pigment {OrangeRed} scale 10 translate P3}
+</PRE>
+		<P>
+		Et le r&eacute;sultat :
+		</P>
+		<IMG src="triangle02.jpg" border=2 alt="un triangle adouci..">
+		<H2>
+			CSG
+		</H2>
+		<P>
+		D&eacute;pourvus d'&eacute;paisseur, et donc
+		d'int&eacute;rieur/ext&eacute;rieur, les triangles ne fonctionnent   bien
+		qu'avec les unions.
+		</P>
+		<H2>
+			remarques
+		</H2>
+		<P>
+		Dans le cas o&ugrave; on associe plusieurs 
+		<STRONG>
+			smooth_triangle
+		</STRONG>
+		, la normale   de deux ou trois coins qui se rencontrent doit &ecirc;tre la
+		m&ecirc;me.  Plus pr&eacute;cis&eacute;ment,   elle doit &ecirc;tre, pour bien
+		faire, &eacute;gale au produit des trois normales individuelles.   Mais,
+		&agrave; de rares exceptions pr&egrave;s, ce ne sont pas des ajustements que
+		l'on fait   "&agrave; la main", et d'excellents utilitaires s'en chargeront
+		&agrave; votre place !
+		</P>
+		<P>
+		Les triangles peuvent &ecirc;tre efficacement associ&eacute;s dans une
+		entit&eacute; appel&eacute;e 
+		<STRONG>
+			mesh
+		</STRONG>
+		,   ce qui, lorsqu'on a uniquement des triangles, est bien mieux qu'une union. 
+		Voyez   la page consacr&eacute;e aux 
+		<STRONG>
+			mesh
+		</STRONG>
+		 pour plus de d&eacute;tails.
+		</P>
+		  
+		<P>
+		<I>
+			R&eacute;dacteur: Fabien Mosen
+		</I>
+		</P>
+		  
+	</BODY>
+</HTML>

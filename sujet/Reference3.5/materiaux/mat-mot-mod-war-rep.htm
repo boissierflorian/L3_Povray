@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>repeat, black_hole - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index général de l'aide</A> - <A href="index-mat.htm">vers l'index des motifs</A></P>
+
+<H1>warp - repeat et black_hole</H1>
+
+<H2>repeat</H2>
+<P>Le type <STRONG>repeat</STRONG> permet de répéter ad libitum une "tranche" de motif.  Pour
+   définir l'épaisseur et l'orientation de la tranche, on fait suivre le mot clé <STRONG>repeat</STRONG>
+   d'un vecteur (qui doit toujours être le long d'un des 3 axes x, y ou z):</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0>}
+         } 
+</pre>
+<P>Le code ci-dessus prend une tranche de motif entre x=0 et x=1.5, et la répète à l'infini. Pour
+éviter un aspect trop répétitif, on peut employer le mot clé <STRONG>offset</STRONG>, qui, suivi
+d'un vecteur, indique le décalage à faire subir au motif à chaque nouvelle tranche.  Cela peut
+servir à simuler certains appareillages de pierre, où des tranches successives d'un même bloc
+sont utilisées pour couvrir un mur.</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0> offset y*.1}
+         } 
+</pre>
+
+<P>On peut également faire subir une "inversion" au motif à chaque répétition. Pour cela, on utilise
+le mot clé <STRONG>flip</STRONG> suivi d'un vecteur. Les coordonnées non nulles de ce vecteur
+correspondent aux axes suivant lesquels on fait l'inversion:</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0> flip <2,0,1>}
+         } 
+</pre>
+
+<P>Dans cet exemple, le motif est inversé suivant les axes x et z à chaque répétition.</P>
+
+<H2>black_hole</H2>
+<P>Comme son nom l'indique, <STRONG>black_hole</STRONG> ("trou noir") provoque, en certains points
+   de l'espace, l'aspiration du motif sur lui-même !</P>
+<pre>
+warp {
+	black_hole  Centre, Rayon   // le centre du trou noir, et son rayon d'action
+	strength    Decimal         // la force du trou noir
+	falloff     Decimal         // la facon dont elle décroit en s'éloignant du centre
+	inverse                     // un trou noir "répulsif"
+	repeat      Vecteur         // répétition du trou noir
+	turbulence  Vecteur         // un peu de piment dans la répétition....
+}
+</pre>
+
+<P>Les deux premiers paramètres (<I>Centre</I> et <I>Rayon</I>) sont obligatoires. Tous les autres sont
+optionnels. <I>Centre</I> est un vecteur qui définit la position du centre du trou noir, là où sa force est
+la plus grande, alors que <I>Rayon</I> est le rayon d'action du trou noir. Les points à l'intérieur du trou
+noir sont "attirés" vers le centre, avec une force qui dépend de leur distance au centre. Plus le point est
+près du centre, plus la force exercée est grande, pour devenir nulle sur le périmètre du trou noir.
+Les points au-delà du rayon d'action ne sont pas perturbés par le trou noir.</P>
+
+<P>La force du trou noir, c'est-à-dire l'amplitude des déplacements qu'il provoque, peut être pondérée par
+le mot clé <strong>strength</strong>. Une valeur supérieure à 1 (la valeur par défaut) augmentera sa force,
+alors qu'une valeur inférieure la diminuera.</P>
+
+<P>La manière dont la force décroît en fonction de l'éloignement du centre est paramétrée par le mot clé
+<strong>falloff</strong>. Pour une valeur de 1, la décroissance est linéaire. La valeur par défaut 2 donne
+une force inversement proportionnelle au carré de la distance, elle décroît donc plus rapidement autour
+du centre et plus lentement en arrivant sur le périmètre. Il en est de même pour toutes les valeurs supérieures
+à 1. Les valeurs inférieures à 1 vont donner une décroissance lente autour du centre, et brutale en arrivant
+sur le périmètre.</P>
+<P><I>Attention, une valeur de <strong>falloff</strong> inférieure à 1 en conjonction avec une valeur de
+<strong>strength</strong> supérieure à 1 peut donner des discontinuités au niveau du périmètre du trou noir.
+</I></P>
+
+<P><I>On s'aperçoit très vite qu'il est difficile d'obtenir exactement ce que l'on désire. Un moyen d'y arriver
+est de commencer avec des valeurs de <strong>falloff</strong> et <strong>strength</strong> identiques et
+supérieures à 1. Après, on tatonne...
+</I></P>
+
+<P><strong>inverse</strong>, au lieu d'attirer le motif vers le centre, permet de le repousser vers
+la périphérie du trou noir.</P>
+
+<P>Pour créer plusieurs trous noirs du même type, à intervalles réguliers, il faut utiliser le mot clé
+<strong>repeat</strong>. Celui-ci est suivi d'un vecteur qui va permettre d'échantillonner l'espace
+compris entre &lt;0, 0, 0&gt; et <I>Vecteur</I>, et de le répéter dans toutes les directions. Bien évidemment,
+ceci est intéressant uniquement si le trou noir se situe <I>intégralement</I> dans ce morceau d'espace.
+Au cas où le trou noir déborderait du "cube" spécifié par <strong>repeat</strong>, soit le "cube" sera
+agrandi, soit le centre du trou noir déplacé, et POV-Ray émettra un warning.</P>
+
+<P>Si l'une des composantes de <I>Vecteur</I> est nulle, il n'y aura pas de répétition suivant cet axe.</P>
+
+<P><strong>turbulence</strong> ne peut s'utiliser qu'en conjonction avec <strong>repeat</strong>. Il
+permet d'ajouter de la perturbation à la manière dont le modificateur est appliqué, en décalant à chaque
+répétition le centre du trou noir. Les valeurs maximales de déplacement suivant chaque axe sont données
+par le vecteur qui suit <strong>turbulence</strong>. Là encore, on prêtera attention à ne pas spécifier
+des valeurs qui feraient déborder le trou noir, les résultats seraient alors imprévisibles.</P>
+
+<PRE>
+// Un exemple:
+warp
+{
+	black_hole <0.15, 0.125, 0>, 0.5
+	falloff 3
+	strength 1.0
+	repeat <1.25, 1.25, 0>
+	turbulence <0.25, 0.25, 0>
+	inverse
+}
+</PRE>
+<P><I>auteurs : Fabien Mosen / Christophe Bouffartigue</I></P>
+</BODY>
+
+</HTML>

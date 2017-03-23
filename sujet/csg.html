@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>La Géométrie Constructive des Solides</title>
+</head>
+<body>
+<h1>La Géométrie Constructive des Solides <br>
+(CSG Constructive Solid Geometry)</h1>
+<p>
+En POVRay il faut distinguer l'
+<a href="Reference3.5/objets/obj-csg-int.htm" target="aide">intérieur et l'extérieur</a> d'un objet.
+</p>
+<p>
+Avec POVRay on peut
+<a href="Reference3.5/objets/obj-csg-gen.htm" target="aide">
+grouper et combiner des objets</a>.
+</p>
+<p>
+On pourra lire avec profit les
+<a href="Reference3.5/objets/obj-csg-rem.htm" target="aide">remarques suivantes</a>
+concernant la CSG.
+</p>
+<h2>Travail à  Réaliser</h2>
+
+
+<p> <img src="Images/cuve1_1.png" width="20%" height="20%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left">
+	&Eacute;crivez dans un fichier nommé <span id="evidence">cuve1.pov</span> 
+	le script permettant de créer cette image.<br>
+	La scène est éclairée par une lumière ponctuelle blanche.<br>
+	La paroi de la cuve est obtenue par l'intermédiaire d'un  
+	<a href="Reference3.5/objets/obj-solide-cone.htm" target="aide">cône</a> creux. Les parois sont de couleur <tt>Orange</tt>. Le fond de la cuve est réalisé à l'aide d'un <a href="Reference3.5/objets/obj-solide-cylinder.htm" target="aide">cylindre</a> d'épaisseur très faible. <br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+
+<p><img src="Images/cuve1_2.png" width="20%" height="20%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> 
+	Modifiez votre script de manière à y rajouter le sol qui apparait sur cette nouvelle image. Le sol est un <a href="Reference3.5/objets/obj-solide-plane.htm" target="aide">plan</a> infini de texture <tt> T_Stone1</tt> (cette texture est définie dans le fichier <tt>stones.inc</tt>).<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+<p><img src="Images/cuve1_3.png" width="20%" height="20%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> 
+	L'utilisation d'un cône ouvert ne permet pas d'avoir une couleur différente entre l'intérieur et l'extérieur de la cuve. En utilisant la différence CSG de 2 cônes (l'un  <tt>Orange</tt>, l'autre <tt>Silver</tt>, modifiez votre script de manière à obtenir la nouvelle image ci-contre. </p>
+
+
+</body>
+</html>

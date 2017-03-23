@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>camera - documentation POV-Ray en français</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-clu.htm">vers l'index des caméras et lumières</A></P>
+<H1>camera</H1>
+
+<H2>objectif(!)</H2>
+ <P>Définir la position de l'oeil de l'observateur dans la scène et le type de projection (perspective) utilisée.</P>
+
+<H2>compatibilité</H2> 
+ <P class="noindent">POV-Ray 2.0 +sup. pour le premier groupe de fonctions.<BR>
+ POV-Ray 3.0 +sup. pour les fonctions de flou, perspectives, et normale.<BR>
+ POV-Ray 3.5 +sup. pour la projections sphérique.</P>
+<H2>syntaxe générale</H2>
+ <PRE>
+
+ camera{
+         <SPAN class="comm">/* modes de projection */</SPAN>
+        (perspective / orthographic / fisheye / 
+         ultra_wide_angle / omnimax / panoramic / 
+         cylinder TypeCylindre / 
+         spherical)
+         <SPAN class="comm">/* positionnement */</SPAN>
+        location PointDeVue          <SPAN class="comm">//vecteur</SPAN>
+        (right VecteurLargeur)       <SPAN class="comm">//vecteur</SPAN>
+        (up VecteurHauteur)          <SPAN class="comm">//vecteur</SPAN>
+        (direction VecteurDirection) <SPAN class="comm">//vecteur</SPAN>
+        (sky VecteurCiel)            <SPAN class="comm">//vecteur</SPAN>
+        (angle Degrés,(Degrés))      <SPAN class="comm">//nombres décimaaux</SPAN>
+        look_at PointRegardé         <SPAN class="comm">//vecteur</SPAN>
+        
+         <SPAN class="comm">/* profondeur de champ */</SPAN>
+        (blur_samples Nbre_Echantill_Flou)  <SPAN class="comm">//nombre entier</SPAN>
+        (aperture Grandeur)                 <SPAN class="comm">//nombre décimal</SPAN>
+        (focal_point PointFocal)            <SPAN class="comm">//vecteur</SPAN>
+        (confidence ConfianceFlou)          <SPAN class="comm">//nombre décimal</SPAN>
+        (varience SeuilDeVariation)         <SPAN class="comm">//nombre décimal</SPAN>
+
+         <SPAN class="comm">/* effets */</SPAN>
+        (normal {...})
+         
+        (...transformations spatiales...)
+        }
+ </PRE>
+
+<P>Toutes ces fonctionnalités sont détaillées dans les pages suivantes.</P>
+
+<P>page suivante : <A href="cam-posi.htm">positionnement de la caméra</A></P>
+
+<H2>exemple</H2>
+ <PRE> 
+camera {location <15,24,25> look_at <1,4,0> angle 50}
+ </PRE>
+ 
+<H2>remarques</H2>
+  <P>L'ordre des commandes de la caméra n'a pas d'importance, sauf pour le mode
+     de projection qui doit impérativement être spécifié en premier lieu.</P>
+  <P>On peut bien entendu déclarer une caméra comme tout autre objet :</P>
+  <PRE>#declare Cam1 = camera {...}</PRE>
+  <P>C'est utile lorsqu'on veut changer rapidement de point de vue pendant qu'on travaille sur une scène.</P>
+
+<P>page suivante : <A href="cam-posi.htm">positionnement de la caméra</A></P>
+
+</BODY>
+
+</HTML>

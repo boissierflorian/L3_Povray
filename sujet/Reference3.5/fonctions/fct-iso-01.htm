@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>op&eacute;rations sur les nombres d&eacute;cimaux - documentation POV-Ray en fran&ccedil;ais	</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+<H1>fonctions 3D pour les motifs et les isosurfaces</H1>
+<P>POV-Ray propose un nombre important de fonctions 3D utiles pour les isosurfaces
+   ou les motifs.  Toutes ces fonctions sont codées 'en interne' dans POV-Ray, il
+   y en a actuellement 78.  En principe on pourrait appeler ces fonctions comme ceci :</P>
+
+<PRE>function {internal(N)}</PRE>
+
+<P>N étant un nombre entre 0 et 78.  Mais cette méthode est déconseillée.  D'abord, parce
+   que, dans une future version, la signification d'un numero pourrait changer !  Ensuite,
+   ce n'est pas très explicite.</P>
+<P>Le fichier include standard "functions.inc" redéfinit toutes ces fonctions, en leur
+   donnant un nom explicite.  La plupart de ces fonctions doivent être suivies de plusieurs
+   paramètres, x, y, z et d'autres paramètres plus spécifiques.</P>
+<P>Seule une partie de ces fonctions sont documentées précisément sur cette page.  Les
+   documenter toutes représenterait un travail colossal et, finalement, peu utile.  Nous
+   avons donc sélectionné les plus intéressantes d'entre elles (mais elles sont toutes
+   mentionnées).</P>
+<P class="noindent">
+f_algbr_cyl1 / f_algbr_cyl2 / f_algbr_cyl3 / f_algbr_cyl4<BR>
+f_bicorn<BR>
+f_bifolia<BR>
+f_blob / f_blob2<BR>
+</P>
+
+<P class="cadre">
+<STRONG>f_boy_surface (x,y,z,Force_Champ,Echelle)</STRONG><BR>
+<IMG SRC="i_internal09.png"><BR>
+Il est souhaitable de garder une force de champ négatif et faible.  'Echelle' a le même effet que <STRONG>scale</STRONG>.
+</P>
+
+<P class="cadre">
+<STRONG>f_comma (x,y,z,Echelle)</STRONG><BR>
+<IMG SRC="i_internal10.png"><BR>
+</P>
+
+<P class="noindent">
+f_cross_ellipsoids<BR>
+f_crossed_trough<BR>
+f_cubic_saddle<BR>
+f_cushion<BR>
+f_devils_curve / f_devils_curve_2d<BR>
+f_dupin_cyclid<BR>
+f_ellipsoid<BR>
+f_enneper<BR>
+</P>
+
+<P class="cadre">
+<STRONG>f_flange_cover (x,y,z, )</STRONG><BR>
+<IMG SRC="i_internal20.png"><BR>
+</P>
+
+<P>
+f_folium_surface<BR>
+f_folium_surface_2d<BR>
+f_glob<BR>
+</P>
+<P class="cadre">
+<STRONG>f_heart</STRONG><BR>
+<IMG SRC="i_internal24.png"><BR>
+</P>
+
+<P>
+ f_helical_torus 24<BR>
+<IMG SRC="i_internal24.png"><BR>
+
+ f_helix1 25<BR>
+<IMG SRC="i_internal25.png"><BR>
+
+ f_helix2 26<BR>
+<IMG SRC="i_internal26.png"><BR>
+
+ f_hex_x 27<BR>
+<IMG SRC="i_internal27.png"><BR>
+
+ f_hex_y 28<BR>
+ f_hetero_mf 29<BR>
+ f_hunt_surface 30<BR>
+ f_hyperbolic_torus 31<BR>
+ f_isect_ellipsoids 32<BR>
+ f_kampyle_of_eudoxus 33<BR>
+ f_kampyle_of_eudoxus_2d 34<BR>
+ f_klein_bottle 35<BR>
+ f_kummer_surface_v1 36<BR>
+ f_kummer_surface_v2 37<BR>
+ f_lemniscate_of_gerono 38<BR>
+ f_lemniscate_of_gerono_2d 39<BR>
+ f_mesh1 40<BR>
+ f_mitre 41<BR>
+ f_nodal_cubic 42<BR>
+ f_odd 43<BR>
+ f_ovals_of_cassini 44<BR>
+ f_paraboloid 45<BR>
+ f_parabolic_torus 46<BR>
+ f_ph 47<BR>
+ f_pillow 48<BR>
+ f_piriform 49<BR>
+ f_piriform_2d 50<BR>
+ f_poly4 51<BR>
+ f_polytubes 52<BR>
+ f_quantum 53<BR>
+ f_quartic_paraboloid 54<BR>
+ f_quartic_saddle 55<BR>
+ f_quartic_cylinder 56<BR>
+ f_r 57<BR>
+ f_ridge 58<BR>
+ f_ridged_mf 59<BR>
+ f_rounded_box 60<BR>
+ f_sphere 61<BR>
+ f_spikes 62<BR>
+ f_spikes_2d 63<BR>
+ f_spiral 64<BR>
+ f_steiners_roman 65<BR>
+ f_strophoid 66<BR>
+ f_strophoid_2d 67<BR>
+ f_superellipsoid 68<BR>
+ f_th 69<BR>
+ f_torus 70<BR>
+ f_torus2 71<BR>
+ f_torus_gumdrop 72<BR>
+ f_umbrella 73<BR>
+ f_witch_of_agnesi 74<BR>
+ f_witch_of_agnesi_2d 75<BR>
+ f_noise3d 76<BR>
+ f_snoise3d = 2*f_noise3d(x, y, z) - 1}
+ f_noise_generator 78<BR>
+</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

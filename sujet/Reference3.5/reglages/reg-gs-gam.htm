@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>assumed_gamma - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P>
+<A href="../index.htm">vers l'index général de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+<A href="reg-gs-max.htm">page précédente : max_trace_level, etc...</A>
+</P>
+
+<H1>assumed_gamma</H1>
+
+<H2>Objectif</H2>
+ <P>Indiquer à POV-Ray quelle est le gamma actuel du système utilisé.</P>
+
+<H2>Compatibilité</H2> 
+ <P>POV-Ray 3.0 +sup.</P>
+ 
+<H2>Syntaxe</H2>
+ <PRE>
+global_settings {
+        assumed_gamma Valeur
+       }
+ </PRE>
+
+<P>La compréhension de l'utilité de ce mot clé est liée à la compréhension du <A href="../concepts/cpt-gamma.htm">concept
+   de gamma</A>.</P> 
+<P>Une fois que vous avez déterminé et/ou choisi le gamma de votre système, reportez cette valeur
+   après le mot clé <STRONG>assumed_gamma</STRONG>.  POV-Ray en tiendra alors compte au moment de
+   convertir ses valeurs de couleurs internes en valeurs rgb à afficher.  Si l'image est enregistrée
+   au format PNG, cette valeur sera inscrite dans l'en-tête du fichier, permettant aux rares logiciels
+   d'affichage qui repectent la norme PNG de corriger la gamma en fonction de cette information.</P>
+
+<P>page suivante : <A href="reg-gs-hfg.htm">hf_gray_16</A></P>
+
+  <P><I>Rédacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>

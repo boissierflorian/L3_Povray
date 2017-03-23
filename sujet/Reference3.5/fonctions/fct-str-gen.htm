@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>cha&icirc;nes de caract&egrave;res - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+		
+ <H1>cha&icirc;nes de caract&egrave;res</H1>
+
+<P>Une cha&icirc;ne de caract&egrave;re est... une suite de caract&egrave;res !  Des lettres, des chiffres,
+   des signes,... bref, (presque) tout se qui se trouve dans une table de caract&egrave;res
+   ASCII.  Elles peuvent servir &agrave; sp&eacute;cifier un nom de fichier, &agrave; donner un texte &agrave; 
+   rendre avec l'objet <STRONG>text</STRONG>, &agrave; passer un message sur la console, etc...</P>
+
+<H2>syntaxe</H2>
+<P>Une cha&icirc;ne de caract&egrave;res est toujours plac&eacute;e entre des guillemets, et peut contenir
+   jusqu'&agrave; 256 caract&egrave;res.</P>
+<PRE>"je suis une cha&icirc;ne de caract&egrave;res"</PRE>
+<P>On peut la d&eacute;clarer dans une variable.</P>
+<pre>#declare Chaine1 = "le rapide renard brun saute par dessus le chien paresseux"</pre>
+<P>Parfois, pour &eacute;viter une confusion de syntaxe, il faut recourir &agrave; des caract&egrave;res
+   sp&eacute;ciaux pour signifier certains caract&egrave;res.</P>
+<PRE>
+\" place un guillemet dans la cha&icirc;ne
+... Chaine2 = "un \"batiscaphe\" entre guillemets"  
+donnera : un "batiscaphe" entre guillemets
+
+\\ place un backslash dans la cha&icirc;ne (sert &agrave; &eacute;viter la confusion avec le dernier guillemet)
+... Chaine2 = "..\\maison\\cuisine\\tiroir\\fourchette"  
+donnera : ..\maison\cuisine\tiroir\fourchette
+</PRE>
+
+<P>L'option <STRONG>charset</STRONG> dans les <STRONG>global_settings</STRONG> permet de
+   spécifier le jeu de caractères employé dans les chaînes de caractères.  Vous avez
+   actuellement le choix entre <STRONG>ascii</STRONG> et <STRONG>utf8</STRONG> (unicode).</P>
+
+<P>Si vous avez choisi <STRONG>utf8</STRONG>, un caractère Unicode se place dans une 
+   chaîne comme ceci : \uNNNN, NNNN
+   étant le numero à quatre chiffres (en hexadécimal) que vous pouvez trouver dans les
+   tables unicode. Exemple pour "sphère" :</P>
+   <PRE>#declare MaChaine = "sph\u00E8re"</PRE>
+
+<P>Notez cependant que les noms de fichiers restent strictement interprétés en ASCII.
+   Il est donc impossible de traiter dans POV-Ray des fichiers dont le nom
+   comporte des accents.  Évitez également, autant que possible, de spécifier
+   des chemins d'accès dans la châine d'un nom de fichier, utilisez l'option
+   <STRONG>Libray_Path (+L)</STRONG> pour cela.</P>
+
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

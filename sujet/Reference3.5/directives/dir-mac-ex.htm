@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			macros - Référence POV-Ray		</TITLE>
+	</HEAD>
+
+	
+	<BODY>
+		<P>
+		<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+  <A href="index-dir.htm">vers l'index des directives</A> /
+		<A href="dir-mac-gen.htm">vers la page des macros</A>
+		</P>
+<H1>exemples de types courants de macros </H1>
+<A name="obj">
+<H2>objets particuliers</H2>
+<P>Une application tr&egrave;s classique des macros, un objet particulier,
+   complexe ou non, est g&eacute;n&eacute;r&eacute; &agrave; partir de quelques param&egrave;tres,
+   de mani&egrave;re tout &agrave; fait lin&eacute;aire (sans astuce de programmation).</P>
+<PRE>
+<I>//Pyramide (Nombre de cotes,Apotheme,Hauteur)
+//pos&eacute;e sur xz, pointe en y
+//(l'apoth&egrave;me, c'est le rayon du cercle inscrit dans la base)
+</I>
+#macro Pyramide (Nbfaces,Apot,Haut)
+ #declare RotAngle=(360/Nbfaces);
+ #declare AngHaut=degrees(atan2(Apot/Haut,1));
+ #declare boucle=0;
+ intersection {
+ #while (boucle &lt; Nbfaces)
+   plane {x,0 rotate z*AngHaut translate x*Apot rotate y*RotAngle*boucle}
+ #declare boucle=boucle+1;
+ #end
+ plane {y,0 inverse}
+  }
+#end
+
+<I>//utilisation, pyramide &agrave; 6 faces : </I>
+
+object {Pyramide (6,10,15) pigment {Red}}
+</PRE>
+</A>
+<A name="fonct">
+<H2>fonctions</H2>
+<P>Une macro peut &eacute;galement servir &agrave; retourner directement une valeur, en fonction
+   des param&egrave;tres qui lui sont fournis, sans faire une "action".</P>
+<PRE>
+<I>
+//Voici une fonction qui, &agrave; l'endroit o&ugrave; on l'invoque,
+//retourne la moyenne Arithm&eacute;tique (0), G&eacute;om&eacute;trique (1)
+//ou Harmonique (2) de deux nombres
+</I>
+#macro Moyenne (Type,A,B)
+     #switch (Type)
+           #case (0) <i>//moyenne arithm&eacute;tique</i>
+             (A+B)/2 <i>//remarquez que le r&eacute;sultat est plac&eacute; tel quel, et agira comme</i>
+                     <i>//une sorte de copier-coller &agrave; l'endroit o&ugrave; on utilisera la</i>
+           #break    <i>//macro</i>
+           
+           #case (1) <i>//moyenne g&eacute;om&eacute;trique</i>
+             sqrt(A*B)
+           #break  
+           
+           #case (2) <i>//moyenne harmonique</i>
+             2/((1/A)+(1/B))
+           #break  
+           
+           #else
+              #warning "Attention, le type de moyenne est incorrect"
+             0
+                 <i>//si le type est incorrect, la macro retourne 0 (pour ne pas</i>
+                 <i>//bloquer le rendu) mais envoie un #warning</i>
+     #end                                             
+#end
+
+<I>//usage, pour donner la hauteur d'un cylindre : 
+   //(moyennes de 2 et 7)</I>
+cylinder {0,y*Moyenne (0,2,7),1 pigment {Red} translate x*0}
+cylinder {0,y*Moyenne (1,2,7),1 pigment {Red} translate x*3}
+cylinder {0,y*Moyenne (2,2,7),1 pigment {Red} translate x*6}
+</PRE>
+<A name="recurs">
+		<H2>
+			R&eacute;cursivit&eacute;
+		</H2>
+		<P>
+	  Dans certains cas, il est n&eacute;cessaire qu'une macro fasse un appel &agrave; elle-m&ecirc;me.  C'est typiquement
+    le cas des arbres et des structures fractales.  POV-Ray permet sans probl&egrave;mes &agrave; une macro
+    de faire r&eacute;f&eacute;rence &agrave; elle-m&ecirc;me.  Toutefois, la ma&icirc;trise de ce type de structures de programmation
+    n&eacute;cessite de l'exp&eacute;rience et une certaine rigueur.
+    </P>
+
+<pre>
+<I>// d'apr&egrave;s l'exemple pyramide de Chris Young (r&eacute;pertoires ../scene/macro)</I>
+#macro Mcr_Recursive ( X,Y,Z,R,L)  
+        sphere {&lt;X,Y,Z&gt;R no_shadow }
+
+   #if ( L &gt 0 )
+     	 #local Nouv_L = L - 1;
+     	 #local Nouv_R = R/2;
+     	 #local Pos    = Nouv_R*3;
+<i>// ici se passe la r&eacute;cursivit&eacute; ...
+// on appelle la macro Mcr_Recursive avec de nouvelles valeurs</i>
+ 	Mcr_Recursive(X+Pos,Y,Z,Nouv_R,Nouv_L)       	   
+	Mcr_Recursive(X-Pos,Y,Z,Nouv_R,Nouv_L)       	   
+	Mcr_Recursive(X,Y+Pos,Z,Nouv_R,Nouv_L)       	   
+	Mcr_Recursive(X,Y-Pos,Z,Nouv_R,Nouv_L)
+ Mcr_Recursive(X,Y,Z+Pos,Nouv_R,Nouv_L)
+ 	Mcr_Recursive(X,Y,Z-Pos,Nouv_R,Nouv_L)
+   #end <i>// fin if</i>
+#end <i>// fin macro</i>
+
+<i>// Appel de la macro dans le script principal</i>
+union {
+  Mcr_Recursive(0,0,0,1,6)
+  pigment { rgb &lt;1,1,0&gt; }
+}
+<i>//et voil&agrave; !  une sorte d'&eacute;ponge de Menger !</i>
+
+</pre>
+		
+		<table align="center">
+			<tr>
+				<td>
+					<div align="center">
+						<img src="macro3.jpg" alt="une fractale cr&eacute;&eacute;e &agrave; l'aide d'une macro" border=2>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="center">
+						C'est Zzouli, non ?
+					</div>
+				</td>
+			</tr>
+		</table>
+<P><I>auteurs : Martial Rameaux / Fabien Mosen</I>		</P>
+	</BODY>
+	
+</HTML>

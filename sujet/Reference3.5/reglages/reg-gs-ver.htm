@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>#version - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index g&eacute;n&eacute;ral des réglages</A>
+</P>
+
+<H1>#version</H1>
+
+<H2>objectif</H2>
+ <P>Sp&eacute;cifier quelle version pr&eacute;cise du langage de POV-Ray est utilis&eacute;e.</P>
+
+<H2>syntaxe</H2>
+<P>Avant la portion de code concern&eacute;e :</P>
+<PRE>#version Version_De_Langage</PRE>
+
+<H2>explication</H2>
+<P>Depuis sa cr&eacute;ation en 1991, POV-Ray a connu quelques modifications au niveau de son
+   langage de script.  Ces modifications concernent bien s&ucirc;r les nouvelles fonctionnalit&eacute;s
+   ajout&eacute;es &agrave; chaque version, mais correspondent parfois &agrave; de profonds changements de syntaxe.</P>
+<P>Par exemple, voici un bout de code destin&eacute; &agrave; POV-Ray 1.0 :</P>
+
+ <PRE>sphere <0.0  0.0  0.0> 40.0 end_sphere</PRE>
+
+<P>Et son &eacute;quivalent pour POV-Ray 2.0, valable aussi pour le 3.0, 3.1 et 3.5 :</P>
+
+ <PRE>sphere {<0,0,0>,40}</PRE>
+
+<P>Ainsi, afin de pouvoir utiliser le code du 1.0 sans le modifier dans un script destin&eacute;
+   &agrave; une version ult&eacute;rieure, il faut faire ceci :</P>
+<pre>
+#version 1.0
+
+ (ins&eacute;rer le code 1.0)
+
+#version version //la constante 'version' est une cha&icirc;ne qui contient la version courante
+</pre>
+<P>Notez que, parfois, cette compatibilit&eacute; ascendante n'est pas assur&eacute;e, et que certaines
+   fonctions, jug&eacute;es par trop obsol&egrave;tes, disparaissent purement et simplement, sans que
+   <STRONG>#version</STRONG> puisse y faire quoi que ce soit.  Consultez la documentation
+   originale pour les d&eacute;tails &agrave; ce sujet.</P>
+
+<H2>r&eacute;capitulatif</H2>
+<P>Voici un r&eacute;capitulatif des changements intervenus (et &agrave; venir) au fil des versions successives.</P>
+<P>Entre 1.0 et 2.0 : changements de syntaxe importants, n&eacute;cessitent l'emploi de <STRONG>#version</STRONG>.</P>
+<P>Entre 2.0 et 3.0 : changements mineurs, apport de nombreuses fonctionnalit&eacute;s.</P>
+<P>Entre 3.0 et 3.1 : disparition des halos (<STRONG>#version</STRONG> sans effet), apparition de <STRONG>interior</STRONG>, certains mots cl&eacute;s "sortent" de <STRONG>finish</STRONG>.</P>
+<P>Entre 3.1 et 3.5 : radiance modifi&eacute;e (<STRONG>#version</STRONG> sans effet).</P>
+<P>Entre 3.5 et 4.0 : risque de changement de syntaxe sans compatibilit&eacute; ascendante.</P>
+
+<H2>une nouvelle politique ?</H2>
+<P>Ceux d'entre vous qui ont utilis&eacute; les derni&egrave;res versions de MegaPOV ont remarqu&eacute; que
+   celui-ci exigeait la mention "#version Unofficial MegaPOV..." dans <I>chaque</I> fichier
+   (y compris les fichiers inclus) d'une sc&egrave;ne, afin d'activer ses fonctionnalit&eacute;s particuli&egrave;res.</P>
+
+<P>Il semblerait que cette pratique devienne &agrave; l'avenir une exigeance de la POV-Team vis-&agrave;-vis
+   des versions non-officielles.  Cette contrainte permettrait de s'assurer que l'utilisateur
+   se rend bien compte qu'il utilise une version non-officielle, et qu'il doit donc s'adresser
+   &agrave; l'auteur de cette version, et non &agrave; la POV-Team.</P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

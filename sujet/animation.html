@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Paramètres internes</title>
+</head>
+<body>
+<h1>Animation</h1>
+
+<p>Il est possible de générer des animations avec Povray ; sachant qu'une animation n'est rien d 'autre qu'une succession d'images affichées à une fréquence donnée (de l'ordre de 25 images par seconde), il suffit de générer chacune des images séparément ... ceci revient cependant à générer une nouvelle description de scène pour chaque image, afin de prendre en compte les déplacement des objets et/ou de la caméra.
+</p>
+<br>
+<p>
+Pour vous faciliter le travail, Povray gère auomatiquement une variable nommée <tt>clock</tt>, dont vous pouvez récupérer la valeur (par défaut comprise entre 0 et 1), mais pas la modifier. La valeur de cette variable est automatiquement remise à jour pour chaque nouvelle image de la séquence à générer, en suivant une loi d'interpolation linéaire.
+</p>
+<h3>Exemple</h3>
+<ol>
+<li> Soit une séquence de 11 images à générer. <tt>clock</tt> vaut la succession des valeurs suivantes pour chacune des images :
+	<ul>
+	<li> image 0 : <tt>clock = 0.0</tt>
+	<li> image 1 : <tt>clock = 0.1</tt>
+	<li> image 2 : <tt>clock = 0.2</tt>
+	<li> ...
+	<li> image 9 : <tt>clock = 0.9</tt>
+	<li> image 10 : <tt>clock = 1.0 </tt>
+	</ul>
+<li> On peut alors utiliser la valeur de la variable <tt>clock</tt> pour déplacer un objet à un position différente à chaque image :<br>
+
+<tt>
+sphere {<br>
+	&nbsp;&nbsp;<0,0,0>, 1<br>
+	&nbsp;&nbsp;pigment {Red}<br>
+	&nbsp;&nbsp;translate <-0.5+clock, 0, 0><br>
+}<br>
+</tt>
+<br>
+On obtiendra alors la succession d'images suivante :
+<p>
+<img src="Images/anim00.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+ <img src="Images/anim01.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres01" align="left"> 
+<img src="Images/anim02.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+ <img src="Images/anim03.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres01" align="left"> 
+<img src="Images/anim04.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+ <img src="Images/anim05.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres01" align="left"> 
+<img src="Images/anim06.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+ <img src="Images/anim07.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres01" align="left"> 
+<img src="Images/anim08.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+ <img src="Images/anim09.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres01" align="left"> 
+<img src="Images/anim10.png" width="6%"  border="0"
+ hspace="5" vspace="5" alt="spheres00" align="left">
+
+&nbsp;<br>&nbsp;<br>&nbsp;&nbsp;<br></p>
+
+<li> Il reste cependant à préciser à Povray combien d'images on souhaite générer. Cela peut se faire en ligne de commande, mais aussi dans le fichier de paramètres externes <tt>.ini</tt> :
+	<ul>
+	<li> Fichier de configuration :<br>
+		<tt>Initial_Frame = 0 ; numéro de la première image</tt><br>
+		<tt>Final_Frame = 10 ; numéro de la dernière image</tt><br>
+	<li> Paramètres en ligne de commande :
+		<tt>+KFIn</tt> avec <tt>n</tt> le numéro de l'image de départ.
+		<tt>+KFFn</tt> avec <tt>n</tt> le numéro de l'image finale.
+	</ul>
+
+</ol>
+<h3>Remarques</h3>
+<ol>
+<li>Il est possible de modifier les valeurs de départ et d'arrivée de la variable <tt>clock</tt> avant le lancement de Povray :
+	<ul>
+	<li> Fichier de configuration : <br>
+	<tt>Initial_Clock = valeur initiale</tt><br>
+	<tt>Final_Clock   = valeur finale</tt>
+	<li> Paramètres en ligne de commande :<br>
+	<tt>+KIn.n</tt> avec <tt>n.n</tt> la valeur réelle spécifiant la valeur initiale de <tt>clock</tt><br>
+	<tt>+KFn.n</tt> avec <tt>n.n</tt> la valeur réelle spécifiant la valeur finale de <tt>clock</tt>
+	</ul>
+<li> Il est possible d'indiquer à Povray de ne calculer qu'un sous-ensemble de la séquence prévue (par exemple pour distribuer les calculs sur plusieurs machines ou pour tester quelques images uniquement) :
+	<ul>
+	<li> Fichier de configuration : <br>
+	<tt>Subset_Start_Frame = n</tt> avec <tt>n</tt> le numéro de la première image à calculer<br>
+	<tt>Subset_End_Frame = n</tt> avec <tt>n</tt> le numéro de la dernière image à calculer<br>
+	<li> Paramètres en ligne de commande :<br>
+	<tt>+SFn</tt>  avec <tt>n</tt> le numéro de la première image à calculer<br>
+	<tt>+SEn</tt> avec <tt>n</tt> le numéro de la dernière image à calculer<br>
+	</ul>
+<li> Il est possible de ne calculer qu'une seule image de la séquence (pour effectuer un test par exemple) :
+	<ul>
+	<li> Fichier de configuration : <br>
+	<tt>Clock = n.n</tt> avec <tt>n.n</tt> la valeur réelle de <tt>clock</tt>
+	<li> Paramètres en ligne de commande :<br>
+	<tt>+Kn.n</tt>  avec <tt>n.n</tt> la valeur réelle de <tt>clock</tt>
+	</ul>
+</ol>
+
+
+<h3>Travail à réaliser</h3>
+
+<ol>
+<li> Générez la séquence d'exemple à partir du fichier qui vous est donné ci-dessous.
+<tt>
+<br>
+#include "colors.inc"<br>
+<br>
+// définition de la couleur de fond<br>
+background { color Cyan }<br>
+<br>
+// positionnement de la caméra<br>
+camera {<br>
+&nbsp;&nbsp;location <0, 0, -10><br>
+&nbsp;&nbsp;look_at <0, 0,0><br>
+}<br>
+<br>
+// définition d'une source<br>
+light_source {<br>
+&nbsp;&nbsp;<2, 4, -3><br>
+&nbsp;&nbsp;color White<br>
+}<br>
+<br>
+// définition d'une sphère<br>
+sphere {<br>
+&nbsp;&nbsp;<0, O, 0>, 1<br>
+&nbsp;&nbsp;texture {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pigment { Red }<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;translate <-0.5+clock, 0, 0><br>
+}<br>
+</tt>
+
+Vous générerez une séquence d'une durée de 1 seconde, en prenant garde que la taille des images générées ne soit pas trop grande, pour éviter des temps de calcul trop élevés.
+<li> Une fois les images générées, il est intéressant de pouvoir les ranger dans un fichier vidéo. Povray ne peut faire cette opération. Il existe cependant de nombreux logiciels permettant de la réaliser, sous tous types de systèmes d'exploitation. Sous linux, vous utiliserez <tt>mencoder</tt> qui s'utilise en ligne de commande. Cet utilitaire possède de très nombreuses options, qui dépassent le cadre de ce TP. Une façon très simple de l'utiliser est de taper la commande suivante :<br>
+<br>
+<tt>mencoder mf://testanim??.png -ovc copy -oac copy -o testanim.avi</tt><br>
+<br>
+On suppose ici que les fichiers générés par povray sont au format <tt>png</tt> et qu'ils portent le nom <tt>testanim</tt> suivi des deux chiffres correspondant à leur rang, suivis de <tt>.png</tt>. Les options suivantes précisent que la vidéo (-ovc) et l'audio (-aoc) doivent être recopiés tels quels dans le fichier avi qui suit, sans faire appel à un quelconque codec de compression.<br>
+Appliquez cette commande sur vos images et vérifiez que vous pouvez relire la vidéo générée.
+
+<li> Modifiez cette séquence de telle sorte que l'objet soit immobile, mais que la caméra fasse un zoom avant vers lui. Générez la séquence vidéo correspondante, d'une longueur de 2 secondes.  
+<li> En reprenant l'exemple de la cuve du TP1, générer une séquence permettant à la caméra de faire un tour complet autour de cet objet.
+</ol>
+</body>
+</html>

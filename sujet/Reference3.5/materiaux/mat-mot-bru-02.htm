@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>les motifs à base de bruit fractal (dents ..wrinkles)</H1>
+<P>Ces motifs sont basés sur un algorithme de bruit fractal, et ont un aspect
+   irrégulier, sans répétition, mais homogène.</P>
+
+<H3>dents</H3>
+<P><STRONG>dents</STRONG> est un motif qui répartit dans l'espace des "pics" de valeurs élevées (1) 
+   au milieu de beaucoup de
+   valeurs basses (0), avce une transition rapide.  En pigment, le résultat ressemble un peu à 
+   des réseaux de neurones, et en normale ce motif peut servir à représenter la rugosité de
+   certaines surfaces, comme le béton.</P>
+ <IMG SRC="tx-sp-08.jpg" border=2>
+<H3>granite</H3>
+<P>Ce motif a une allure de, euuh, granite !
+Employé dans <STRONG>normal</STRONG>, il donne un effet d'empierrement. 
+Il y a de beaux exemples de granites dans le fichier "stones1.inc".</P>
+
+ <IMG SRC="tx-sp-10.jpg" border=2>
+
+<H3>ripples</H3>
+<P>Ce motif représente des ondes quasi-concentriques, particulièrement destinées à simuler
+   des surfaces d'eau.  Il s'agit plus précisément d'une addition d'ondes simples, dont
+   les centres sont situés aléatoirement dans un cube unitaire autour de l'origine.
+   Le paramètre <STRONG>number_of_waves</STRONG> dans <STRONG>global_settings</STRONG>
+   détermine le nombre d'ondes additionnées, entre 1 et 10.</P>
+<P>Exceptionnellement, ce motif diffère légèrement selon qu'il est utilisé en 
+   <STRONG>normal</STRONG> ou en <STRONG>pigment</STRONG>/<STRONG>texture</STRONG> : une
+   fonction de perturbation particulière empèche de l'utiliser avec <STRONG>normal_map</STRONG>,
+   <STRONG>slope_map</STRONG>, et interdit de spécifier une forme d'onde différente.</P>
+ <IMG SRC="tx-sp-18.jpg" border=2>
+
+<H3>spotted</H3>
+ <P>Identique à bumps et bozo.</P>
+
+<H3>waves</H3>
+ <P>Très similaire à <STRONG>ripples</STRONG>, mais avec des vagues plus amples.
+    Le paramètre <STRONG>number_of_waves</STRONG> et les restrictions particulières avec
+    <STRONG>normal</STRONG> sont également d'application.</P>
+ <IMG SRC="tx-sp-23.jpg" border=2>
+
+<H3>wrinkles</H3>
+ <P>À l'origine destiné aux normales, ce motif fractal fait un très bon "froissé".</P>
+ <IMG SRC="tx-sp-25.jpg" border=2>
+</BODY>
+
+</HTML>

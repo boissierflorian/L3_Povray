@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les media - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-mat.htm">vers l'index des mat&eacute;riaux</A>
+</P>
+
+<H1>media - densit&eacute;s</H1>
+<P>Nous venons de voir le cas le plus &eacute;l&eacute;mentaire, o&ugrave; la valeur du m&eacute;dia est constante
+   &agrave; l'int&eacute;rieur du conteneur.  <STRONG>density</STRONG> permet de contr&ocirc;ler la variation
+   du media &agrave; l'int&eacute;rieur du conteneur, &agrave; l'aide d'un motif.  Cela se fait en sus
+   de l'&eacute;mission et de l'absorption.</P>
+
+<pre>
+media {
+         intervals 5
+         emission   rgb White*.1 
+         density { wrinkles 
+                   scale .3 
+                   color_map {[0 Black][1 Yellow]}
+                  } 
+         
+      }
+</pre>
+<IMG src="medemo04.jpg" border=2 alt="">
+
+<P>La "g&eacute;om&eacute;trie" du media devenant plus complexe, il est n&eacute;cessaire d'augmenter le nombre
+  d'intervalles &agrave; &eacute;chantillonner.  La d&eacute;finition de <STRONG>density</STRONG> ressemble trait
+pour trait &agrave; celle d'un <STRONG>pigment</STRONG>.  L'&eacute;mission (ou l'absorption) reste n&eacute;cessaire, sinon rien
+n'appara&icirc;tra.</P>
+<P>Et on peut obtenir des r&eacute;sultats tr&egrave;s int&eacute;ressants en travaillant la <STRONG>color_map</STRONG>.
+  Ici aussi, la transparence est obtenue par des valeurs plus sombres.</P>
+<pre>
+  media {
+         intervals 10
+         emission   rgb White*.1 
+         density { wrinkles 
+                   scale .3 
+                   color_map {[0 Green][.2 Blue][.4 Magenta][.6 Green][.8 Black][1 White]}
+                  } 
+         
+        }
+</pre>
+<IMG src="medemo05.jpg" border=2 alt="">
+<P>Plus la <STRONG>color_map</STRONG> sera complexe, plus il sera n&eacute;cessaire d'augmenter 
+<STRONG>intervals</STRONG>, pour assurer une bonne "exploration" de la succession des couleurs.</P>
+
+<H2>motifs sp&eacute;ciaux</H2>
+<P>Afin de r&eacute;pondre &agrave; des besoins sp&eacute;cifiques des <STRONG>media</STRONG>, des motifs particuliers
+   ont &eacute;t&eacute; cr&eacute;&eacute;s : <STRONG>spherical</STRONG>, <STRONG>cylindrical</STRONG>, 
+   <STRONG>boxed </STRONG>et <STRONG>planar</STRONG>.</P>
+<P>Ces motifs permettent de placer un <STRONG>media</STRONG> dans un conteneur, en assurant
+   que la valeur du media sera nulle avant d'arriver &agrave; la surface du conteneur (ce qui permet
+   de ne pas "sentir" le conteneur).</P>
+<P>Ils sont d&eacute;taill&eacute;s dans la section consacr&eacute;e aux motifs, mais voici un exemple de l'utilisation
+   de <STRONG>spherical</STRONG>&nbsp;:</P>
+<pre>
+  media {
+         intervals 5
+         emission   rgb White*.2 
+         density { spherical 
+                   scale 1 
+                   color_map {[0 Black][1 Magenta]}
+                  } 
+         
+        }
+</pre>
+<IMG src="medemo06.jpg" border=2 alt="">
+<H2>density_map</H2>
+<P>&Agrave; la mani&egrave;re de <STRONG>pigment_map</STRONG>, on peut combiner plusieurs densit&eacute;s suivant
+   un motif :</P>
+<pre>
+  media {
+         intervals 15
+         emission   rgb White*.2 
+         density { spherical
+                   density_map {
+                            [0 Black]
+                            [1 bozo color_map {[0 White][1 Blue*.2]} scale .2]
+                               } 
+                   scale 1 
+                  } 
+        }
+</pre>
+<IMG src="medemo07.jpg" border=2 alt="">
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

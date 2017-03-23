@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>plaquage d'images - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : image_pattern</H1>
+<P>Ce motif tire ses valeurs d'une image bitmap.  C'est une généralisation
+   du principe de l'<STRONG>image_map</STRONG>.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.5</P>
+
+<H2>syntaxe</H2>
+<PRE>
+pigment { // par exemple...
+image_pattern {
+           png / tga / ppm / pgm / jpeg / tiff / sys 
+           "Nom_du_Fichier"
+           (map_type 0 / 1 / 2 / 5)
+           (once)
+           (interpolate 2 / 4)
+           (use_alpha)
+ }
+}
+</PRE>
+<P>Voici l'image (bien pixellis&eacute;e, pour faciliter la compr&eacute;hension)
+   que nous utiliserons pour les illustrations :</P>
+<IMG src="natmap.jpg" border=2 alt="image &agrave; plaquer" width=160 height=120>
+<P>Le premier mot clé spécifie le type d'image utilisé, parmi ceux disponible.  Il est suivi du nom du fichier, avec
+   ou sans extension.  Voyez
+   la <A href="../concepts/cpt-imgtype.htm">page des formats bitmaps</A> pour plus
+   de détails.</P>
+<P><STRONG>map_type</STRONG> permet de spécifier le mode de projection parmi les suivants : </P>
+<P>type <STRONG>0</STRONG> : (par d&eacute;faut, s'il n'est pas sp&eacute;cifi&eacute;) projection plane, l'image est projet&eacute;e
+   sur le rectangle &lt;0,0,0&gt;,&lt;1,1,0&gt;, comme si un projecteur se trouvait du c&ocirc;t&eacute; de -z,
+   et projetait vers +z.</P>
+<IMG src="maptype0.jpg" border=2 alt="projection plane">
+<P>type <STRONG>1</STRONG> : projection sph&eacute;rique, l'image est projet&eacute;e dans toutes les directions
+   (&agrave; 360&#176;) &agrave; partir de l'origine &lt;0,0,0&gt;.  La jonction entre les bords droit et
+   gauche de l'image se fait sur l'axe +x.  Attention, m&ecirc;me si ce plaquage est
+   appliqu&eacute; sur une sph&egrave;re, la projection se fait toujours &agrave; partir de l'origine, 
+   peu importe le centre de la sph&egrave;re (veillez donc &agrave; les faire co&iuml;ncider).</P>
+<IMG src="maptype1.jpg" border=2 alt="projection sph&eacute;rique">
+<P>type <STRONG>2</STRONG> : projection cylindrique, l'image est projet&eacute;e &agrave; partir de l'axe y,
+   &agrave; 360&#176; autour de cet axe, la hauteur de l'image &eacute;tant situ&eacute;e entre y=0 et y=1.
+   La jonction entre les bords droit et gauche de l'image se fait sur l'axe +x.</P>
+<IMG src="maptype2.jpg" border=2 alt="projection cylindrique">
+<P>types <STRONG>3</STRONG> et <STRONG>4</STRONG> : sont "en d&eacute;veloppement" depuis POV-Ray 1.0 !!  Passons...
+<P>type <STRONG>5</STRONG> : projection toro&iuml;dale, l'image est projet&eacute;e &agrave; partir du grand rayon (de valeur 1)
+   d'un tore horizontal, centr&eacute; sur l'origine (un tore qui n'a pas &eacute;t&eacute; d&eacute;plac&eacute;, quoi !).
+   Le dessus et le dessous de l'image se rejoignent &agrave; l'int&eacute;rieur du tore.</P>
+<IMG src="maptype5.jpg" border=2 alt="projection toro&iuml;dale">
+<P><STRONG>once</STRONG> ("une fois") indique &agrave; POV-Ray qu'il ne doit pas r&eacute;p&eacute;ter le motif
+   au-del&agrave; d'une seule projection de l'image.  Ceci est valable pour les projections
+   planes et cylindriques (et n'a pas de sens pour les autres).</P>
+<P><STRONG>interpolate</STRONG> permet de venir &agrave; bout des limites nettes entre les
+   pixels d'une image, en produisant des couleurs interm&eacute;diaires calcul&eacute;es d'apr&egrave;s
+   les pixels voisins.  <STRONG>interpolate 2</STRONG> enclenche l'interpolation
+   "bilin&eacute;aire", <STRONG>interpolate 4</STRONG> enclenche l'interpolation par 
+   "distance normalis&eacute;e", (un chou&iuml;a) plus rapide mais moins "juste".</P>
+<TABLE>
+<TR><TD><IMG src="interp2.jpg" border=2 alt=""></TD><TD><IMG src="interp4.jpg" border=2 alt=""></TD></TR>
+<TR><TD>bilin&eacute;aire</TD><TD>distance normalis&eacute;e</TD></TR>
+</TABLE>
+
+<P>Enfin, si votre image (PNG ou TGA) comprend un canal <I>alpha</I>, l'emploi du mot clé
+   <STRONG>use_alpha</STRONG> indiquera à POV-Ray d'utiliser celui-ci plutôt que l'image
+   elle-même pour trouver ses valeurs.  Cette option est utile pour créer des "masques"
+   dans des structures plus complexes telles que <STRONG>texture_map</STRONG>.</P>
+
+<H2>exemple</H2>
+<PRE>
+sphere {&lt;0,0,0&gt;,5 pigment {image_pattern {png "rayures.png" map_type 1 interpolate 2}}}
+</PRE>
+<H2>remarques</H2>
+<P>Le fameux "UV-mapping", qui permet de plaquer une image en suivant les circonvolutions
+   d'une surface (et pas par projection "au travers") n'est pas d&eacute;taill&eacute; ici, car ce
+   n'est pas un motif (il n'existe pas dans les trois dimensions) et sa syntaxe est
+   tr&egrave;s diff&eacute;rente.  Une section particuli&egrave;re lui est donc consacr&eacute;e.</P>
+<P>Attention aux transformations (rotate, scale,...), prenez soin de bien structurer
+   la d&eacute;finition de la texture comprenant un plaquage, afin que l'image suive bien
+   l'objet comme voulu, malgr&eacute; les contraintes d&eacute;crites plus haut (le cas de la sph&egrave;re,
+   par exemple).</P>
+</BODY>
+
+</HTML>

@@ -1,0 +1,59 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>sky_sphere - documentation francophone de POV-Ray</title>
+<link href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<P><a href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</a> /
+<a href="index-atm.htm">vers l'index des effets atmosphériques</a>
+</P>
+
+<h1>sph&egrave;re de ciel ("sky sphere")</h1>
+
+<h2>objectif</h2>
+<P>Cr&eacute;er un ciel sph&eacute;rique qui englobe tout la sc&egrave;ne, avec un pigment au choix.</P>
+
+<h2>compatibilit&eacute;</h2>
+<P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+<P>En dehors de toute autre d&eacute;finition :</P>
+<pre>
+sky_sphere { 
+            pigment {...}
+            }
+</pre>
+<P>Cette sph&egrave;re a son centre &agrave; l'origine, et poss&egrave;de un rayon virtuellement infini.
+   Toute d&eacute;finition stricte de pigment est valide, mais pas les <STRONG>pigment_map</STRONG>,
+   ni <STRONG>normal</STRONG>, ni <STRONG>finish, </STRONG>ni <STRONG>texture</STRONG>,...</P>
+<P>Toutefois, on peut sp&eacute;cifier plusieurs pigments, qui contitueront des "couches" (un peu
+   comme on peut le faire avec des textures), chaque nouvelle couche devant laisser transpara&icirc;tre
+   partiellement les pr&eacute;c&eacute;dentes</P>
+
+<H2>exemple</H2>
+<P>Un ciel nuageux&nbsp;:</P>
+<pre>
+sky_sphere {   
+              pigment {gradient y 
+                       color_map {[0 SteelBlue][1 White]}
+                       }
+              pigment {wrinkles 
+                       color_map {[0 White][1 White transmit 1]}    
+                       scale .1
+                       }
+           }
+</pre>
+<H2>remarques</H2>
+<P>Une seule <STRONG>sky_sphere</STRONG> est permise par sc&egrave;ne.</P>
+<P>La <STRONG>sky_sphere</STRONG> est totalement insensible aux conditions d'&eacute;clairage de la sc&egrave;ne.</P>
+<P>Il est possible d'appliquer une rotation, par <STRONG>rotate</STRONG>, &agrave; la <STRONG>sky_sphere</STRONG>.
+   <STRONG>scale</STRONG> et <STRONG>translate</STRONG> sont &eacute;galement autoris&eacute;s, mais risquent
+   de donner des r&eacute;sulats incongrus, puisque le rayon de la sph&egrave;re est infini.</P>
+<P>Pour la m&ecirc;me raison, les cam&eacute;ras orthographiques et cylindriques sont peu "amiables" avec
+   les <STRONG>sky_sphere</STRONG>.</P>
+
+<p><i>R&eacute;dacteur: Fabien Mosen</i></P>
+</body>
+</html>

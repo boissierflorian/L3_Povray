@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>int&eacute;rieur et ext&eacute;rieur - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>int&eacute;rieur et ext&eacute;rieur (inside & outside)</H1>
+
+<P>Ceci est un concept fondamental dans POV-Ray.  En r&eacute;alit&eacute;, les primitives de POV-Ray (sph&egrave;re,
+c&ocirc;ne,...) sont des surfaces math&eacute;matiquement d&eacute;finies.  Cependant, la plupart d'entre elles ont
+une propri&eacute;t&eacute; particuli&egrave;re : elles ont un "dedans" et un "dehors", selon qu'on consid&egrave;re un
+c&ocirc;t&eacute; ou l'autre de la surface.  On peut donc virtuellement imaginer ces primitives comme &eacute;tant
+"pleines".</P>
+<P>Lors de certaines op&eacute;rations sur ces formes (CSG, m&eacute;dia,...), cette caract&eacute;ristique est
+d&eacute;terminante pour la fa&ccedil;on dont POV-Ray va manipuler les objets.</P>
+<P>Pour une sph&egrave;re, par exemple, l'int&eacute;rieur sera a priori du c&ocirc;t&eacute; du centre, et l'ext&eacute;rieur
+   sera de l'autre c&ocirc;t&eacute; de la surface.  Pour la plupart des objets, cette notion est &eacute;vidente</P>
+<P>Le plan est un cas particulier, car si il est infini et sans &eacute;paisseur, son int&eacute;rieur est
+   situ&eacute; du c&ocirc;t&eacute; oppos&eacute; &agrave; la normale du plan, la normale pointant vers l'ext&eacute;rieur.</P>
+<P>Parmi les objets d&eacute;pourvus d'int&eacute;rieur/ext&eacute;rieur, on retrouve : <STRONG>triangle</STRONG>, <STRONG>smooth_triangle</STRONG>,
+   <STRONG>disc</STRONG>, <STRONG>polygon</STRONG>,...</P>
+<P><I>Contrairement aux versions précédente, POV-Ray 3.5 peut utiliser un <STRONG>mesh</STRONG>
+comme si s'était un solide, avec interaction CSG et tout.  Voyez la page consacrée à cet objet pour tous les détails.</I></P>
+<H2>inversion</H2>
+<P>Chaque objet poss&eacute;dant un int&eacute;rieur et un ext&eacute;rieur peut &ecirc;tre (virtuellement) "retourn&eacute;
+   comme une chaussette", et son int&eacute;rieur deviendra l'ext&eacute;rieur, et vice versa.  C'est le
+   mot cl&eacute; <STRONG>inverse</STRONG>, plac&eacute; avec les autres modificateurs d'objets, qui fait cela.</P>
+<P>exemple :</P>
+<PRE>
+ sphere {< 12,4,6 >,5 inverse pigment {Red}}
+</PRE>
+<P>Cette sph&egrave;re est &agrave; pr&eacute;sent "pleine" autour, et plus dedans.</P>
+<P><B>Cette commande ne modifie en aucun cas l'aspect de l'objet, mais uniquement son comportement
+      dans certaines circonstances.</B></P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

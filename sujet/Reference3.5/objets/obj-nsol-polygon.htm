@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <meta name="Http-Equiv" content="text/html; charset=ISO-8859-1">
+ <TITLE>polygones</TITLE>
+</HEAD>
+
+<BODY>      
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+<H1>polygon</H1>
+
+<H2>objectif</H2>
+ <P>Composer des objets plans complexes.</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+ polygon {
+         Nb_Points <SPAN class="comm">//nombre entier</SPAN>
+         &lt;Pt_A1&gt;,&lt;Pt_A2&gt; .. &lt;Pt_An&gt;,&lt;Pt_A1&gt; <SPAN class="comm">//vecteurs</SPAN>
+         &lt;Pt_B1&gt;,&lt;Pt_B2&gt; .. &lt;Pt_Bn&gt;,&lt;Pt_B1&gt;
+
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+       }
+ </PRE>
+ <P>Le polygone peut être défini par un ou plusieurs sous-polygones fermés.
+    Le premier paramètre à donner est le nombre total de points (Nb_Points), suivi
+    des coordonnées des polygones.  Ces coordonnées sont des vecteurs 3D, mais il est
+    impératif que tous les points soient coplanaires (appartiennent au même plan).
+    Donc, on aura vivement intérêt à travailler avec des vecteurs à deux dimensions,
+    de type &lt;x,y&gt;, où la dimension z est implicitement à 0, quitte à effectuer des
+    rotations par après.</P>
+ <P>La surface d'intersection de deux sous-polygones est un vide, la surface d'intersection de 
+    trois sous-polygones est un plein.  Nous verrons dans les exemples comment cela se passe.
+    Il est bien sûr nécessaire que chaque sous-polygone soit fermé (le dernier point étant
+    égal au premier) avant de définir le suivant.</P>
+
+<H2>exemples</H2>
+<P>un simple polygone plutôt irrégulier :</P>
+<pre>
+polygon {
+        8,
+        &lt;0,0&gt;,&lt;3.4,2.7&gt;,&lt;3.7,0.2&gt;,&lt;5.7,-1.6&gt;,&lt;2.4,-2.1&gt;,&lt;-2.1,-0.9&gt;,&lt;-1.7,1&gt;, &lt;0,0&gt;
+  pigment {OrangeRed}
+}
+</pre>
+<IMG src="poly02.png" border=2 alt="">
+<P>deux carrés et leur intersection</P>
+<pre>
+polygon {
+        10,
+        &lt;-1,-1&gt;,&lt;-1,1&gt;,&lt;1,1&gt;,&lt;1,-1&gt;, &lt;-1,-1&gt; // un carré
+        &lt;0,0&gt;,&lt;0,2&gt;,&lt;2,2&gt;,&lt;2,0&gt;, &lt;0,0&gt;       //un autre carré
+  pigment {OrangeRed}
+} 
+</pre>
+<IMG src="poly01.png" border=2 alt="">
+<P>..et si on rajoute un triangle</P>
+<pre>
+polygon {
+        14,
+        <-1,-1>,<-1,1>,<1,1>,<1,-1>, <-1,-1>   // un carré
+        <0,0>,<0,2>,<2,2>,<2,0>, <0,0>         // un autre carré
+        <-0.8,2>,<2.3,-0.6>,<-.5,-.3>,<-0.8,2> // un triangle
+  pigment {OrangeRed}
+} 
+</PRE>
+<IMG src="poly03.png" border=2 alt="">
+<P>..et enfin un exemple plus marrant</P>
+ <PRE> 
+polygon {
+         28  // nombre de points
+  &lt;0,0&gt;,&lt;1,0&gt;,&lt;0,1&gt;,&lt;0,0&gt;                 // position du grand triangle
+  &lt;0.3,0.7&gt;,&lt;0.4,0.7&gt;,&lt;0.3,0.8&gt;,&lt;0.3,0.7&gt; // petit triangle extérieur gauche
+  &lt;0.5,0.5&gt;,&lt;0.6,0.5&gt;,&lt;0.5,0.6&gt;,&lt;0.5,0.5&gt; //             ..           milieu
+  &lt;0.7,0.3&gt;,&lt;0.8,0.3&gt;,&lt;0.7,0.4&gt;,&lt;0.7,0.3&gt; //             ..           droit
+  &lt;0.5,0.2&gt;,&lt;0.6,0.2&gt;,&lt;0.5,0.3&gt;,&lt;0.5,0.2&gt; // petit triangle intérieur droit
+  &lt;0.2,0.5&gt;,&lt;0.3,0.5&gt;,&lt;0.2,0.6&gt;,&lt;0.2,0.5&gt; //             ..           gauche
+  &lt;0.1,0.1&gt;,&lt;0.2,0.1&gt;,&lt;0.1,0.2&gt;,&lt;0.1,0.1&gt; //             ..           bas
+
+pigment {Red*2} 
+scale 10
+rotate z*45
+translate &lt;0,-5,0&gt;
+}
+</PRE>
+<IMG src="poly04.png" border=2 alt="">
+ 
+<H2>CSG</H2>
+  <P>Ne fonctionne qu'avec les unions, puisqu'un polygone n'a pas d'épaisseur, et donc pas
+     d'intérieur/extérieur.</P>
+
+<H2>remarques</H2>
+  <P>Si un polygone n'est pas fermé, POV-Ray le fermera automatiquement, mais il vaut mieux
+     s'assurer soi-même de leur fermeture.</P>
+  <P>Si certains points ne sont pas coplanaires, un message d'avertissement sera donné, et
+     le polygone n'apparaîtra pas.</P>
+
+<P><I>rédacteurs : Gérard Sorbara / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>material</H1>
+
+<P><STRONG>material </STRONG>est une structure qui permet tout simplement de regrouper une
+ définition de <STRONG>texture</STRONG> et une définition d'<STRONG>interior</STRONG>, afin de pouvoir les
+ associer à un seul nom de variable.</P>
+
+<P>En effet, lorsque POV-Ray 3.1 a transféré la réfraction de <STRONG>finish</STRONG> vers <STRONG>interior</STRONG>, pour plus
+   de cohérence, il aurait été pénible de devoir spécifier une texture de verre de cette manière
+pour chaque objet :</P>
+<PRE>
+object {
+ MonObjet1
+ texture {Bleu_Translucide}
+ interior {ior 1.5}
+}
+</PRE>
+
+<P>Grâce à <STRONG>material</STRONG>, il suffit de faire ceci :</P>
+<PRE>
+#declare MonVerre =
+ material {
+ texture {Bleu_Translucide}
+ interior {ior 1.5}
+}
+
+object {
+ MonObjet1
+ material {MonVerre}
+}
+</PRE>
+</BODY>
+</HTML>

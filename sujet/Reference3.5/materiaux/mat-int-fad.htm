@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>interior - atténuation</H1>
+
+<P>On peut demander &agrave; POV-Ray d'att&eacute;nuer l'intensit&eacute; de la lumi&egrave;re qui passe &agrave; travers un
+   objet transparent.  Le mot cl&eacute; <STRONG>fade_power</STRONG> suivi d'une valeur d&eacute;cimale
+   d&eacute;termine la "vitesse" d'att&eacute;nuation (1 = lin&eacute;aire, 2 = carr&eacute;e,..).  Le mot cl&eacute;
+   <STRONG>fade_distance</STRONG> suivi d'une valeur d&eacute;cimale d&eacute;termine &agrave; quelle est la
+   distance parcourue par la lumi&egrave;re avant d'atteindre la moiti&eacute; de l'att&eacute;nuation.
+   La formule est : att&eacute;nuation = 1 / 1+(distance/fade_distance)<SUP>fade_power</SUP></P>
+<P>Le mot cl&eacute; <STRONG>fade_color</STRONG> permet de sp&eacute;cifier une couleur d'att&eacute;nuation, et si <STRONG>fade_power</STRONG>
+   est &eacute;gal ou sup&eacute;rieur &agrave; 1000, une fonction d'att&eacute;nuation plus r&eacute;aliste est employ&eacute;e.</P>
+
+<IMG SRC="illref-int-03.jpg">
+
+</BODY>
+</HTML>

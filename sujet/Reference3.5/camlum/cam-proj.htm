@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>camera - documentation POV-Ray en fran&ccedil;ais</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> /
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> /
+ page précédente : <A href="cam-flou.htm">profondeur de champ (flou)</A>
+</P>
+
+<H1>camera - types de projections</H1>
+
+<TABLE>
+<TR>
+ <TD style="" colspan=3>
+  <P><B>perspective :</B> le mode de projection classique, par d&eacute;faut, une perspective &agrave;    trois points de fuites.  Dans ce mode, les droites restent toujours droites, et une &eacute;longation
+  excessive des objets proches de la cam&eacute;ra commence &agrave; appara&icirc;tre lorsque l'angle de   vue est tr&egrave;s grand.
+  </P>
+ </TD>
+</TR>
+</TABLE>
+<TABLE>
+<TR>
+ <TD>
+  <IMG src="proj-01.jpg" border=2>
+ </TD>
+ <TD>
+  <IMG src="camppers.jpg" border=2>
+ </TD>
+</TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>orthographic :</B> mode de projection sans points de fuite, les parall&egrave;les restent parall&egrave;les,
+ et les objets apparaissent toujours &agrave; la m&ecirc;me taille, quelle que soit leur distance par rapport 
+ &agrave; la cam&eacute;ra.  En principe, le cadrage doit se r&eacute;gler &agrave; l'aide de <STRONG>right</STRONG> et <STRONG>up</STRONG>, o&ugrave; on donne
+ la dimension, en unit&eacute;s, du cadre.  Cependant, on peut aussi se contenter de sp&eacute;cifier un <STRONG>angle</STRONG>,
+ et POV-Ray se chargera de r&eacute;gler la cam&eacute;ra automatiquement, avec une approximation.</P>
+</TD></TR>
+</TABLE>
+<TABLE>
+<TR><TD><IMG src="proj-02.jpg" border=2></TD><TD><IMG src="camortho.png" border=2></TD>
+</TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>fisheye :</B> "oeil de poisson", o&ugrave; le plan de projection devient sph&eacute;rique.  Les droites deviennent
+ courbes, et l'image de rendu est cadr&eacute;e dans un cercle (ou une ellipse, selon le rapport up/right).  La commande
+ <STRONG>angle</STRONG> permet de sp&eacute;cifier la "couverture" de la cam&eacute;ra.  On peut utiliser un angle de 360&#176;, ce qui
+ permettra de voir toute la sc&egrave;ne d'un coup.  On peut aussi aller plus loin que 360&#176;, et la sc&egrave;ne continuera
+ &agrave; se red&eacute;ployer dans la vue.</P>
+</TD></TR>
+<TR><TD>
+<P><I><IMG src="proj-03.jpg" border=2></I></P>
+</TD></TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>ultra_wide_angle :</B> cousin de l'"oeil de poisson", mais dans un cadrage orthogonal (le plan
+de projection est une portion rectangulaire de sphere).  Les droites deviennent courbes.</P>
+</TD></TR>
+<TR><TD>
+<P><I><IMG src="proj-04.jpg" border=2></I></P>
+</TD></TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>omnimax : </B> c'est une projection "oeil de poisson" &agrave; 180&#176; avec la verticale un peu compress&eacute;e.  Inutile de sp&eacute;cifier un "angle".  Ce mode correspond aux syst&egrave;mes de projection sur &eacute;cran g&eacute;ant Omnimax (!).</P>
+</TD></TR>
+<TR><TD>
+<P><I><IMG src="proj-05.jpg" border=2></I></P>
+</TD></TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>panoramic : </B> projection "cylindrique equirectangulaire", ce mode permet d'outrepasser le probl&egrave;me de la distorsion lorsque l'angle de vision approche 180&#176;.</P>
+</TD></TR>
+<TR><TD>
+<P><I><IMG src="proj-06.jpg" border=2></I></P>
+</TD></TR>
+</TABLE>
+
+<HR>
+
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>cylinder : </B> mode o&ugrave; le plan de projection est un cylindre.  Quatre modes (de 1 &agrave; 4) d&eacute;terminent la position et l'orientation du cylindre :</P>
+</TD></TR>
+<TR><TD>
+   <P>1 : cylindre vertical, point de vue fixe.</P></TD></TR>
+<TR>
+   <TD>
+   <IMG src="proj-07.jpg" border=2>
+   </TD><TD>
+   <IMG src="cam-cyl1.png" border=2>
+</TD></TR>
+<TR><TD>
+   <P>2 : cylindre horizontal, point de vue fixe.</P></TD></TR>
+<TR>
+   <TD><IMG src="proj-08.jpg" border=2></TD>
+</TR>
+<TR><TD>
+   <P>3 : cylindre vertical, le point de vue se d&eacute;place le long de l'axe.
+       n'oubliez pas d'ajuster <STRONG>up</STRONG>.</P></TD></TR>
+<TR>
+   </TD><TD>
+<IMG src="proj-09.jpg" border=2>
+   </TD><TD>
+<IMG src="cam-cyl3.png" border=2>
+</TD></TR>
+
+<TR><TD>
+   <P>4 : cylindre horizontal, le point de vue se d&eacute;place le long de l'axe. N'oubliez pas
+       d'ajuster <STRONG>right</STRONG>.</P></TD></TR>
+<TR>
+   <TD><IMG src="proj-10.jpg" border=2></TD>
+</TR>
+</TABLE>
+<HR>
+<TABLE>
+<TR><TD style="" colspan=3>
+<P><B>spherical : </B>projection sphérique.  L'image rendue correspond au "déroulé" (comme
+      une mappemonde) de la scène projetée sur une sphère dont le centre est la caméra.
+      Ce mode de projection est particulièrement adapté à la création d'images panoramiques
+      à visualiser avec un utilitaire du genre QuickTime VR (je vous conseille "ptviewer",
+      faites une recherche), comme celles que l'on voit dans Myst 3 Exile. 
+<P>On peut spécifier la longitude et la latitude couvertes en donnant deux valeurs successives à
+   <STRONG>angle</STRONG>.  Typiquement, pour une sphère complète, on spécifiera :</P>
+<PRE>
+ angle 360,180
+</PRE>
+<P>(ce sont les valeurs par défaut)</P>
+</TD></TR>
+<TR><TD>
+<P><I><IMG src="proj-11.jpg" border=2></I></P>
+</TD></TR>
+</TABLE>
+
+<HR>
+
+<H2>remarque</H2>
+  <P>Le "vista buffer", syst&egrave;me d'optimisation de la vitesse qui fait des sortes de "bounding box" en 2D sur le
+  plan de l'&eacute;cran, ne fonctionne que dans les modes "perspective" et "orthographic".</P>
+
+<P>page suivante : <A href="cam-norm.htm">perturbation de la normale de la camera</A></P>
+
+</BODY>
+
+</HTML>

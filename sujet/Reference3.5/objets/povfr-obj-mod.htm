@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>plane  - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>les modificateurs d'objets</H1>
+
+<H2>objectif</H2>
+ <P>Modifier le comportement d'objets ou de groupes d'objets par rapport &agrave; la lumi&egrave;re, &agrave; la
+    cam&eacute;ra ou aux autres objets.  Ces mots cl&eacute;s se placent &agrave; la fin des d&eacute;finitions d'objets
+    (avant de fermer l'accolade).</P>
+
+<H2>ombres et lumi&egrave;res</H2> 
+ <H3>no_shadow</H3>
+<P><STRONG>no_shadow</STRONG> fait en sorte que tous les rayons lumineux, quels qu'ils soient,
+ traversent l'objet sans &ecirc;tres bloqu&eacute;s, et donc sans porter d'ombre.  Ce mot cl&eacute; est r&eacute;serv&eacute; aux
+ objets, les sources lumineuses disposant de <STRONG>shadowless</STRONG> pour obtenir le m&ecirc;me
+ effet.</P>
+ <IMG src="illref-obmod-03.jpg">
+ <H3>double illuminate</H3>
+ <P>Ordinairement, dans POV-Ray, avec les objets transparents, seule la face qui est du c&ocirc;t&eacute; de la source
+    lumineuse re&ccedil;oit les ombres et la lumi&egrave;re.  Or, dans la r&eacute;alit&eacute;, si on regarde de l'autre
+    c&ocirc;t&eacute; d'un mat&eacute;riau transparent (une feuille de plastique, par exemple), on voit aussi
+    ces ombres et cette lumi&egrave;re.  Le mot cl&eacute; <STRONG>double_illuminate</STRONG> permet d'activer
+    la r&eacute;percussion de la lumi&egrave;re simultan&eacute;ment sur les deux faces d'une surface.</P>
+<P><I>Cette fonctionnalité permet également de résoudre (en attendant une véritable solution !)
+      le problème de "bords noirs" qui apparaissent avec certains <STRONG>height_fields</STRONG>
+      ou certains <STRONG>meshes</STRONG>.</I></P>
+ <IMG src="illref-obmod-04.jpg">
+ <H3>groupes de lumi&egrave;res</H3>
+<P>Vous trouverez tout le d&eacute;tail sur cette fonctionnalit&eacute; dans la section consacr&eacute;e aux sources
+   lumineuses.</P>
+<H2>int&eacute;rieur-ext&eacute;rieur</H2> 
+<P>Voyez dans les "concepts g&eacute;n&eacute;raux" la section consacr&eacute;e &agrave; la notion d'int&eacute;rieur/ext&eacute;rieur,
+pour plus de d&eacute;tails.</P>
+ <H3>inverse</H3>
+ <P><STRONG>inverse</STRONG> provoque la permutation de l'int&eacute;rieur et de l'ext&eacute;rieur d'un
+    objet.  Cela ne change en rien son apparence, mais seulement son comportement en CSG 
+    et avec les <STRONG>media</STRONG>.</P>
+ <H3>hollow</H3>
+ <P><STRONG>hollow</STRONG> permet de rendre un objet "creux".  Encore une fois, cela ne
+    modifie pas l'apparence de l'objet, qui a toujours l'air creux, mais seulement son
+    comportement vis-&agrave;-vis des effets atmosph&eacute;riques et des <STRONG>media</STRONG>.  Les
+    objets ne sont pas creux par d&eacute;faut, mais il est n&eacute;cessaire qu'ils le soient pour
+    pouvoir contenir les effets pr&eacute;cit&eacute;s.</P>
+<P>Attention, si vous faites une sc&egrave;ne o&ugrave; la cam&eacute;ra est &agrave; l'int&eacute;rieur d'un objet (&agrave; l'int&eacute;rieur
+   d'une immense sph&egrave;re qui fait le ciel, par exemple), les effets atmosph&eacute;riques (brouillard,
+   media g&eacute;n&eacute;ral) n'appara&icirc;tront que si cet objet est dot&eacute; de <STRONG>hollow</STRONG>.</P>
+<P>Par contre, si dans un environnement noy&eacute; de brouillard vous voulez r&eacute;server des zones
+   que le brouillard n'atteint pas (une maison, par exemple), il vous suffit d'"emballer"
+   ces zones dans des volumes translucides dot&eacute;s de <STRONG>hollow off</STRONG>.</P>
+<P>Dans une union, par exemple, on peut rendre "plein" un objet, alors que tout l'union
+est "creuse" :</P>
+<PRE>
+union {
+   sphere {...}
+   cylinder {... hollow off}
+   box {...}
+   hollow
+       }
+</PRE>
+
+<H2>visibilit&eacute;</H2> 
+<H3>no_image</H3>
+ <P>&Agrave; la mani&egrave;re de <STRONG>no_shadow</STRONG>, ce mot cl&eacute; fait en sorte qu'un
+ objet ne soit pas visible directement par la cam&eacute;ra.  Par contre, il restera visible dans les 
+ reflets ou r&eacute;fractions d'autres objets.  Cela peut par exemple servir pour le rendu d'une
+ pi&egrave;ce d'une maison, o&ugrave; la cam&eacute;ra pourra se situer derri&egrave;re un mur qui lui sera invisible,
+ ce mur restant apparent dans un &eacute;ventuel mirroir de la pi&egrave;ce.</P>
+ <IMG src="illref-obmod-01.jpg">
+<H3>no_reflection</H3>
+ <P>Comme <STRONG>no_image</STRONG>, mais appliqu&eacute; aux r&eacute;flexions.  L'objet sera visible directement,
+    mais pas dans les reflets.</P>
+ <IMG src="illref-obmod-02.jpg">
+<P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>

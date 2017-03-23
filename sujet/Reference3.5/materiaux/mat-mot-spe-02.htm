@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : function</H1>
+
+<H2>compatibilité</H2>
+<P><I>POV-Ray 3.5</I></P>
+<H2>syntaxe</H2>
+<PRE>
+pigment { //ou autre chose...
+  function { F(x,y,z) }
+}
+</PRE>
+<P>Entre les accolades qui suivent <STRONG>function</STRONG>, vous pouvez utiliser
+   n'importe quelle expression de fonction reconnue par POV-Ray.  Pour connaître
+   le détail des fonctions disponibles, consultez la section "données et fonctions".</P>
+
+<P>Le résultat de la fonction appliquée en un point de l'espace sera amputé de
+   sa partie entière.  Par exemple, si au point &lt;10,25,13&gt; la fonction retourne
+   la valeur 251.21544, la valeur du motif en ce point sera 0.21544.</P>
+
+<H2>exemples</H2>
+<PRE>
+ pigment {
+  function { sin(x) + cos (z) }
+ }
+</PRE>
+<IMG SRC="tx-sp-34.jpg">
+<P>Si une fonction préalablement déclarée est utilisée dans l'expression,
+   n'oubliez pas de lui adjoindre (x,y,z), car le résultat est "fonction DE
+   x, y et z".  (on peut mettre d'autres valeurs que x,y et z, mais c'est
+   ce dont vous aurez besoin dans 99.99% des cas !)</P>
+<PRE>
+#declare MaFonction = function {cos (x) + z*z}
+
+pigment {
+  function { MaFonction(x,y,z) + cos (z) }
+ }
+</PRE>
+<IMG SRC="tx-sp-35.jpg">
+
+<H2>pattern et pigment dans une fonction</H2>
+<P>On peut également utiliser des motifs (pattern) et des pigments dans les fonctions,
+   pour tenter des combinaisons originales !</P>
+<PRE>
+#declare MaFonction = function {pattern{agate}}
+
+pigment {
+  function { MaFonction(x,y,z) + cos (z) }
+ }
+</PRE>
+
+<IMG SRC="tx-sp-36.jpg">
+
+<P>Si on utilise <STRONG>pigment</STRONG> au lieu de <STRONG>pattern</STRONG> dans
+   une fonction (pour bénéficier de structures plus complexes), il ne faut pas oublier 
+   de transformer le vecteur résultant en nombre décimal à l'aide de <STRONG>.gray</STRONG>,
+   au moment d'employer la fonction.  Parce qu'une fonction peut, dans ce cas, retourner
+   un vecteur comme résultat, mais qu'un motif a besoin d'un nombre décimal.</P>
+
+<PRE>
+#declare MaFonction = function {pigment{agate}}
+
+pigment {
+  function { MaFonction(x,y,z).gray + cos (z) }
+ }
+</PRE>
+<P>En outre, la déclaration de fonctions de ce type ne peut pas comporter autre chose que le
+   <STRONG>pigment</STRONG> ou le <STRONG>pattern</STRONG>.</P>
+
+<H2>bitmap interne</H2>
+<P>Une syntaxe particulière permet d'employer une fonction partout où une image
+   bitmap est demandée.  Il suffit d'intercaler la résolution de ce "bitmap interne"
+   entre le mot clé <STRONG>function</STRONG> et la première accolade.  Exemple :</P>
+<PRE>
+#declare MaFonction = function {pigment {agate}}
+
+plane {z,0
+ pigment {
+  image_map {
+   function 10,10 {MaFonction(x,y,z).gray}
+  }
+  scale 5
+ }
+}
+</PRE>
+<IMG SRC="tx-sp-37.jpg">
+</BODY>
+
+</HTML>

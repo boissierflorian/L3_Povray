@@ -1,0 +1,64 @@
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>cylinder</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er un cylindre.</P>
+<IMG src="povfr-cyl-01.jpg" border=2>
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+cylinder {
+        Centre_1, <SPAN class="comm">// vecteur</SPAN>
+        Centre_2, <SPAN class="comm">// vecteur</SPAN>
+        Rayon     <SPAN class="comm">// nombre décimal</SPAN>
+        (open)    
+
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..mat&eacute;riau..)
+       }
+ </PRE>
+ <P>L'axe du cylindre est une droite allant de Centre_1 &agrave; Centre_2, les extr&eacute;mit&eacute;s du cylindre &eacute;tant donc perpendiculaires &agrave; cet axe.</P>
+ <P>L'emploi du mot-cl&eacute; <STRONG>open</STRONG> supprime les faces aux extr&eacute;mit&eacute;s du cylindre (il devient apparemment creux).  Toutefois, <STRONG>open</STRONG> ne modifie pas le comportement du cylindre en CSG.</P>
+ 
+<H2>exemple</H2>
+ <PRE> 
+cylinder {<12,14,45>,<21,41,53>,5 pigment {Yellow}}    
+ </PRE>
+ 
+<H2>CSG</H2>
+  <P>Fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis.</P>
+  <P>Voir plus haut la remarque au sujet de <STRONG>open</STRONG>.</P>
+<H2>remarque</H2>
+  <P>On ne peut pas faire un cylindre de longueur nulle (Centre_1 confondu avec Centre_2),
+     POV-Ray le refusera.</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Round_Cylinder_Union(PtA, PtB, Radius, EdgeRadius), Round_Cylinder_Merge(PtA, PtB, Radius, EdgeRadius), Round_Cylinder(PtA, PtB, Radius, EdgeRadius, UseMerge)</STRONG>
+<BR>
+ Créent un cylindre aux arêtes arrondies.
+<BR>
+<IMG src="povfr-cyl-02.jpg" border=2>
+<BR>
+<STRONG>HF_Cylinder(FunctionName, PtA, PtB, Radius, Depth, Res, Smooth, FileName)</STRONG>
+<BR>
+ Crée un height_field cylindrique.
+<BR>
+<IMG src="povfr-cyl-03.jpg" border=2>
+</P>
+
+</BODY>
+
+</HTML>

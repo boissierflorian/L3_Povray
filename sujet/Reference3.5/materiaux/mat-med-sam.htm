@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les media - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-mat.htm">vers l'index des mat&eacute;riaux</A>
+</P>
+
+<H1>media - contr&ocirc;le de l'&eacute;chantillonnage</H1>
+<P>Comme vous le savez d&eacute;j&agrave;, le calcul des <STRONG>media</STRONG> est un processus d'&eacute;chantillonnage
+   de valeurs sur le trajet du rayon traversant le conteneur.  
+   Plusieurs param&egrave;tres permettent de contr&ocirc;ler le fonctionnement de cet &eacute;chantillonnage.</P>
+
+<H2>intervals</H2>
+<P><STRONG>intervals</STRONG>, suivi d'un entier, est le nombre d'&eacute;chantillons &agrave; prendre entre
+   l'entr&eacute;e et la sortie du conteneur.  Plus le media est complexe, plus il faudra prendre
+   d'intervalles, afin d'obtenir un rendu pr&eacute;cis.</P>
+
+<H2>ratio</H2>
+<P><STRONG>ratio</STRONG>, qui vaut 0.9 par d&eacute;faut, est le rapport (0 &gt; 1) entre le nombre d'intervalles
+   &agrave; prendre dans les zones &eacute;clair&eacute;es, et le nombre d'intervalles dans les zones non-&eacute;clair&eacute;es.
+   La valeur par d&eacute;faut indique que 90% des intervalles seront pris dans les zones &eacute;clair&eacute;es.</P>
+
+<H2>samples, confidence, variance</H2>
+<P>Selon les cas, afin d'optimiser le temps de rendu, ou la qualité du résultat, il est possible
+d'enclencher un système de "sous-échantilonnage" des intervalles.  Comme si on prenait des
+points supplémentaires entre les intervalles.  Mais cette fois, le système est adaptif,
+c'est à dire que le nombre d'échantillons supplémentaire varie suivant les besoins.</P>
+<P><STRONG>samples</STRONG> est suivi de deux entiers repr&eacute;sentant respectivement le nombre minimal
+   et le nombre maximal d'&eacute;chantillons supplémentaires par intervalle.  <STRONG>variance</STRONG> indique (en fraction de 1) en
+   dessous de quelle diff&eacute;rence de valeur il est inutile de prendre un &eacute;chantillon
+   suppl&eacute;mentaire, et <STRONG>confidence</STRONG> indique le "degr&eacute; de confiance" (statistique)
+   accord&eacute; &agrave; la variation.  Les valeurs par d&eacute;faut sont respectivement de 1/128 et 0.9.</P>
+
+<H2>m&eacute;thodes d'&eacute;chantillonnage</H2>
+<P>Vous avez le choix entre trois m&eacute;thodes d'&eacute;chantillonnage, donnant des r&eacute;sultats de vitesse
+   et de rendu diff&eacute;rents.</P>
+<P><STRONG>method 1</STRONG> : c'est la m&eacute;thode par d&eacute;faut, qui utilise un &eacute;chantillonnage
+   stochastique (plus ou moins al&eacute;atoire), appel&eacute; "monte-carlo".  Cette m&eacute;thode produit un
+   "grain" qu'on peut aimer ou pas, selon les cas.</P>
+<IMG src="illref-med-meth01.jpg">
+<P><STRONG>method 2</STRONG> : &agrave; la diff&eacute;rence de la premi&egrave;re m&eacute;thode, les &eacute;chantillons
+   sont pris &agrave; intervalles r&eacute;guliers le long du rayon, ce qui produit un rendu plus "lisse",
+   mais qui peut parfois pr&eacute;senter des "bandes" d'&eacute;chantillonnage.  Cette m&eacute;thode produit
+   des r&eacute;sultats similaires &agrave; ce qui &eacute;tait obtenu avec les d&eacute;sormais obsol&egrave;tes "halos".</P>
+<IMG src="illref-med-meth02.jpg">
+<P><STRONG>method 3</STRONG> : c'est une m&eacute;thode qui combine un peu les deux autres, avec
+   un proc&eacute;d&eacute; d'anticr&eacute;nelage particulier, qui lui permet de donner des r&eacute;sultats "lisses",
+   sans apparition de bandes, ni de grain, au prix d'une rapidit&eacute; un peu amoindrie.
+   Vous pouvez d'ailleurs sp&eacute;cifier <STRONG>aa_threshold n.n</STRONG> (seuil de déclenchement), <STRONG>aa_level n</STRONG>
+   (niveau de récursion) et <STRONG>jitter</STRONG>, qui s'emploient comme pour l'antialiasing "classique".</P>
+<IMG src="illref-med-meth03.jpg">
+
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

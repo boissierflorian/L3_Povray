@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>blob - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>blob</H1>
+
+<H2>Objectif</H2> 
+ <P>Cr&eacute;er une forme d'aspect organique, par un assemblage de sph&egrave;res et de cylindres qui ont l'air de s'engluer les uns dans
+    les autres.</P>
+<IMG src="povfr-blob-05.jpg" border=2>
+<H2>Compatibilit&eacute;</H2> 
+ <P class="noindent">POV-Ray 2.0 +sup.<BR>
+    POV-Ray 3.0 +sup. : composant cylindrique, nouvelle syntaxe ("sphere" au lieu de "component")</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+ blob {
+  threshold Seuil  <SPAN class="comm">// d&eacute;cimal</SPAN>
+  sphere {
+          &lt;Position&gt;,<SPAN class="comm">// vecteur</SPAN>
+          Rayon,           <SPAN class="comm">// nombre décimal</SPAN>
+          Force            <SPAN class="comm">// nombre décimal</SPAN>
+          (..texture..)
+         } 
+  cylinder {
+            &lt;Point1&gt;,  <SPAN class="comm">// vecteur</SPAN>
+            &lt;Point2&gt;,  <SPAN class="comm">// vecteur</SPAN>
+            Rayon,           <SPAN class="comm">// nombre décimal</SPAN>
+            Force            <SPAN class="comm">// nombre décimal</SPAN>
+            (..texture..)
+           } 
+  (sturm on/off)      <SPAN class="comm">// bool&eacute;en</SPAN>
+  (hierarchy on/off)  <SPAN class="comm">// bool&eacute;en</SPAN>
+
+  (..modificateurs d'objets..)
+  (..transformations..)
+  (..mat&eacute;riau..)
+ } 
+ </PRE>
+<P>Les composants qui peuvent faire partie d'un blob sont des sph&egrave;res et des cylindres
+   auxquels est ajout&eacute; un param&egrave;tre de "force".  Cette force prend sa valeur nominale
+   (celle que vous avez sp&eacute;cifi&eacute;e) au centre ou sur l'axe du composant, puis d&eacute;cro&icirc;t
+   progressivement jusqu'&agrave; devenir nulle &agrave; la surface ext&eacute;rieure du composant.</P>
+<P>On peut se repr&eacute;senter un <STRONG>blob</STRONG> comme un ensemble de champs magn&eacute;tiques de forme
+   sph&eacute;rique ou cylindrique.  Par la combinaison des champs de force des diff&eacute;rents
+   composants, chaque point de l'espace occup&eacute; par un <STRONG>blob</STRONG> prend une valeur de "force"
+   qui d&eacute;pend de la "force" et de la proximit&eacute; des composants.</P>
+
+<P>La surface apparente d'un <STRONG>blob</STRONG> est l'ensemble des points dont la
+   valeur de "force" est &eacute;gale &agrave; la valeur de seuil sp&eacute;cifi&eacute;e apr&egrave;s <STRONG>threshold</STRONG>.
+   C'est en quelque sorte la mat&eacute;rialisation d'un niveau donn&eacute; du "champ magn&eacute;tique",
+   la valeur de <STRONG>threshold</STRONG> permettant de r&eacute;gler ce niveau.</P>
+<P>Le <STRONG>threshold</STRONG> doit &ecirc;tre positif, mais on peut tr&egrave;s bien donner une "force" n&eacute;gative,
+   ce qui aura pour effet de cr&eacute;er un composant "repoussant", qui grignotera le champ
+   de force des autres, au lieu de s'y ajouter.</P>
+<P>Le mot cl&eacute; <STRONG>hierarchy</STRONG> permet d'activer/d&eacute;sactiver le syst&egrave;me de
+   bo&icirc;tes d'optimisation interne aux blobs.  La valeur par d&eacute;faut est <STRONG>on</STRONG>.</P>
+<P>Si vous voyez appara&icirc;tre des petits pixels al&eacute;atoires non d&eacute;sir&eacute;s sur votre blob,
+   ou s'il ne se mat&eacute;rialise pas comme il devrait, activez le mot cl&eacute; <STRONG>sturm</STRONG>,
+   qui enclenchera alors des calculs plus pr&eacute;cis (mais un chouia plus lents).</P>
+
+<H2>exemple</H2>
+<PRE>
+#declare Seuil=... //placer une valeur
+blob {  
+  threshold Seuil
+  sphere {<0,0,10>,15,1}
+  sphere {<0,0,-10>,15,1}
+      }
+</PRE>
+<TABLE>
+<TR><TD>
+<IMG src="povfr-blob-04.jpg" border=2>
+</TD><TD>
+<IMG src="povfr-blob-01.jpg" border=2>
+</TD></TR>
+</TABLE>
+
+<P>L'image ci-dessus montre le <STRONG>blob</STRONG> du code avec diff&eacute;rentes valeurs de <STRONG>threshold</STRONG>.
+   Les sph&egrave;res blanches transparentes montrent les composants avec leurs rayons r&eacute;els.
+   Afin que l'effet de "glu" apparaisse, il est n&eacute;cessaire que les composants "entiers"
+   se chevauchent.  &Agrave; l'int&eacute;rieur, on voit, en coupe, trois blobs g&eacute;n&eacute;r&eacute;s par ces deux
+   sph&egrave;res : le vert a un <STRONG>threshold</STRONG> de <STRONG>0.4</STRONG>, 
+   l'orange <STRONG>0.6</STRONG>, et le bleu <STRONG>0.8</STRONG>.</P>
+<P>Ajoutons un cylindre au syst&egrave;me.</P>
+<PRE>
+#declare Seuil=... //placer une valeur
+blob {  
+  threshold Seuil
+  sphere {<0,0,10>,15,1}
+  sphere {<0,0,-10>,15,1}
+  cylinder {<0,-15,25>,<0,15,25>,10,1}
+      }
+</PRE>
+
+<TABLE>
+<TR><TD>
+<IMG src="povfr-blob-03.jpg" border=2>
+</TD><TD>
+<IMG src="povfr-blob-02.jpg" border=2>
+</TD></TR>
+</TABLE>
+
+<P>Remarquez de quelle fa&ccedil;on le <STRONG>blob</STRONG> d&eacute;passe du composant cylindrique.  Il faut en fait
+   imaginer qu'une sph&egrave;re, du m&ecirc;me rayon que le cylindre, est ajout&eacute;e &agrave; chacune des
+   extr&eacute;mit&eacute;s de l'axe.</P>
+
+<H2>texturage</H2>
+<P>On peut, comme pour tout objet, sp&eacute;cifier un mat&eacute;riau g&eacute;n&eacute;ral pour tout le <STRONG>blob</STRONG>,
+   mais on peut &eacute;galement sp&eacute;cifier une <STRONG>texture</STRONG> 
+  (<STRONG>pigment</STRONG>, <STRONG>normal</STRONG> et <STRONG>finish</STRONG>) diff&eacute;rente
+  pour chaque composant, la texture en un point d'un blob &eacute;tant issue du m&eacute;lange de plusieurs
+  textures.  <b>Attention</b> : en toute logique, un seul <STRONG>interior </STRONG>est admis pour l'ensemble du <STRONG>blob</STRONG>.</P>
+
+<H2>CSG</H2>
+<P>Son int&eacute;rieur et son ext&eacute;rieur &eacute;tant parfaitement bien d&eacute;finis, un blob fonctionne
+   sans probl&egrave;mes dans une op&eacute;ration de CSG.</P>
+<H2>Anecdote</H2>
+<P>Le mot "blob" provient du titre d'un navet am&eacute;ricain, un thriller intitul&eacute; "the
+   blob", o&ugrave; une cr&eacute;ature visqueuse venue de l'espace augmente sans cesse de volume et se propage
+   en d&eacute;truisant tout sur son passage.</P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

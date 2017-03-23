@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Paramètres internes</title>
+</head>
+<body>
+<h1>Quelques objets plus complexes</h1>
+
+<p>Povray offre de nombreuses autres primitives géométriques, permettant la modélisation et le rendu d'objets beaucoup plus complexes. Dans cette partie, vous allez en étudier quelques unes ...
+</p>
+<h2>Les objets de révolution</h2>
+
+Un objet de révolution est défini par une courbe 2D et un axe de révolution (ou de rotation) : l'objet est obtenu comme la surface résultant de la rotation de la courbe autour de son axe.<br>
+Povray dispose de deux types d'objets de révolution : les <a href="Reference3.5/objets/obj-solide-lathe01.htm" target = "aide"><tt>lathes</tt></a> et les <a href="Reference3.5/objets/obj-solide-sor.htm" target = "aide"><tt>sor</tt></a>. L'exemple ci-dessous donne un premier aperçu de l'utilisation des <tt>lathes</tt> :
+<center>
+<table>
+<tr><td>
+<tt>
+#include "colors.inc"<br>
+<br>
+camera  {location <0,7,-10>  look_at <0,0,0> }<br>
+background { White }<br>
+light_source { <100,100,-200> rgb 0.9}<br>
+<br>
+lathe {<br>
+&nbsp;&nbsp;linear_spline<br>
+&nbsp;&nbsp;5,<br>
+&nbsp;&nbsp;< 3, 0 >, < 4, 0 >, < 5, 5 >, < 3, 5 >, < 3, 0 ><br>
+&nbsp;&nbsp;pigment { YellowGreen }<br>
+&nbsp;&nbsp;finish {ambient .3 phong 1}<br>
+}<br>
+</tt>
+
+<td><img src="Images/ex_lathe.png" width="60%" height="60%" border="0" hspace="5" vspace="5" alt="scène lathe" align="left"><br>
+</table>
+</center>
+
+
+</tt>
+<h3>Application</h3>
+
+<center>
+<table>
+<tr>
+<td>1. Modifiez le code précédent de manière à obtenir cette forme.<td><img src="Images/tp3_exo2_1.png" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="scène lathe" align="left"><br>
+
+<tr>
+<td>2. Modifiez de nouveau ce code pour obtenir cette nouvelle forme.<td><img src="Images/tp3_exo2_2.png" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="scène lathe" align="center"><br>
+<tr>
+<td>3. Testez à présent les splines quadratiques et cubiques sur la forme de la question précédente.<td>&nbsp;<br>
+<tr>
+<td>4. Recherchez les modifications très simples à apporter à la forme initiale <br>(en termes de point(s) supplémentaire(s) et de spline) pour obtenir la forme ci-contre. <br>Il est conseillé de commencer par obtenir une forme générale à l'aide des splines linéaires.<td><img src="Images/tp3_exo2_3.png" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="scène lathe" align="left"><br>
+</table>
+</center>
+
+<h2>Les "Height Fields"</h2>
+
+Aussi appelés Modèles Numériques de terrain (MNT), les <a href="Reference3.5/objets/obj-solide-hf01.htm" target = "aide"><tt>Height Fields</tt></a> sont principalement utilisés pour modéliser du relief, que ce soit pour des terrains (montagnes) ou pour des bas-reliefs. Pour les exercices qui vont suivre, vous aurez à votre disposition les images en niveau de gris suivantes, que vous pouvez sauvegarder dans votre répertoire courant :
+
+<center>
+<table>
+<tr>
+<td><img src="Images/HF01.jpg" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="Height Field 01" align="left"><br>
+<td><img src="Images/HF02.jpg" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="Height Field 02" align="left"><br>
+<td><img src="Images/HF03.jpg" width="50%" height="50%" border="0" hspace="5" vspace="5" alt="Height Field 03" align="left"><br>
+</table>
+</center>
+
+<h3>Application</h3>
+
+<center>
+<table>
+<tr>
+<td>1. Créez un script Povray permettant d'obtenir une vue d'un MNT à partir de l'une <br> des images proposées.  On conseille de recentrer le MNT à l'origine du repère et de<br> lui appliquer une mise à l'échelle importante, de manière à faciliter sa manipulation<br> et sa visualisation. Par exemple, la vue ci-contre est obtenue à partir de la première<br> image, avec une mise à l'échelle d'un facteur 1000 en x et z et 300 en y.
+<td><img src="Images/tp3_exo2_6.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 01" align="left"><br>
+<tr>
+<td>2. Modifiez votre script de manière à obtenir l'image ci-contre.<br>
+<td><img src="Images/tp3_exo2_7.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 02" align="left"><br>
+<tr>
+<td>3.  Modifiez votre script de manière à obtenir l'image ci-contre.<br>
+<td><img src="Images/tp3_exo2_8.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 03" align="left"><br>
+<tr>
+<td>4. On souhaite à présent obtenir la partie inférieure du MNT, <br>comme illustré sur la figure ci-contre. Comment faire ?<br>
+<td><img src="Images/tp3_exo2_9.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 04" align="left"><br>
+<tr>
+<td>5. Comment modifier (très simplement) le script pour obtenir <br>la même couleur de base, sans changer les attributs de couleur dans le MNT ?<br>
+<td><img src="Images/tp3_exo2_10.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 05" align="left"><br>
+<tr>
+<td>6. En déduire un script permettant d'obtenir le résultat ci-contre.<br>
+<td><img src="Images/tp3_exo2_11.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 06" align="left"><br>
+<tr>
+<td>7. Essayez à présent d'obtenir un résultat proche de celui présenté<br> ci-contre. Choisissez bien evidemment les couleurs qui vous<br> conviennent. A titre d'information, les quatres couleurs <br>suivantes ont été utilisées : <tt>White</tt>, <tt>LightWood</tt>, <tt>ForestGreen</tt> et <tt>Green</tt>.<br>
+<td><img src="Images/tp3_exo2_12.png" width="70%" height="70%" border="0" hspace="5" vspace="5" alt="HF 07" align="left"><br>
+<tr>
+
+</table>
+</center>
+
+
+<br>
+<br>
+</body>
+</html>

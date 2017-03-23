@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>turbulence, etc.. - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index général de l'aide</A></P>
+<P><A href="povfr-pat-01.htm#somm">vers l'index des motifs</A></P>
+
+<H1>motifs - turbulence et warp</H1>
+
+<H2>objectif</H2>
+<P>Appliquer aux motifs des modifications spatiales, suivant des algorithmes particuliers,
+   essentiellement destinés à briser leur régularité.</P>
+
+<H2>turbulence</H2>
+  <P>Imaginez que les motifs soient en fait un liquide composé de plusieurs liquides colorés
+     entremêlés.  Si vous soufflez doucement sur ce liquide, vous allez provoquer de petits
+     tourbillons, vaguelettes, et les couleurs seront un peu secouées.  C'est plus ou moins
+     ce que fait <STRONG>turbulence</STRONG>.</P>
+  <P>turbulence est suivi d'un vecteur, qui indique en quelque sorte dans quelle direction
+     et avec quelle force on souffle sur le motif.</P>
+  <PRE>pigment {... turbulence <1,.1,0>}</PRE>
+  <P>...veut dire qu'on "souffle" un bon coup dans la direction x, un tout petit peu dans la direction
+     y, et pas du tout vers z.</P>
+  <P>En fait, pour appliquer de la turbulence, POV-Ray effectue quelques déplacements (pseudo-)aléatoires
+     sur les points qui constituent le motif.  On peut contrôler la façon dont ce déplacement s'effectue
+     à l'aide de trois mots clés :</P>
+  <P><STRONG>octaves</STRONG> : suivi d'un entier, spécifie le nombre de ces déplacements successifs (de 1 à 10).
+     La valeur par défaut est 6, ce qui est déjà beaucoup.</P>
+  <P><STRONG>lambda</STRONG> : spécifie à quel point chaque nouveau déplacement peut (statistiquement) être
+     différent du précédent.  La valeur par défaut est de 2, ce qui est beaucoup.  Des valeurs
+     plus faibles rendent la turbulence plus "sage".</P>
+  <P><STRONG>omega</STRONG> : spécifie quelle est le rapport de distance entre deux déplacement successifs.
+     La valeur par défaut de 0.5 fait en sorte que chaque déplacement est deux fois plus court
+     que le précédent (et, ici, les musiciens comprendront pourquoi on parle d'"octaves").</P>
+   <P>Exemple :</P>
+  <PRE>pigment {... turbulence <1,.1,0>
+                    octaves 5  // 5 déplacements
+                    lambda 1.5 // variation de direction un peu moins forte que d'hab'
+                    omega 1/3  // chaque déplacement aura 1/3 de la longueur du précédent
+                    }
+  </PRE>
+<P><I>Important</I> : lorsque le motif subit plusieurs transformations (<STRONG>scale</STRONG>, <STRONG>rotate</STRONG>,...),
+   la <STRONG>turbulence</STRONG> est TOUJOURS appliquée en premier lieu, quel que soit son emplacement parmi les autres
+   transformations.  Seul l'usage de <STRONG>warp</STRONG> (voir ci-dessous) permet de parer à cet
+   inconvénient.</P>
+
+<P><I>Note</I> : plus la valeur d'<STRONG>octaves</STRONG> est grande, plus il y a de déplacements à calculer, et
+donc plus le rendu de ce motif sera long à éxécuter. Veillez donc à utiliser une valeur d'<STRONG>octaves</STRONG>
+qui vous convient, plutôt que d'utiliser la valeur pas défaut qui est assez élevée.</P>
+
+<P><I>MegaPOV</I></P>
+<P>La fonction <strong>vturbulence()</strong> renvoie les valeurs de <strong>turbulence</strong> utilisées
+par POV-Ray. Cela permet, entre autres, de disposer de vecteurs (pseudo-)aléatoires qui sont relativement
+cohérents dans l'espace, c'est-à-dire, que le vecteur généré pour un point donné de l'espace sera similaire
+en longueur et en direction à celui généré pour un autre point proche du premier.</P>
+
+<P><strong>vturbulence(Lbd, Omg, Oct, Pt)</strong> renvoie un vecteur dépendant des 4 paramètres
+qu'on lui passe, les 3 premiers ayant la même signification que pour <strong>turbulence</strong>. Ce vecteur
+correspond donc au déplacement généré par <strong>turbulence 1 octaves Oct lambda Lbd omega Omg</strong>
+appliqué au point Pt.</P>
+
+<TABLE>
+<TR>
+  <TD><IMG src="octaves1.jpg" border=2></TD><TD><IMG src="octaves2.jpg" border=2></TD><TD><IMG src="octaves3.jpg" border=2></TD><TD><IMG src="octaves4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>octaves 1</STRONG></TD><TD><STRONG>octaves 2</STRONG></TD><TD><STRONG>octaves 4</STRONG></TD><TD><STRONG>octaves 10</STRONG></TD>
+</TR>
+<TR>
+  <TD><IMG src="lambda1.jpg" border=2></TD><TD><IMG src="lambda2.jpg" border=2></TD><TD><IMG src="lambda3.jpg" border=2></TD><TD><IMG src="lambda4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>lambda 1</STRONG></TD><TD><STRONG>lambda 2</STRONG></TD><TD><STRONG>lambda 4</STRONG></TD><TD><STRONG>lambda 8</STRONG></TD>
+</TR>
+<TR>
+  <TD><IMG src="omega1.jpg" border=2></TD><TD><IMG src="omega2.jpg" border=2></TD><TD><IMG src="omega3.jpg" border=2></TD><TD><IMG src="omega4.jpg" border=2></TD>
+ </TR><TR>
+  <TD><STRONG>omega .2</STRONG></TD><TD><STRONG>omega .4</STRONG></TD><TD><STRONG>omega .6</STRONG></TD><TD><STRONG>omega .8</STRONG></TD>
+</TR>
+</TABLE>
+
+
+<H2>warp</H2>
+<P><STRONG>warp</STRONG> est un modificateur de motif très versatile, impliquant toujours une
+   notion de "déplacement" des points d'un motif.  Sa syntaxe générale est :</P>
+<pre>
+warp {...}
+</pre>
+<P>et il se place parmi les autres modificateurs de motifs, plus particulièrement avec
+   <STRONG>scale</STRONG>, <STRONG>rotate</STRONG>, et <STRONG>translate</STRONG>, avec
+   lesquels il interagit au niveau de l'ordre des transformations.</P>
+
+<H3>turbulence</H3>
+ <P>C'est le type de <STRONG>warp</STRONG> le plus simple, qui permet tout simplement d'appliquer une
+<STRONG>turbulence </STRONG>à un endroit précis de la structure des modificateurs.  En effet, comme on vient
+de le voir, la <STRONG>turbulence</STRONG> "ordinaire" est toujours appliquée avant les autres transformations,
+ce qui veut dire que entre ce code-ci :</P>
+<pre>
+pigment {gradient y color_map {...}
+         scale 2 turbulence .1 rotate z*24
+         }
+</pre>
+<P>et celui-ci :</P>
+<pre>
+pigment {gradient y color_map {...}
+         scale 2 rotate z*24 turbulence .1
+         }
+</pre>
+<P>..il n'y aura pas de différence.  Pour que la <STRONG>turbulence</STRONG> soit appliquée
+exactement au moment où elle est invoquée, il faut la placer dans une définition de <STRONG>warp</STRONG> :</P>
+<pre>
+pigment {gradient y color_map {...}
+         scale 2 rotate z*24 warp {turbulence .1}
+         }
+</pre>
+<P>Ainsi, la turbulence sera appliquée au motif déjà transformé par les opérations précédentes.</P>
+<P>La définition de la <STRONG>turbulence</STRONG> à l'intérieur de <STRONG>warp</STRONG> peut 
+  s'accompagner des paramètres habituels : <STRONG>octaves</STRONG>, <STRONG>lambda</STRONG>,
+  et <STRONG>omega</STRONG>.</P>
+
+<H3>repeat</H3>
+<P>Le type <STRONG>repeat</STRONG> permet de répéter ad libitum une "tranche" de motif.  Pour
+   définir l'épaisseur et l'orientation de la tranche, on fait suivre le mot clé <STRONG>repeat</STRONG>
+   d'un vecteur (qui doit toujours être le long d'un des 3 axes x, y ou z):</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0>}
+         } 
+</pre>
+<P>Le code ci-dessus prend une tranche de motif entre x=0 et x=1.5, et la répète à l'infini. Pour
+éviter un aspect trop répétitif, on peut employer le mot clé <STRONG>offset</STRONG>, qui, suivi
+d'un vecteur, indique le décalage à faire subir au motif à chaque nouvelle tranche.  Cela peut
+servir à simuler certains appareillages de pierre, où des tranches successives d'un même bloc
+sont utilisées pour couvrir un mur.</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0> offset y*.1}
+         } 
+</pre>
+
+<P>On peut également faire subir une "inversion" au motif à chaque répétition. Pour cela, on utilise
+le mot clé <STRONG>flip</STRONG> suivit d'un vecteur. Les coordonnées non nulles de ce vecteur
+correspondent aux axes suivant lesquels on fait l'inversion:</P>
+<pre>
+ pigment {bozo 
+          warp {repeat <1.5,0,0> flip <2,0,1>}
+         } 
+</pre>
+
+<P>Dans cet exemple, le motif est inversé suivant les axes x et z à chaque répétition.</P>
+
+<H3>black_hole</H3>
+<P>Comme son nom l'indique, <STRONG>black_hole</STRONG> ("trou noir") provoque, en certains points
+   de l'espace, l'aspiration du motif sur lui-même !</P>
+<pre>
+warp {
+	black_hole  Centre, Rayon   // le centre du trou noir, et son rayon d'action
+	strength    Decimal         // la force du trou noir
+	falloff     Decimal         // la facon dont elle décroit en s'éloignant du centre
+	inverse                     // un trou noir "répulsif"
+	repeat      Vecteur         // répétition du trou noir
+	turbulence  Vecteur         // un peu de piment dans la répétition....
+}
+</pre>
+
+<P>Les deux premiers paramètres (<I>Centre</I> et <I>Rayon</I>) sont obligatoires. Tous les autres sont
+optionnels. <I>Centre</I> est un vecteur qui définit la position du centre du trou noir, là où sa force est
+la plus grande, alors que <I>Rayon</I> est le rayon d'action du trou noir. Les points à l'intérieur du trou
+noir sont "attirés" vers le centre, avec une force qui dépend de leur distance au centre. Plus le point est
+près du centre, plus la force exercée est grande, pour devenir nulle sur le périmètre du trou noir.
+Les points au-delà du rayon d'action ne sont pas perturbés par le trou noir.</P>
+
+<P>La force du trou noir, c'est-à-dire l'amplitude des déplacements qu'il provoque, peut être pondérée par
+le mot clé <strong>strength</strong>. Une valeur supérieure à 1 (la valeur par défaut) augmentera sa force,
+alors qu'une valeur inférieure la diminuera.</P>
+
+<P>La manière dont la force décroît en fonction de l'éloignement du centre est paramétrée par le mot clé
+<strong>falloff</strong>. Pour une valeur de 1, la décroissance est linéaire. La valeur par défaut 2 donne
+une force inversement proportionnelle au carré de la distance, elle décroît donc plus rapidement autour
+du centre et plus lentement en arrivant sur le périmètre. Il en est de même pour toutes les valeurs supérieures
+à 1. Les valeurs inférieures à 1 vont donner une décroissance lente autour du centre, et brutale en arrivant
+sur le périmètre.</P>
+<P><I>Attention, une valeur de <strong>falloff</strong> inférieure à 1 en conjonction avec une valeur de
+<strong>strength</strong> supérieure à 1 peut donner des discontinuités au niveau du périmètre du trou noir.
+</I></P>
+
+<P><I>On s'aperçoit très vite qu'il est difficile d'obtenir exactement ce que l'on désire. Un moyen d'y arriver
+est de commencer avec des valeurs de <strong>falloff</strong> et <strong>strength</strong> identiques et
+supérieures à 1. Après, on tatonne...
+</I></P>
+
+<P><strong>inverse</strong>, au lieu d'attirer le motif vers le centre, permet de le repousser vers
+la périphérie du trou noir.</P>
+
+<P>Pour créer plusieurs trous noirs du même type, à intervalles réguliers, il faut utiliser le mot clé
+<strong>repeat</strong>. Celui-ci est suivi d'un vecteur qui va permettre d'échantillonner l'espace
+compris entre &lt;0, 0, 0&gt; et <I>Vecteur</I>, et de le répéter dans toutes les directions. Bien évidemment,
+ceci est intéressant uniquement si le trou noir se situe <I>intégralement</I> dans ce morceau d'espace.
+Au cas où le trou noir déborderait du "cube" spécifié par <strong>repeat</strong>, soit le "cube" sera
+agrandi, soit le centre du trou noir déplacé, et POV-Ray émettra un warning.</P>
+
+<P>Si l'une des composantes de <I>Vecteur</I> est nulle, il n'y aura pas de répétition suivant cet axe.</P>
+
+<P><strong>turbulence</strong> ne peut s'utiliser qu'en conjonction avec <strong>repeat</strong>. Il
+permet d'ajouter de la perturbation à la manière dont le modificateur est appliqué, en décalant à chaque
+répétition le centre du trou noir. Les valeurs maximales de déplacement suivant chaque axe sont données
+par le vecteur qui suit <strong>turbulence</strong>. Là encore, on prêtera attention à ne pas spécifier
+des valeurs qui feraient déborder le trou noir, les résultats seraient alors imprévisibles.</P>
+
+<PRE>
+// Un exemple:
+warp
+{
+	black_hole <0.15, 0.125, 0>, 0.5
+	falloff 3
+	strength 1.0
+	repeat <1.25, 1.25, 0>
+	turbulence <0.25, 0.25, 0>
+	inverse
+}
+</PRE>
+
+<H3>cylindrical, spherical, toroidal, planar</H3>
+<P><I>MegaPOV</I></P>
+<PRE>
+warp {
+	spherical
+	[ orientation Vecteur | dist_exp Décimal ]
+}
+warp {
+	cylindrical
+	[ orientation Vecteur | dist_exp Décimal ]
+}
+warp {
+	toroidal
+	[ orientation Vecteur | dist_exp Décimal | major_radius Décimal ]
+}
+</PRE>
+<P>Ces types de <STRONG>warp</STRONG> prennent la surface du motif comprise entre <0,0> et <1,1>
+   sur le plan XY, et la projettent dans l'espace un peu à la manière d'une <STRONG>image_map</STRONG>,
+   selon le mode de projection choisi.  Les règles d'application géométrique du motif sont les
+   mêmes que pour les <STRONG>image_map</STRONG>.</P>
+<pre>
+#declare Pig1 = 
+ pigment {checker color YellowGreen color OrangeRed
+          scale .1}
+
+plane  {y,0 pigment {Pig1 warp {spherical}}}
+sphere {0,1 pigment {Pig1 warp {spherical}}}
+</pre>
+
+<P>Autre exemple, avec un <STRONG>warp toroidal</STRONG> :</P>
+<pre>
+plane  {y,0 pigment {Pig1 warp {toroidal}}}
+torus {1,.5 pigment {Pig1 warp {toroidal}}}
+</pre>
+
+<H3>reset_children</H3>
+<P><I>MegaPOV</I></P>
+
+<P>On veut parfois utiliser une <strong>texture_map</strong>, <strong>pigment_map</strong>, etc... avec
+un motif perturbé ou transformé, mais sans que les perturbations ou les transformations apparaissent dans
+les motifs définis à l'intérieur de la xxx_map. Il suffit pour cela de déclarer un
+<strong>warp { reset_children }</strong> pour inhiber les transformations.</P>
+<P>Comme toujours, l'ordre de déclaration est important, et seules les transformations déclarées avant
+le <strong>reset_children</strong> seront annulées au niveau des motifs enfants.</P>
+
+<pre>
+#declare Pig1 = pigment {
+	checker  Black, White
+	scale .3
+}
+
+#declare Pig2 = pigment {
+	hexagon  YellowGreen, OrangeRed, SteelBlue
+	scale .3
+	rotate x*90
+}
+
+
+box { <-3, -3, 0>, <0, 3, 1>
+	pigment {
+		bozo
+		turbulence 1 octaves 3 lambda 2 omega .3
+		scale .5
+		pigment_map {
+			[0.45 Pig1]
+			[0.45 Pig2]
+		}
+	}
+}
+
+box { <0, -3, 0>, <3, 3, 1>
+	pigment {
+		bozo
+		turbulence 1 octaves 3 lambda 2 omega .3
+		scale .5
+		warp { reset_children }
+		pigment_map {
+			[0.45 Pig1]
+			[0.45 Pig2]
+		}
+	}
+}
+</pre>
+<IMG src="reset.jpg" border=2>
+
+<P><I>auteurs : Fabien Mosen / Christophe Bouffartigue</I></P>
+</BODY>
+
+</HTML>

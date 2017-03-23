@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+		 		
+  <link href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+  <title>triangle - documentation francophone de POV-Ray</title>
+</head>
+<body>
+<p><a href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</a>
+/ <a href="index-obj.htm">vers l'index des objets</a></p>
+		
+<h1> 			Mesh2&nbsp; 		</h1>
+		
+<h2> 			objectif 		</h2>
+		 		
+<p> C'est une évolution plus moderne du <STRONG>mesh</STRONG>, permettant l'utilisation d'un tr&egrave;s grand nombre de triangles en se basant sur une d&eacute;finition plus proche de la
+g&eacute;om&eacute;trie des objets tels qu'ils sont produits&nbsp; par les modeleurs les
+plus courants. 		</p>
+<img src="mesh2blender.jpg" title="mesh2 calcul&eacute; par blender."
+ alt="mesh2 calcul&eacute; par blender."> <br>
+		
+<p>Un <STRONG>mesh</STRONG> r&eacute;alis&eacute; et rendu dans <a
+ href="http://www.blender.org/index.php">Blender</a>, un célèbre modeleur (désormais) gratuit.</p>
+<br>
+<img src="mesh2povray.jpg" title="mesh2 calcul&eacute; par povray."
+ alt="mesh2 calcul&eacute; par povray."><br>
+<p>Le m&ecirc;me mesh export&eacute;  au format <STRONG>mesh2</STRONG> &agrave; l'aide
+d'une macro &eacute;volu&eacute;e (<a
+ href="http://jmsoler.free.fr/util/blenderfile/povanim.htm">Povanim</a>)
+et rendu au travers de povray 3.5 </p>
+<br>
+		
+<h2> 			compatibilit&eacute; 		</h2>
+		
+<p> 		POV-Ray 3.5 +sup (Megapov 0.7 +sup). 		</p>
+		
+<h2> 			syntaxe&nbsp; 		</h2>
+		
+<pre>mesh2 {<br>        // Vecteurs:<br>        vertex_vectors <br>          {<br>           nombre_de_sommets,<br>           &lt;sommet1&gt;, &lt;sommet2&gt;, ...<br>          }<br>        normal_vectors <br>          {<br>           nombre_de_normales,<br>           &lt;normale1&gt;, &lt;normale2&gt;, ...<br>          }<br>        uv_vectors <br>          {<br>           nombre_de_vecteurs_uv,<br>           &lt;vect_uv1&gt;, &lt;vect_uv2&gt;, ...<br>          }<br>  <br>        // Listes:   <br>        texture_list <br>          {<br>           nombre_de_textures,<br>           texture { Texture1 },<br>           texture { Texture2 }, ...<br>          }<br>  <br>        // Indices: <br>        face_indices <br>          {<br>           nombre_de_faces,<br>           &lt;sommet_index_a, sommet_index_b, sommet_index_c&gt; [,texture_index [,<br>                                    texture_index, texture_index]],<br>           &lt;sommet_index_a, sommet_index_b, _sommet_index_c&gt; [,texture_index [,<br>                                    texture_index, texture_index]],<br>           ...<br>          }<br>        normal_indices <br>          {<br>           nombre_de_faces,<br>           &lt;index_a, index_b, index_c&gt;,<br>           &lt;index_d, index_e, index_f&gt;,<br>           ...<br>          }<br>        uv_indices <br>          {<br>           nombre_de_faces,<br>           &lt;index_a, index_b, index_c&gt;,<br>           &lt;index_d, index_e, index_f&gt;,<br>           ...<br>          }<br>  <br>        (..modificateurs d'objets..)<br>        (..transformations..)<br>        (..mat&eacute;riau..)<br>        }<br></pre>
+		
+<p>&nbsp; La syntaxe peut para&icirc;tre tr&egrave;s compliqu&eacute;e
+mais la d&eacute;finition minimale d'un <strong>mesh2</strong>
+peut&nbsp; se limiter &agrave; ceci :<br>
+</p>
+<pre>mesh2 {<br>        // Vecteurs:<br>        vertex_vectors <br>          {<br>           nombre_de_sommets,<br>           &lt;sommet1&gt;, &lt;sommet2&gt;, ...<br>          }<br>        // Indices: <br>        face_indices <br>          {<br>           nombre_de_faces,<br>           &lt;sommet_index_a, sommet_index_b, sommet_index_c&gt; [,texture_index [,<br>                                    texture_index, texture_index]],<br>           &lt;sommet_index_a, sommet_index_b, _sommet_index_c&gt; [,texture_index [,<br>                                    texture_index, texture_index]],<br>           ...<br>          }<br>     }
+</pre>
+<p> </p>
+<p> 		</p>
+<h2>exemple 		</h2>
+		
+<p> 		Voici un exemple tr&egrave;s simple de <strong>mesh2&nbsp;</strong>
+		(celui qui illustre le haut de cette page):<br>
+</p>
+<pre>// povray version 3.5<br>// POVANIM export from : 226f4prov , Main  <br> <br>sky_sphere{<br> 	pigment{<br> 		gradient z<br> 		color_map{<br>			[0.0 color rgb&lt;0.136690631509,0.45323741436,0.467625916004&gt;]<br>			[0.50 color rgb&lt;0.0,0.64028775692,0.779784142971&gt;]<br>			[1.0 color rgb&lt;0.136690631509,0.45323741436,0.467625916004&gt;]<br>	}<br>	}<br> scale 2 rotate x*45}<br><br>#declare Material_001_pig=pigment{color rgb &lt;0.0,1.0,0.413534&gt; }<br><br>#declare Material_001_fsh=finish {<br>		ambient 0.1<br>		diffuse 0.6<br>		specular 0.325 roughness 0.0288912442677<br>}<br><br>#declare Plane2 = mesh2 {<br>                     &nbsp;vertex_vectors{ <br>                             4,<br>                              &lt;3.805852652,16.931163788,0.4496364&gt;,<br>                              &lt;4.073564529,4.399088383,-2.227457047&gt;,<br>                              &lt;-8.694001198,1.479779005,-1.487977743&gt;,<br>                              &lt;-7.299728394,15.542985916,-4.02213192&gt;<br>                       }<br>                      face_indices{ <br>                              2, <br>                              &lt;0,2,1&gt;,<br>                              &lt;0,3,2&gt;<br>                      }<br>                  }<br><br>object{ Plane2 <br>		 scale&lt;1.27277442316,1.27277439154,1.2727744722&gt; <br>		 rotate&lt;65.8516365304,20.2464876048,-2.42492424055&gt; <br>		 translate&lt;4.16317892075,-1.77373635769,-12.800359726&gt; <br>		 pigment{Material_001_pig}  <br>		 finish{Material_001_fsh}  <br>}<br><br>camera {<br>    location &lt;0, 0, 0&gt;<br>    look_at &lt;0, 0, 1&gt;<br>    right &lt;-1.33333333333, 0, 0&gt;<br>    up    &lt;0, 1, 0&gt;<br>    angle 27.9124571051<br>    rotate &lt;0, 180, 0&gt;<br>    scale &lt;1.0, 1.0, 1.0&gt;<br>    rotate &lt;90.0000025, 0.0, 0.0&gt;<br>    translate &lt;5.4214864, -50.3944359, -2.2010689&gt;<br>}<br><br>#declare Lamp_001 = light_source{<br>			0*x<br>			color rgb&lt;1.0, 1.0, 1.0&gt;<br>			spotlight<br>			point_at &lt;0,0,-1&gt;<br>			radius  12.9564931<br>			tightness  0.4241559<br>			falloff  22.5<br>			area_light<br>			&lt;8, 0, 0&gt; &lt;0, 0, 8&gt;<br>			4, 4<br>			adaptive 0<br>			jitter<br>			 circular<br>			orient<br>			fade_distance 109.999824524<br>			fade_power 1<br>		}<br><br>object{ Lamp_001<br>			rotate &lt;59.0095553, -25.679264, -35.8089254&gt;<br>			translate &lt;-17.0247345, -15.5100412, 14.3398037&gt;<br>		}<br></pre>
+<br>
+<p>Avec certains logiciels, il est possible de "peindre" les couleurs
+sur chaque sommet d'un triangle. La d&eacute;finition d'une <strong>texture_list</strong>
+permet de reproduire cet effet en offrant la possibilit&eacute;
+d'associer une texture diff&eacute;rente &agrave; chaque sommet d'une
+face .</p>
+<img src="mesh2blendercolor.jpg"><br>
+<p>Le mesh est modélisé; et peint dans <a
+ href="http://www.blender.org/index.php">Blender</a>. Dans ce cas
+particulier, la lumi&egrave;re a &eacute;t&eacute; augment&eacute;e
+pour&nbsp; faire ressortir les couleurs.&nbsp;</p>
+<p>Et le r&eacute;sultat : <br>
+</p>
+<img src="mesh2blendercolor.jpg"><br>
+<p>Un tel objet devrait &ecirc;tre d&eacute;clar&eacute;&nbsp; de la
+mani&egrave;re suivante:<br>
+</p>
+<pre>#declare Plane2 = mesh2 {<br>                      vertex_vectors{4, &lt;3.805852652,16.931163788,0.4496364&gt;,<br>                                        &lt;4.073564529,4.399088383,-2.227457047&gt;,<br>                                        &lt;-8.694001198,1.479779005,-1.487977743&gt;,<br>                                        &lt;-7.299728394,15.542985916,-4.02213192&gt;<br>                                      }<br>                      texture_list{ 4, <br>                                       texture{pigment{rgb&lt;0.0,0.44141,0.66016&gt;*1.0}finish{Material_001_fsh}}<br>                                       texture{pigment{rgb&lt;0.875,0.19922,0.0&gt;*1.0}finish{Material_001_fsh}}<br>                                       texture{pigment{rgb&lt;0.01172,0.39063,0.16797&gt;*1.0}finish{Material_001_fsh}}<br>                                       texture{pigment{rgb&lt;0.0,0.13672,0.05469&gt;*1.0}finish{Material_001_fsh}}<br>                                   }<br>                      face_indices{2, &lt;0,2,1&gt;,0,1,2, <br>                                      &lt;0,3,2&gt;,0,3,1 }<br>                        <br>                       }</pre>
+<img src="mesh2blenderuvcol.jpg"><br>
+<p>La grande force des logiciels surfaciques est la possibilit&eacute;
+d'ajouter une image rep&eacute;r&eacute;e par des coordonn&eacute;es
+uv. <br>
+</p>
+<img src="mesh2povrayuvcol.jpg"><br>
+<pre><br>#declare Plane2 = mesh2 {<br>      vertex_vectors{ 4,<br>                        &lt;3.805852652,16.931163788,0.4496364&gt;,<br>                        &lt;4.073564529,4.399088383,-2.227457047&gt;,<br>                        &lt;-8.694001198,1.479779005,-1.487977743&gt;,<br>                        &lt;-7.299728394,15.542985916,-4.02213192&gt;<br>                }<br>      uv_vectors{ 6, <br>                        &lt;0.98907,0.98907&gt;,<br>                        &lt;0.00546,0.00546&gt;,<br>                        &lt;1.0,0.01093&gt;,<br>                        &lt;0.98907,0.98907&gt;,<br>                        &lt;0.00546,1.0&gt;,<br>                        &lt;0.00546,0.00546&gt;<br>      <br>                 }<br>      texture_list{ 4, <br>                       texture{pigment{average <br>                         pigment_map{ <br>                             [PPlane2_col color rgb&lt;0.0,0.44141,0.66016&gt;*1.0]<br>                             [PPlane2_img img0]}}<br>                             finish{Material_001_fsh}}<br>                       texture{pigment{average <br>                         pigment_map{ <br>                             [PPlane2_col color rgb&lt;0.875,0.19922,0.0&gt;*1.0]<br>                             [PPlane2_img img0]}}<br>                             finish{Material_001_fsh}}<br>                       texture{pigment{average <br>                         pigment_map{ <br>                             [PPlane2_col color rgb&lt;0.01172,0.39063,0.16797&gt;*1.0]<br>                             [PPlane2_img img0]}}<br>                             finish{Material_001_fsh}}<br>                       texture{pigment{average <br>                         pigment_map{ [PPlane2_col color rgb&lt;0.0,0.13672,0.05469&gt;*1.0]<br>                         [PPlane2_img img0]}}<br>                         finish{Material_001_fsh}}<br>                  }<br>      face_indices{ 2, <br>                   &lt;0,2,1&gt;,0,1,2,<br>                   &lt;0,3,2&gt;,0,3,1<br>      }<br>      uv_indices{ 2, <br>                  &lt;0,1,2&gt;,<br>                  &lt;0,1,2&gt;+3<br>      }<br>      uv_mapping<br>}</pre>
+		
+<h2> 			CSG 		</h2>
+		
+<p> 		L'option <strong> 			inside_vector </strong>permet aux <strong>
+			mesh2 </strong> d'&ecirc;tre utilis&eacute;s dans
+toutes les op&eacute;rations de CSG. L'objet ne doit pas avoir de
+trou&nbsp; si on ne veut pas &ecirc;tre surpris par le r&eacute;sultat.
+		</p>
+		
+<p> 		<i> 			R&eacute;dacteur: JM Soler 		</i> 		</p>
+		 	
+</body>
+</html>

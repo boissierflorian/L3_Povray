@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>hf_gray_16 - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+<A href="reg-gs-gam.htm">page précédente : gamma</A>
+</P>
+
+<H1>hf_gray_16</H1>
+
+<H2>objectif</H2>
+ <P>Faire en sorte que l'image de sortie (rendu) soit utilisable par POV-Ray
+    lui-m&ecirc;me, dans une autre sc&egrave;ne, sous forme d'un height-field dont les
+    hauteurs sont cod&eacute;es sur 16 bits (65 535 niveaux).</P>
+ <P>(souvent, on pointera la cam&eacute;ra sur un simple plan textur&eacute;, afin de
+     profiter de la richesse du syst&egrave;me de textures de POV-Ray)</P>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 3.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+global_settings {
+        hf_gray_16 (on/off)       
+        }
+ </PRE>
+ <P>Le bool&eacute;en (on/off) est optionnel, l'option est activée par <STRONG>hf_gray_16</STRONG> seul.</P>
+
+ <P>Si l'option <STRONG>hf_gray_16</STRONG> est activ&eacute;e, le fichier de sortie pourra &ecirc;tre utilis&eacute;
+ directement dans un <STRONG>height_field</STRONG>.  L'image apparaitra en noir et blanc dans la fen&ecirc;tre de visualisation,
+ plut&ocirc;t qu'en couleurs.  Ceci permet d'appr&eacute;hender plus facilement l'aspect g&eacute;n&eacute;ral 
+ du <STRONG>height_field</STRONG>, car le codage particulier de l'image rend sa visualisation
+ difficile (sauf si la format de sortie est le PNG).</P>
+ 
+<H2>exemple</H2>
+ <PRE> 
+//un HF "vallonn&eacute;"...
+global_settings { hf_gray_16 on }
+camera {
+	orthographic
+	location <0, 20, 0>
+	right 5*x
+	up 5*y
+	look_at <0, 0, 0>
+}
+plane {
+	y, 0
+	texture {
+		pigment {
+			bozo
+			color_map {
+				[0 rgb 0]
+				[1 rgb 1]
+			}
+		}
+		finish { ambient 1 }
+	}
+ </PRE>
+ 
+<P>page suivante : <A href="reg-gs-hfg.tex">noise_generator, etc...</A></P>
+
+  <P><I>R&eacute;dacteur: Christophe Bouffartigue (Bouf)</I></P>
+
+</BODY>
+
+</HTML>

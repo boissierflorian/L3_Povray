@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - la gamma</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A> 
+/ <A href="index-cpt.htm">vers l'index des concepts généraux</A></P>
+<H1>Le gamma</H1>
+<P>Ce texte ne traite pas de l'application spécifique à POV-Ray.  Pour cela,
+consultez la section "<STRONG>global_settings</STRONG>"</P>
+
+<H2>explication technique</H2>
+<P>Afin d'ajuster la couleur de chacun des points qui constituent un écran cathodique 
+   (TV, ordinateur,...), une grille de "cases" phosphorescentes rouges, vertes et bleues
+   est balayée par un canon à électrons, qui envoie une certaine énergie à chacun de
+   ces points.  Pour résumer très fort, on envoie à ce canon un courant qui varie
+   selon l'intensité lumineuse à obtenir.  Pour laisser le point éteint (noir), le
+   courant est nul, pour allumer le point à fond (couleur maximale, ou blanc), le
+   courant est à sa valeur maximale.</P>
+<P>Hélas, entre ces deux valeurs extrêmes, tout ne se passe pas comme on le voudrait.
+   En effet, la réponse lumineuse à l'intensité du courant n'est pas tout à fait linéaire,
+   et se présente plutôt comme suit :</P>
+      <IMG SRC="pvf-gamma.gif" width="160" height="160" BORDER=2 ALT="courbe de gamma naturelle">
+
+<P>Au lieu d'évoluer de manière linéaire, la réponse lumineuse en fonction du voltage
+   décrit une courbe exponentielle.  La conséquence fâcheuse de cette situation, c'est
+   que, dans les tons sombres, on ne dispose pas d'autant de nuances qu'on pourrait le 
+   vouloir.</P>
+<P>La courbe étant une fonction exponentielle, on peut écrire : lumière = voltage<SUP>g</SUP>.
+   L'exposant "g" va déterminer, selon les tubes, l'allure de la courbe, qui va parfois
+   se rapprocher de la ligne droite (auquel cas l'exposant serait égal à 1), ou s'en
+   éloigner davantage.  Cet exposant, c'est cela qu'on appelle "gamma".</P>
+   
+<H2>en pratique</H2>   
+<P>Typiquement, un moniteur de PC normal a un gamma qui peut aller de 2.2 à 2.5.  Cependant,
+   ces dernières années, on constate une tendance vers un gamma élevé, et il n'est pas
+   rare de trouver des moniteurs faisant du 2.8 voire 3.0 !  Avec, pour conséquences,
+   des valeurs de gris sombres trop sombres et peu nuancés, ainsi qu'un contraste plutôt
+   violent.</P> 
+<P><I>Je ne sais pas ce qu'il en est avec les écrans LCD, si quelqu'un a des informations...</I></P>
+<P>Le tube cathodique parfait n'existant pas, il faut, en amont, recourir à des systèmes
+   de correction, qui appliquent une courbe inverse de celle du moniteur, afin de
+   la compenser.  Cette correction s'effectue au niveau de la carte graphique, dans
+   le "blitter", le composant qui est chargé de transformer les matrices de pixels
+   en signal analogique pour le moniteur.</P>
+   
+<H2>les plate-formes</H2>
+<P>Le premier constructeur grand public a avoir mis en oeuvre une correction de gamma,
+   c'est Apple.  Le gamma "standard" d'un Macintosh, après correction, est située
+   entre 1.6 et 1.8, donc plus près du gamma "idéal" de 1.0.  C'est pour ça qu'une
+   image créée sur un Mac aura l'air trop sombre sur un PC et vice-versa.  Ce gamma
+   correspond en fait à celui produit, en tons de gris, par les premières imprimantes
+   LaserWriter.</P>
+
+<P>Le seul constructeur assez intelligent pour avoir adopté un gamma de 1.0, c'est
+   Silicon Graphics.  C'est pas pour rien que ça coûte la peau des f.., ils réfléchissent,
+   eux, avant de fabriquer un truc !  Pas besoin de préciser qu'une image faite sur
+   SGI aura l'air beaucoup trop sombre et contrastée sur un PC, et même sur un Mac.</P>
+
+<P>Les PC, donc, jusqu'à des temps récents, ne disposaient pas de ce type de corrections,
+   et avaient donc simplement le gamma du moniteur !  Depuis l'explosion des jeux 3D
+   où il faut tuer tout le monde, la plupart des cartes (pas trop cheap) disposent
+   d'un tel réglage.  Comment procéder à ce réglage ?</P>
+   
+<H2>la solution !</H2>   
+<P>1. ouvrez le panneau de configuration de votre carte, et dans le même recoin que
+   le choix de résolution/couleurs, vous devriez trouver le réglage de gamma, souvent
+   distinct sur les trois couleurs de base (rgb).</P>
+<P>2. ne vous fiez pas à ce qui est affiché comme valeurs de gamma.  En effet, cette
+   valeur ne tient, forcément, pas compte du réglage du moniteur.  Le seul moyen,
+   c'est un réglage visuel.</P>
+<P>3. faites un réglage <B>normal</B> du contraste et de la luminosité de votre moniteur,
+   le noir doit être bien noir, mais pas trop, juste un petit peu plus foncé que le gris
+   le plus foncé, et le blanc doit être bien blanc, mais pas plus blanc que blanc (et je
+   garde mes deux barils !).</P>
+<P>4. allez chercher le fichier "gamma.gif" à cette adresse : 
+   <A href="http://www.povray.org/binaries/gamma.gif">http://www.povray.org/binaries/gamma.gif</A>   
+   <BR>
+   Cette image permet de comparer deux choses : des tons de gris purs, et des tons de
+   gris composés.  Les tons purs vont varier suivant le gamma, tandis que les tons composés
+   (trames de points noirs et de points blancs) ne vont pas bouger d'un poil, puisque le
+   noir et le blanc restent constants quelle que soit le gamma, et que le mélange se fait
+   au niveau de l'oeil.
+   </P>
+<P>5. affichez l'image "gamma.gif".  Fermez un peu les yeux, comme un myope qui a oublié ses
+      lunettes, et regardez à quel endroit la différence entre deux cases voisines est 
+      imperceptible.  Cette case, où le gris pur et le gris composé sont identique,
+      vous donne la valeur de gamma actuelle de votre système.</P>
+
+<P>6. maintenant, jouez sur le réglage de votre carte graphique, en regardant "gamma.gif",
+      afin d'obtenir la gamma désirée !</P>
+      
+<P><B>Oui, mais, je choisis quelle valeur ?</B></P>
+<P>Bonne question !  Idéalement, on devrait mettre un gamma de 1.0.  Mais alors, presque
+  toutes les images auront l'air complètement délavées, puisque très peu de gens travaillent
+  en 1.0.  Alors, j'ai tendance à préconiser un gamma entre 1.8 et 2.0, qui permet de voir
+  à peu près tout correctement, et qui donne déjà de bonnes nuances dans les tons sombres.</P>
+
+<H2>conclusion</H2>
+<P>Après avoir lu ce qui précède, vous comprendrez qu'il n'y a pas de solution miracle, et
+   que rien ne peut garantir la façon dont une de vos images sera vue par un autre.  La
+   stratégie la plus sage est d'adopter un gamma "moyen", qui, en attendant une vraie
+   standardisation, vous évitera de mauvaises surprises.</P>
+
+<P><I>rédacteur : fabien mosen</I></P>   
+
+</BODY>
+
+</HTML>

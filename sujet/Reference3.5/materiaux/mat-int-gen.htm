@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>interior - réfraction</H1>
+
+<P><STRONG>interior</STRONG> contient des éléments qui définissent les propriétés
+   de l'interieur des objets, ce qui se passe dans le "dedans" des volumes.</P>
+
+<H2>réfraction</H2>
+<PRE>interior {
+       ior Indice_Refraction // décimal
+}</PRE>
+
+<P>La réfraction, c'est quand un matériau partiellement ou complètement transparent
+dévie les rayons lumineux qui y passent, comme le verre ou l'eau, par exemple.
+Selon le matériau, elle peut être plus ou moins importante, et est mesurée par
+l'indice de réfraction, qui peut varier de 1 à beaucoup.  Un indice de 1 donne
+une absence de réfraction, les rayons n'étant pas déviés.  À titre indicatif,
+le verre à un indice de 1.5, l'eau 1.33, le diamant 2.4 ...</P>
+<IMG SRC="illref-int-01.jpg">
+<P>Si vous utilisez la réflexion variable automatique (dite "de Fresnel"),
+vous pourriez être amenés à spécifier un <STRONG>ior</STRONG> pour des
+objets... opaques !  Quelques valeurs : aluminium : 1.44, ambre : 1.546,
+asphalte : 1.635, caoutchouc : 1.5191, craie : 1.510, chrome : 2.4,
+cuivre : 1.10, fer : 1.51, ivoire : 1.540, mercure : 1.62, nylon : 1.53,
+or : 1.47, zinc : 2.010</P> 
+
+<H2>dispersion</H2>
+<P>Lorsque vous lisez un texte avec une loupe, parfois, sur les bords de la loupe, un
+ "effet de prisme" apparaît sur les lettres, donnant un petit dégradé irisé sur
+  leur pourtour.  Ce phénomène est appelé dispersion.  Il est la conséquence d'une
+  variation de l'angle de réfraction selon les composantes de la lumière.</P>
+<PRE>interior {
+       dispersion Taux_Dispersion // décimal
+}</PRE>
+<P>Le taux de dispersion est compris entre 1 et ce que vous voulez (mais 1.5 est
+   déjà très irréaliste), et bien sûr, il faut avoir défini préalablement un
+   indice de réfraction.</P>
+<IMG SRC="illref-int-02.jpg">
+<P>La dispersion apparaît dans les traces provoquées par le photon-mapping.</P>
+</BODY>
+</HTML>

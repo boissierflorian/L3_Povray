@@ -1,0 +1,118 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>L'arc-en-ciel - documentation francophone de POV-Ray</title>
+<link href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<P><a href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</a> /
+<a href="index-atm.htm">vers l'index des effets atmosphériques</a>
+</P>
+
+<h1>L'arc-en-ciel ("rainbow")</h1>
+
+<h2>objectif</h2>
+<P>Cr&eacute;er un arc en ciel.</P>
+
+<h2>compatibilit&eacute;</h2>
+<P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+<pre>
+rainbow {
+ direction Direction <SPAN class="comm">// vecteur</SPAN>
+ angle Angle1        <SPAN class="comm">// décimal</SPAN>
+ width Largeur       <SPAN class="comm">// décimal</SPAN>
+ distance Distance   <SPAN class="comm">// décimal</SPAN>
+ up Ciel             <SPAN class="comm">// vecteur</SPAN>
+ arc_angle Angle2    <SPAN class="comm">// décimal</SPAN>
+ falloff_angle Angle3<SPAN class="comm">// décimal</SPAN>
+ color_map {..définition de color_map..}
+ jitter Dispersion   <SPAN class="comm">// décimal</SPAN>
+}
+</pre>
+
+<P>Les arcs-en-ciel sont r&eacute;alis&eacute;s avec des arcs circulaires partageant certaines caract&eacute;ristiques 
+du brouillard.</P>
+<P>Le vecteur de <STRONG>direction</STRONG>, obligatoire, d&eacute;termine la direction de la lumi&egrave;re responsable de 
+l'arc-en-ciel.  C'est une source de lumi&egrave;re qui &eacute;met des rayons de lumi&egrave;re parall&egrave;les. Elle n'a 
+pas d'incidence sur le reste de la sc&egrave;ne.</P>
+<P>Les param&egrave;tres <STRONG>angle</STRONG> et <STRONG>width</STRONG> servent &agrave; sp&eacute;cifier respectivement
+   la position et la taille de l'arc-en-ciel.</P>
+
+<P>&Agrave; chaque rayon, Pov calcule l'angle entre le vecteur de direction de l'arc-en-ciel et le vecteur 
+   de direction du rayon. Si l'angle est entre Angle-Width/2 et Angle+Width/2, l'arc-en-ciel est 
+   visible. </P>
+<P>La couleur est alors d&eacute;termin&eacute;e en utilisant l'angle comme un index dans le spectre de couleurs 
+   de l'arc-en-ciel puis melang&eacute;e avec la couleur d'arriere plan comme pour le brouillard.</P>
+
+<P><STRONG>jitter</STRONG> peut etre utilis&eacute; pour ajouter quelques irr&eacute;gularit&eacute;s a l'arc-en-ciel pour le rendre 
+   plus r&eacute;aliste.  Ce mot clé est suivi d'un nombre décimal indiquant l'importance de l'irrégularité.</P>
+<P><STRONG>distance</STRONG> est la distance &agrave; partir de laquelle l'arc-en ciel est visible, et 
+   a par defaut une grande valeur afin d'&eacute;viter que l'arc-en-ciel ne soit visible sur les objets.</P>
+<P><STRONG>color_map</STRONG> est utilis&eacute; pour assigner un spectre de couleurs &agrave; l'arc-en-ciel.
+   L'index des couleurs est 0 pour l'anneau le plus interne et 1 pour le plus externe.  <STRONG>filter</STRONG> et 
+   <STRONG>transmit</STRONG> peuvent &ecirc;tre utilis&eacute;s, et ont l'effet escompt&eacute; (comme pour le brouillard).</P> 
+<P>Par d&eacute;faut, l'arc-en-ciel forme un cercle complet.  Si vous desirez qu'il ne soit pas entier, 
+   il faut utiliser les param&egrave;tres <STRONG>up</STRONG>, <STRONG>arc_angle</STRONG> et <STRONG>falloff_angle</STRONG>.</P>
+<P><STRONG>arc_angle</STRONG> donne la "course" de l'arc en degr&eacute;s, <STRONG>up</STRONG> donne l'orientation
+   du point de d&eacute;part de l'arc (Y, par d&eacute;faut) et, enfin, <STRONG>falloff_angle</STRONG> permet de 
+   faire disparaitre les extr&eacute;mit&eacute;s de l'arc de fa&ccedil;on douce.
+</P>
+
+<H2>exemple</H2>
+<pre>
+//camera, fond, sol et lumière   
+#include "colors.inc"
+camera {location <0, 20, -100>	look_at <0, 25, 0>}
+background { color SkyBlue }
+plane { y, -10 pigment { color Green } }
+light_source {<100, 120, 40> color White}
+
+// déclaration des couleurs de l'arc-en-ciel
+#declare r_violet1 = color rgbf<1.0, 0.5, 1.0, 1.0>;
+#declare r_violet2 = color rgbf<1.0, 0.5, 1.0, 0.8>;
+#declare r_indigo = color rgbf<0.5, 0.5, 1.0, 0.8>;
+#declare r_blue = color rgbf<0.2, 0.2, 1.0, 0.8>;
+#declare r_cyan = color rgbf<0.2, 1.0, 1.0, 0.8>;
+#declare r_green = color rgbf<0.2, 1.0, 0.2, 0.8>;
+#declare r_yellow = color rgbf<1.0, 1.0, 0.2, 0.8>;
+#declare r_orange = color rgbf<1.0, 0.5, 0.2, 0.8>;
+#declare r_red1 = color rgbf<1.0, 0.2, 0.2, 0.8>;
+#declare r_red2 = color rgbf<1.0, 0.2, 0.2, 1.0>;
+
+// création de l'arc
+rainbow {
+	angle 25
+	width 15
+	direction <-3, 0, 10>
+	jitter .01
+	color_map {
+		[0.000 color r_violet1]
+		[0.100 color r_violet2]
+		[0.214 color r_indigo]
+		[0.328 color r_blue]
+		[0.442 color r_cyan]
+		[0.556 color r_green]
+		[0.670 color r_yellow]
+		[0.784 color r_orange]
+		[0.900 color r_red1]
+	} 
+	arc_angle 180 
+	falloff_angle 60
+}
+</pre>
+<IMG SRC="illref-atm-rainbow.jpg">
+<H2>remarques</H2>
+<P>On peut utiliser autant d'arcs-en-ciel que l'on veut dans une sc&egrave;ne. Les arcs-en-ciel 
+  peuvent &ecirc;tre utilis&eacute;s avec d'autres effets atmosph&eacute;riques.</P>
+<H2>astuce</H2>
+<P>Une astuce qui vous &eacute;vitera le recours &agrave; l'acide ac&eacute;tylsalicylique : pour placer un
+   arc-en-ciel dans une sc&egrave;ne, donnez-lui, pour commencer, un vecteur de direction
+   &eacute;gal &agrave; <I>- location - look_at</I> (par r&eacute;f&eacute;rence &agrave; la position de la cam&eacute;ra).  Cela
+   placera automatiquement l'arc bien au centre de l'image, et vous pourrez facilement
+   ajuster sa position en modifiant un peu le vecteur.</P>
+
+<p><i>R&eacute;dacteur: Rodolphe G&eacute;laude</i></P>
+</body>
+</html>

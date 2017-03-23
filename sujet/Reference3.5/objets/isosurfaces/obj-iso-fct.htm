@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les isosurfaces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A>
+ / <A href="../index-obj.htm">vers l'index des objets</A>
+ / <A href="obj-iso-intro.htm">page précédente : introduction</A>
+ / <A href="obj-iso-pre.htm">page suivante : optimisation et précision</A>
+
+</P>
+<H1>isosurfaces : déclarations et combinaisons de fonctions</H1>
+
+<H2>déclaration</H2>
+
+<P>Il est possible de déclarer préalablement une fonction :</P>
+<PRE>
+#declare Fct_Sphere = function {x*x + y*y + z*z -1}
+
+isosurface {
+ function {Fct_Sphere(x,y,z)}
+ ...
+}
+</PRE>
+<P>Notez bien l'emploi de <b>(x,y,z)</b>, qui est obligatoire, et qui signifie que la
+   fonction Fct_Sphere est une fonction DE x, y et z.  D'une manière générale, les
+   remarques concernant l'usage des fonctions dans un motif (avec le motif <STRONG>function</STRONG>,
+   justement) sont également d'application pour les isosurfaces.</P>
+
+<H2>combinaison</H2>
+<P>Ici, ça devient très amusant.  En effet, il est possible de combiner plusieurs
+   fonctions, afin de mêler leurs effets.</P>
+<PRE>
+#declare Fct_Sphere = function {x*x + y*y + z*z - 5}
+#declare Fct_CosXX = function {cos(x*x)}
+
+isosurface {
+ function {Fct_Sphere(x,y,z) + Fct_CosXX(x,y,z) - sin(z)}
+ max_gradient 25      
+ contained_by {box {-10,10}}
+ ...
+}
+</PRE>
+<IMG SRC="illref-iso-fct-01.jpg">
+<P>Toute opération arithmétique est admise, addition, soustraction, multiplication,
+   division,... on peut aussi utiliser n'importe quelle autre fonction, par exemple : </P>
+<PRE>function {sin (Fct_Sphere(x,y,z)*10)}</PRE>
+<IMG SRC="illref-iso-fct-02.jpg">
+<P>...mais, en général, on aura un usage fréquent de l'addition et de la soustraction !</P>
+<P>Pour un bon contrôle de l'influence d'une partie de la fonction, vous pouvez raisonner
+   en terme de fréquence et d'amplitude.  La fréquence, c'est la 'vitesse' à laquelle
+   la forme varie, le nombre de variations sur un espace donné.  L'amplitude, c'est
+   la 'profondeur' de cette variation.  La fréquence se contrôle en multipliant 
+   les paramètres x, y et z de la fonction, et l'amplitude se contrôle en multipliant
+   le résultat de la fonction Exemple :</P>
+<PRE>
+#declare Fct_PlanY = function {y}
+#declare Fct_CosX = function {cos(x)}
+
+isosurface {
+ function {Fct_PlanY(x,y,z) + sin(x)}
+ ...
+}
+</PRE>
+<IMG SRC="illref-iso-fct-03.jpg">
+<P>Certes, cette fonction crée une vague dans le plan, mais elle est bien ample.
+   Essayons ceci :</P>
+
+<PRE>
+isosurface {
+ function {Fct_PlanY(x,y,z) + sin(x*10)*0.2}
+ ...
+}
+</PRE>
+<IMG SRC="illref-iso-fct-04.jpg">
+<P>..ce qui a pour effet de multiplier la fréquence par 10 (10 fois plus de vagues
+   sur la même surface), et de diviser l'amplitude par 5 (des vagues 5 fois moins hautes).</P>
+
+<H2>fonctions prédéfinies de POV-Ray</H2>
+<P>Vous pouvez, dans une définition d'isosurface, employer toutes les fonctions
+   valides dans POV-Ray, arithmétiques, trigonométriques, etc... à condition
+   qu'elles retournent un nombre décimal.  Si vous employez une fonction qui
+   retourne un vecteur, n'omettez pas de le 'décimaliser' à l'aide de <STRONG>.x, .y, .z ou .gray</STRONG> .</P>
+<P>Voyez les pages concernant les fonctions (données et fonctions) pour une liste
+   détaillée des fonctions disponibles.</P>
+
+<H2>fonctions spéciales pour les isosurfaces</H2>
+<P>Le fichier include standard "functions.inc" livré avec POV-Ray 3.5 est rempli de
+   fonctions 3D spéciales, destinées aux isosurfaces et aux motifs.</P>
+<P>Voyez également les pages concernant les fonctions (données et fonctions) pour une liste
+   détaillée de ces fonctions.</P>
+
+<P><I>auteur : Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>
+

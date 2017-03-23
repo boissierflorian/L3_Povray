@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>branchements - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+<H1>branchements conditionnels (#if - #else)</H1>
+
+<H2>objectif</H2>
+ <P>Ex&eacute;cuter une portion de code, ou une autre, selon qu'une condition particuli&egrave;re est av&eacute;r&eacute;e
+    ou non.</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+#if (Condition)
+ (... code &agrave; ex&eacute;cuter si la condition est vraie ...)
+ #else
+ (... code &agrave; ex&eacute;cuter si la condition n'est pas vraie ...)
+#end
+ </PRE>
+<P>Si la condition est vraie (= 1, yes, true...), la portion de code qui suit imm&eacute;diatement
+   est ex&eacute;cut&eacute;e, puis l'interpr&eacute;teur poursuit avec ce qui se trouve apr&egrave;s <STRONG>#end</STRONG>.  Dans le
+   cas contraire, ce code est ignor&eacute;, au profit de celui situ&eacute; apr&egrave;s <STRONG>#else</STRONG> ("sinon").</P>
+<P>Pour plus de détails sur les opérateurs conditionnels, voyez la section consacrée aux booléens.</P>
+
+<H2>exemple</H2>
+<PRE>
+#if (Variable &lt; pi)
+  #declare Phrase = "la variable est plus petite que 3.141592..."
+ #else
+  #declare Phrase = "la variable est  plus grande que -ou &eacute;gale &agrave;- 3.141592...,"
+#end
+</PRE>
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

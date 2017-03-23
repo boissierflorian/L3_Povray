@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Enonce du TP1</title>
+</head>
+<body>
+<h1>Préliminaires</h1>
+<p>
+POV-Ray ou Persistence Of Vision Raytracer est un logiciel gratuit qui permet de
+réaliser des images de synthèses. Bien que gratuit POV-Ray n'est pas un Logiciel
+libre (au sens de la licence GPL): il a été créé avant l'apparition de la notion de
+Logiciel libre.
+</p>
+<p>
+POV-Ray crée des images tridimensionnelles photo-réalistes en utilisant le tracé
+de rayons. Il lit dans un fichier texte -- que nous appellerons 
+<span id ="evidence">script</span> dans toute la suite -- les informations
+ décrivant les objets et les sources de lumière d'une scène. Il génère ensuite 
+ une image de cette scène à partir du point de vue d'une caméra elle aussi décrite 
+ dans le script.
+</p>
+La scène est décrite à l'aide d'un langage de description propre à POV-Ray.
+C'est une partie de ce langage que vous allez apprendre au cours de ce TP.
+<p>
+Dans toute la suite vous serez amené à utiliser 
+<a href="Reference3.5/index.htm" target = "aide">l'aide de POVRay</a> en français.
+Parcourez cet énoncé et cliquez sur les liens qui se présentent. Quand vous aurez
+lu la page correspondante de l'aide revenez à cet énoncé.
+</p>
+<h2>Le repère universel de POV-Ray</h2>
+<p>
+POV-Ray utilise un repère à <a href = "Reference3.5/espace/esp-coo.htm" 
+target = "aide">main gauche</a>.
+</p>
+<p>
+Attention ! Le repère (O, Ox, Oy, Oz) de POVRay est indirect au sens mathématique 
+du terme.
+</p>
+<p>A l'aide de ce repère on peut définir des points et des 
+<a href="Reference3.5/fonctions/fct-vec-gen.htm" target="aide">vecteurs</a>.</p>
+<h2>La gestion des variables</h2>
+Dans un script POVRay on peut définir des 
+<a href="Reference3.5/directives/dir-dec.htm" target="aide">variables</a>, modifier
+leur valeur. Des
+<a href="Reference3.5/directives/dir-def.htm" target="aide"> directives</a> POVRay,
+analogues à celles du préprocesseur C, permettent de gérer les variables.
+<h2>Les fichiers include</h2>
+Dans le script de description de la scène il est possible d'inclure des fichiers 
+à l'aide de la directive <a href="Reference3.5/directives/dir-inc.htm" target="aide">
+<tt>#include</tt></a>.
+</body>
+</html>

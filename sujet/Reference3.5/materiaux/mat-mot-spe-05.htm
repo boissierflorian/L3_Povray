@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>plaquage d'images - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : slope</H1>
+<P>La valeur de ce motif dépend de la pente ("slope") de la surface d'un objet en un point donné.
+Autrement dit, le motif aura une valeur différente suivant qu'une partie de l'objet
+sur lequel il est appliqué est plus ou moins abrupte.  Ce motif s'utilise typiquement
+pour texturer des terrains, où il permet de mettre de la verdure dans les zones plus plates
+mais pas sur les zones escarpées.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.5</P>
+
+<H2>syntaxe</H2>
+<PRE>
+slope {
+   Direction1             // vecteur
+   (Valeur_Basse1)        // décimal
+   (Valeur_Haute1)        // décimal
+ }
+</PRE>
+
+<P>Pour déterminer la pente d'un point d'une surface, il faut utiliser une direction
+   de référence.  C'est le premier paramètre, et c'est un vecteur.  Cette direction
+   est perpendiculaire au plan dont la pente est égale à zero.  C'est la normale de
+   ce plan.  Souvent, y compris dans les exemples que nous donnons ici, cette direction
+   sera le vecteur <STRONG>y</STRONG> (&lt;0,1,0&gt;), correspondant à un sol horizontal.</P>
+<P>Si la surface est perpendiculaire à la direction de référence, la valeur du motif sera 1.
+Si elle est à l'opposé, sa valeur sera 0.</P>
+
+<IMG SRC="illref-slope-01.jpg">
+
+<P>On peut changer l'étendue des valeurs possibles du motif en spécifiant une valeur
+   basse et une valeur haute après le vecteur de direction.  Par exemple, pour un
+   relief montagneux, où on a jamais de pente plus 'forte' que la verticale, on
+   utilisera ceci :</P>
+
+<PRE>slope {y 0.0 0.5}</PRE>
+
+<P>Ainsi, l'intégralité de la palette sera utilisée sur l'objet.</P>
+
+<P><I>Remarque : normalement, il existe un mot clef <STRONG>altitude</STRONG> qui
+donne des contrôles supplémentaires sur le comportement de <STRONG>slope</STRONG>.
+Hélas, son fonctionnement est extrêmement peu intuitif, et, pour l'instant, nous ne
+sommes pas parvenus à en produire une explication claire et, surtout, utilisable.</I></P>
+<P><I>Si vous avez besoin de contrôler l'altitude à laquelle <STRONG>slope</STRONG>
+prend effet, nous vous conseillons d'utiliser une structure telle que <STRONG>texture_map</STRONG>.</I></P>
+
+<H2>exemple</H2>
+<IMG SRC="illref-slope-02.jpg">
+<P>Nous appliquons un motif <STRONG>slope</STRONG> sur une montagne formée par un
+<STRONG>height field</STRONG> généré de manière interne (avec une fonction).</P>
+<PRE>
+#include "colors.inc"
+#include "functions.inc"
+
+camera {location &lt;100,150,100&gt; look_at &lt;0,100,0&gt;}
+
+#declare MaFonction = function {pattern{wrinkles scale 1}}
+
+height_field {
+  function 200,200 { MaFonction(x,y,z)*MaFonction(x,y,z)*MaFonction(x,y,z)}
+  translate &lt;-.5,0,-.5&gt;
+  scale &lt;40,35,40&gt;*20
+  
+  pigment {
+   slope y
+    color_map { 
+     [0 White]
+     [0.65 SteelBlue*0.1]
+     [0.75 White*2]
+     [0.8 Gray95]
+     [0.9 Gray80]
+     [1 MediumForestGreen]
+  }
+  }
+}
+
+light_source {&lt;5000,4000,3000&gt; White*1.5 rotate y*-120}
+
+#declare FunRidge = function {f_ridged_mf (x,y,z,.8, 2, 5, 1, 1.2,2)}
+sky_sphere {pigment {function {FunRidge(x,y,z)*0.2} scale 1 
+            CM_Grad2(color rgb &lt;0.580,0.765,0.875&gt;,White*1.5)
+            //CM_Grad2(Gray80,White*1.5)
+            }
+            }
+
+</PRE>
+</BODY>
+
+</HTML>

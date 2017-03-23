@@ -1,0 +1,89 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Glow - documentation francophone de POV-Ray</title>
+<link href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<P><a href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</a> /
+<a href="index-atm.htm">vers l'index des effets atmosphériques</a>
+</P>
+
+<h1>Glow </h1>
+
+<h2>objectif</h2>
+<P>Créer des points luminescents.</P>
+
+<h2>compatibilit&eacute;</h2>
+<P>MegaPOV 1.0</P>
+
+<H2>syntaxe</H2>
+<pre>
+glow {
+  type (0 / 1 )
+  location Position    <SPAN class="comm">// vecteur</SPAN>
+  size Taille          <SPAN class="comm">// décimal</SPAN>
+  radius Rayon         <SPAN class="comm">// décimal</SPAN>
+  (fade_power Exposant)<SPAN class="comm">// décimal</SPAN>
+  color Couleur        <SPAN class="comm">// vecteur de couleur</SPAN>
+
+  (..transformations..)
+}
+</pre>
+<P>Un <STRONG>glow</STRONG>, c'est un peu comme une sphère transparente avec un point incandescent en son
+centre.  Le rayon de la 'sphère' est spécifié avec <STRONG>radius</STRONG>, son centre avec
+<STRONG>location</STRONG>.  L'intensité du point central est donnée par le mot clé <STRONG>size</STRONG>.  
+Selon le <STRONG>type</STRONG> et le <STRONG>fade_power</STRONG> (fondu), on aura un dégradé d'une 
+certaine allure entre le centre et le pourtour apparent de la sphère.</P>
+
+<IMG SRC="illref-atm-glow-01.jpg">
+
+<P>Grâce à la documentation exhaustive de Chris Huff, il ne m'est pas possible de vous dire
+quelle est la différence entre le <STRONG>type</STRONG> 0 et le <STRONG>type</STRONG> 1.  
+Visuellement, je n'ai pas vu de différences.  Ne mettez rien, c'est plus simple.</P>
+
+<P><STRONG>fade_power</STRONG> permet de spécifier l'allure du dégradé, sa vitesse en quelque sorte.  
+Une valeur 1 (par défaut) donnera un dégradé linéaire, une valeur 2 donnera un dégradé plus "serré".</P>
+
+<P><I>Remarque : selon le fondu et l'intensité, certains glows ne sont pas totalement transparents
+au bord de la sphère, rendant son contour apparent. Un <STRONG>fade_power</STRONG> de 2 ou plus permet généralement
+d'éviter ce problème.</I></P>
+
+<P>Enfin, on peut spécifier une couleur pour le <STRONG>glow</STRONG>, qui est blanc par défaut.</P>
+
+<P>On peut "attacher" un <STRONG>glow</STRONG> à une source lumineuse, comme ceci :</P>
+<PRE>
+light_source {
+&lt;50,40,30&gt; White
+glow {size 1 radius 20}
+}
+</PRE>
+<P>Pas besoin de spécifier une position et une couleur, le <STRONG>glow</STRONG> prendra automatiquement 
+celles de la source lumineuse, même si elle est transformée.</P>
+
+<H2>exemple</H2>
+<PRE>
+#declare I=0;
+#while (I &lt; 1)
+ glow {
+  location &lt;50,0,0&gt;
+  color SteelBlue*0.5
+  size 1.5
+  radius 20
+  fade_power 2
+  rotate y*360*I
+ }
+#declare I=I+.1;
+#end
+</PRE>
+
+<IMG SRC="illref-atm-glow-02.jpg">
+
+<H2>remarques</H2>
+<P>Les glows ne peuvent pas faire partie d'une union, ni d'aucune opération de CSG.  Sauf si
+   c'est un <STRONG>glow</STRONG> attaché à une source lumineuse, et que cette source fait
+   partie d'une union (pour faire une LED, par exemple).</P>
+
+<p><i>R&eacute;dacteur: Fabien Mosen</i></P>
+</body>
+</html>

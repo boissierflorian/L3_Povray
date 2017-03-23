@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			lathe - documentation POV-Ray en français
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+	<P>
+	<A href="../index.htm">vers l'index général de l'aide</A> /
+	<A href="index-obj.htm">vers l'index des objets</A>
+</P>
+	
+	<H1>
+		les lathes
+	</H1>
+
+	<H2>	objectif	</H2>
+	<p>Créer un objet dont la forme est déterminée par la révolution d'une courbe autour d'un axe,
+    pour faire des objets comme des vases ou des pieds de chaise,...
+	</p>
+
+	<H2>
+		compatibilité
+	</H2>
+	<p>
+	Pov-Ray 3.0 + sup (version 3.1 pour les bezier_spline)
+	</p>
+
+	<H2>	introduction</H2>
+	<P>
+	On appelle <strong>lathe</strong>	("tour", en français, comme dans "tour à bois") le procédé 
+ qui consiste à faire tourner un bloc de matière (bois, terre glaise, métal) devant un outil de 
+ coupe (ou ses mains)	afin de façonner un objet aux contours arrondi, pied de tables, poteries, 
+ bougeoirs...</P>
+		
+	<H2>	coups de lathes dans les rotates</H2>
+	<P>	Imaginons une courbe qui court près d'un axe, faisons-lui effectuer une rotation, et hop,
+     on obtient un <strong>lathe</strong> !	Cette courbe à deux dimensions (la "génératrice") est 
+     définie par des points de coordonnées (x,y), la coordonnée (z) étant maintenue à zéro.</P>
+
+	<table>		
+   <tr>			
+     <td><img src="povfr-lathe-01.jpg" alt="lathe" border="2"></td>
+			  <td><img src="povfr-lathe-02.jpg" alt="lathe" border="2"></td>
+  	</tr>
+	</table>
+
+<P>
+	La génératrice est une courbe de type spline (polyligne adoucie), qui peut être
+ linéaire, quadratique, cubique ou "de Bezier".
+	</p>
+	
+	<h2>	syntaxe	</h2>
+	
+<pre>
+lathe {
+  linear_spline / quadratic_spline / cubic_spline / bezier_spline
+  NbrPoints,       <SPAN class="comm">//entier</SPAN>
+  &lt;x1,y1&gt;,   <SPAN class="comm">//vecteurs</SPAN>
+  &lt;x2,y2&gt;, ..., 
+  &lt;xn,yn&gt;
+  (sturm)         
+
+  (... matériau ...)
+  (... transformations ...)
+}
+</pre>
+	
+<p>Il faut d'abord indiquer le type de courbe selon lequel POV-Ray interpr&eacute;tera la s&eacute;rie
+de points d&eacute;finissant le profil du lathe. <STRONG>linear_spline</STRONG> est la m&eacute;thode
+la plus simple, chaque point &eacute;tant joint &agrave; ses voisins par
+une ligne droite. C'est le type sélectionné par défaut.  Les trois autres possibilit&eacute;s, <STRONG>quadratic_spline</STRONG>,
+ <STRONG>cubic_spline</STRONG> et <STRONG>bezier_spline</STRONG>, permettent d'avoir un profil lissé, par contre
+une certaine vigilance est n&eacute;cessaire (quand
+au nombre et placement des points) pour obtenir ce que l'on veut.  Des explications
+sur l'utilisation de ces types de profil peuvent &ecirc;tre trouv&eacute;es
+dans <A href="obj-solide-lathe02.htm">les splines appliquées aux lathes</A>.
+</P>
+
+<p>
+Ensuite, nous devons spécifier le nombre de points définissant la courbe, suivi
+desdits points, sous forme de vecteurs 2D (genre &lt;x,y&gt;). La courbe n'est pas fermée
+	automatiquement, et rien ne reliera le premier et dernier point (le lathe apparaîtra "ouvert").
+Si on souhaite obtenir une	courbe fermée, il suffit que le premier et le dernier point soient
+ confondus (leurs coordonnées seront identiques). </P>
+<P>
+ Le mot clé <strong>sturm</strong> est à utiliser lorsque
+ des défauts apparaissent dans la "cuirasse" du lathe.  Un solveur de racines plus précis sera
+ alors utilisé.  Il devient obligatoire pour les <STRONG>cubic_spline</STRONG> et <STRONG>bezier_spline</STRONG>,
+ car il faut alors résoudre des polynômes du 6<sup>ème</sup> degré.
+	</p>
+
+<H2>exemple</H2>
+<pre>
+#include "colors.inc"
+camera  {location &lt;0,15,-10&gt;  look_at &lt;0,0,0&gt; }
+background { rgb 1}
+light_source { &lt;100,100,-200&gt; rgb .9}
+
+lathe {
+	linear_spline
+	5,
+	&lt; 3, 0 &gt;, &lt; 4, 0 &gt;, &lt; 4, 5 &gt;, &lt; 3, 5 &gt, &lt; 3, 0 &gt;
+	pigment { YellowGreen }
+        finish {ambient .3 phong 1}
+}
+</pre>
+	
+	<h2>se simplifier la vie</h2>
+	<p>
+	Positionner des points, pour faire une bouteille ou un vase, est une longue suite de tâtonnements.
+ Le papier quadrillé, si utile qu'il soit, ne permet pas de se rendre compte de l'allure de la courbe
+ résultant des points de contrôle.	 Il existe un petit utilitaire freeware d'Alexandre Fallapa, 
+ SpilinEditor, qui fait très bien cela pour les objets lathe, sor et prism.
+	Vous trouverez le lien sur <a href="http://www.pov-monde.org">http://www.pov-monde.org</a>  
+</p>
+<P>	<I>	Rédacteur : Martial Rameaux	</I><br></P>
+
+	<P>
+<A href="../index.htm">vers l'index général de l'aide</A> / 
+<A href="obj-solide-lathe02.htm">les splines appliquées aux lathes</A>
+<br>
+</P>
+
+</BODY>
+</HTML>

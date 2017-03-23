@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>types de lumi&egrave;res - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral</A> / 
+<A href="index-clu.htm">vers l'index des caméras et lumières</A> / 
+<A href="lum-gene.htm">page précédente : généralités sur les sources lumineuses</A>
+</P>
+
+ <H1>Types de sources lumineuses</H1> 
+
+<H2>point lumineux</H2>
+<P>Cr&eacute;ation d'un point lumineux omnidirectionnel. 
+   La lumi&egrave;re part dans toutes les directions &agrave; partir de ce point.  La valeur d'&eacute;clairage
+   d'une surface touch&eacute;e par un rayon lumineux ne d&eacute;pend pas de la distance entre la source
+   et la surface, mais seulement de l'angle entre le rayon et la surface.</P>
+<H3>syntaxe</H3>
+<PRE>
+light_source { 
+              &lt;position&gt;       <SPAN class="comm">//vecteur</SPAN>
+              Couleur          <SPAN class="comm">//vecteur de couleur</SPAN>
+              }
+</PRE>
+<P>Les &eacute;ventuelles valeurs de <STRONG>filter</STRONG> et <STRONG>transmit</STRONG> de la couleur sont simplement ignor&eacute;es.</P>
+
+<h3>exemple</h3>
+<pre>
+light_source {<10,10,-10> White}
+</pre>
+
+<H2>c&ocirc;ne lumineux</H2>
+<P>C'est un point lumineux dont le rayon d'action est limit&eacute; par un c&ocirc;ne.  La pointe de
+   ce c&ocirc;ne se situe &agrave; la source de lumi&egrave;re.</P>
+
+<H3>syntaxe</H3>
+<PRE>
+light_source {
+      Position       <SPAN class="comm">//vecteur</SPAN>
+      Couleur        <SPAN class="comm">//vecteur de couleur</SPAN>
+      spotlight
+      point_at PointeVers <SPAN class="comm">//vecteur</SPAN>
+      (radius Angle1)     <SPAN class="comm">//d&eacute;cimal (angle en degr&eacute;s)</SPAN>
+      (falloff Angle2)    <SPAN class="comm">//d&eacute;cimal (angle en degr&eacute;s)</SPAN>
+      (tightness Valeur)  <SPAN class="comm">//d&eacute;cimal</SPAN>
+}
+</PRE>
+<P><STRONG>spotlight</STRONG> active le c&ocirc;ne limitant, <STRONG>point_at</STRONG> d&eacute;finissant
+   (avec le vecteur de position) l'axe du c&ocirc;ne.  La lumi&egrave;re garde sa pleine puissance
+   jusqu'&agrave; une certaine ouverture, puis s'att&eacute;nue et dispara&icirc;t &agrave; une ouverture plus grande.
+   La zone de pleine puissance est d&eacute;finie par la valeur de <STRONG>radius</STRONG>, tandis
+   que le rayon au-del&agrave; duquel la lumi&egrave;re dispara&icirc;t est d&eacute;fini par <STRONG>falloff</STRONG>.
+   Ces deux param&egrave;tres ont chacun une valeur par d&eacute;faut de 70 degr&eacute;s.
+   </P>
+<IMG src="spot.png" alt="param&egrave;tres spotlight" border=2>
+<P><STRONG>tightness</STRONG> d&eacute;finit le comportement du d&eacute;grad&eacute; entre la zone de pleine
+   puissance et la zone d'ombre.  La valeur par d&eacute;faut de 1 implique un d&eacute;grad&eacute; lin&eacute;aire,
+   d'autres valeurs permettent de d&eacute;finir un d&eacute;grad&eacute; plus ou moins "tendu".</P>
+<IMG src="tight.jpg" alt="tightness &agrave; 1, 100 et 500" border=2>
+<P><I>De gauche &agrave; droite, <STRONG>tightness</STRONG> 1, 100 et 500</I></P>
+<H3>exemple</H3>
+<pre>
+light_source {<10,10,-10> White 
+              spotlight point_at <0,0,0> radius 3 tightness 20 falloff 10
+             }
+</PRE>
+<H3>remarque</H3>
+<P><I>Si on utilise <STRONG>shadowless</STRONG> avec un spot, le cône d'ombre disparaît
+      également !  Pas de remède connu à ce jour.</I></P>
+
+<H2>cylindre lumineux</H2>
+<P>Fonctionne comme un c&ocirc;ne lumineux, mais le mot cl&eacute; <STRONG>spotlight</STRONG> est remplac&eacute; par <STRONG>cylinder</STRONG>,
+   et les valeurs de <STRONG>radius</STRONG> et <STRONG>falloff</STRONG> sont en unités (rayon du cylindre lumineux) et plus en degrés.
+Une utilit&eacute; &eacute;vidente des lumi&egrave;res cylindriques, c'est le rendu de rayons lasers (en combinaison
+   probable avec un <STRONG>media</STRONG>).
+</P>
+<P><b>Attention </b>: pour des raisons de cohérence, l'utilisation de la lumi&egrave;re cylindrique
+      active automatiquement l'option <STRONG>parallel</STRONG>.</P>
+
+<P>page suivante : <A href="lum-opti.htm">options des sources lumineuses</A></P>
+
+<P><I>auteurs : Rodolphe Gelaude / Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

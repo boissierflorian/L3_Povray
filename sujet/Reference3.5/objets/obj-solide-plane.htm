@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>plane  - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>plane</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er un plan infini.</P>
+<IMG SRC="povfr-plan-01.jpg" border=2>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 2.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+plane {
+       Normale, <SPAN class="comm">// vecteur</SPAN>
+       Distance <SPAN class="comm">// nombre d&eacute;cimal</SPAN>
+
+       (..modificateurs d'objets..)
+       (..transformations..)
+       (..mat&eacute;riau..)
+       }
+</PRE>
+
+<P>La normale est un vecteur, partant de l'origine, dont la direction est perpendiculaire
+   au plan cr&eacute;&eacute;, et la distance est le d&eacute;placement du plan le long de ce vecteur, en unit&eacute;s
+   &agrave; partir de l'origine.</P>
+<P>On peut bien entendu appliquer au plan des rotations, translations, etc.., ce qui est
+   souvent plus simple de de recalculer la normale.</P>
+
+<H2>exemples</H2>
+<P>Un plan horizontal :</P>
+ <PRE>
+plane {<0,1,0>,0}
+//ou bien
+plane {y,0}
+ </PRE>
+<P>Un plan inclin&eacute; et ayant "gliss&eacute;" de 3 unit&eacute;s dans la direction de sa normale :</P>
+ <PRE>
+plane {<.5,.8,.2>,}
+ </PRE>
+
+<H2>astuce</H2>
+<P>Une petite macro pour d&eacute;finir un plan par 3 points :</P>
+<PRE>
+#macro Plan3Points (P1,P2,P3) 
+ #local Normale1 = vcross (P2-P1,P3-P1);
+ plane {Normale1,0 translate P1}
+#end
+</PRE>
+<H2>CSG</H2>
+<P>Bien qu'&eacute;tant infini, un plan fonctionne tr&egrave;s bien dans toutes les op&eacute;rations de CSG.
+   Le plan est en r&eacute;alit&eacute; un objet qui divise le monde en deux, et son "int&eacute;rieur" est situ&eacute;
+   &agrave; l'oppos&eacute; de sa normale.  Le plan du premier exemple a donc son int&eacute;rieur "en dessous", 
+   du c&ocirc;t&eacute; de -Y.</P>
+
+<H2>remarque</H2>
+<P>L'&eacute;tendue infinie du plan en fait un objet peu adapt&eacute; en tant que volume d'optimisation (<STRONG>bounded_by</STRONG>...).</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Wedge(Angle)</STRONG></P>
+<P>Crée une intersection de deux plans, suivant un angle, pratique pour extraire des portions
+ de cylindres en CSG (portion de camembert), par exemple.</P>
+<IMG SRC="povfr-plan-02.jpg" border=2>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

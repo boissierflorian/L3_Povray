@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			prise en main rapide - documentation francophone de POV-Ray
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index général de l'aide</A>/ <A href="index-deb.htm">index des débuts</A>
+  / page précédente : <A href="ref-deb-linux-02.htm">installation sommaire</A></P>
+
+<H1>prise en main de POV-Ray pour Linux - installation améliorée</H1>
+<p>
+Pour pouvoir utiliser POV-Ray de manière plus efficace, un certain nombre de petites adaptations 
+à votre environnement peuvent être utiles.</P>
+
+<h2>Accéder à POV-Ray depuis n'importe quel répertoire</h2>
+
+<p>Pour cela il faut placer l'exécutable dans un répertoire
+accessible, ou rendre accessible le répertoire dans lequel se trouve
+l'exécutable. Trois solutions s'offrent à vous.</P>
+
+<H3>Copier l'exécutable dans un endroit accessible</H3> 
+
+<P>Vous pouvez placer l'executable dans un répertoire tel que /bin ou
+/usr/bin. Cela peut être source de désordre dans votre arborescence
+(on est pas sous Windows tout de même) et pas vraiment conseillé.  Il
+vaut mieux le mettre dans /usr/local/bin/ (et verifier que ce
+repertoire est accessible).
+</P>
+
+<pre>
+root$ cp /usr/local/lib/povray-3.5/povray /usr/local/bin/
+</pre>
+
+<P>Mettre les pages de manuel a leur place (accessibles par la commande <span class="code">man povray</span>) :</P>
+<PRE>root$ mv povray.1 /usr/local/man/man1</PRE>
+<p>faites vous maintenant un répertoire (Sous votre compte utilisateur):</p>
+<PRE>
+root$ exit
+zorro$ cd ~/
+zorro$ mkdir povray
+zorro$ cd povray
+zorro$ cp /usr/local/lib/povray/scenes/advanced/skyvase.pov ./
+<BR>
+zorro$ povray -Iskyvase.pov -L/usr/local/lib/povray31/include/ +V +D -w320 -h240 +FT +Ovase.tga
+</PRE>
+
+<P>...devrait lancer le rendu de la scene.</p>
+
+<H3>Adapter la variable d'environement PATH</H3>
+<P>
+La deuxième solution est d'ajouter le répertoire de POV-Ray a votre PATH 
+ (la variable d'environement qui contient tous les repertoires accessibles),
+grâce à la commande «export» pour bash ou la commande «setenv» pour tcsh:
+</P>
+<PRE>zorro$ export PATH="$PATH:/usr/local/lib/povray31/"</PRE>
+<PRE>zorro$ setenv PATH "$PATH:/usr/local/lib/povray31/"</PRE>
+
+<H3>Créer un lien symbolique</H3>
+
+<P>Troisieme solution (et la plus élégante), le lien symbolique. C'est en gros un «racourci» vers le vrai executable</P>
+
+<P>Vérifiez que le repertoire /usr/local/bin est dans le PATH</P>
+
+<PRE>zorro$ echo $PATH</PRE>
+
+<P>...vous devriez obtenir l'information suivante :</P>
+
+<PRE>/bin:/usr/bin:/usr/X11R6/bin:/usr/local/bin:...</PRE>
+
+<P>sinon, ajoutez /usr/local/lib/ dans le PATH en faisant :</P>
+
+<PRE>
+zorro$ export PATH="$PATH:/usr/local/bin"
+zorro$ setenv PATH "$PATH:/usr/local/bin"
+</PRE>
+
+<p>Pour que cette derniere commande soit permantente, il faut la rajouter
+dans votre .bashrc ou votre .tcshrc</p>
+
+<P>Puis repassez en root (su) et faites :</P>
+<PRE>
+root$ cd /usr/local/bin/
+root$ ln -s /usr/local/lib/povray-3.5/povray ./povray
+</PRE>
+
+<p>Désormais vous n'avez plus besoin d'etre root. il est donc (très
+vivement) conseillé de revenir en mode utilisateur par la commande exit
+</p>
+
+<pre>
+root$ exit
+</pre>
+
+
+
+<h2>chemin des fichiers include</h2>
+
+<p>Si on essaye de lancer le rendu avec :</p>
+<PRE>
+zorro$ povray -Iskyvase.pov +V +D -w320 -h240 +FT +Ovase.tga
+</pre>
+<P>On n'obtient qu'un message d'erreur en guise de remerciement :</p>
+<pre>
+...
+Parsing...Could not find file 'shapes.inc'
+...
+</PRE>
+
+<p>
+Ce qui signifie en bon français que POV-Ray n'arrive pas a trouver le
+fichier shapes.inc qui lui est pourtant necessaire. Il faut alors lui
+indiquer son emplacement comme précédemment par une option : </P>
+<pre>-L/usr/local/lib/povray-3.5/include</pre>
+
+<p>
+Pour ne pas surcharger les lignes de commande et avoir à retaper
+36000 fois la même chose, on va definir une bonne fois pour toutes ces
+parametres dans un fichier de configuration.  Ce fichier se nomme
+<span class="code">.povrayrc</span> (le . indique que c'est un fichier caché, visible
+par <span class="code">ls -a</span>) et se place dans le home de l'utilisateur.</p> 
+<P>
+Une ébauche de fichier de configuration est fournie avec POV-Ray, il suffit de la
+copier :</P>
+
+<pre>zorro$ cp /usr/local/lib/povray-3.5/ini/povray.ini ~/.povrayrc</pre>
+
+<p>
+Il ne reste qu'à éditer ce fichier et à le configurer selon votre
+convenance.  Les commentaires permettent de comprendre aisement le
+fonctionnement de tous les paramètres.  Ils ne sont cependant pas tous
+listés.</P>
+
+<p>
+Voila de quoi commencer avec pov pour linux. Pour essayer cette
+nouvelle mouture, allez faire un tour dans les scenes fournies en
+exemple /usr/local/lib/povray-3.5/scenes/.
+<br>
+Amusez-vous bien.
+</p>
+	<P><I>Auteur : Guilloud Cyril</I></P>
+</BODY>
+</HTML>

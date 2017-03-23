@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>boucles - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+<H1>boucles (#while - #end)</H1>
+
+<H2>objectif</H2>
+ <P>R&eacute;p&eacute;ter automatiquement une instruction un certain nombre de fois, tant
+    qu'une condition particuli&egrave;re est vraie.</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+#while (Condition)
+ ...
+#end
+ </PRE>
+<P><STRONG>while</STRONG> signifie "tant que".  Tant que la Condition est vraie (&eacute;gale &agrave; 1, yes, on,...),
+   les instructions situ&eacute;es entre <STRONG>#while</STRONG> et <STRONG>#end</STRONG> sont ex&eacute;cut&eacute;es inlassablement.
+   D&egrave;s que la Condition est fausse, POV-Ray "sort" de
+   la boucle, et embraye sur les instructions situ&eacute;es apr&egrave;s <STRONG>#end</STRONG>.</P>
+
+<H2>exemples</H2>
+
+ <H3>la boucle simple</H3>
+<PRE>
+  #declare I=0;
+  #while (I &lt; 10)  //la boucle tournera tant que I sera plus petit que 10
+   sphere {&lt;I*2,0,0&gt;,1 pigment {Red}} //la sph&egrave;re se r&eacute;p&egrave;te le long de l'axe x, 
+                                            //en utilisant I pour varier sa position
+   #declare I=I+1;    //on incr&eacute;mente I &agrave; chaque tour de boucle
+  #end
+</PRE>
+<P>Une variante classique dans la fa&ccedil;on d'incr&eacute;menter :</P>
+<PRE>
+  #declare I=0;
+  #while (I &lt; 1)  
+   sphere {&lt;I*2,0,0&gt;,1 pigment {Red}} 
+   #declare I=I+0.2;    //l'incr&eacute;mentation est d&eacute;sormais d&eacute;cimale, cela permet
+                        //d'ajuster plus facilement des probl&egrave;mes d'intervalles
+  #end
+</PRE>
+
+ <H3>la boucle double</H3>
+<P>Pour disposer du carrelage, par exemple.  Notez comment la boucle "int&eacute;rieure"
+   est initialis&eacute;e, c'est une source d'erreurs fr&eacute;quente.</P>
+<PRE>
+#declare I=0;
+#while (I &lt; 20)
+ #declare J=0;
+ #while (J &lt; 20)
+   sphere {&lt;I*2,0,J*1.5&gt;,1 pigment {Red}}
+ #declare J=J+1;
+ #end
+#declare I=I+1;
+#end
+</PRE>
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

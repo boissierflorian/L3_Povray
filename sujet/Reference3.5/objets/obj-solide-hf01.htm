@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>height_field - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>height_field</H1>
+
+<H2>objectif</H2> 
+ 
+<P>Cr&eacute;er un maillage de triangles &agrave; partir d'une image bitmap. Cet 
+  objet est souvent utilis&eacute; pour cr&eacute;er des montagnes, ou des bas-reliefs.</P>
+<IMG SRC="ref-hf-01.jpg" border=2>
+
+<H2>compatibilité</H2> 
+ <P>POV-Ray 2.0 +sup.<BR>
+ POV-Ray 3.5 (jpeg, tiff)</P>
+
+<H2>principe</H2> 
+
+<P>Un <STRONG>height_field</STRONG> est un maillage de triangles généré automatiquement à partir
+    d'une image bitmap.  Les coins de ces triangles sont situés à la verticale du centre des pixels
+    de l'image, à une hauteur dépendant de la couleur du pixel.</P>
+ <TABLE>
+ <TR><TD>
+      <div align="center"><IMG src="hf-demo02.jpg" border=2 alt=""></div>
+    </TD>
+    <TD>
+      <div align="center"><IMG src="hf-demo03.jpg" border=2 alt=""></div>
+    </TD></TR>
+
+ </TABLE>
+ <P>Le <STRONG>height_field</STRONG> est, avant transformations éventuelles, contenu
+    dans un cube allant de &lt;0,0,0&gt; à &lt;1,1,1&gt;, indépendamment de la résolution et du type de l'image.
+    Chaque ensemble de quatre points contigus donnant deux triangles, une image avec une résolution 
+    de N sur M points donnera (N-1)*(M-1) rectangles, qui seront finalement divisés en 2*(N-1)*(M-1) 
+    triangles.  Donc, pour résumer, la résolution de l'image détermine la finesse du <STRONG>height_field</STRONG>
+    sur X et Z, tandis que la profondeur de couleurs détermine la finesse sur Y.</P>
+ <P>Si l'image est une image "à palette" (généralement 256 couleurs), c'est la valeur d'index
+    qui déterminera la hauteur, peu importe la couleur.  La valeur d'index 0 correspondra à la
+    hauteur minimale (0), et la valeur d'index 255 correspondra à la hauteur maximale (1).
+    Pour voir la palette d'une image et
+    les index correspondants, utilisez un logiciel de dessin ou un utilitaire spécialisé.</P>
+ <P>Si l'image est en 256 niveaux de gris, c'est la valeur de gris qui déterminera la hauteur.
+    Le noir correspondra à la hauteur minimale (0), et le blanc correspondra à la hauteur maximale
+    (1). Attention, il est possible qu'une image en niveau de gris soit en réalité une image en
+    256 couleurs dont la palette est composée de nuances de gris, mais pas classées par ordre 
+    de luminosité.  Faites donc bien attention en manipulant les images dans les logiciels de
+    dessin.</P>
+ <P>Si l'image est en 16 millions de couleurs, seuls les deux premiers octets de la couleur
+    (rouge et vert) seront utilisés, pour obtenir 65 536 niveaux (chacune des trois couleurs
+    étant codée sur 8 bits, 8 + 8 = 16 bits).</P>
+ <P>Enfin, si l'image est en 65 536 niveaux de gris (seul le format PNG permet cela), POV-Ray
+    l'utilisera pour déterminer 65 536 niveaux.</P>
+
+ <P>Vous trouverez une explication détaillée de ces deux dernières possibilités
+    dans la pages des <A href="obj-solide-hf02.htm">height_fields en 16 bits</A></P>
+
+<H2>syntaxe</H2>
+<PRE>
+height_field {
+        gif / tga / pot / png / pgm / ppm / jpeg / tiff / sys<br>		"nom_fichier"
+        (hierarchy on/off)
+        (smooth)
+        (water_level Niveau) <SPAN class="comm">// nombre décimal</SPAN>
+
+        (..modificateurs d'objets..)
+        (..transformations..)
+        (..matériau..)
+}
+</PRE>
+
+<H3>fichier image</H3>
+<P>On spécifie tout d'abord le type et le nom du fichier bitmap à employer.  Voyez
+   la <A href="../concepts/cpt-imgtype.htm">page des formats bitmaps</A> pour plus
+   de détails.  Le format <STRONG>sys</STRONG> désigne le format "par défaut" du système 
+   d'exploitation (par exemple le <STRONG>bmp</STRONG> de Windows ou le <STRONG>pict</STRONG> 
+   du Macintosh).</P>
+
+<P><I>Attention : l'emploi du format <STRONG>sys</STRONG> ne favorise pas la portabilité d'une scène d'une plate-forme à l'autre...</I></P>
+
+<P>Dans une vaste majorité de situations, le PNG sera le meilleur choix, pour sa souplesse
+   et son universalité.</P>
+
+<h3>hierarchy</h3>
+<p>Ce mot clé permet d'activer ou de désactiver un système d'optimisation pour 
+  le calcul des intersections. Par défaut, il est activé, mais vous pouvez l'interdire 
+  en spécifiant <strong>hierarchy off</strong>, pour de petits <strong>height_field</strong> 
+  (c'est-à-dire, à basse résolution), ce qui permettra un léger gain de temps 
+  de calcul. La plupart du temps, on peut ignorer ce paramètre.</p>
+
+<h3>water_level</h3>
+<p>Ce paramètre optionnel, suivi d'un nombre décimal entre 0 et 1, indique à POV-Ray 
+  d'ignorer les parties du <strong>height_field</strong> qui se trouvent en dessous 
+  d'une certaine altitude. La valeur par défaut est 0. Par exemple, <strong>water_level 
+  0.5</strong> permet de dire à POV-Ray de ne représenter que la moitié supérieure 
+  du <strong>height_field</strong>, la moitié inférieure étant "sous l'eau". L'utilisation 
+  de <strong>water_level</strong> permet un calcul plus rapide que si on avait 
+  utilisé <strong>difference</strong> ou <strong>clipped_by</strong>. <strong>water_level</strong> 
+  peut aussi être utilisé pour couper des parties basses du <strong>height_field</strong> 
+  non désirées. Par exemple, si vous avez une image fractale sur un fond uniforme, 
+  et que ce fond est l'index 0 de la palette, vous pouvez enlever le fond du <strong>height_field</strong> 
+  en spécifiant <strong>water_level 0.001</strong>. </p>
+<IMG SRC="ref-hf-01.jpg" border=2><IMG SRC="ref-hf-02.jpg" border=2>
+<h3>smooth</h3>
+<p>Normalement, les <strong>height_field</strong> ont un aspect crénelé, car ils 
+  sont constitués de plein de triangles plats. Ajouter le modificateur <strong>smooth</strong> 
+  permet à POV-Ray de modifier le vecteur normal de chaque triangle de manière 
+  à ce que l'interaction de chaque triangle avec la lumière donne au <strong>height_field</strong> 
+  un aspect plus lissé. Ceci permet d'utiliser des fichiers avec des résolutions 
+  plus petites (donc moins d'occupation en mémoire) pour un résultat équivalent 
+  à un "gros" fichier. Cependant, ces triangles lissés (<strong>smooth_triangle</strong>) 
+  demandent un temps de (pré-)calcul plus long. La valeur par défaut de ce paramètre 
+  est <strong>off</strong>. vous pouvez également faire suivre <strong>smooth</strong> 
+  par un booléen: <strong>smooth on</strong> ou <strong>smooth off</strong>.</p>
+
+<IMG SRC="ref-hf-03.jpg" border=2><IMG SRC="ref-hf-04.jpg" border=2>
+<p>Attention ! Votre <strong>height_field</strong> aura l'air plus lisse, mais 
+  ne le sera effectivement pas plus (lisse). Il sera toujours constitué du même 
+  nombre de triangles. Si vous regardez votre <strong>height_field</strong> de 
+  profil, vous le verrez toujours aussi crénelé.</p>
+<H2>exemple</H2>
+<PRE>
+height_field {
+ jpeg "gauffre_hf.jpg"
+ smooth
+ water_level .5
+
+ pigment {OrangeRed}
+ translate &lt;-.5,0,-.5&gt; scale &lt;2,.5,2&gt;
+}
+</PRE>
+<IMG SRC="gauffhf.jpg" border=2><IMG SRC="ref-hf-05.jpg" border=2>
+<H2>utiliser une fonction à la place d'une image</H2>
+<P>Comme à tout autre endoit où une image bitmap est demandée, on peut
+   remplacer l'image source d'un <STRONG>height_field</STRONG> par une fonction,
+   comme ceci :</P>
+<PRE>
+ height_field {
+  function ResolX, ResolY { (... fonction ...) }
+ ...
+ }
+</PRE>
+<P>ResolX et ResolY représentent respectivement la résolution horizontale et
+   vertical de l'image fictive générée "en interne", et les accolades qui
+   suivent comportent une fonction formulée selon la syntaxe habituelle. Exemple :</P>
+<PRE>
+height_field {
+ function 200,200 {(cos (x*x) + sin(y*y))*10}
+ smooth
+ ...
+}
+</PRE>
+<H2>CSG</H2>
+  
+<P>Fonctionne parfaitement en CSG, l'intérieur et l'extérieur étant bien définis. 
+  <B>Attention : l'intérieur ne se limite pas à la portion du cube en "dessous" 
+  de la surface du <STRONG>height_field</STRONG>, mais s'étend, par en dessous, 
+  à l'infini, un peu comme c'est le cas avec un plan.</B> </P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+
+<P>Dans "shapes.inc" :</P>
+<P><STRONG>HF_Square (Function, UseUVheight, UseUVtexture, Res, Smooth, FileName, MnExt, MxExt)</STRONG></P> 
+ <P>Créer un mesh similaire à un HF classique.</P>
+<IMG SRC="ref-hf-06.jpg" border=2>
+
+<P><STRONG>HF_Sphere(Function, UseUVheight, UseUVtexture, Res, Smooth, FileName, Center, Radius, Depth)</STRONG></P> 
+ <P>Créer un HF sphérique (un mesh, en fait).</P>
+<IMG SRC="ref-hf-07.jpg" border=2>
+
+<P><STRONG>HF_Cylinder(Function, UseUVheight, UseUVtexture, Res, Smooth, FileName, EndA, EndB, Radius,Depth)</STRONG></P> 
+ <P>Créer un HF cylindrique (un mesh, en fait).</P>
+<IMG SRC="ref-hf-08.jpg" border=2>
+
+<P><STRONG>HF_Torus (Function, UseUVheight, UseUVtexture, Res, Smooth, FileName, Major, Minor, Depth)</STRONG></P> 
+ <P>Créer un HF toroïdal (un mesh, en fait).</P>
+<IMG SRC="ref-hf-09.jpg" border=2>
+
+<h2>remarques </h2>
+<P>Si vous déclarez un objet <STRONG>height_field</STRONG>, et que vous l'utilisez plusieurs fois dans une même scène,
+  la place utilisée en mémoire sera la même (ou presque) que si vous ne l'utilisez qu'une seule
+  fois.</P>
+<P>Il existe de nombreux outils destinés à générer ou manipuler des images destinées à la confection 
+   de height_fields.</P>
+
+  
+<P><I>Rédacteurs : Christophe Bouffartigue, Laurent Denis, Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

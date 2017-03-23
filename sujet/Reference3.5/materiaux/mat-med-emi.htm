@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les media - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-mat.htm">vers l'index des mat&eacute;riaux</A>
+</P>
+
+<H1>media - syntaxe &eacute;l&eacute;mentaire, emission, absorption</H1>
+<P>Un <STRONG>media</STRONG> appliqu&eacute; &agrave; un objet se place dans une structure <STRONG>interior</STRONG>.</P>
+<P>L'objet qui contient le <STRONG>media</STRONG>, le "conteneur", doit absolument &ecirc;tre 
+   <STRONG>hollow</STRONG>, ou sinon le <STRONG>media</STRONG> n'agira pas.</P>
+<P>Bien entendu, pour que le media soit visible, il est souhaitable que la texture du conteneur
+   soit, au moins partiellement, transparente.</P>
+<pre>
+object {...
+        texture {...}
+        interior {
+                 media {...}
+                 }    
+        }
+</pre>
+<P>Il est &eacute;galement possible d'utiliser <STRONG>media</STRONG> en dehors de toute autre d&eacute;finition,
+   mais nous en reparlerons plus tard.</P>
+
+<H2>sc&egrave;ne de test</H2>
+<P>Tous les exemples de ces pages sont bas&eacute;s sur la sc&egrave;ne de test suivante :</P>
+<pre>
+#include "colors.inc"
+camera {location <15,4,15> direction z*1 look_at <0,5,5>}
+light_source {<40,50,30> White*2}
+
+plane {y,0                        pigment {SteelBlue}}
+box   {<-20,0,-50>,<-22,6,10>     pigment {OrangeRed}}
+cone  {<-3,-1,4>,2,<-3,8,3>,1.5 pigment {YellowGreen}}
+
+#declare Container = sphere {0,1 no_shadow hollow}
+
+object {Container pigment {White transmit 1}
+ interior {
+    media {...}
+          }
+scale 6
+translate <-2,4,5>
+}
+</pre>
+
+<H2>dimension du conteneur</H2>
+<P>Ce n'est pas obligatoire, mais il est vivement recommand&eacute; de cr&eacute;er le <STRONG>media</STRONG>
+dans un conteneur situ&eacute; &agrave; l'origine, et dont la dimension vaut entre 1 et 2 unit&eacute;s, puis
+d'appliquer les transformations n&eacute;cessaires apr&egrave;s l'application du <STRONG>media</STRONG>.</P>
+<P>La sc&egrave;ne de test observe cette pr&eacute;caution.</P>
+
+<H2>emission</H2>
+<pre>
+  media {intervals 1
+         emission rgb White*.05 
+        }
+</pre>
+<IMG src="medemo01.jpg" border=2 alt="emission">
+<P>Comme un <STRONG>media</STRONG> est pr&eacute;sent dans l'espace, et pas seulement sur une surface,
+   il faut sp&eacute;cifier le nombre d'&eacute;chantillons &agrave; prendre le long du rayon qui traverse le
+   conteneur, &agrave; l'aide du mot cl&eacute; <STRONG>intervals</STRONG>.  Dans un cas simple comme celui-ci,
+   un seul &eacute;chantillon suffit.</P>
+<P>Par d&eacute;faut, le <STRONG>media</STRONG> a une valeur uniforme dans tout l'espace du conteneur, la variation de
+   teinte ne d&eacute;pend que de l'&eacute;paisseur travers&eacute;e.</P>
+<P>Le mot cl&eacute; <STRONG>emission</STRONG> est suivi d'une couleur (dont les <STRONG>filter</STRONG>
+   et <STRONG>transmit</STRONG> sont ignor&eacute;s).  Notez &agrave; quel point la couleur est minor&eacute;e,
+   ce qui est n&eacute;cessaire pour &eacute;viter de saturer compl&egrave;tement la couleur.  En fait, la transparence
+   se r&egrave;gle en att&eacute;nuant la luminosit&eacute; de l'&eacute;mission.</P>
+<P>La couleur r&eacute;sultante est simplement l'addition de la couleur du <STRONG>media</STRONG> et
+   de ce qui se trouve derri&egrave;re.</P>
+
+<H2>absorption</H2>
+<pre>
+  media {intervals 1
+         absorption rgb Red*.1 
+        }
+</pre>
+<IMG src="medemo02.jpg" border=2 alt="emission">
+<P><STRONG>absorption</STRONG> fonctionne comme <STRONG>emission</STRONG>, &agrave; ceci pr&egrave;s qu'il
+   s'agit d'une soustraction, et plus d'une addition.  Selon le syst&egrave;me rgb, la couleur du
+   media absorbant sera soustraite de celle des objets situ&eacute;s derri&egrave;re.  Dans l'exemple, on
+   remarque que seul l'objet contenant du rouge est affect&eacute;, ce qui est logique.</P>
+
+<H2>combinaison</H2>
+<P>Il est possible (et courant) de combiner l'absorption et l'&eacute;mission, l'exemple suivant
+   est un <STRONG>media</STRONG> qui &eacute;met du jaune, et qui absorbe le bleu&nbsp;:</P>
+<pre>
+  media {
+         intervals 1
+         emission   rgb Yellow*.05 
+         absorption rgb Blue*.1 
+        }
+</pre>
+<IMG src="medemo03.jpg" border=2 alt="emission">
+<P>Attention, car les absorptions et les &eacute;missions interagissent !</P>
+<P><I>auteur : Fabien Mosen</P></I>
+</BODY>
+
+</HTML>

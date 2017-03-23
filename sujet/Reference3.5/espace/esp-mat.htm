@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>matrix - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide </A> -
+<A href="index-esp.htm">vers l'index des repères spatiaux</A></P>
+
+<H1>matrix</H1>
+
+ <P>Rien &agrave; voir avec le c&eacute;l&egrave;bre navet new-age, rassurez-vous...</P>
+
+<H2>objectif</H2>
+ <P>Appliquer des transformations spatiales équivalentes à <STRONG>rotate</STRONG>, <STRONG>scale</STRONG>, <STRONG>translate</STRONG>, aux
+    objets et &eacute;l&eacute;ments de textures, &agrave; l'aide d'une matrice de valeurs, avec
+    une petite possibilit&eacute; en plus, le biaisage ("shearing").</P>
+
+<H2>syntaxe</H2> 
+<PRE>
+ matrix &lt;
+  <SPAN style="background-color: #FF6666;">x1, y1, z1</SPAN>
+  <SPAN style="background-color: #66FF66;">x2, y2, z2</SPAN>
+  <SPAN style="background-color: #6666FF;">x3, y3, z3</SPAN>
+  <SPAN style="background-color: #FFFF66;">x4, y4, z4</SPAN>
+ &gt;
+</PRE>
+
+<P>En pratique, on peut considérer que l'application d'une matrice à un objet revient à 
+   modifier son système d'axes : origine, axe X, axe Y et axe Z.</P>
+
+<P>La quatrième ligne correspond au vecteur &lt;x4,y4,z4&gt; de déplacement de l'ensemble
+   du système d'axes (pointillé jaune sur l'illustration).</P>
+<P>La première ligne représente le nouveau vecteur de l'axe X : &lt;x1,y1,z1&gt;, en rouge
+   sur l'illustration.</P>
+<P>La deuxième ligne représente le nouveau vecteur de l'axe Y : &lt;x2,y2,z2&gt;, en vert
+   sur l'illustration.</P>
+<P>La troisième ligne représente le nouveau vecteur de l'axe Z : &lt;x3,y3,z3&gt;, en bleu
+   sur l'illustration.</P>
+
+<IMG SRC="illref-matrix-01.jpg">
+<P>Notez qu'il n'est pas obligatoire que les axes restent orthogonaux.</P>
+<H2>transformations "classiques"</H2>
+<P>Voici, &agrave; titre d'exemple, l'&eacute;quivalent matriciel des transformations courantes de
+   POV-Ray.</P>
+
+<H3>translate</H3>
+
+<P>Une translation ne modife pas l'orientation des axes, mais ne fait que les déplacer, et ne concerne donc que la quatrième ligne de la matrice.</P>
+<PRE>
+translate &lt;Tx,Ty,Tz&gt;
+ donne :
+matrix &lt;1,  0,  0,
+        0,  1,  0,
+        0,  0,  1,
+       Tx, Ty, Tz&gt;
+</PRE>
+
+<H3>scale</H3>
+
+<P>Ici les axes ne sont pas déplacés ni combinés entre eux, mais individuellement rétrécis ou étirés, donc:</P>
+<PRE>
+scale &lt;Sx,Sy,Sz&gt; 
+ donne :
+matrix &lt;Sx,  0,  0,
+         0, Sy,  0,
+         0,  0, Sz,
+         0,  0,  0 &gt;
+</PRE>
+
+<P>Notez qu'il est relativement facile de combiner les op&eacute;rations de <STRONG>scale</STRONG>
+ et <STRONG>translate</STRONG> dans une m&ecirc;me matrice, puisque leurs valeurs de contr&ocirc;le sont
+ distinctes, à condition d'observer que la translation est effectuée <I>après</I> le <STRONG>scale</STRONG>.</P>
+<H3>rotate</H3>
+<P>L&agrave;, &ccedil;a se corse, car il faut effectuer des transformations trigonom&eacute;triques
+   pr&eacute;alables !  Et pour combiner une rotation avec une translation ou une mise à l'échelle,
+   il vous faudra pratiquer des opérations matricielles, qui sont certainement très bien expliquées
+   dans votre livre de maths favori !</P>
+<PRE>
+rotate x*Angle
+ donne :
+#declare As = sin (radians(Angle));
+#declare Ac = cos (radians(Angle));
+  matrix &lt;  1,  0,  0,
+            0,  Ac, As,
+            0, -As, Ac,
+            0,  0,  0 &gt;
+
+rotate y*Angle
+ donne :
+#declare As = sin (radians(Angle));
+#declare Ac = cos (radians(Angle));
+
+   matrix &lt;  Ac,  0, -As,
+             0,  1,  0,
+             As, 0,  Ac,
+             0,  0,  0 &gt;
+
+rotate z*Angle
+ donne :
+#declare As = sin (radians(Angle));
+#declare Ac = cos (radians(Angle));
+
+   matrix &lt;  Ac,  As,  0,
+            -As,  Ac,  0,
+             0,  0,  1,
+             0,  0,  0 &gt;
+</PRE>
+<H2>biaisage</H2>
+<P>La seule transformation que seule la matrice permet, c'est de biaiser les objets, c'est
+   &agrave; dire leur appliquer un système d'axes non-orthogonal.  Les axes n'était plus
+   perpendiculaires entre eux, l'objet se 'tord' suivant les nouveaux angles entre les axes.</P>
+<PRE>
+<H3>inclinaison de l'axe Z</H3>
+   matrix &lt; 1,  0,  0,
+            0,  1,  0,
+           Gx, Gy,  1,
+            0,  0,  0 &gt;
+</PRE>
+<P>Par exemple, l'axe Z est 'incliné' de 0.5 unités dans la direction Y :</P>
+<PRE>
+   matrix &lt; 1,  0,  0,
+            0,  1,  0,
+            0, .5,  1,
+            0,  0,  0 &gt;
+</PRE>
+<IMG SRC="illref-matrix-02.jpg">
+<H3>torsion de l'axe Y</H3>
+<PRE>
+   matrix &lt;  1,  0,  0,
+            Gx,  1, Gz,
+             0,  0,  1,
+             0,  0,  0 &gt;
+</PRE>
+<H3>torsion de l'axe X</H3>
+<PRE>
+   matrix &lt;  1, Gy, Gz,
+             0,  1,  0,
+             0,  0,  1,
+             0,  0,  0 &gt;
+</PRE>
+
+<H2>cuisine mathématique</H2>
+<P>
+Plus haut, nous avons parl&eacute; de 4 x 4 valeurs, alors que la syntaxe n'en comporte que
+3 x 4 !  Il y a en fait une quatri&egrave;me colonne, implicite, dont les valeurs sont constantes,
+et permettent à POV-Ray d'effectuer ses calculs matriciels.
+
+Le tableau suivant est donc la repr&eacute;sentation "interne" de la matrice :</P>
+<P>
+<TABLE border=1> 
+ <TR><TD>A1</TD><TD>A2</TD><TD>A3</TD><TD style="background-color: yellow">0</TD></TR>
+ <TR><TD>B1</TD><TD>B2</TD><TD>B3</TD><TD style="background-color: yellow">0</TD></TR>
+ <TR><TD>C1</TD><TD>C2</TD><TD>C3</TD><TD style="background-color: yellow">0</TD></TR>
+ <TR><TD>D1</TD> <TD>D2</TD> <TD>D3</TD> <TD style="background-color: yellow">1</TD></TR>
+</TABLE>
+</P>
+<P>La transformation d'un point se fait suivant le processus suivant.  Pour tout point :</P>
+   <P><I>P = &lt;px,py,pz&gt;</I></P>
+<P>...le point r&eacute;sultant apr&egrave;s transformation sera :</P>
+   <P><I>Q = &lt;qx,qy,qz&gt;</I></P>
+<P>...d&eacute;termin&eacute; par les formules suivantes :</P>
+<P class="noindent"><I>
+qx = A1 * px + B1 * py + C1 * pz + D1
+<BR>
+qy = A2 * px + B2 * py + C2 * pz + D2
+<BR>
+qz = A3 * px + B3 * py + C3 * pz + D3 
+</P></I>
+
+<H2>remarques</H2>
+<P>Puisque, en interne, POV-Ray finit toujours par traduire toutes les transformations
+   successives en une matrice unique, il n'y a aucun int&eacute;r&ecirc;t technique &agrave; les employer
+   pour remplacer scale, rotate et translate.  Voici les principales situations où vous pourriez
+   avoir recours aux matrices :</P>
+<P>- pour effectuer un "biaisage".</P>
+<P>- lorsque, gr&acirc;ce &agrave; votre livre de maths, vous &ecirc;tes en mesure de produire, &agrave; l'aide
+     d'une matrice, une &eacute;criture plus &eacute;l&eacute;gante qu'une s&eacute;rie &eacute;quivalente de transformations
+     classiques.</P>
+<P>- lorsque, à partir d'un script ou d'un programme externe, vous générez une quantité importante
+     de code, et que vous voulez économiser des octets et du temps de parsing en écrivant une 
+     matrice unique à la place d'une série de transformations classiques.</P>
+
+<P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>

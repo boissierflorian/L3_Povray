@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>torus - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+   <A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>torus</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er un tore (terme math&eacute;matique d&eacute;crivant un beignet, "ouuuh, un donut !").</P>
+
+<IMG SRC="povfr-torus-01.jpg" BORDER=2></IMG>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 2.0 +sup.</P>
+
+<H2>syntaxe</H2>
+ <PRE>
+torus {
+       Rayon_1, <SPAN class="comm">//nombre décimal</SPAN>
+       Rayon_2, <SPAN class="comm">//nombre décimal</SPAN>
+       (sturm)  <SPAN class="comm">//booléen</SPAN>
+
+       (..modificateurs d'objets..)
+       (..transformations..)
+       (..mat&eacute;riau..)
+       }
+ </PRE>
+
+ <P>Le tore est le solide produit par la r&eacute;volution d'un disque autour d'un axe.  La distance
+ par rapport &agrave; l'axe est le rayon principal Rayon_1, le rayon du disque est le rayon secondaire Rayon_2.
+ L'axe de r&eacute;volution est y, et le tore, centr&eacute; &agrave; l'origine (&lt;0, 0, 0&gt;), repose sur le plan x-z.
+ Pour lui faire occuper une autre position, il faudra lui appliquer des transformations.
+ </P>
+
+
+ <P>Si le rendu du tore montre quelques imperfections, on peut sp&eacute;cifier le mot cl&eacute; <strong>sturm</strong>.
+ Ceci permet &agrave; POV-Ray d'utiliser un syst&egrave;me de r&eacute;solution d'&eacute;quations plus pr&eacute;cis (mais plus lent).</P>
+
+<H2>exemple</H2>
+ <PRE>
+ // un joli beignet qui tra&icirc;ne par terre
+ plane { y, 0 texture {Sol} }
+ torus { 3, 1 translate y*1 texture {Beignet} }
+ </PRE>
+
+<H2>CSG</H2>
+  <P>Fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis.</P>
+
+<H2>Remarque</H2>
+  <P>La bo&icirc;te d'optimisation (bounding box) interne de POV-Ray pour le tore est tr&egrave;s efficace.
+  Il est fortement d&eacute;conseill&eacute; d'en sp&eacute;cifier une soi-m&ecirc;me (sauf cas sp&eacute;ciaux, dans une CSG
+  par exemple...), sous peine d'un fort ralentissement du calcul.</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Supertorus(MajorRadius, MinorRadius, MajorControl, MinorControl, Accuracy, MaxGradient).</STRONG>
+<BR>
+ Crée un tore dont la section et l'allure ne sont pas forcément circulaires.  Une sorte de
+ tore superellipsoide.
+<BR>
+<IMG src="povfr-tor-02.jpg" border=2>
+</P>
+
+  <P><I>R&eacute;dacteur: Christophe Bouffartigue (Bouf)</I></P>
+  
+</BODY>
+
+</HTML>

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+
+<HTML>
+<HEAD>
+<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+<TITLE>les fractales - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> 
+/ <A href="index-cpt.htm">vers l'index des concepts généraux</A></P>
+
+<H1>les fractales</H1> 
+<H2>pourquoi cette page ?</H2>
+<P>Au vu des nombreuses fonctions de POV-Ray faisant appel, d'une mani&egrave;re ou d'une
+autre, aux fractales, il nous est apparu n&eacute;cessaire de fournir une br&egrave;ve synth&egrave;se &agrave; 
+ce sujet.  En effet, le param&eacute;trage particulier de certaines fonctionnalit&eacute;s est
+beaucoup plus clair et facile une fois qu'un minimum de concepts li&eacute;s aux fractales
+ont &eacute;t&eacute; compris.</P>
+
+<H2>d&eacute;finition</H2>
+<P>
+Une fractale est un objet math&eacute;matique.  Le terme "objet" est &agrave; prendre ici au sens
+tr&egrave;s large, au sens du "r&eacute;sultat d'un processus de nature math&eacute;matique", une "chose
+math&eacute;matique" qui peut prendre des apparences infiniment vari&eacute;es.</P>
+<P>
+Une fractale est, donc, un objet math&eacute;matique qui poss&egrave;de deux propri&eacute;t&eacute;s 
+particuli&egrave;res : elle est issue d'un processus it&eacute;ratif, et pr&eacute;sente un caract&egrave;re
+de self-similarit&eacute;.</P>
+<H3>un processus it&eacute;ratif ?</H3>
+ <P>Un processus (suite d'op&eacute;rations) it&eacute;ratif est un processus en boucle (r&eacute;p&eacute;t&eacute;
+    ind&eacute;finiment) dans lequel le r&eacute;sultat obtenu &agrave; une &eacute;tape du processus est 
+    r&eacute;inject&eacute; dans l'&eacute;tape suivante.</P>
+ <P>Exemple : <STRONG>a = a&#178; + b</STRONG>.  Si je donne, au d&eacute;part une valeur de
+    1 &agrave; <STRONG>a</STRONG> et <STRONG>b</STRONG>, la premi&egrave;re &eacute;tape me donnera 
+   <STRONG>a = 1&#178; + 1</STRONG>, donc <STRONG>a = 2</STRONG>.  Je repasse la nouvelle
+   valeur de <STRONG>a</STRONG> dans la formule : a = 2&#178; + 1, donc <STRONG>a = 5</STRONG>,
+   qu'il me reste &agrave; r&eacute;injecter dans la formule, et ainsi de suite, ind&eacute;finiment.
+   Nous venons de g&eacute;n&eacute;rer un processus it&eacute;ratif !</P>
+   <PRE>
+//en bon langage Povien :
+#declare a = 1;
+#declare b = 1;
+#while (boucle &lt; ...)
+ #declare a = a*a + b;
+#declare boucle=boucle+1;
+#end
+</PRE>
+
+ <P>Autre exemple, graphique : prenez un segment de droite, coupez-le en 3 segments
+    &eacute;gaux, et enlevez le segment central.  Il vous reste deux segments distants.
+    Sur chacun de ces deux segments, pratiquez la m&ecirc;me op&eacute;ration : division en
+    trois segments, et retrait du segment central.  Vous voil&agrave; avec quatre segments
+    encore un peu plus petits.  R&eacute;p&eacute;tez ce processus ind&eacute;finiment, et vous voil&agrave;
+    en train de jouer avec l'"ensemble de Cantor".</P> 
+<IMG src="cantor.jpg" border=2 alt="l'ensemble de cantor">
+ <P>Ce petit jeu vous d&eacute;montre que, bien qu'&eacute;tant math&eacute;matique, le processus
+    de formation d'une fractale ne passe pas forc&eacute;ment par une formule.</P>
+<P><I>En informatique, il est impossible de produire une infinit&eacute; d'it&eacute;rations,
+      et beaucoup de fonctions fractales demandent un param&egrave;tre de "nombre
+      maximum d'it&eacute;rations", que l'on peut comprendre comme un "nombre d'&eacute;tapes
+      de raffinement successives".</I></P>
+<H3>la self-similarit&eacute; ?</H3>
+ <P>Un "objet" self-similaire est un objet dont les parties, jusqu'&agrave; la plus petite,
+    ressemblent au tout, et inversement.  Un arbre est self-similaire : comparez
+    un arbre complet et une de ses branches, vous verrez qu'il y a une ressemblance
+    marqu&eacute;e entre les deux, dans la fa&ccedil;on dont les branches se scindent en branches
+    plus petites, qui &agrave; leur tour forment des brindilles, etc... (c'est d'ailleurs
+    une vieille astuce pour faire les arbres dans les maquettes d'architecture,
+    un bout de branche, et, hop !, voici un arbre en mod&egrave;le r&eacute;duit !).</P>
+ <P>L'ensemble de Cantor vu un peu plus haut est self-similaire, chaque nouveau
+    petit segment bris&eacute; ayant la m&ecirc;me allure que le grand segment bris&eacute; du d&eacute;but,
+    et cela ind&eacute;finiment.</P>
+ <P>Attention, "similaire" ne veut pas toujours dire "&eacute;gal" (m&ecirc;me en r&eacute;duction)
+    et de nombreuses fractales pr&eacute;sentent de subtiles variations selon l'&eacute;chelle
+    &agrave; laquelle on les observe.</P>
+
+<H2>exemples de fractales simples</H2>
+<H3>courbe de Koch</H3>
+<P>Prendre un segment de droite, le diviser en 3, et &eacute;lever un triangle &eacute;quilat&eacute;ral
+   sur le segment central.  R&eacute;p&eacute;ter cette op&eacute;ration sur les 4 segments r&eacute;sultants,
+   et ainsi de suite.</P>
+<IMG src="koch.jpg" border=2 alt="courbe de Koch">
+<H3>c&ocirc;te artificielle (plasma)</H3>
+<P>Celle-ci fait intervenir un peu d'al&eacute;atoire.  Prendre une grille de points,
+   chaque point pouvant recevoir une couleur (= hauteur).
+   Prendre une valeur au hasard pour les 4 coins de la grille, puis affiner
+   progressivement, en tenant compte des valeurs des points voisins (&eacute;quidistants)
+   plus un coefficient de hasard.</P>
+<TABLE>
+<TR>
+<TD><IMG src="plasma1.jpg"></TD><TD><IMG src="plasma2.jpg"></TD><TD><IMG src="plasma3.jpg"></TD><TD><IMG src="plasma4.jpg"></TD>
+</TR>
+<TR>
+<TD><IMG src="plasma5.jpg"></TD><TD><IMG src="plasma6.jpg"></TD><TD><IMG src="plasma7.jpg"></TD><TD><IMG src="plasma8.jpg"></TD>
+</TR>
+</TABLE>
+<H3>carpette de Sierpinksy</H3>
+<P>C'est une sorte d'ensemble de Cantor, mais en 2D.  Prendre un carr&eacute;, le diviser
+   en 9, retirer le carr&eacute; central, et r&eacute;p&eacute;ter l'op&eacute;ration sur les 8 carr&eacute;s restants,
+   et ainsi de suite.  La version 3D de cette fractale est l'&eacute;ponge de Menger.</P>
+<IMG src="sierp.jpg" border=2 alt="carpette de Sierpinksy">
+
+<H2>la dimension fractale</H2>
+<P>Ceci est une notion cl&eacute;, et donne tout sons sens au mot "fractales".  Repensons
+   &agrave; notre ensemble de Cantor.  Au d&eacute;but, celui-ci est un simple segment de droite,
+   qui contient une infinit&eacute; de points, un objet de dimension 1 (lin&eacute;aire), constitu&eacute;
+   d'objets de dimension 0, des points.  Au fil du processus, nous allons obtenir
+   de plus en plus de segments, de plus en plus petits.  En th&eacute;orie, chacun de ces
+   segments contient lui m&ecirc;me une infinit&eacute; de points ; cependant, comme nous avons
+   pris un malin plaisir &agrave; retirer chaque fois des morceaux de segments (donc des
+   points), la somme de ces segments est form&eacute;e d'une infinit&eacute; de points, mais une
+   infinit&eacute; moins grande que l'infinit&eacute; du d&eacute;but :-)))  De plus, au bout d'une 
+   infinit&eacute; d'it&eacute;rations, on peut logiquement supposer qu'il restera une infinit&eacute;
+   de segments infiniment petits (des points, quoi !).</P>
+<P>Nous voici donc avec un objet qui est un peu plus qu'un ensemble de points, 
+   mais qui n'est pas non plus vraiment une droite.  Un objet qui n'est ni
+   de dimension 0, ni de dimension 1.  Pour qualifier la dimension (topologique)
+   de cet objet, il faut recourir &agrave; une dimension interm&eacute;diaire que l'on peut
+   exprimer sous forme d'une FRACTion : log 2 / log 3, c'est-&agrave;-dire 0,63.., 
+   un ensemble de points qui tend &agrave; devenir une droite.  </P>
+<P>Ainsi, nous pouvons rencontrer des fractales dont la dimension se situe
+   entre 1 et 2 (ligne qui, par ses circonvolutions, tend &agrave; devenir un plan),
+   entre 2 et 3 (surface 2D qui tend vers la 3D), etc...</P>
+<P>Cette dimension fractale permet de "classer" les fractales, selon la mani&egrave;re
+   dont elles tendent &agrave; occuper l'espace.  Par exemple, 
+   la courbe de Koch est une courbe qui tend &agrave; remplir un espace plan (dimension
+   fractale : 1,26...), et la carpette de Sierpinsky est &eacute;galement une courbe
+   qui tend &agrave; remplir un plan, mais elle le remplit davantage, et sa dimension
+   fractale est de 1,89.. (logique : elle est plus proche de la dimension 2).  </P>
+
+<H2>comment calcule-t-on la dimension fractale ?</H2>
+<P>De la m&ecirc;me fa&ccedil;on qu'on calcule la dimension de tout objet, mais en employant
+   une formule g&eacute;n&eacute;ralis&eacute;e.  D&eacute;terminer la dimension, c'est &eacute;tablir le rapport
+   entre la fa&ccedil;on dont un objet occupe l'espace, et sa variation d'&eacute;chelle (le "<STRONG>scale</STRONG>", quoi !).</P>
+<P>Prenons un cube de c&ocirc;t&eacute; <STRONG>A</STRONG>, multiplions son &eacute;chelle par 2.
+   Nous obtenons un cube dont les ar&ecirc;tes sont deux fois plus longues (A*2),
+   mais dont le volume est 8 fois plus grand (il faut 8 cubes de c&ocirc;t&eacute; A
+   pour remplir ce nouveau cube).</P>
+<P>La formule g&eacute;n&eacute;rale, c'est : </P>
+<PRE>
+            log (rapport ensemble/parties)
+dimension = ------------------------------
+            log (rapport d'&eacute;chelle)
+</PRE>
+<P>Pour notre cube, cela donne : log 8 / log 2, qui est &eacute;gal &agrave; 3 !  Rien d'&eacute;tonnant,
+   c'est un objet &agrave; 3 dimensions !  La m&ecirc;me formule peut s'appliquer aux fractales,
+   comme par exemple l'ensemble de Cantor : chaque nouvelle it&eacute;ration divise la longueur
+   de la pr&eacute;c&eacute;dente par 3 (rapport d'&eacute;chelle : 3), et l'it&eacute;ration pr&eacute;c&eacute;dente est
+   "copi&eacute;e" deux fois dans la nouvelle (rapport ensemble/parties : 2).  Sa dimension
+   fractale est donc log 2 / log 3 = 0,63..</P>
+<P>Le calcul de la dimension de certaines fractales (comme l'ensemble de Mandelbrot)
+   est loin d'&ecirc;tre trivial, mais le principe est le m&ecirc;me.  <i>Cependant, il n'est pas
+   crucial de savoir calculer cette dimension, mais plut&ocirc;t de comprendre ce qu'elle
+   signifie, et comment elle "qualifie" l'objet fractal</i>.</P>
+
+<H2>les fractales et POV-Ray</H2>
+<P>Nous brossons ici un rapide tableau de la mani&egrave;re dont les fractales sont
+  utilis&eacute;es ici et l&agrave; dans POV-Ray.</P>
+<H3>motifs</H3>
+<P>De nombreux motifs sont bas&eacute;s sur un algorithme fractal, ce qui leur permet
+   de ne pas se r&eacute;p&eacute;ter, tout en restant homog&egrave;nes et identiques d'un rendu &agrave; l'autre,
+   impr&eacute;visibles, mais d&eacute;terministes (ne devant rien au hasard).  La plupart d'entre eux 
+   utilisent une
+   base de "bruit" fractal : agate, bozo, granite,.., certains autres utilisent
+   des algorithmes plus particuliers : crackle, mandel,...</P>
+<P>L'apparition de la fonction <STRONG>eval_pigment ()</STRONG> permet &agrave; l'utilisateur
+   d'aller chercher des valeurs dans les motifs, et ainsi d'utiliser leurs propri&eacute;t&eacute;s
+   fractales pour d'autres usages, tels que le placement semi-al&eacute;atoire d'objets.</P>
+<H3>turbulence</H3>
+<P>La turbulence impl&eacute;ment&eacute;e dans POV-Ray est un algorithme fractal.  Si vous
+   en lisez la description dans la pr&eacute;sente documentation, vous verrez qu'il 
+   s'agit bien d'un processus it&eacute;ratif (les "pas" successifs), et self-similaire
+   (vous pouvez zoomer ind&eacute;finiment sur une texture turbulente, ses "d&eacute;placements"
+    auront toujours la m&ecirc;me allure)</P>
+<H3>objets fractals</H3>
+<P>On pense imm&eacute;diatement &agrave; la fameuse <STRONG>julia</STRONG>, qui est en fait
+   une tranche 3D d'un objet &agrave; 4 dimensions ! (un peu comme une coupe est une
+   tranche en 2D d'un objet en 3D).</P>
+<P>Les isosurfaces apportent &eacute;galement leur lot de fractales, le plus souvent
+   par le biais de fonctions pr&eacute;d&eacute;finies pr&ecirc;tes &agrave; l'emploi, telles que les
+   "multifractales &agrave; cr&ecirc;tes", et autres chim&egrave;res.</P>
+<P>Enfin, la cr&eacute;ation, par le biais de <STRONG>#macro</STRONG>, de certains
+   objets particuliers (arbres,...) fait appel &agrave; des algorithmes fractals :
+   les it&eacute;rations et la self-similarit&eacute; obtenus par un processus r&eacute;cursif.</P>
+<H3>tirages al&eacute;atoires</H3>
+<P>Afin de permettre la g&eacute;n&eacute;ration de "listes" al&eacute;atoires &agrave; chaque fois identiques,
+   des calculs it&eacute;ratifs sont utilis&eacute;s (quoique on s'approche ici davantage de
+   la th&eacute;orie du chaos que des fractales).</P>
+
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

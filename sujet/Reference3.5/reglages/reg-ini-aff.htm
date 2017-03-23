@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>options - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> -
+<A href="reg-ini-aaa.htm">page précédente : antialiasing</A>
+</P>
+
+<P>"n" repr&eacute;sente une valeur enti&egrave;re, "n.n" repr&eacute;sente une valeur d&eacute;cimale, "b"
+   repr&eacute;sente une valeur bool&eacute;enne (on/off), "c", repr&eacute;sente une cha&icirc;ne.</P>
+
+<H2>options d'affichage</H2>
+<H3>modes graphiques</H3>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+D, -D</TD>       <TD>Display=b</TD>         <TD>-</TD>  <TD>enclenche l'affichage progressif de l'image calcul&eacute;e</TD></TR>
+ <TR><TD>+Dn, -Dn</TD>     <TD>Video_Mode=n</TD>      <TD>0</TD>  <TD>s&eacute;lectionne le mode d'affichage &agrave; utiliser</TD></TR>
+ <TR><TD>+Dnx, -Dnx</TD>   <TD>Palette=x</TD>         <TD>??</TD> <TD>s&eacute;lectionne une palette d'affichage</TD></TR>
+ <TR><TD>(inexistant)</TD> <TD>Display_Gamma=n.n</TD> <TD>??</TD> <TD>d&eacute;termine le gamma d'affichage</TD></TR>
+</TABLE>
+<P>Le choix du mode d'affichage n'a de sens que pour les versions "console" de POV-Ray, celles
+   fonctionnant en environnement graphique utilisant le mode de l'environnement.  Une valeur
+   de 0 (+D0) provoque la s&eacute;lection automatique du mode d'affichage.</P>
+<P>Pour ce qui concerne le gamma, voyez la section &eacute;ponyme dans les "concepts g&eacute;n&eacute;raux".</P>
+
+<H3>divers</H3>
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+P, -P</TD>   <TD>Pause_When_Done=b</TD> <TD>-</TD> <TD>une fois l'image termin&eacute;e, se mettre en pause</TD></TR>
+ <TR><TD>+V, -V</TD>   <TD>Verbose=b</TD>         <TD>-</TD> <TD>enclenche l'affichage des messages (warnings, statistics,..)</TD></TR>
+ <TR><TD>+UD, -UD</TD> <TD>Draw_Vistas=b</TD>     <TD>-</TD> <TD>enclenche le trac&eacute; des vista_buffers</TD></TR>
+</TABLE>
+<P>Le "vista buffer" est un syst&egrave;me d'optimisation des calculs, qui consiste &agrave; projeter dans
+   le plan de l'image les limites des "bo&icirc;tes d'optimisation", sous forme de rectangles hi&eacute;rarchis&eacute;s.
+   Cela permet &agrave; POV-Ray d'&eacute;viter de lancer des tests d'intersection en 3D si le "buffer" 2D
+   d'un objet donn&eacute; ne comprend m&ecirc;me pas le pixel qui est calcul&eacute;.  L'option <STRONG>+UD</STRONG>
+   permet de visualiser ces rectangles, en bleu et en rouge.  Attention, le "vista buffer"
+   ne marche pas dans les modes de perspectives "d&eacute;formants" (o&ugrave; les droites ne restent pas
+   droites).</P>
+
+<TABLE border=1 align=center width=100%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+SPn</TD> <TD>Preview_Start_Size=n</TD> <TD>1</TD><TD>taille de d&eacute;part des &eacute;l&eacute;ments de la mosa&iuml;que</TD></TR>
+ <TR><TD>+EPn</TD> <TD>Preview_End_Size=n</TD>   <TD>1</TD><TD>taille finale des &eacute;l&eacute;ments de la mosa&iuml;que</TD></TR>
+</TABLE>
+<P>Ces options permettent, tout en gardant la r&eacute;solution de l'image, d'effectuer des rendus
+   grossiers mais rapides, avec un raffinement successif.  Le rendu sera constitu&eacute; de gros pixels,
+   dont la taille initiale (+SPn) doit &ecirc;tre une puissance de 2 : 1, 2, 4, 8, 16, 32,...
+   Ensuite, le rendu reprend automatiquement en utilisant une taille de pixel deux fois
+   plus petite que la pr&eacute;c&eacute;dente, jusqu'&agrave; atteindre la taille de pixel sp&eacute;cifi&eacute;e avec
+   +EPn.  Si cette derni&egrave;re taille est sup&eacute;rieure &agrave; 1, POV-Ray finira avec un rendu d'une
+   finesse de 1 pixel.  Attention, seule la derni&egrave;re image sera sauvegard&eacute;e.</P>
+
+<P><A href="reg-ini-out.htm">page suivante : options de sortie</A></P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

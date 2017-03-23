@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<LINK REL="STYLESHEET" HREF="monstyle.css">
+<title>Première scène</title>
+</head>
+<body>
+<h1>Votre première scène</h1>
+<p>Commencez par créer un répertoire 
+<code><span id ="evidence">Tp1</span>
+</code>. Vous y sauvegarderez tous les fichiers relatifs à ce premier TP d'initiation à POVRay.</p>
+Dans votre éditeur de texte favori éditez le script suivant. Vous le nommerez 
+<code><span id ="evidence">premierescene.pov</span></code>.
+ <p>
+ <tt>// inclusion des couleurs prédéfinies<br>
+  #include "colors.inc"<br>
+  <br>
+  // définition de la couleur de fond<br>
+  background { color Cyan }<br>
+  <br>  
+  // positionnement de la caméra<br>
+  camera {<br>
+    &nbsp;&nbsp;location <0, 2, -3><br>
+    &nbsp;&nbsp;look_at  <0, 1,  2><br>
+  }<br>
+  <br>
+  // définition d'une source<br>
+  light_source { <br>
+  &nbsp;&nbsp;<2, 4, -3><br>
+  &nbsp;&nbsp; color White<br>
+  }<br>
+  <br>
+  // définition d'une sphère<br>
+  sphere {<br>
+   &nbsp;&nbsp; <0, 1, 2>, 2<br>
+   &nbsp;&nbsp; texture {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;  pigment { color Yellow }<br>
+   &nbsp;&nbsp; }<br>
+  }<br>
+  </tt>
+  </p>
+  <p>
+  Pour faire exécuter ce script par POVRay tapez la commande suivante 
+  dans un terminal :<br>
+  <tt>povray scene1.pov +P</tt>
+  </p>
+  <p>Vous obtenez alors la petite image suivante. 
+<p><img src="Images/scene1.png" width="20%" height="20%" border="0" hspace="5" vspace="5" 
+	alt="scène couleur" align="left">
+    <p>Elle ne représente pas l'état de l'art
+   en infographie ! Elle a été obtenue à l'aide d'un script contenant 
+  le nombre minimal de commandes nécessaires au rendu d'une scène.
+  </p>
+  <p>Dans la commande le paramètre <tt>+P</tt> demande à POVRay de se mettre
+  en mode pause après avoir effectué le rendu de la scène. Sans ce paramètre POVRay 
+  arrête immédiatement son exécution et la fenêtre contenant l'image qui vient d'être
+  créée est fermée. Dans l'un et l'autre cas vous trouverez une sauvegarde de votre 
+  image dans un fichier au format PNG. Le nom du fichier sera identique au nom du fichier contenant le script povray exécuté (à l'extension près ...)</p>
+    <p>Vous pouvez d'autre part modifier la taille de l'image à générer en utilisant les options <tt>+H</tt> et <tt>+W</tt> sur la ligne de commande. Par exemple, la commande : </p>
+    <p><tt>povray scene1.pov +P +W800 +H600</tt></p>
+    fournira un image en résolution <tt>800 x 600</tt>
+	<p>
+	Vous trouverez plus de détails sur la définition d'une 
+	<a href="Reference3.5/camlum/cam-came.htm" target="aide">caméra</a>, d'une
+	 <a href="Reference3.5/camlum/lum-gene.htm" target="aide">source de lumière</a> 
+	 et d'une 
+	 <a href="Reference3.5/objets/obj-solide-sphere.htm" target="aide">sphère</a> 
+	 dans l'aide en français déjà citée.
+	</p>
+	<p>Vous pourrez aussi découvrir dans cette aide la manière de définir un 
+	<a href="Reference3.5/materiaux/index-mat.htm" target="aide">matériau</a>. Dans 
+	cette partie où vous êtes en train de découvrir POVRay intéressez-vous
+	uniquement à la façon de définir la couleur d'un objet. Ne vous perdez pas dans
+	cette abondante documentation ! </p>
+	<p>Recherchez le fichier <tt>colors.inc</tt>. Il se trouve dans le sous-répertoire
+	<tt>include</tt> du répertoire d'installation de POVRay 
+	(généralement <tt>/usr/share/povray/include</tt>). Vous découvrirez ainsi 
+	les couleurs prédéfinies de POVRay.
+	</p>
+	<h2>Travail à réaliser</h2>
+	<p><img src="Images/scene2.png" width="10%" height="10%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> &Eacute;loignez la sphère vers l'arrière de la scène de 10 unités.<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+	<p><img src="Images/scene3.png" width="10%" height="10%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> Ajoutez une sphère à la scène. Sa couleur doit être différente de celle de la sphère déjà présente et elle doit se trouver devant la première sphère.  <br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+	<p><img src="Images/scene4.png" width="10%" height="10%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> Ajoutez une  source de lumière ponctuelle. Elle devra être placée symétriquement à la précédente par rapport au plan d'équation x=0.  <br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+	<p><img src="Images/scene5.png" width="10%" height="10%" border="0" hspace="5" vspace="5" alt="scène couleur" align="left"> Après avoir étudié la documentation concernant les <a href="Reference3.5/objets/obj-solide-plane.htm" target="aide">plans</a> infinis, ajouter un plan infini parallèle au plan Oxy derrière les deux sphères précédemment définies. Notez l'apparition de l'ombre des sphères sur le plan.<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+
+
+</body>
+</html>

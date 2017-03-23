@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>les isosurfaces - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A>
+ / <A href="../index-obj.htm">vers l'index des objets</A>
+ / <A href="obj-iso-pre.htm">page précédente : optimisation et précision</A>
+</P>
+<H1>les isosurfaces - fonctions de pigments et motifs</H1>
+ <P>Nous allons maintenant voir une possibilité extraordinaire des isosurfaces, 
+    la facult&eacute; d'employer un pigment ou un motif comme fonction.  La valeur de l'isosurface
+    en un point donn&eacute; de l'espace d&eacute;pendra de la couleur du pigment ou de la valeur
+    dui motif en ce point !</P>
+ <P>Puisque le d&eacute;ployement des motifs est infini, il faut les "accrocher" &agrave; quelque 
+    chose, c'est pour cette raison que nous allons combiner un plan et un motif :</P>
+<pre>
+#declare Plan_Y = function {x*0 + y*1 + z*0}
+#declare Motif1   = function {pattern {granite scale 4}}
+
+isosurface { 
+  function {Plan_Y(x,y,z) + Motif1(x,y,z)*0.5} 
+  threshold 0   
+  contained_by {box {-1,1}}
+  accuracy .001
+  max_gradient 20
+}
+</pre>
+<IMG src="iso-dm2-01.png" border=2 alt="" width=160 height=120>
+<P>La fonction Motif1 utilise la fonction <STRONG>pattern</STRONG> (motif), qui permet d'extraire
+   la valeur du motif choisi (entre accolades, juste après) en chaque point (x,y,z) de l'espace.</P>
+<P>On remarquera que, comme avec l'exemple des cosinus, il est possible de contr&ocirc;ler
+   l'amplitude et la fr&eacute;quence du relief.  Le <STRONG>scale</STRONG> dans la d&eacute;finition
+   du motif contr&ocirc;le la fr&eacute;quence, tandis que le coefficient multiplicateur &agrave; c&ocirc;t&eacute;
+   du nom de la fonction du motif, dans la définition de l'isosurface, d&eacute;termine l'amplitude.</P>
+<P>Le motif peut &ecirc;tre d&eacute;fini &agrave; l'aide de toutes les transformations et tous les modificateurs
+   habituellement associables aux motifs.</P>
+<P>On peut également utiliser un <STRONG>pigment</STRONG>, avec toutes les structures complexes
+   que cela permet.  Dans ce cas, il faudra veiller à utiliser l'opérateur <STRONG>.gray</STRONG>,
+   afin de convertir le vecteur de couleur sortant en un nombre décimal exploitable dans la 
+   fonction de l'isosurface :</P>
+<PRE>
+#declare Plan_Y = function {x*0 + y*1 + z*0}
+#declare Pigment1   = function {pigment {.. (définition de pigment) ..}}
+
+isosurface { 
+  function {Plan_Y(x,y,z) + Pigment1(x,y,z).gray} 
+  ...
+}
+</PRE>
+
+<P>Attention : </P>
+<P>Selon la complexit&eacute; des motifs employ&eacute;s, les temps de rendu peuvent devenir assez
+   long, et la d&eacute;termination d'une juste valeur de <STRONG>max_gradient</STRONG> est
+   indispensable.</P>
+<P>Les images suivantes montrent ce que diff&eacute;rents types de motifs peuvent donner lors de leur
+  "passage" en 3D.  &Eacute;tant donn&eacute; l'infinit&eacute; des possibilit&eacute;s, l'exhaustivit&eacute; est exclue,
+  alors, exp&eacute;rimentez !</P>
+
+<TABLE>
+	<TR>	 <TD><IMG src="iso-pat-01.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-02.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-03.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-04.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-05.png" border=2 ></TD>
+ </TR>
+
+	<TR>	 <TD><IMG src="iso-pat-06.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-07.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-08.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-09.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-10.png" border=2 ></TD>
+ </TR>
+
+
+	<TR>	 <TD><IMG src="iso-pat-11.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-12.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-13.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-14.png" border=2 ></TD>
+      <TD><IMG src="iso-pat-15.png" border=2 ></TD>
+ </TR>
+</TABLE>
+
+<H2>cas particulier : emploi avec une image_map</H2>
+<P>Nous allons r&eacute;inventer le height_field !!  Voici l'image source :</P>
+<IMG src="iso-hf.png" border=2 alt="" width=160 height=120>
+<pre>
+#declare FunP = function {y}
+#declare Fun1 = function {
+                          pigment {
+                               image_map {
+                                     png "iso-hf.png"
+                                     }
+                                     rotate x*90
+                                     translate &lt;-.5,0,-.5&gt;
+                                     scale 2
+                                     }
+                          }
+                          
+isosurface {
+ function {FunP(x,y,z) - 0.5*Fun1(x,y,z).gray}
+ max_gradient 2
+ pigment {OrangeRed}
+ finish {phong .5}
+}
+</pre>
+<IMG src="iso-dm2-02.png" border=2 alt="" width=160 height=120>
+<P>Mais quel est l'int&eacute;r&ecirc;t de faire un height_field de cette mani&egrave;re, puisque c'est
+   effroyablement plus lent ?  L'int&eacute;r&ecirc;t, c'est de pouvoir combiner ce "height_field" 
+   avec toutes les possibilit&eacute;s des isosurfaces.</P>
+<P>Pour commencer, celle de faire un "smooth" beaucoup plus efficace (sans "escaliers")
+   en ajoutant simplement <STRONG>interpolate 2</STRONG> (<STRONG>interpolate 4</STRONG>
+   fonctionne moins bien dans ce cas) dans la d&eacute;finition de l'<STRONG>image_map</STRONG> (apr&egrave;s "once").</P>
+<IMG src="iso-dm2-03.png" border=2 alt="" width=160 height=120>
+<P>Et surtout, la possibilit&eacute; d'y superposer d'autres pigments, ce qui permet, par exemple,
+   de moduler un relief pour lui donner un aspect rocailleux, m&ecirc;me si la d&eacute;finition du
+   "height_field" est faible, on n'y verra que du feu !</P>
+<P>Il est &eacute;galement possible de cr&eacute;er un height_field sph&eacute;rique par cette m&eacute;thode.
+   Nous n'expliquerons pas comment ici, 'n'avez qu'&agrave; chercher un peu, c'est tr&egrave;s facile !</P>
+<P>Lors des phases de test, vous pouvez mettre une valeur de <STRONG>max_gradient</STRONG>
+   assez faible (entre 1 et 5).  Il y aura quelques imperfections, mais ce sera nettement
+   plus rapide !</P>
+
+<P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+</BODY>
+</HTML>

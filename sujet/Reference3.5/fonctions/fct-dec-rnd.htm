@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>op&eacute;rations sur les nombres d&eacute;cimaux - documentation POV-Ray en fran&ccedil;ais	</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+<H1>nombres décimaux - fonctions aléatoires</H1>
+ <P>Ces fonctions permettent d'obtenir des nombres al&eacute;atoires 
+    dont la succession ne varie pas d'un rendu &agrave; l'autre.</P>
+<H2>syntaxe</H2>
+ <PRE>
+
+#declare NombreAleatoire = rand(seed(Graine));
+
+ou bien :
+
+#declare Liste1 = seed (Graine);
+#declare NombreAleatoire = rand (Liste1);
+
+ </PRE>
+
+<H2>fonctionnement</H2>
+ <P>La fonction <STRONG>rand</STRONG> renvoie une valeur comprise entre 0 et 1 (1 non inclus), de mani&egrave;re (pseudo-)al&eacute;atoire.</P>
+ <P>
+  La gestion des nombres al&eacute;atoires dans POV-Ray s'appuie sur le concept suivant : une succession
+  infiniment longue de valeurs al&eacute;atoires est g&eacute;n&eacute;r&eacute;e &agrave; partir d'un param&egrave;tre appel&eacute; <STRONG>seed</STRONG> ("graine",
+  en anglais).  Des valeurs de <STRONG>seed</STRONG> diff&eacute;rentes engendreront des successions de nombres al&eacute;atoires
+  diff&eacute;rents, mais un m&ecirc;me <STRONG>seed</STRONG> donnera toujours la m&ecirc;me suite de nombres.</P>
+ <P>
+  C'est un peu comme si on avait &agrave; disposition une infinit&eacute; de "listes" de nombres al&eacute;atoires, et
+  qu'on peut choisir dans laquelle de ces listes on va chercher le nombre suivant.</P>
+ <P>
+  L'int&eacute;r&ecirc;t de ce syst&egrave;me, c'est la possibilit&eacute;, dans la m&ecirc;me sc&egrave;ne, d'utiliser plusieurs <STRONG>seed</STRONG>
+  diff&eacute;rents, qui ne vont pas se parasiter.
+ </P>
+  <P>exemple :</P>
+  <PRE>
+   #declare r1=seed(82)
+   #declare r2=seed(240)
+   
+   #declare boucle = 0;
+   #while (boucle < 20)
+    sphere {< rand(r1)*10,rand(r1)*10,rand(r1)*10 >, rand(r2) pigment {Red}}      
+   #declare boucle=boucle+1;
+   #end
+  </PRE>
+  <P>Dans cet exemple, 20 sph&egrave;res sont plac&eacute;es al&eacute;atoirement dans l'espace.  Leur position xyz est contr&ocirc;l&eacute;e par la "liste" r1,
+     tandis que leur rayon est contr&ocirc;l&eacute; par r2.  En clair, cela veut dire que si le <STRONG>seed</STRONG> choisi pour r1 me donne une belle
+     disposition, je peux jouer sur les rayons s&eacute;par&eacute;ment, sans chambouler la disposition des sph&egrave;res, ce qui se serait produit
+     si j'avais employ&eacute; r1 partout.</P>
+
+<H2>astuces</H2>
+   <P>Pour modifier la plage de nombres obtenus, il suffit de faire une op&eacute;ration sur <STRONG>rand</STRONG> : rand(r1)*5, par exemple, pour obtenir 
+      des nombres de 0 &agrave; 5.</P>
+   <P>On peut &eacute;galement forcer la sortie de nombres entiers.  Par exemple, pour un jet de d&eacute; &agrave; 6 faces :</P>
+    <PRE>
+     #declare JetDe6Faces=1+int(6*rand(r1));
+    </PRE>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "rand.inc" :</P>
+<P><I>(la variable 'Stream' représente la valeur de <STRONG>seed</STRONG>).</I></P>
+<P><STRONG>SRand(Stream)</STRONG> : sort un nombre aléatoire entre -1 et +1.</P>
+
+<P><STRONG>RRand(Min, Max, Stream)</STRONG> : sort un nombre aléatoire entre Min et Max.</P>
+
+<P><STRONG>VRand(Stream)</STRONG> : sort un vecteur aléatoire entre &lt;0,0,0&gt; et &lt;1,1,1&gt;.</P>
+
+<P><STRONG>VRand_In_Box(PtA, PtB, Stream)</STRONG> : sort un vecteur aléatoire entre les vecteurs PtA et PtB.</P>
+
+<P><STRONG>VRand_In_Sphere(Stream)</STRONG> : sort un vecteur aléatoire dans la sphère {&lt;0,0,0&gt;,1}.</P>
+
+<P><STRONG>VRand_On_Sphere(Stream)</STRONG> : sort un vecteur aléatoire sur la surface de la sphère {&lt;0,0,0&gt;,1}.</P>
+
+<P><STRONG>VRand_In_Obj(Object, Stream)</STRONG> : sort un point aléatoire à l'intérieur d'un objet donné.</P>
+
+<P>Les macros suivantes permettent de jouer avec des distributions (répartition statistique des
+   nombres) différentes :</P>
+<P><STRONG>
+Rand_Cauchy(Mu, Sigma, Stream)<BR>
+Rand_Student(N, Stream)<br>
+Rand_Normal(Mu, Sigma, Stream)<br>
+Rand_Gauss(Mu, Sigma, Stream)<br>
+Rand_Spline(Spline, Stream)<br>
+Rand_Gamma(Alpha, Beta, Stream)<br>
+Rand_Beta(Alpha, Beta, Stream)<br>
+Rand_Chi_Square(N, Stream)<br>
+Rand_F_Dist(N, M, Stream)<br>
+Rand_Tri(Min, Max, Mode, Stream)<br>
+Rand_Erlang(Mu, K, Stream)<br>
+Rand_Exp(Lambda, Stream)<br>
+Rand_Lognormal(Mu, Sigma, Stream)<br>
+Rand_Pareto(Alpha, Stream)<br>
+Rand_Weibull(Alpha, Beta, Stream)<br>
+Rand_Bernoulli(P, Stream)<br>
+Prob(P, Stream)<br>
+Rand_Binomial(N, P, Stream)<br>
+Rand_Geo(P, Stream)<br>
+Rand_Poisson(Mu, Stream)</STRONG>
+</P>
+
+<P><I>r&eacute;dacteurs : Martial Rameaux / Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

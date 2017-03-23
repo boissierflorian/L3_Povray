@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - motifs</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> -
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>les motifs géométriques (gradient ... quilted)</H1>
+
+<P>Ces motifs ont une géométrie régulière, répétitive.  Certains devront être 
+   assortis d'un peu de turbulence pour donner les meilleurs résultats (wood, marble,..).</P>
+
+<A name="gradient">
+<H3>gradient</H3> 
+
+<P><I>POV-Ray 2.0</I></P>
+<P>Ce motif, suivi d'un vecteur, d&eacute;ploie les valeurs de mani&egrave;re lin&eacute;aire le
+   long de ce vecteur (comme une succession de plans perpendiculaires au vecteur).</P>
+<PRE>pigment {gradient y ...}</PRE>
+<P><I>Important : avec POV-Ray 3.5, le motif <STRONG>gradient</STRONG> a légèrement
+      changé !  Auparavant, il présentait une symétrie de part et d'autre (positif/négatif)
+      de l'axe spécifié.  Désormais, le dégradé se fait toujours dans la même direction,
+      celle donnée par l'axe.  Cela pourrait poser des problèmes dans certains cas : si vous
+      utilisiez <STRONG>gradient</STRONG> pour faire une sphère de ciel, préférez le motif
+      <STRONG>planar</STRONG>, qui ne vous causera pas de souci avec la turbulence.  Au cas
+      ou vous voudriez retrouver l'"ancienne manière" de <STRONG>gradient</STRONG>, utilisez
+      ce motif-ci :</I></P>
+<PRE> function {abs(y)} // y étant le vecteur de direction</PRE>
+ <IMG SRC="tx-sp-09.jpg" border=2>
+
+<A name="leopard">
+<H3>leopard</H3> 
+<P><I>POV-Ray 2.0 (?)</I></P>
+ <P><strong>leopard</strong> produit des sph&egrave;res espac&eacute;s r&eacute;guli&egrave;rement dans l'espace. Le centre des sph&egrave;res
+ renvoit la valeur 1. La formule exacte, pour les matheux est : <span class="code">pow((sin(x) + sin(y) + sin(z))/3, 2)</span>
+</P>
+ <IMG SRC="tx-sp-11.jpg" border=2>
+
+<A name="marble">
+<H3>marble</H3> 
+<P><I>POV-Ray 2.0</I></P>
+ <P><strong>marble</strong> produit des bandes suivant l'axe x. Il est en fait &eacute;quivalent &agrave;
+ <strong>gradient x</strong>, mais avec la forme d'onde <strong>triangle_wave</strong> par d&eacute;faut.
+ Ce motif est utile pour faire du marbre (vous aviez devin&eacute; ?), en appliquant une assez forte
+ <strong>turbulence</strong>.</P>
+<pre>pigment {marble ... warp {turbulence 0.2}}</pre>
+<P><I>Utilisé dans un <STRONG>pigment</STRONG>, ce motif possède une <STRONG>color_map</STRONG> spécifique par défaut.</I></P>
+ <IMG SRC="tx-sp-13.jpg" border=2>
+
+<A name="onion">
+<H3>onion</H3> 
+<P><I>POV-Ray 2.0</I></P>
+ <P>Le motif <strong>onion</strong> repr&eacute;sente des sph&egrave;res concentriques (toutes centr&eacute;es &agrave; l'origine).
+ Entre chaque sph&egrave;re, la valeur du motif varie lin&eacute;airement de 0 a 1. Cette valeur repr&eacute;sente en fait
+ la partie d&eacute;cimale de la distance entre l'origine et le point d'&eacute;valuation.</P>
+ <IMG SRC="tx-sp-14.jpg" border=2>
+
+<A name="quilted">
+<H3>quilted</H3>
+<P><I>POV-Ray 3.0</I></P>
+<P><strong>quilted</strong> produit une trame régulière formée de carrés en dégradé.
+   Les mots clés optionnels <STRONG>control0</STRONG> et <STRONG>control1</STRONG>, 
+   chacun suivis d'un nombre décimal (le plus souvent compris entre 0 et 1) permettent
+   de déterminer l'allure de ce dégradé.</P>
+<pre>pigment {quilted control1 0.4 control 0.6}</pre>
+ <IMG SRC="tx-sp-16.jpg" border=2>
+<P>Le tableau ci-dessous montre l'évolution de la "courbe" du dégradé, selon les
+   deux paramètres de contrôle.  Ceci prend toute son importance lorsqu'on utilise ce
+   motif dans une normale ou une isosurface.</P>
+ <IMG SRC="qlt-ctrl.png" border=2>
+
+</BODY>
+
+</HTML>

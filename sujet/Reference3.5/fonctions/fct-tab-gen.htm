@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Les tableaux - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+<H1>les tableaux ("arrays")</H1>
+<p>
+Le tableau est mort, un nouveau tableau est appel&eacute; <strong>array</strong>gner :-)</p>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;er des 'collections' de données de même nature, sous forme de tableaux 
+    de 1 &agrave; 5 dimensions.</P>
+
+<H2>compatibilit&eacute;</H2>
+ <P>POV-Ray 3.1 + sup.<BR>
+    POV-Ray 3.5 (#ifdef)</P>
+
+
+<H2>syntaxe</H2>
+<P>initialisation d'un tableau &agrave; 1 dimension :</P>
+<PRE>#declare MonTableau = array[Dimension]</PRE>
+
+<P>on peut aussi en profiter pour introduire des valeurs : </P>
+<PRE>#declare MonTableau = array[Dimension] {Valeur1, Valeur2, Valeur3,...}</PRE>
+
+<P>initialisation d'un tableau &agrave; 2 dimensions : </P>
+<PRE>#declare MonTableau = array[Dimension1][Dimension2] {ValeurA1, ValeurA2, ValeurA3,...
+                                                     ValeurB1, ValeurB2, ValeurB3,...
+                                                     ValeurC1, ValeurC2, ValeurC3,...
+                                                     ...}
+</PRE>
+<P>...et ainsi de suite jusqu'&agrave; un maximum de 5 dimensions (bien qu'il soit difficile de se
+   r&eacute;pr&eacute;senter mentalement un tableau &agrave; 5 dimensions !!).  Le nombre entier entre les crochets
+   repr&eacute;sente la taille du tableau pour chaque dimension.  Tous les types de donn&eacute;es (entiers,
+   d&eacute;cimaux, cha&icirc;nes, identificateurs,...) peuvent &ecirc;tre plac&eacute;s dans un tableau, mais il est
+   imp&eacute;ratif qu'un tableau ne contienne qu'un seul type de donn&eacute;es.  Il n'est pas question
+   que certaines "cases" contiennent des couleurs, et d'autres des cha&icirc;nes.</P>
+<P>introduction d'une valeur dans un tableau : </P>
+<PRE>#declare MonTableau [Position] = Valeur
+#declare MonTableau [PositionH][PositionV] = Valeur
+</PRE>
+
+<P>extraction de la valeur d'une "case" :</P>
+<PRE>#declare Variable = MonTableau [Position]</PRE>
+
+<P>Les positions des &eacute;l&eacute;ments d'un tableau sont num&eacute;rot&eacute;es &agrave; partir de 0&nbsp;: <STRONG>array[4]</STRONG>
+   contient 4 &eacute;l&eacute;ments num&eacute;rot&eacute;s 0, 1, 2, et 3.  N'oubliez pas cela lorsque vous utilisez des boucles
+   pour lire le contenu d'un tableau.</P>
+<P>Lorsque un tableau est initialis&eacute; sans valeurs de d&eacute;part, ses "cases" sont vides, et le restent
+   jusqu'&agrave; ce que une donn&eacute;e y soit plac&eacute;e.  Tenter de lire la valeur d'une "case" vide produira
+   une erreur.</P>
+
+<PRE>
+#declare Tab    = array[4] 
+#declare Tab[2] = pigment{White} // premier &eacute;l&eacute;ment initialis&eacute; avec un pigment 
+#declare Tab[1] =  45            // ERREUR - doit &ecirc;tre un pigment 
+#declare Tab[3] = pigment{Red} 
+#declare Tab[0] = pigment{Black} 
+#declare Tab[4] = pigment{Blue}  // ERREUR - il n'y a que quatre &eacute;l&eacute;ments dans ce tableau (index 0 &agrave; 3)
+</PRE>
+
+<H2>exemples</H2>
+<PRE>
+#declare Tab1  = array[4]     // tableau non initialis&eacute; de 4 &eacute;l&eacute;ments  
+#declare Tab2  = array[3][2]  // tableau non initialis&eacute; &agrave; 2 dimensions 3 lignes et 2 colonnes = 6 &eacute;l&eacute;ments
+
+#declare Tab_Couleur  = array[2] {Black,White} // tableau initialis&eacute; de 2 &eacute;l&eacute;ments (Couleur)  
+</PRE>
+
+<H2>fonctions spécifiques et #ifdef</H2>
+<P><STRONG>dimension</STRONG> retourne le nombre de dimensions d'un tableau (de 1 &agrave; 5, donc).
+  <STRONG>dimension_size</STRONG> retourne le nombre de "cases" pour une dimension donn&eacute;e.</p>
+<PRE>
+#declare MonTab = array[3][5][2]
+dimension (MonTab)        // retourne le nombre de dimensions du tableau, soit 3 
+dimension_size( MonTab,2) // retourne le nombre d'&eacute;l&eacute;ment dans la rang&eacute;e 2, en l'occurence 5.
+</PRE>
+<P>POV-Ray 3.5 permet d'utiliser la directive <STRONG>#ifdef</STRONG> avec n'importe quel &eacute;l&eacute;ment
+   d'un tableau :</P>
+<PRE>
+#declare MonTableau = array [10][10]
+#ifdef (MonTableau[2][5])
+</PRE>
+<H2>exemple complexe</H2>
+<P>Nous allons construire un prisme et le sertir avec un ensemble de cylindres.  L'intérêt du
+tableau, ici, est de pouvoir réutiliser les données des points de plusieurs manières différentes.</P>
+<PRE>
+#include "colors.inc"
+
+//déclarons la série de points définissant le profil :
+#declare SeriePoints = array[13]
+ {<0,0>,<0,1>,<1,1>,<1,2>,<2,3>,<2,1>,<3,1>,<4,0>,<2,0>,<2,-1>,<1,-1>,<1,0>,<0,0>}
+
+//sa hauteur, et le rayon du sertissage :
+#declare Hauteur = 3;
+#declare Rayon = .05;
+
+//récupérons le nombre de points (il resservira souvent) :
+#declare NbrePoints = dimension_size (SeriePoints,1);
+
+//matérialisons le prisme :
+prism {
+ 0 Hauteur NbrePoints
+  //une simple boucle lit les valeurs successives dans le tableau
+ #declare I=0;
+ #while (I < NbrePoints)
+  SeriePoints[I]
+ #declare I=I+1;
+ #end
+ 
+pigment {Red} scale 1
+}
+
+union {
+#declare I=0;
+#while (I < (NbrePoints-1)) //comme on utilise I+1 plus loin, le -1 ici évite de chercher une valeur hors du tableau
+
+ //préparation des vecteurs
+ #declare Vect1 = SeriePoints[I];
+ #declare Vect2 = SeriePoints[I+1];//vecteur 'suivant'
+
+ //objets
+ sphere {<Vect1.x,0,Vect1.y>,Rayon}
+ sphere {<Vect1.x,Hauteur,Vect1.y>,Rayon}
+ cylinder {<Vect1.x,0,Vect1.y>,<Vect2.x,0,Vect2.y>,Rayon}
+ cylinder {<Vect1.x,0,Vect1.y>,<Vect1.x,Hauteur,Vect1.y>,Rayon}  
+ cylinder {<Vect1.x,Hauteur,Vect1.y>,<Vect2.x,Hauteur,Vect2.y>,Rayon}
+
+#declare I=I+1;
+#end   
+ pigment {YellowGreen}
+}
+
+// éléments de mise en scène
+camera {location <10,10,7> look_at <0,0,0> angle 30}
+plane {y,-1 pigment {Wheat}}
+light_source {<30,40,50> White*2}
+</PRE>
+<IMG src="illref-tab-01.jpg">
+
+<h2>Remarques</H2>
+<p>
+Les grands tableaux non initialis&eacute;s ne consomment pas beaucoup de m&eacute;moire. 
+Ce sont des tableaux de pointeurs, n'occupant que 4 octets par &eacute;l&eacute;ment. Une fois initialis&eacute;s, ils consomment une m&eacute;moire d&eacute;pendante de ce que vous y mettez.
+Les r&egrave;gles pour les tableaux locaux/globaux (<STRONG>#local / #declare</STRONG>) sont les m&ecirc;mes que pour les autres identificateurs. Notez que cela s'applique pour tout le tableau. Vous ne pouvez pas m&eacute;langer des &eacute;l&eacute;ments globaux et locaux dans le m&ecirc;me tableau.
+</p>
+<P>
+Techniquement, on peut sp&eacute;cifier une valeur d&eacute;cimale pour la dimension d'un tableau (<STRONG>array[1.24]</STRONG>),
+POV-Ray arrondira automatiquement cette valeur vers le bas (<STRONG>array[1]</STRONG>).
+</P>
+
+<P><I>R&eacute;dacteur: Martial Rameaux</I></P>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A></P>
+
+</BODY>
+
+</HTML>

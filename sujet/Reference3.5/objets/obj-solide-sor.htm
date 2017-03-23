@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			sor - documentation POV-Ray en fran&ccedil;ais
+		</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+	
+	<H1>
+		Les solides de r&eacute;volution (SOR)
+	</H1>
+
+	<H2>	objectif	</H2>
+	<p>Cr&eacute;er un objet dont la forme est d&eacute;termin&eacute;e par la r&eacute;volution d'une courbe autour d'un axe,
+    pour faire des objets comme des vases ou des pieds de chaise,...
+	</p>
+<IMG SRC="illref-sor-01.jpg">
+	<H2>
+		compatibilit&eacute;
+	</H2>
+	<p>
+	Pov-Ray 3.0 + sup
+	</p>
+
+	<H2>et quelle est la diff&eacute;rence avec les lathes ?</H2>
+	<P>Les lathes acceptent n'importe quelle courbe comme g&eacute;n&eacute;ratrice, tandis que les <STRONG>sor</STRONG>
+    n'acceptent que les courbes qui sont de vraies fonctions de x sur y (<I>y = f(x)</I>),
+    c'est-&agrave;-dire qu'un plan horizontal ne peut jamais croiser <I>qu'une seule fois</I>
+    la courbe g&eacute;n&eacute;ratrice.  Si un tel plan peut croiser plus d'une fois la courbe, elle
+    ne peut pas &ecirc;tre utilis&eacute;e pour un <STRONG>sor</STRONG> (solid of revolution).</P>
+ <P>Gr&acirc;ce &agrave; cette limitation, l'algorithme de calcul d'un <STRONG>sor</STRONG> est plus rapide
+    que celui d'un <STRONG>lathe</STRONG>, et on aura donc int&eacute;r&ecirc;t &agrave; l'employer d&egrave;s que
+    l'allure de la courbe g&eacute;n&eacute;ratrice le permet.</P>	
+<P>Attention, la courbe produite ne pas pas forcément par les points de contrôle.</P>	
+
+<H2>syntaxe</H2>
+<PRE>
+sor {
+  NbrPoints,       <SPAN class="comm">//entier</SPAN>
+  &lt;x1,y1&gt;,   <SPAN class="comm">//vecteurs</SPAN>
+  &lt;x2,y2&gt;, ..., 
+  &lt;xn,yn&gt;
+
+  (open)
+  (sturm)         
+
+  (..modificateurs d'objets..)
+  (..mat&eacute;riau..)
+}
+</PRE>
+<P>Avec <STRONG>sor</STRONG>, on ne choisit pas le type de courbe, il s'agit automatiquement
+   d'une fonction du 3<sup>&egrave;me</sup> degr&eacute;, proche (mais pas identique) de ce qu'on obtient
+   avec un <STRONG>lathe</STRONG> par <STRONG>cubic_spline</STRONG>.</P>
+<P>Le mot clé <STRONG>open</STRONG> spécifie de ne pas 'fermer' le bout de l'objet, comme pour un
+   cylindre, et le mot clé <STRONG>sturm</STRONG> permet de choisir un mode de calcul plus sophistiqué
+   si l'objet rendu présentait des défauts.</P>
+	<P>
+	Difference entre un <strong>lathe cubic_spline </strong>et l'objet de r&eacute;volution <strong>sor</strong> :
+	</P>
+	
+	<table>
+		<tr>
+			<td>
+				<IMG src="sorlat01.jpg" border=2 alt="spline du 3eme degr&eacute;">
+			</td>
+			<td>
+				<IMG src="sorlat02.jpg" border=2 alt="sor">
+			</td>
+		</tr>
+	</table>
+
+	<h2>se simplifier la vie</h2>
+	<p>
+	Positionner des points, pour faire une bouteille ou un vase, est une longue suite de t&acirc;tonnements.
+ Le papier quadrill&eacute;, si utile qu'il soit, ne permet pas de se rendre compte de l'allure de la courbe
+ r&eacute;sultant des points de contr&ocirc;le.	 Il existe un petit utilitaire freeware d'Alexandre Fallapa, 
+ SpilinEditor, qui fait tr&egrave;s bien cela pour les objets lathe, sor et prism.
+	Vous trouverez le lien sur <a href="http://www.pov-monde.org">http://www.pov-monde.org</a>  
+</p>
+
+<P>
+	<I>	R&eacute;dacteur : Martial Rameaux	</I><br>
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>normales - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+		
+ <H1>normal</H1>
+
+<P>Cet élément de matériau permet de cr&eacute;er des reliefs apparents &agrave; la surface des objets.  </P>
+
+<H2>explication</H2>
+<P>
+Par d&eacute;faut, les surfaces des objets de POV-Ray sont compl&egrave;tement lisses.  La normale
+d'un point d'une surface est un vecteur partant de ce point et perpendiculaire &agrave; la surface.
+L'orientation de ce vecteur d&eacute;termine (en combinaison avec l'environnement) la valeur d'&eacute;clairage 
+de ce point, ainsi que l'angle des rayons r&eacute;fl&eacute;chissants et r&eacute;fringents qui partent du point.
+</P>
+<P>
+En "perturbant", suivant un motif, la normale d'une surface, on lui donne l'effet d'un l&eacute;ger
+relief.  Attention, il ne s'agit que d'une illusion, la surface n'est pas r&eacute;ellement modifi&eacute;e 
+comme le montre l'image qui suit : </P>
+<TABLE> 
+<TR><TD>
+  <IMG SRC="norm-00.jpg" alt="sph&egrave;re lisse" border=2>
+</TD><TD>
+  <IMG SRC="norm-01.jpg" alt="...avec la normale" border=2>
+</TD><TD>
+  <IMG SRC="norm-02.jpg" alt="...en coupe" border=2>
+</TD></TR> </TABLE>
+<P>
+...nous voyons ici une coupe d'une sph&egrave;re o&ugrave; on utilise une d&eacute;claration <STRONG>normal</STRONG>,
+ pourtant la coupe reste bien circulaire, ce qui montre que la sph&egrave;re reste une sph&egrave;re.
+
+<P>Comment ça marche ?  Pour chaque point de la surface perturb&eacute;e, POV-Ray d&eacute;termine la "hauteur apparente"
+   de quatre points adjacents.  Cette hauteur apparente est fonction de la valeur en ce point
+   du motif choisi (de 0 &agrave; 1).  Ensuite, par interpolation,
+   la pente du point consid&eacute;r&eacute; est d&eacute;termin&eacute;e.  Le dessin qui suit montre (en 2D mais
+   le principe est le m&ecirc;me) comment une valeur de motif devient un vecteur de normale&nbsp;: 
+</P>
+<IMG src="norm-expl.jpg" border=2 alt="processus de d&eacute;termination de la normale perturb&eacute;e">
+
+<H2>normal avec un motif</H2>
+<P>Ceci est la situation la plus fréquente. Exemple :</P>
+<PRE>
+normal { 
+        wrinkles
+        bump_size 1.5
+} 
+</PRE>
+<P>Le mot clé <STRONG>bump_size</STRONG>, suivi d'un nombre décimal, donne la "profondeur"
+   du relief apparent.  Il est difficile de donner des valeurs indicatives, cela dépend
+   beaucoup de l'échelle de de la nature de la scène.  On peut aussi escamoter ce mot clé
+   et spécifier la valeur directement après le motif :</P>
+<PRE>normal {wrinkles 1.5}</PRE>
+<P>Tous les motifs conviennent, à l'exception de ceux qui donnent des transitions trop
+   abruptes (<STRONG>checker</STRONG>, <STRONG>cells</STRONG>,..), pour lesquels la
+   pente apparente est infinie ou nulle.</P>
+
+<TABLE> 
+<TR><TD>
+  <IMG SRC="norm-03.jpg" alt="" border=2>
+</TD><TD>
+  <IMG SRC="norm-04.jpg" alt="" border=2>
+</TD><TD>
+  <IMG SRC="norm-05.jpg" alt="" border=2>
+</TD></TR> 
+<TR><TD>bump_size 0.5</TD><TD>bump_size 2</TD><TD>bump_size -0.5</TD></TR>
+</TABLE>
+
+<H2>normal avec bump_map</H2>
+<P>A l'instar de <STRONG>image_pattern</STRONG> et <STRONG>image_map</STRONG>,
+   on peut utiliser une image pour laisser une 'gravure' sur un objet.</P>
+<PRE>
+normal { 
+        bump_map {
+           png / tga / ppm / pgm / jpeg / tiff / sys 
+           "Nom_du_Fichier"
+           (map_type 0 / 1 / 2 / 5)
+           (once)
+           (interpolate 2 / 4)
+
+           (use_color)
+           (use_index)
+                 } 
+} 
+</PRE>
+<P>Pour la première partie de la syntaxe, voyez la page du motif <STRONG>image_pattern</STRONG>.</P>
+<P>Les mots clés <STRONG>use_color</STRONG> et <STRONG>use_index</STRONG> permettent repectivement
+   de déterminer le relief apparent à partir de la couleur de l'image, ou à partir de la valeur
+   d'index des pixels, si il s'agit d'une image à palette.</P>
+<P>Pour éviter les artéfacts dûs aux transitions de tons abruptes, il est conseillé d'employer
+   <STRONG>interpolate</STRONG>.</P>
+
+<TABLE> 
+<TR><TD>
+  <IMG SRC="shapespp.png" alt="" border=2>
+</TD><TD>
+  <IMG SRC="norm-06.jpg" alt="" border=2>
+</TD></TR> 
+<TR><TD>l'image &agrave; "graver"</TD><TD>le r&eacute;sultat</TD></TR>
+</TABLE>
+
+<H2>normal avec normal_map</H2>
+
+<H3>utilisation d'une "normal_map"</H3>
+<P><STRONG>normal_map</STRONG> est à <STRONG>normal</STRONG> ce que <STRONG>pigment_map</STRONG>
+   est à <STRONG>pigment</STRONG>, une manière de combiner des normales différentes à l'aide
+   d'un motif.</P>
+<PRE>
+normal { 
+        gradient y
+        normal_map {
+         [0 MaNormale1]        
+         [1 MaNormale2]
+        }
+        bump_size 1.5
+} 
+</PRE>
+<IMG src="norm-07.jpg" border=2 alt="utilisation d'une "normal_map"">
+
+<H2>remarques</H2>
+<P>POV-Ray 3.5 ajuste automatiquement la profondeur du 'relief' lorsqu'un objet comportant
+   une définition de normale est agrnadi ou rétréci.  Si vous voulez que ce ne soit pas le
+   cas, ajoutez le mot cl&eacute; <STRONG>no_bump_scale</STRONG> à votre définition de normale.</P>
+
+<P>Certains logiciels permettent de modifier <B>r&eacute;ellement</B> la surface des objets, &agrave;
+   l'aide d'une technique appell&eacute;e "displacement mapping".  POV-Ray, pour des raisons
+   complexes &agrave; exposer, ne dispose pas de cette technique.  Cependant, pour tous les
+   types d'objets d&eacute;finissable math&eacute;matiquement, il est possible de r&eacute;aliser une sorte
+   de "displacement mapping" &agrave; l'aide des <B>isosurfaces</B>.</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

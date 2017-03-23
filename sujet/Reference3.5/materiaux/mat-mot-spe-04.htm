@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>plaquage d'images - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A> - 
+<A href="mat-mot-ix.htm#indexalpha">vers l'index des motifs</A>
+</P>
+
+<H1>motif spécial : pigment_pattern</H1>
+<P>Ce motif vous permet de transformer n'importe quelle définition de <STRONG>pigment</STRONG>, même
+   très complexe, en un motif qui pourra à son tour être utilisé dans une autre structure.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>POV-Ray 3.5</P>
+
+<H2>syntaxe</H2>
+<PRE>
+pigment_pattern {
+    .. définition de pigment ..
+ }
+</PRE>
+<P>La valeur du motif en un point de l'espace sera déterminée par la conversion
+en niveaux de gris de la couleur du <strong>pigment</strong> spécifié en ce même 
+point.</P>
+
+<H2>exemple</H2>
+<PRE>
+// déclarations préalables :
+#declare MonPigment_A =
+pigment {checker color Blue color Black scale .5}
+
+#declare MonPigment_B = 
+pigment {bozo 
+ color_map {
+  [0 OrangeRed]
+  [1 White]
+ }         
+ scale .5
+}
+
+// voici le pigment complexe :
+#declare MonPigment_C =
+pigment {
+ crackle solid
+ pigment_map {
+  [0 MonPigment_A]
+  [.5 MonPigment_A]
+  [.5 MonPigment_B]
+  [1 MonPigment_B]
+ }
+}
+</PRE>
+<P>Voici ce que donne ce pigment 'au naturel' :</P>
+<IMG SRC="tx-sp-38.jpg">
+<P>Nous allons l'utiliser comme motif dans une <strong>texture_map</strong>
+   composée d'une texture matte, et d'une autre réfléchissante :</P>
+<PRE>
+plane {y,0
+ texture {
+  pigment_pattern {MonPigment_C}
+  texture_map {
+   [0 pigment {SteelBlue}]
+   [1 pigment {OrangeRed} finish {reflection 1}]
+  }
+  } 
+}
+</PRE>
+<IMG SRC="tx-sp-39.jpg">
+</BODY>
+
+</HTML>

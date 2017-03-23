@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>turbulence, etc.. - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A>
+</P>
+
+<H1>motifs - modificateurs d'onde</H1>
+
+<H2>objectif</H2>
+<P>Ces modificateurs touchent aux caract&eacute;ristiques de l'"onde" du motif, c'est &agrave; dire
+   la fa&ccedil;on dont il parcourt la "palette" qui lui est donn&eacute;e.</P>
+
+<H2>frequency et phase</H2>
+<P><STRONG>frequency</STRONG> contr&ocirc;le le nombre de r&eacute;p&eacute;titions de la palette
+dans l'espace 0 - 1 du motif.  La valeur par d&eacute;faut &eacute;tant de 1, une valeur de 4, par
+exemple, veut dire que la palette sera d&eacute;ploy&eacute;e 4 fois plus, sera 4 fois plus dense.</P>
+<P><STRONG>phase</STRONG> (entre 0 et 1) d&eacute;termine &agrave; quelle valeur commence le d&eacute;ploiement
+   du motif.  C'est tr&egrave;s utile dans les animations, o&ugrave;, par exemple, on peut l'utiliser
+   pour simuler le d&eacute;placement de vagues avec le motif <STRONG>ripple</STRONG>.</P>
+
+<H2>"formes d'ondes"</H2>
+<P>Bien que chaque motif ait, par d&eacute;faut, une certaine fa&ccedil;on de parcourir les valeurs entre 0 et 1
+   (lin&eacute;aire, sinuso&iuml;dale,...), il est possible de sp&eacute;cifier le type de parcours &agrave; employer,
+   avec les mots cl&eacute;s suivants : </P>
+<P><STRONG>ramp_wave</STRONG> parcourt les valeurs de mani&egrave;re absolument lin&eacute;aire.</P>
+<IMG src="wav01.jpg">
+<P><STRONG>triangle_wave</STRONG> parcourt les valeurs de 0 &agrave; 1 sur l'espace de 0 &agrave; 0.5, puis les valeurs de
+   1 &agrave; 0 sur l'espace de 0.5 &agrave; 1 .</P>
+<IMG src="wav02.jpg">
+<P><STRONG>sine_wave</STRONG> parcourt les valeurs de mani&egrave;re sinuso&iuml;dale, commence et termine sur la valeur
+   0.5 .</P>
+<IMG src="wav03.jpg">
+<P><STRONG>scallop_wave</STRONG> parcourt les valeurs suivant une parabole, comme une sorte de triangle_wave
+   en courbe, qui part de la valeur 0, monte rapidement puis ralentit pour atteindre la valeur 1
+   &agrave; la moiti&eacute; de l'espace, puis redescend &agrave; l'inverse pour atteindre la valeur 0 &agrave; l'espace 1 .  </P>
+<IMG src="wav04.jpg">
+<P><STRONG>cubic_wave</STRONG> parcourt les valeurs avec une courbe du 2<sup>e</sup> degr&eacute; dont la pente
+   est nulle au d&eacute;but et &agrave; la fin..</P>
+<IMG src="wav05.jpg">
+<P><STRONG>poly_wave</STRONG>, qui doit &ecirc;tre suivi d'une valeur, parcourt les valeurs suivant une 
+   courbe du 2<sup>e</sup> degr&eacute; dont l'exposant est la valeur sp&eacute;cifi&eacute;e.  Si cette valeur est 1,
+   la courbe sera lin&eacute;aire ; si cette valeur est 2, ce sera une parabole ; si on est en dessous de 1,
+   elle aura une allure logarithmique (cro&icirc;t, mais de moins en moins).</P>
+<IMG src="wav06.jpg">
+
+<P>Les graphiques d'illustration montrent, sur le rectangle vert, comment les valeurs de 1 &agrave; 0 (en ordonn&eacute;e) 
+   sont d&eacute;ploy&eacute;es dans l'espace de 0 &agrave; 1 (en abscisse).</P>
+
+<P><I>auteur : Fabien Mosen</I></P>
+</BODY>
+
+</HTML>

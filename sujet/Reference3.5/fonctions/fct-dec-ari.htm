@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>op&eacute;rations sur les nombres d&eacute;cimaux - documentation POV-Ray en fran&ccedil;ais	</TITLE>
+	</HEAD>
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+	<H1>nombres décimaux - fonctions arithmétiques</H1>
+
+<H2>op&eacute;rations arithm&eacute;tiques</H2>
+
+<P>A et B repr&eacute;sentent des nombres d&eacute;cimaux ou des variables contenant des nombres d&eacute;cimaux.</P>
+<H3>addition, soustraction, multiplication et division</H3>
+ <P class="noindent">
+ <STRONG>A + B</STRONG><BR>
+ <STRONG>A - B</STRONG><BR>
+ <STRONG>A * B</STRONG><BR>
+ <STRONG>A / B</STRONG><BR>
+ <STRONG>mod(A,B)</STRONG> valeur de A modulo B, c'est-&agrave;-dire le reste de la division A/B<BR>
+
+<H3>puissances et racines</H3>
+<P class="noindent">
+ <STRONG>pow(A,B)</STRONG> A &agrave; la puissance B<BR>
+<I>remarque : suite à un complot germano-finnois, la notation A^B pour les puissances n'est
+plus valable dans POV-Ray 3.5.</I><BR>
+ <STRONG>sqrt(A)</STRONG> racine carr&eacute;e de A<BR></P>
+<P>Pour obtenir des racines autres que carr&eacute;es, il faut utiliser une puissance dont l'exposant
+    est l'inverse (1/x) du degr&eacute; de la racine souhait&eacute;e, par exemple&nbsp;: <STRONG>pow(A,1/3)</STRONG> est la racine cubique de A.</P>
+<P class="noindent">
+
+ <STRONG>ln(A)</STRONG> logarithme naturel (n&eacute;p&eacute;rien, base e) de A<BR>
+ <STRONG>log(A)</STRONG> logarithme base 10 de A<BR>
+ 
+ <STRONG>exp(A)</STRONG> exponentielle de A, retourne la valeur de e (base du 
+            logarithme naturel, environ 2.71828182846) &agrave; la puissance A.<BR>
+</P>
+<P><I>rappel : le logarithme de B en base A est égal à : ln(B)/ln(A)</I></P>
+<H2>priorit&eacute;s</H2>
+ <P>L'emploi de parenthèses permet de forcer l'ordre dans lequel les expressions
+    complexes sont évaluées.</P>
+<PRE>(A + B) * 2 .. est différent de .. A + B * 2</PRE>
+ <P>Les priorités d'évaluation des fonctions sont les suivantes : parenthèses, puissances, multiplication/division,
+    addition/soustraction.</P>
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

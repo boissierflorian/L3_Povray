@@ -1,0 +1,58 @@
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-obj.htm">vers l'index des objets</A></P>
+<H1>box</H1>
+
+<H2>objectif</H2>
+ <P>Cr&eacute;&eacute;r un parall&eacute;l&eacute;pip&egrave;de rectangle parall&egrave;le aux axes principaux.</P>
+<IMG src="povfr-box-01.jpg" border=2>
+
+<H2>compatibilit&eacute;</H2> 
+ <P>POV-Ray 2.0 +sup.</P>
+ 
+<H2>syntaxe</H2>
+ <PRE>
+box {
+     Coin_1, <SPAN class="comm">// vecteur</SPAN>
+     Coin_2  <SPAN class="comm">// vecteur</SPAN>
+
+     (..modificateurs d'objets..)
+     (..transformations..)
+     (..mat&eacute;riau..)
+     }
+ </PRE>
+ <P>Coin_1 et Coin_2 sont les extr&eacute;mit&eacute;s de la plus grande diagonale de la bo&icirc;te.  Le r&eacute;sultat sera toujours parall&egrave;le aux axes x,y et z; il faudra utiliser une commande telle que "rotate" pour qu'il en soit autrement.</P>
+ 
+<H2>exemple</H2>
+ <PRE> 
+box {<2,-4,5>,<-21,41,53> pigment {Blue}}    
+ </PRE>
+ 
+<H2>CSG</H2>
+  <P>Fonctionne parfaitement en CSG, l'int&eacute;rieur et l'ext&eacute;rieur &eacute;tant bien d&eacute;finis.</P>
+
+<H2>macros standard (POV-Ray 3.5)</H2>
+<P>Dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Wire_Box_Union(PtA, PtB, Radius), Wire_Box_Merge(PtA, PtB, Radius), Wire_Box(PtA, PtB, Radius, UseMerge)</STRONG>
+<BR>
+ Créent une boîte "fil de fer" formée de cylindres.
+<BR>
+<IMG src="povfr-box-02.jpg" border=2>
+<BR>
+<STRONG>Round_Box_Union(PtA, PtB, EdgeRadius), Round_Box_Merge(PtA, PtB, EdgeRadius), Round_Box(PtA, PtB, EdgeRadius, UseMerge)</STRONG>
+<BR>
+ Créent une boîte aux bords arrondis.
+<BR>
+<IMG src="povfr-box-03.jpg" border=2>
+</P>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>Référence POV-Ray - les motifs</TITLE>
+</HEAD>
+
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-mat.htm">vers l'index des matériaux</A></P>
+
+ <H1>les motifs ("patterns")</H1>
+
+<P>Les motifs sont au coeur du syst&egrave;me de textures proc&eacute;durales de POV-Ray : l'ensemble des motifs
+   disponibles pour d&eacute;ployer les couleurs, les textures,... dans l'espace.</P>
+
+ <H2>introduction</H2>
+
+<P>Imaginez que vous ayez &agrave; votre disposition des tubes de couleurs, des tissus color&eacute;s, 
+   et plein de choses comme &ccedil;a.  Vous pourriez les mettre ensemble pour faire des rayures,
+   des carreaux, des mouchetures, des &eacute;claboussures,...  Eh bien, un motif, c'est pr&eacute;cis&eacute;ment
+   la fa&ccedil;on d'occuper un espace (quel qu'il soit, surface ou volume) avec les composants d'une "palette".</P>
+
+ <H2>exemple</H2>
+<PRE> 
+  box {<0,0,0>,<10,10,10>
+        pigment {
+                 onion
+                 color_map {[0 YellowGreen][1 OrangeRed]}
+                }
+      }
+      }</PRE>
+<P>Sur cette boîte, nous voyons un dégradé de sphères concentriques (le motif <STRONG>onion</STRONG>)
+   colorées en vert et orange par la <STRONG>color_map</STRONG> spécifiée.</P>
+
+ <H2>généralités</H2>
+
+<P>Les motifs propos&eacute;s par POV-Ray partagent, sauf exception, certaines caract&eacute;ristiques : </P>
+
+<P>- ils sont d&eacute;finis math&eacute;matiquement (souvent &agrave; l'aide de fractales), c'est-&agrave;-dire qu'ils n'ont pas de r&eacute;solution,
+     et qu'ils peuvent subir de nombreuses transformations spatiales sans voir leur qualité se dégrader.</P>
+<P>- ils existent en tout point de l'espace, et se d&eacute;ploient dans les trois dimensions.
+     Le motif apparaissant sur un objet est en fait l'ensemble des points du motif qui se
+     trouvent sur la surface de l'objet.</P>
+<P>- en chacun de ces points, ils ont une valeur comprise entre 0 et 1.  On peut les
+     imaginer sous forme de valeurs de gris.  Ces valeurs vont permettre, au moment d'exploiter
+     le motif, de dire dans quelle zone de la "palette" il faut aller chercher la couleur
+     ou tout autre &eacute;l&eacute;ment soumis au motif.</P>
+<P>- depuis POV-Ray 3.0, (presque) tous les motifs sont utilisables dans tous les cas de figure.
+     (avant, certains motifs &eacute;taient r&eacute;serv&eacute;s aux pigments, d'autres aux normales, mais
+      cette barri&egrave;re a &eacute;t&eacute; lev&eacute;e)</P>
+<P>Par exemple, dans le cas d'un <STRONG>pigment</STRONG>, le motif va d&eacute;terminer comment
+   les couleurs de la <STRONG>color_map</STRONG> vont se r&eacute;partir.  Dans une <STRONG>normal</STRONG>, 
+   la valeur du motif en un point va d&eacute;terminer la "torsion" &agrave; appliquer au vecteur de la normale de ce point.</P>
+
+ <A name="indexalpha">
+ <H2>liste alphabétique</H2>
+ <P>
+  <A href="mat-mot-bru-01.htm#agate">agate,</A>
+  <A href="mat-mot-med.htm#boxed">boxed,</A>
+  <A href="mat-mot-bru-01.htm#bozo">bozo,</A>
+  <A href="mat-mot-lis.htm#brick">brick,</A>
+  <A href="mat-mot-bru-01.htm#bumps">bumps,</A>
+  <A href="mat-mot-bru-01.htm#cells">cells,</A>
+  <A href="mat-mot-lis.htm#checker">checker,</A>
+  <A href="mat-mot-bru-01.htm#crackle">crackle,</A>
+  <A href="mat-mot-med.htm#cylindrical">cylindrical,</A>
+  <A href="mat-mot-spe-01.htm#density_file">density_file,</A>
+  <A href="mat-mot-bru-02.htm#dents">dents,</A>
+  <A href="mat-mot-bru-02.htm#facets">facets,</A>
+  <A href="mat-mot-spe-02.htm#function">function,</A>
+  <A href="mat-mot-geo-01.htm#gradient">gradient,</A>
+  <A href="mat-mot-bru-02.htm#granite">granite,</A>
+  <A href="mat-mot-lis.htm#hexagon">hexagon,</A>
+  <A href="mat-mot-spe-03.htm">image_pattern,</A>
+  <A href="mat-mot-fra.htm#julia">julia,</A>
+  <A href="mat-mot-geo-01.htm#leopard">leopard,</A>
+  <A href="mat-mot-fra.htm#magnet">magnet,</A>
+  <A href="mat-mot-fra.htm#mandel">mandel,</A>
+  <A href="mat-mot-geo-01.htm#marble">marble,</A>
+  <A href="mat-mot-lis.htm#object">object,</A>
+  <A href="mat-mot-geo-01.htm#onion">onion,</A>
+  <A href="mat-mot-spe-04.htm">pigment_pattern,</A>
+  <A href="mat-mot-med.htm#planar">planar,</A>
+  <A href="mat-mot-geo-01.htm#quilted">quilted,</A>
+  <A href="mat-mot-geo-02.htm#radial">radial,</A>
+  <A href="mat-mot-bru-02.htm#ripples">ripples,</A>
+  <A href="mat-mot-spe-06.htm#slope">slope,</A>
+  <A href="mat-mot-med.htm#spherical">spherical,</A>
+  <A href="mat-mot-geo-02.htm#spiral1">spiral1,</A>
+  <A href="mat-mot-geo-02.htm#spiral2">spiral2,</A>
+  <A href="mat-mot-bru-02.htm#spotted">spotted,</A>
+  <A href="mat-mot-bru-02.htm#waves">waves,</A>
+  <A href="mat-mot-geo-02.htm#wood">wood,</A>
+  <A href="mat-mot-bru-02.htm#wrinkles">wrinkles</A>
+ </P>
+ <H2>tous les motifs, par catégories</H2>
+ <P><A href="mat-mot-lis.htm">les motifs "à liste"</A><BR>
+ <A href="mat-mot-geo-01.htm">les motifs géométriques 1 (de gradient à quilted)</A><BR>
+ <A href="mat-mot-geo-02.htm">les motifs géométriques 2 (de radial à wood)</A><BR>
+ <A href="mat-mot-bru-01.htm">les motifs à base de "bruit" 1 (de agate à crackle)</A><BR>
+ <A href="mat-mot-bru-02.htm">les motifs à base de "bruit" 2 (de dents à wrinkles)</A><BR>
+ <A href="mat-mot-fra.htm">les motifs fractals</A><BR>
+ <A href="mat-mot-med.htm">les motifs pour les media</A></P></A>
+ 
+<P class="noindent">les motifs spéciaux : </P>
+ <P class="noindent">
+ <A href="mat-mot-spe-01.htm"> - density_file</A><BR>
+ <A href="mat-mot-spe-02.htm"> - function</A><BR>
+ <A href="mat-mot-spe-03.htm"> - image_pattern</A><BR>
+ <A href="mat-mot-spe-04.htm"> - pigment_pattern</A><BR>
+ <A href="mat-mot-spe-05.htm"> - slope</A>
+ <A href="mat-mot-spe-06.htm"> - facets</A>
+ </P>
+
+<H2>remarques</H2>
+<P>Utilisés dans un <STRONG>pigment</STRONG>, la plupart des motifs ont une <STRONG>color_map</STRONG>
+   par défaut (si aucune n'est spécifiée) variant du noir au blanc.  Toutefois, certains motifs
+   anciens ont une <STRONG>color_map</STRONG> par défaut plus particulière.  Cela est signalé au
+   cas par cas.</P>
+
+</BODY>
+</HTML>

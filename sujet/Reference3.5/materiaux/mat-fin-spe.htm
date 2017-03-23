@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>finish - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<body>
+
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>finish - spéculaires + réflexion</H1>
+
+<H2>sp&eacute;culaires</H2>
+<PRE>
+finish {
+        phong P_Intensite     // Décimal
+        phong_size P_Taille   // Décimal
+        specular S_Intensite  // Décimal
+        roughness S_Rugosite  // Décimal
+
+        metallic              // Booléen
+}
+</PRE>
+
+<h3>phong</h3>
+<P>Si vous regardez une balle en plastique, vous constaterez que, sur sa surface, apparaissent
+   des petites zones tr&egrave;s lumineuses, selon les sources de lumi&egrave;re environnantes.  Selon que
+   la surface est plus ou moins lisse, les points lumineux seront plus ou moins petits.  Cet
+   effet est d&ucirc; &agrave; un ph&eacute;nom&egrave;ne de r&eacute;flexion (plus ou moins) floue, r&eacute;gie par les reliefs 
+   microscopiques pr&eacute;sents &agrave; la surface de l'objet.</P>
+<P>En imagerie 3D, depuis longtemps, afin de r&eacute;duire la "platitude" des surfaces et leur
+   donner un peu de "peps", on utilise des syst&egrave;mes de lissage apparent, qui simulent
+   ce ph&eacute;nom&egrave;ne sans pour autant effectuer de vrais calculs de r&eacute;flexion floue.  Le
+   terme g&eacute;n&eacute;rique employ&eacute; pour ces techniques est "sp&eacute;culaires".</P>
+<P>Le plus connu de ces proc&eacute;d&eacute;s est le <STRONG>phong</STRONG>, du nom de son inventeur
+   ... .  La valeur qui suit le mot cl&eacute; r&egrave;gle l'intensit&eacute; (la saturation) de la tache
+   lumineuse, en fonction de la couleur de la lumi&egrave;re qui frappe ce point.  Une valeur
+   de 1 donnera un point lumineux dont la couleur est &eacute;gale &agrave; 100% de celle de la source.</P>
+<P>Le mot cl&eacute; suppl&eacute;mentaire <STRONG>phong_size</STRONG> d&eacute;termine l'&eacute;tendue de la tache
+   lumineuse.  La valeur par d&eacute;faut est de 40.  Si on l'augmente, le point r&eacute;tr&eacute;cit,
+   devient plus "serr&eacute;", comme si l'objet &eacute;tait mieux poli.  Si on la diminue, le
+   point s'&eacute;largit, comme si on avait ponc&eacute; l'objet.</P>
+<IMG src="fi-01.jpg" border=2 alt="phong faible / phong important">
+
+<h3>specular</h3>
+<P><STRONG>specular</STRONG> est un autre type de sp&eacute;culaire, th&eacute;oriquement plus r&eacute;aliste que <STRONG>phong</STRONG>.
+   La valeur qui le suit &agrave; le m&ecirc;me r&ocirc;le qu'avec <STRONG>phong</STRONG>.</P>
+<P>Au niveau du r&eacute;sultat, on peut dire que, si <STRONG>phong</STRONG> donne un aspect verni aux objets, <STRONG>specular</STRONG>
+   donne plut&ocirc;t un aspect de vernis satin&eacute; (moins "mordant").  On peut, en outre, utiliser
+   les deux param&egrave;tres simultan&eacute;ment.  Par exemple, un <STRONG>phong</STRONG> bien serr&eacute; combin&eacute; &agrave; un <STRONG>specular</STRONG>
+   un peu plus large et discret donnent de tr&egrave;s beaux r&eacute;sultats sur une texture de bois.</P>
+<P>Le mot cl&eacute; <STRONG>roughness</STRONG> joue le m&ecirc;me r&ocirc;le que <STRONG>phong_size</STRONG>.
+   Sa valeur par d&eacute;faut est de 0.05, la taille du point lumineux diminuant si on diminue la
+   valeur (et vice versa).</P>
+<IMG src="fi-02.jpg" border=2 alt="specular faible / specular important">
+
+<h3>metallic</h3>
+<P>Le mot cl&eacute; <STRONG>metallic</STRONG>, lorsqu'il est activ&eacute; (<STRONG>metallic</STRONG> ou <STRONG>metallic on</STRONG>),
+   fait en sorte que la couleur d'un sp&eacute;culaire ne soit plus d&eacute;pendante de la couleur de la
+   source lumineuse, mais soit d&eacute;pendante de la couleur de l'objet &agrave; l'endroit du point lumineux.</P>
+<IMG src="fi-05.jpg" border=2 alt="metallic off / metallic on">
+
+<H2>effets sp&eacute;ciaux</H2>
+<PRE>
+finish {
+        crand Variation       // Décimal
+
+        irid {
+             I_Intensite             // Décimal
+             thickness I_Epaisseur   // Décimal 
+             turbulence I_Turbulence // Vecteur
+             }
+}
+</PRE>
+
+<H2>r&eacute;flexion</H2>
+<PRE>
+finish {
+        reflection {
+           Reflexion_Min,     // Couleur
+           Reflexion_Max      // Couleur
+           falloff Declin     // Décimal
+           exponent Exposant  // Décimal
+           metallic           // Décimal
+           (fresnel)   
+           }
+        conserve energy       // Booléen
+}
+</PRE>
+
+<P>Il s'agit tout simplement de contrôler de la r&eacute;flectivit&eacute; de la surface, comme un miroir.</P>
+<P>Le bloc <STRONG>reflection {...}</STRONG> commence par un ou deux vecteurs de couleurs (généralement, on
+   met un nombre décimal, qui représente un coefficient de blanc).  Cette couleur indique la quantité
+   de couleur réfléchie à ajouter à la couleur de base de l'objet. Si une seule valeur est donnée, 
+   la réflexion est constante, peu importe l'angle duquel est vue la surface réfléchissante.</P>
+<P>Pour réaliser un miroir parfait, on donnera une couleur noire à l'objet et une <SPAN class="code">reflection {1}</SPAN>.</P>
+<P>Mais dans la vraie vie, si vous regardez un sol carrel&eacute; en &eacute;tant debout, il appara&icirc;tra r&eacute;fl&eacute;chissant,
+   mais pas beaucoup.  Si maintenant vous vous abaissez, pour finir &agrave; quatre pattes,
+   vous verrez que ce sol devient de plus en plus r&eacute;fl&eacute;chissant.  Ce ph&eacute;nom&egrave;ne se
+   produit avec tous les mat&eacute;riaux, particuli&egrave;rement si ils sont relativement lisses.</P>
+<P>Plus l'angle d'incidence (angle entre l'observateur et la surface qu'on regarde)
+   est faible, plus cette surface appara&icirc;t r&eacute;fl&eacute;chissante.</P>
+<P>Pour enclencher ce comportement réaliste, vous devez donner deux couleurs de réflexion successives,
+   la première étant la réflexion minimale (surface vue perpendiculairement), la deuxième étant la réflexion maximale (surface
+   vue 'à ras').</P>
+<PRE>finish {reflection {0.1 0.8}}</PRE>
+
+
+<H3>falloff</H3>
+<P>Ce mot clé suivi d'un décimal, représentant un exposant, détermine l'allure de la progression
+   entre la réflexion minimum et la réflexion maximum. 1 = linéaire, 2 = au carré, etc...
+<H3>exponent</H3>
+<P>Ce mot clé suivi d'un nombre décimal permet de modifier la 'courbe de réponse' des reflets,
+   comme une sorte de gamma.  Ainsi, les objets réfléchissants seront plus ou moins sensibles
+   aux teintes claires environnantes.
+
+<H3>metallic</H3>
+<P>Au m&ecirc;me titre que <STRONG>metallic</STRONG> pour les sp&eacute;culaires, ce mot cl&eacute; fait en sorte que la couleur de
+   l'objet d&eacute;termine la teinte du reflet, ce qui est particuli&egrave;rement bienvenu lorsque l'objet
+   est multicolore (comme une boule de Noël, par exemple).</P>
+<H3>fresnel</H3>
+<P>Lorsque ce mot clé est enclenché, la valeur d'<STRONG>ior</STRONG> spécifiée dans
+<STRONG>interior</STRONG> est utilisée pour déterminer automatiquement les autres paramètres
+(réflexion minimale, maximale,..) suivant les lois de l'optique.  Ceci vous amènera éventuellement
+à spécifier un indice de réfraction pour des matériaux opaques (métaux, céramiques,...) !</P>
+<H3>conserve_energy</H3>
+<P><STRONG>conserve_energy</STRONG> (on/off) permet &agrave; POV-Ray d'ajuster automatiquement les
+  valeurs de <STRONG>filter</STRONG> et <STRONG>transmit</STRONG> en un point d'une texture, en fonction de la quantit&eacute; de r&eacute;flection
+  effective en ce point.  Ainsi, un point tr&egrave;s r&eacute;fl&eacute;chissant agira davantage comme si il &eacute;tait
+  opaque, et le r&eacute;sultat sera plus r&eacute;aliste.
+</P>
+
+
+<H3>r&eacute;flexion floue</H3>
+
+<IMG src="fi-09.jpg" border=2 alt="r&eacute;flexion floue sur le plan">
+<P><I>auteur : Fabien Mosen</P></I>
+</body>
+</html>

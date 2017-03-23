@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>transformations - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide </A> - 
+<A href="index-esp.htm">vers l'index des repères spatiaux</A></P>
+
+<H1>les transformations</H1>
+
+<H2>objectif</H2>
+ <P>D&eacute;placer, &eacute;tirer, faire pivoter,... des choses dans l'espace (un objet, un &eacute;l&eacute;ment
+    de texture,...).</P>
+ <P></P>
+
+<H2>translate</H2> 
+ <P><STRONG>translate</STRONG> fait effectuer &agrave; un &eacute;l&eacute;ment un simple d&eacute;placement dans
+    l'espace.  Ce d&eacute;placement est donn&eacute; par un vecteur, exprimant la distance relative
+    sur chacun des trois axes de r&eacute;f&eacute;rence.</P>
+ <pre>sphere {... translate &lt;5,1,-8&gt;}</pre>
+ <P>..indique que la nouvelle position de la sph&egrave;re sera 5 unit&eacute;s plus loin sur l'axe X,
+    1 unit&eacute; plus loin sur l'axe Y, et 8 unit&eacute;s moins loin sur l'axe Z.</P>
+ <P><STRONG>translate</STRONG> est en fait une simple addition : si le centre de
+    la sph&egrave;re se trouvait &agrave; &lt;6,0,5&gt;, il se trouvera &agrave; pr&eacute;sent &agrave; &lt;6,0,5&gt;+&lt;5,1,-8&gt;,
+    c'est &agrave; dire &agrave; &lt;11,1,-3&gt;.</P>
+
+<H2>scale</H2> 
+<P><STRONG>scale</STRONG> ("&eacute;chelle") permet d'&eacute;tirer ou de comprimer, uniform&eacute;ment ou pas,
+ un &eacute;lement.  Un vecteur donne la modification de taille relative sur chaque axe.</P>
+ <pre>box {&lt;0,0,0&gt;,&lt;1,1,1&gt; scale &lt;1,2,.5&gt;}</pre>
+<P>Dans notre exemple, la bo&icirc;te gardera la m&ecirc;me longueur sur l'axe X, verra sa hauteur (axe Y)
+   doubl&eacute;e, et sa longueur sur l'axe Z r&eacute;duite de moiti&eacute;.</P>
+<P>Vous l'aurez compris, <STRONG>scale</STRONG> est une op&eacute;ration de multiplication appliqu&eacute;e
+   &agrave; chaque point de l'&eacute;l&eacute;ment.</P>
+<P><B>Attention 1</B>&nbsp;: <STRONG>scale</STRONG> s'effectue toujours relativement aux axes
+   (et donc &agrave; l'origine), ind&eacute;pendamment de la g&eacute;om&eacute;trie de l'&eacute;l&eacute;ment transform&eacute;.</P>
+<P><B>Astuce 1</B>&nbsp;: on peut parfaitement utiliser des valeurs n&eacute;gatives, ce qui permet de
+   cr&eacute;er des copies "miroir" d'un objet.  Pensez-y quand vous faites des compositions
+   sym&eacute;triques !</P>
+<pre>
+object {MoitieFacade}
+object {MoitieFacade scale &lt;-1,1,1&gt;}
+</pre>
+<P><B>Attention 2</B>&nbsp;: on ne peut pas appliquer une &eacute;chelle de 0 sur un axe.  Si vous
+   voulez doubler la longueur d'un objet sur Z et le laisser intact dans les autre directions,
+   vous devez faire&nbsp;:</P>
+<pre>
+scale <1,1,2>
+</pre>
+<P>Un erreur courante est, &agrave; travers un raccourci de type <STRONG>scale z*2</STRONG>, de 
+   g&eacute;n&eacute;rer en fait un vecteur du genre &lt;0,0,2&gt;, ce qui est incongru.  Heureusement,
+   lorsque POV-Ray rencontre une valeur de <STRONG>0</STRONG> dans un vecteur d'&eacute;chelle, il le convertit
+   automatiquement en <STRONG>1</STRONG>, mais produit un message d'avertissement.</P>
+
+<H2>rotate</H2>
+ <P><STRONG>rotate</STRONG> permet de faire pivoter un &eacute;l&eacute;ment autour des trois axes.
+    La rotation est exprim&eacute;e en degr&eacute;s, pour chacun des trois axes, sous forme d'un
+    vecteur.  Voici un sch&eacute;ma qui vous montre le sens positif de rotation, dans
+    le syst&egrave;me "main gauche" utilis&eacute; par d&eacute;faut dans POV-Ray&nbsp;: </P>
+ <P>Comment se souvenir du sens de rotation sur un axe ?  On est bien en syst&egrave;me
+    "main gauche", alors prenez votre main gauche, et, en l'air, devant vos yeux,
+    pointez le pouce dans la direction de l'axe autour duquel vous voulez effectuer
+    la rotation, et recroquevillez l&eacute;g&egrave;rement les autres doigts : le sens dans lequel
+    ils se courbent est le sens de rotation positif !</P>
+<P><I>note : quand vos amis vous verront agiter ainsi la main gauche devant votre
+      ordinateur, ils ne manqueront pas de s'&eacute;tonner, ce &agrave; quoi vous leur r&eacute;pondrez
+      "tu ne peux pas comprendre !".</I></P>
+<pre>
+ object {...
+         texture {BoisPourri rotate &lt;20,-55,0&gt;}
+         }
+</pre>
+<P>Cet exemple fait effectuer &agrave; la texture une rotation de 20 degr&eacute;s autour de l'axe X,
+    puis de -55 degr&eacute;s autour de Y, et puis rien autour de Z.  Attention, en sp&eacute;cifiant
+    la rotation par un vecteur, l'ordre des rotations est toujours le m&ecirc;me.  Si vous
+    voulez changer cet ordre, il faudra sp&eacute;cifier chaque rotation s&eacute;par&eacute;ment&nbsp;:</P>
+<pre>
+ object {...
+         texture {BoisPourri rotate y*-55 rotate x*20}
+         }
+</pre>
+<P>&Agrave; l'instar de <STRONG>scale</STRONG>, la transformation se fait toujours relativement
+   aux axes, ind&eacute;pendamment de la g&eacute;om&eacute;trie de l'&eacute;l&eacute;ment transform&eacute;.</P>
+
+<H2>ordre des transformations</H2>
+  <P>Du point de vue de la syntaxe, vous pouvez apporter &agrave; un &eacute;l&eacute;ment autant de transformations
+     que vous le souhaitez, et dans n'importe quel ordre.  Cependant, l'ordre dans lequel les
+     transformations ont lieu est primordial !  En effet, il y a une &eacute;norme diff&eacute;rence entre&nbsp;:</P>
+<pre>
+box {&lt;0,0,0&gt;,&lt;1,1,1&gt; translate &lt;0,2,15&gt; rotate &lt;30,10,0&gt;}
+// et
+box {&lt;0,0,0&gt;,&lt;1,1,1&gt; rotate &lt;30,10,0&gt; translate &lt;0,2,15&gt;}
+</pre>
+<P>Le premier va d'abord se d&eacute;placer, puis orbiter &agrave; environ 15 unit&eacute;s de l'origine, tandis
+   que le second va gentiment pivoter, puis se d&eacute;placer.</P>
+
+<P>En r&egrave;gle g&eacute;n&eacute;rale, il est recommand&eacute; d'effectuer les op&eacute;rations dans l'ordre suivant&nbsp;: 
+<STRONG>scale</STRONG> (ajuster la taille), <STRONG>rotate</STRONG> (ajuster l'orientation), 
+ et enfin <STRONG>translate</STRONG> (ajuster la position).</P>
+<P>Au moment de la mod&eacute;lisation, cela implique aussi qu'il faut &ecirc;tre attentif, autant que
+  possible, &agrave; placer les objets le plus logiquement possible en rapport avec les axes (centres,
+  axes de sym&eacute;trie,...).</P>
+
+<H2>transformations des textures</H2>
+<P><I>note : tout ceci est valable aussi bien pour les mat&eacute;riaux, que pour les textures, les
+   pigment, les normales,...</I></P>
+<P>Au moment o&ugrave; la texture est sp&eacute;cifi&eacute;e dans la d&eacute;finition de l'objet, celle-ci est "fix&eacute;e"
+   &agrave; l'objet, et suivra les transformations de l'objet qui sont sp&eacute;cifi&eacute;es apr&egrave;s elle.</P>
+<pre>box {... translate <10,15,8> texture {Bois_Sapin}}</pre>
+<P>signifie que la bo&icirc;te prendra la texture &agrave; l'endroit o&ugrave; se trouve la bo&icirc;te apr&egrave;s la 
+   translation, tandis que</P>
+<pre>box {... texture {Bois_Sapin} translate <10,15,8>}</pre>
+<P>signifie que la bo&icirc;te prendra sa texture &agrave; l'endroit o&ugrave; elle se situe au d&eacute;part, puis
+   que cette texture "suivra" la bo&icirc;te lors du d&eacute;placement qui suit.</P>
+<P>On peut &eacute;galement faire bouger la texture ind&eacute;pendamment de l'objet, en mettant les
+   transformateurs dans la d&eacute;finition de texture.</P>
+
+<H2>transform {...}</H2>
+<P>Il est possible de d&eacute;clarer un ensemble de transformations en lui donnant un nom.</P>
+<pre>
+#declare Mouvement1 = transform {translate x*15 rotate y*90}
+object {...
+        transform {Mouvement1}
+        }
+</pre>
+
+<H2>macros standard de POV-Ray 3.5</H2>
+<P>Dans le fichier "transforms.inc" :</P>
+<P class="noindent">
+<STRONG>Shear_Trans(A, B, C)</STRONG> : réoriente et 'tord' un objet de telle manière que ses axes x,y et z, pointent vers A, B et C.
+</P>
+<P class="noindent">
+<STRONG>Matrix_Trans(A, B, C, D)</STRONG> : permet de spécifier une transformation de matrice à l'aide de 4 vecteurs.
+</P>
+<P class="noindent">
+<STRONG>Axial_Scale_Trans(Axis, Amt)</STRONG> : 'scale' directionnel, le long d'un axe.
+</P>
+<P class="noindent">
+<STRONG>Axis_Rotate_Trans(Axis, Angle)</STRONG> : équivalent généralisé de vaxis_rotate().
+</P>
+<P class="noindent">
+<STRONG>Rotate_Around_Trans(Rotation, Point)</STRONG> : rotation autour d'un point donné.
+</P>
+<P class="noindent">
+<STRONG>Reorient_Trans(Axis1, Axis2)</STRONG> : réoriente un objet d'un axe vers un autre.
+</P>
+<P class="noindent">
+<STRONG>Point_At_Trans(YAxis)</STRONG> : réoriente un objet de l'axe Y vers un autre axe.
+</P>
+<P class="noindent">
+<STRONG>Center_Trans(Object, Axis)</STRONG> : centrer un objet le long d'un ou plusieurs axes.
+</P>
+<P class="noindent">
+<STRONG>Align_Trans(Object, Axis, Pt)</STRONG> : aligne les côtés d'un objet sur un ou plusieurs axes.
+</P>
+<P class="noindent">
+<STRONG>Spline_Trans(Spline, Time, SkyVector, ForeSight, Banking)</STRONG> : aligner un objet sur une spline.
+</P>
+
+<P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+
+</BODY>
+
+</HTML>
+

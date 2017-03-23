@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>normales - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+		
+ <H1>modificateurs de normale</H1>
+
+<H2>slope_map</H2>
+<P>Par défaut, dans une normale,les valeurs de motif (de 0 &agrave; 1) sont converties
+lin&eacute;airement en valeurs de hauteur, de 0 &agrave; 1 aussi.</P>
+<P><STRONG>slope_map</STRONG> est un modificateur de normale qui donne &agrave; l'utilisateur la 
+possibilit&eacute; de d&eacute;finir exactement comment les valeurs de motif sont converties en hauteurs
+apparentes.
+<P>La syntaxe est la suivante&nbsp;: </P>
+<PRE>
+normal {...  //motif, bump_size,...
+ slope_map {
+          [Position1, &lt;Hauteur1,Pente1&gt;]
+          [Position2, &lt;Hauteur2,Pente2&gt;]
+          ...
+          }
+}
+//note : les crochets sont &agrave; utiliser (n'indiquent pas une option).
+</PRE>
+<P>C'est un peu comme si on &eacute;tablissait une courbe de corr&eacute;lation entre la valeur (de 0 &agrave; 1)
+   retourn&eacute;e par le motif (en abscisse) et la hauteur apparente de ce point. 
+   "Position" est une valeur sur l'abscisse, Hauteur &eacute;tant la position (entre 0 et 1 &eacute;galement)
+   sur l'ordonn&eacute;e qui lui correspond, et Pente &eacute;tant la pente de la courbe de corr&eacute;lation 
+   en ce point.  <BR>
+pente 0 = horizontale<BR>
+pente 1 = 45&#176; vers le haut<BR>
+pente -1 = 45&#176; vers le bas ...<BR>
+
+On peut sp&eacute;cifier entre 2 et 256 points de contr&ocirc;le.</P>
+<P>Note : la valeur de la pente est &eacute;gale &agrave; la tangente de l'angle de son inclinaison.</P>
+<P>La courbe lin&eacute;aire employ&eacute;e par d&eacute;faut pourrait se d&eacute;finir comme suit : </P>
+<PRE>
+slope_map {[0, <0,1>] //commence en bas &agrave; 45&#176;
+           [1, <1,1>] //termine en haut &agrave; 45&#176;
+          }
+</PRE>
+<IMG src="norm-sl1.jpg" border=2 alt="gradient x avec la slope_map par d&eacute;faut">
+<P><I>exemple avec un gradient x</I></P>
+<P>On pourrait par exemple en faire une courbe d'allure triangulaire : </P>
+<PRE>
+      [0   <0, 1>]   // commence en bas et part &agrave; 45&#176;
+      [0.5 <1, 1>]   // &agrave; la moiti&eacute;, bute sur le maximum avec une pente de 45&#176; intacte
+      [0.5 <1,-1>]   // du m&ecirc;me point, repart brutalement &agrave; -45&#176; vers le bas
+      [1   <0,-1>]   // et termine avec le m&ecirc;me angle
+</PRE>
+<IMG src="norm-sl2.jpg" border=2 alt="gradient x avec la slope_map triangulaire">
+<P><I>exemple avec le m&ecirc;me gradient x</I></P>
+
+<P>Attention : la "pente" dont il est question ici n'est pas la pente du "relief", mais
+   celle de la courbe de corr&eacute;lation entre la valeur du motif et la hauteur apparente 
+   de la normale !  (quoique, en pratique, cela revienne &agrave; peu pr&egrave;s au m&ecirc;me).</P>
+<P>Attention aussi : la courbe de la slope_map est une fonction du 3<sup>&egrave;me</sup> degr&eacute;
+   (cubique), et ne contiendra donc que rarement des segments de droites.</P>
+<P>Voici un exemple qui montre le passage d'une rupture brusque &agrave; une pente douce.</P>
+<pre>
+box {-1,1
+        texture {
+                 normal {
+                        gradient <.5,.5,.5>
+                        slope_map {
+                                  [0.00 <0,1>]
+                                  [0.25 <1,1>]
+                                  [0.25 <1,-1>]
+                                  [0.50 <1,0>]
+                                  [0.75 <0.5,0.5>]
+                                  [1.00 <0,1>]
+                                  }
+                        }
+                pigment {SteelBlue}
+                finish {phong 1 reflection .3}
+                 }
+    }
+</pre>
+
+<P>Remarque : <STRONG>slope_map</STRONG> peut &ecirc;tre utilis&eacute; avec tous les motifs except&eacute;
+ brick, checker, hexagon, bumps, dents, ripples, waves, wrinkles et bump_map.
+
+</BODY>
+	
+</HTML>

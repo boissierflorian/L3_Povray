@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>options - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A>
+</P>
+		
+ <H1>options des fichiers .ini et de la ligne de commande</H1>
+
+<H2>objectif</H2>
+<P>Sp&eacute;cifier certains param&egrave;tres dont l'action est (le plus souvent) ind&eacute;pendante
+   du contenu du script.</P>
+
+<H2>compatibilit&eacute;</H2>
+<P>Pas d'indication de compatibilit&eacute;, ce serait trop complexe &agrave; d&eacute;tailler.  La ligne
+   de commande est un h&eacute;ritage des premi&egrave;res versions, les fichiers .ini sont apparus 
+   dans POV-Ray 3.0, et MegaPOV apporte quelques nouveaut&eacute;s, qui seront signal&eacute;es
+   au cas par cas.</P>
+
+<H2>syntaxe g&eacute;n&eacute;rale</H2>
+<P>Les versions de POV-Ray qui tournent en "console" (MS-DOS, Linux,...) re&ccedil;oivent
+   des options sur la ligne de commande, comme tous les logiciels tournant dans ce 
+   type d'environnement, sous forme de commandes courtes (g&eacute;n&eacute;ralement une lettre),
+   activ&eacute;es ou d&eacute;sactiv&eacute;es par un "+" ou un "-" et parfois suivies d'un param&egrave;tre.  Exemple : </P>
+
+<PRE>povray +Imachin.pov +Omachin.tga +W640 +H480 +A +D0 -P +B100</PRE>
+
+<P>Les versions qui tournent dans un environnement graphique (ou avec une interface
+   quelconque) proposent d'introduire ces commandes dans un champ pr&eacute;vu &agrave; cet effet.</P>
+
+<P>On peut &eacute;galement introduire ces param&egrave;tres dans un fichier (simplement ASCII),
+   portant l'extension .ini ("initialisation"), dans lequel on r&eacute;dige les options
+   soit comme dans la ligne de commande, soit sous une forme plus "litt&eacute;raire".
+   L'&eacute;quivalent de la ligne de commande d'exemple pr&eacute;c&eacute;dente serait :</P>
+<PRE>
+Input_File_Name=machin.pov  
+Output_File_Name=machin  ;ceci est un commentaire  
+Width=640                ;pour vous dire que l'extension du fichier image sera
+Height=480               ;automatiquement attribu&eacute; selon le format de sortie choisi (ou par d&eacute;faut)
+Antialias=yes 
+Video_Mode=0
+Pause_When_Done=no
++B100
+</PRE>
+
+<H2>sections multiples</H2>
+<P>Il est possible de r&eacute;partir dans un m&ecirc;me fichier .ini plusieurs jeux d'options, comme suit : </P>
+<PRE>
+  ;le fichier s'appelle "resol.ini"
+  +W120 +H100  ; au cas ou rien n'est choisi
+
+  [ResBasse]
+  +W80 +H60    ; basse r&eacute;solution
+
+  [ResMoy]
+  +W320 +H200  ; ...
+
+  [ResHaute]
+  +W640 +H480  ; ...
+
+  [ResTresHaute]
+  +W800 +H600  ; tr&egrave;s haute r&eacute;solution
+</PRE>
+<P>Selon l'interface de votre version de POV-Ray, la s&eacute;lection des jeux d'options se fera
+   diff&eacute;remment.  Pour les syst&egrave;mes &agrave; console, on lance : </P>
+<PRE>povray resol[ResHaute]</PRE>
+
+<P><A href="reg-ini-ren.htm">page suivant : options de rendu</A></P>
+
+
+<P><I>r&eacute;dacteur : Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

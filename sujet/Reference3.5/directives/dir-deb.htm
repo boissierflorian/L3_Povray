@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>messages - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+
+<H1>messages vers la console</H1>
+
+<H2>objectif</H2>
+ <P>La console, c'est l'endroit o&ugrave; POV-Ray &eacute;crit les messages d'erreurs, les avertissements,
+    les statistiques, etc...  Selon les syst&egrave;mes, la console peut comporter des zones
+    distinctes (version MS-DOS, par exemple) ou les messages sont tous envoy&eacute;s au m&ecirc;me
+    endroit (versions Windows ou Macintosh, par exemple).  Une s&eacute;rie de directives permettent &agrave; l'utilisateur
+    d'envoyer lui-m&ecirc;me des messages vers la console.
+    </P>
+
+<H2>compatibilit&eacute;</H2>
+ <P class="noindent">POV-Ray 3.0 +sup.<BR>
+ POV-Ray 3.5 (simplifications)<BR>
+</P>
+
+<H2>syntaxe</H2>
+ <P>Les directives de messages se placent &agrave; n'importe quel endroit du script (sauf
+    &agrave; l'int&eacute;rieur d'une autre instruction, bien entendu !).</P>
+
+ <PRE>#debug Chaine1</PRE>
+ <P>Envoie le message contenu dans la cha&icirc;ne vers la console, sans autre incidence sur le
+    d&eacute;roulement du script.  Cette directive est souvent employ&eacute;e pour la mise au point
+    des scripts, en affichant les valeurs prises par certaines variables, ou en signalant
+    qu'une action a &eacute;t&eacute; effectu&eacute;e.</P>
+ <PRE>#render Chaine1</PRE>
+ <PRE>#statistics Chaine1</PRE>
+
+ <P>Ont le même effet que <STRONG>#debug</STRONG>, depuis POV-Ray 3.5 (auparavant, ils
+    avaient leur section propre dans la console).</P>
+
+ <PRE>#warning Chaine1</PRE>
+
+ <P>Fonctionne comme <STRONG>#debug</STRONG>, en écrivant "Warning : " avant la chaîne.
+    Cette directive s'utilise surtout dans les #macros, pour avertir l'utilisateur qu'il
+    en fait un usage pas très orthodoxe (valeurs anormales,...).</P>
+
+ <PRE>#error Chaine1</PRE>
+<P>Envoie le message vers la console correspondante, et <B>stoppe l'interpr&eacute;tation
+   du script</B>.  On peut s'en servir par exemple dans une #macro, au cas o&ugrave; certaines
+   valeurs d'un param&egrave;tre risquent d'apporter de graves aberrations dans le r&eacute;sultat
+   final.</P>
+
+<H2>#macros standard de POV-Ray 3.5</H2>
+<P>Dans "debug.inc" :</P>
+<P class="noindent">
+<STRONG>Debug_Inc_Stack()</STRONG> : active un 'suivi' des fichiers standard inclus, qui enverront chacun un message
+ signalant leur 'activation'.<BR>
+
+<STRONG>Set_Debug(Bool)</STRONG> : activation/désactivation globale des macros de 'debug.inc'.<BR>
+
+<STRONG>Debug_Message(Str)</STRONG> : envoyer un message vers la console 'debug'.<BR>
+
+<STRONG>Debug(Condition, Message)</STRONG> : envoyer un message vers 'debug', si une condition est vraie.<BR>
+<STRONG>Warning(Condition, Message)</STRONG> : envoyer un message vers 'warning', si une condition est vraie.<BR>
+<STRONG>Error(Condition, Message)</STRONG> : envoyer un message vers 'error', si une condition est vraie.<BR>
+</P>
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

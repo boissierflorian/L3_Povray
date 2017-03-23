@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>options - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	<BODY>
+<P>
+<A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> - 
+<A href="index-reg.htm">vers l'index des réglages</A> -
+<A href="reg-ini-out.htm">page précédente : options de sortie</A>
+</P>
+
+<P>"n" repr&eacute;sente une valeur enti&egrave;re, "n.n" repr&eacute;sente une valeur d&eacute;cimale, "b"
+   repr&eacute;sente une valeur bool&eacute;enne (on/off), "c", repr&eacute;sente une cha&icirc;ne.</P>
+
+<H2>options de l'interpr&eacute;teur</H2>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+Ic</TD><TD>Input_File_Name=c</TD><TD>...</TD><TD>sp&eacute;cifie le nom du fichier de script &agrave; interpr&eacute;ter</TD></TR>
+ <TR><TD>+Lc</TD><TD>Library_Path=c</TD><TD>...</TD><TD>sp&eacute;cifie un chemin d'acc&egrave;s pour les fichiers</TD></TR>
+ <TR><TD>+MVn.n</TD><TD>Version=n.n</TD><TD>version courante</TD><TD>sp&eacute;cifie quelle version de la syntaxe de POV-Ray est utilis&eacute;e par d&eacute;faut</TD></TR>
+</TABLE>
+
+<H3>chemins de r&eacute;pertoires</H3>
+<P>L'option <STRONG>Library_Path</STRONG>, suivie d'un chemin de r&eacute;pertoires (sans slash ou
+   bakslash &agrave; la fin) au format normal de votre syst&egrave;me d'exploitation, indique &agrave; POV-Ray dans
+   quels r&eacute;pertoires il peut aller chercher les fichiers invoqu&eacute;s dans les scripts (#include,
+   images,...).  POV-Ray va d'abord chercher le fichier dans le m&ecirc;me r&eacute;pertoire que le fichier
+   de script, puis ensuite parcourir les r&eacute;pertoires sp&eacute;cifi&eacute;s par <STRONG>Library_Path</STRONG>,
+   dans l'ordre o&ugrave; ils sont sp&eacute;cifi&eacute;s, puisque on peut en utiliser 20.</P>
+<PRE>+Ld:\povimages\maps</PRE>
+
+<H3>version de syntaxe &agrave; employer</H3>
+<P>L'option <STRONG>Version</STRONG> permet de forcer l'interpr&eacute;teur &agrave; adopter par d&eacute;faut une
+   syntaxe qui correspond &agrave; une version ant&eacute;rieure de POV-Ray.  Consultez la documentation de
+   votre version pour savoir quelles fonctionnalit&eacute;s ont conserv&eacute; la capacit&eacute; de recevoir
+   l'ancienne syntaxe.  Remarque : la conservation ult&eacute;rieure de ces syntaxes n'est jamais
+   garantie, et il est pr&eacute;f&eacute;rable de se familiariser avec la syntaxe la plus r&eacute;cente.</P>
+
+<H3>appels &agrave; d'autres programmes</H3>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Pre_Scene_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter avant le rendu de la sc&egrave;ne</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Pre_Frame_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter avant le rendu de chaque frame</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Post_Scene_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter apr&egrave;s le rendu de la sc&egrave;ne</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Post_Frame_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter apr&egrave;s le rendu de chaque frame</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>User_Abort_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter lorsque l'utilisateur interrompt le rendu</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Fatal_Error_Command=c</TD><TD>...</TD><TD>commande &agrave; ex&eacute;cuter lorsque POV-Ray s'interrompt avec une erreur</TD></TR>
+</TABLE>
+<P>Ces options permettent, &agrave; divers moments du processus de rendu, de commander l'ex&eacute;cution d'un autre
+   programme.  Elles ne sont disponible que dans les fichiers .ini.</P>
+<P>Si le programme ex&eacute;cut&eacute; accepte des options de ligne de commande, il est possible lui de passer
+  certains param&egrave;tres particuliers : <BR>
+%o : le nom du fichier de sortie, avec son extension et &eacute;ventuellement le numero de frame<BR>
+%s : le nom du script, avec son extension<BR>
+%n : le numero de la frame courante<BR>
+%k : la valeur de clock courante<BR>
+%h : la hauteur de l'image, en pixels<BR>
+%w : la largeur de l'image, en pixels<BR>
+%% : le caract&egrave;re "%"<BR>
+</P>
+<pre>Post_Scene_Command=tga2gif -d -m %s</pre>
+<P>La plupart des programmes ainsi invoqu&eacute;s ont la propri&eacute;t&eacute;s de renvoyer au syst&egrave;me d'exploitation
+   un code (un chiffre) particulier &agrave; la fin de leur ex&eacute;cution, signalant comment s'est d&eacute;roul&eacute;
+   le programme.  En g&eacute;n&eacute;ral, 0 signifie que tout s'est bien pass&eacute;, et une autre valeur que 0
+   signifie qu'une erreur s'est produite.</P>
+<P>Il est possible de sp&eacute;cifier, pour chaque "moment" d'ex&eacute;cution de commande, ce que POV-Ray
+   doit faire, selon que le r&eacute;sulat est &eacute;gal &agrave; 0 ou non.</P>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Pre_Scene_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande avant le rendu de la sc&egrave;ne</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Pre_Frame_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande avant le rendu de chaque frame</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Post_Scene_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande apr&egrave;s le rendu de la sc&egrave;ne</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Post_Frame_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande apr&egrave;s le rendu de chaque frame</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>User_Abort_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande &agrave; ex&eacute;cuter lorsque l'utilisateur interrompt le rendu</TD></TR>
+ <TR><TD>(indisp.)</TD><TD>Fatal_Error_Return=c</TD><TD>I</TD><TD>r&eacute;action au retour de la commande &agrave; ex&eacute;cuter lorsque POV-Ray s'interrompt avec une erreur</TD></TR>
+</TABLE>
+<P>La r&eacute;action a lieu si la valeur de retour est diff&eacute;rente de 0.  
+   Les valeurs de l'option peuvent &ecirc;tre : <BR>
+I : ignorer la valeur de retour<BR>
+S : passer une &eacute;tape du processus<BR>
+A : passer toutes les &eacute;tapes du processus<BR>
+Q : quitter imm&eacute;diatement POV-Ray<BR>
+U : g&eacute;n&egrave;re une interruption par l'utilisateur<BR>
+F : g&eacute;n&egrave;re une interruption avec une erreur<BR>
+</P>
+<pre>Post_Scene_Return=F</pre>
+<P>On peut inverser la condition (d&eacute;clenchement si le retour est &eacute;gal &agrave; 0) en
+   pla&ccedil;ant un "-" devant la lettre.</P>
+
+<H3>messages de la console</H3>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+GD, -GD</TD><TD>Debug_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages de "debug"</TD></TR>
+ <TR><TD>+GF, -GF</TD><TD>Fatal_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages d'erreurs</TD></TR>
+ <TR><TD>+GR, -GR</TD><TD>Render_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages de "render"</TD></TR>
+ <TR><TD>+GS, -GS</TD><TD>Statistic_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages de statistiques</TD></TR>
+ <TR><TD>+GW, -GW</TD><TD>Warning_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages de "warning"</TD></TR>
+ <TR><TD>+GA, -GA</TD><TD>All_Console=b</TD><TD>+</TD><TD>active/d&eacute;sactive les messages de toutes les consoles</TD></TR>
+</TABLE>
+<P>Faire suivre une activation de messages par un nom de fichier provoque l'&eacute;criture des
+   messages dans ce fichier (pour garder une trace) : <STRONG>+GDdebug.txt</STRONG>.  Dans un fichier .ini, il faut
+   sp&eacute;cifier <STRONG>Debug_File=</STRONG>debug.txt, <STRONG>Fatal_File=</STRONG>fatal.txt, etc...</P>
+<P>Pour plus de d&eacute;tails sur le fonctionnement des messages de la console, voyez la section qui
+   leur est consacr&eacute;e dans les "directives".</P>
+
+<H3>&eacute;crans d'aide</H3>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+?, +?n</TD><TD>(indisponible)</TD><TD>-</TD><TD>affiche un &eacute;cran d'aide rapide, page n</TD></TR>
+</TABLE>
+<P>Cette option est fait pour les versions de POV-Ray fonctionnant dans un environnement
+   non-graphique, et, utilis&eacute; seul juste apr&egrave;s le nom du programme (POV-Ray), provoque l'affichage
+   d'un ou plusieurs &eacute;crans d'aide succinte.</P>
+
+<H2>options de rendu</H2>
+
+<H3>qualit&eacute; et radiance </H3>
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD>d&eacute;faut</TD><TD><B>description</B></TD></TR>
+ <TR><TD>+Qn</TD><TD>Quality=n</TD><TD>9</TD><TD>s&eacute;lectionne le niveau de qualit&eacute; &agrave; employer dans le rendu</TD></TR>
+ <TR><TD>+QR, -QR</TD><TD>Radiosity=b</TD><TD>-</TD><TD>enclenche le calcul de la radiance </TD></TR>
+</TABLE>
+<P>Voici les valeurs possibles de n :<BR>
+0, 1 : Utilise seulement les "quick colors", et l'&eacute;clairage ambiant.<BR>
+2, 3 : Utilise les valeurs locales de <STRONG>diffuse</STRONG> et <STRONG>ambient</STRONG> des objets.<BR>
+4	   : Calcule les ombres, mais pas les lumi&egrave;res &eacute;tendues.<BR>
+5	   : Calcule les ombres, y compris les lumi&egrave;res &eacute;tendues.<BR>
+6, 7	 : Utilise les motifs des textures<BR>
+8	   : Calcule la r&eacute;flection, la r&eacute;fraction et la transparence.<BR>
+9	   : Calcule les media <I>c'est le niveau de qualit&eacute; par d&eacute;faut</I>.<BR>
+10	   : Calcule la radiance mais pas les media .<BR>
+11	   : Calcule la radiance ET les media .<BR>
+
+<H3>bo&icirc;tes d'optimisation</H3>
+<P>Voyez la section <A href="../concept1/povfr-bbox-01.htm">"les bo&icirc;tes d'optimisation"</A> 
+   pour avoir tout le d&eacute;tail sur cette fonctionnalit&eacute;.</P>
+
+<TABLE border=1 align=center width=90%>
+ <TR><TD><B>commande</B></TD><TD><B>ini</B></TD><TD><B>d&eacute;faut</B></TD><TD><B>description</B></TD></TR>
+ <TR><TD>+MB, -MB</TD><TD>Bounding=b</TD><TD>+</TD><TD>enclenche l'optimisation automatique</TD></TR>
+ <TR><TD>+MBn, -MBn</TD><TD>Bounding_Threshold=n</TD><TD>25</TD><TD>sp&eacute;cifie &agrave; partir de combien d'objets il faut enclencher l'optimisation</TD></TR>
+ <TR><TD>+UL, -UL</TD><TD>Light_Buffer=b</TD><TD>+</TD><TD>enclenche l'optimisation des lumi&egrave;res</TD></TR>
+ <TR><TD>+UV, -UV</TD><TD>Vista_Buffer=b</TD><TD>+</TD><TD>enclenche l'utilisation du "vista buffer"</TD></TR>
+ <TR><TD>+UR, -UR</TD><TD>Remove_Bounds=b</TD><TD>+</TD><TD>enl&egrave;ve les optimisations manuelles des objets quand elles semblent inutiles</TD></TR>
+ <TR><TD>+SU, -SU</TD><TD>Split_Unions=b</TD><TD>-</TD><TD>enl&egrave;ve les optimisations manuelles des unions quand elles semblent inutiles</TD></TR>
+</TABLE>
+	
+</HTML>

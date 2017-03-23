@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>R&eacute;f&eacute;rence POV-Ray - structure des matériaux</TITLE>
+</HEAD>
+
+<BODY>
+<P>
+ <A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> -
+ <A href="index-mat.htm">index des matériaux</A>
+</P>
+
+<H1>pigment</H1>
+
+<P><STRONG>pigment</STRONG> est une structure qui définit une couleur et/ou une 
+   répartition de couleurs.  Plusieurs cas de figure sont possibles.</P>
+
+<img src="illref-mat-pig.jpg">
+
+<H2>couleur unie</H2>
+<P>C'est la forme la plus simple d'un <STRONG>pigment</STRONG> : une couleur unie, opaque ou pas. Exemples :</P>
+<PRE>
+pigment {color rgb <1,0,0>}
+pigment {color rgb <1,0,0> filter .5}
+pigment {color rgbft <1,0,0,.5,.5>}
+pigment {Red}
+</PRE>
+
+<H2>pigment avec motif + palette de couleurs</H2>
+<P>Très classique aussi, ce type de définition associe un motif et une palette de couleurs
+   qui seront déployées suivant le motif. Exemple : </P>
+<PRE>
+pigment {
+  crackle
+  color_map {
+   [0.0 Red]
+   [0.5 Yellow filter .5]
+   [1.0 LightBlue]
+  }
+}
+</PRE>
+
+<P>Lorsque le motif est un motif "à liste", comme <STRONG>checker</STRONG> par exemple,
+   spécifiez simplement les couleurs les unes à la suite des autres :</P>
+
+<PRE>pigment {checker Red White}</PRE>
+<P>Voyez la page des palettes pour la syntaxe complète de <STRONG>color_map</STRONG>.</P>
+
+<H2>pigment avec motif + palette de pigments</H2>
+<P>Cette structure est très similaire à celle qui comporte une palette de couleurs,
+à ceci près que les composants de la palette sont eux-mêmes des pigments !</P>
+<PRE>
+pigment {
+  crackle
+  pigment_map {
+   [0.0 MonPigment1]
+   [0.5 checker Red White]
+   [1.0 MonPigment2]
+  }
+}
+</PRE>
+<H2>pigment avec plaquage d'image (image_map)</H2>
+<P>Pour appliquer une image sur un objet (un logo, du bois,...), on utilise le
+   motif particulier <STRONG>image_map</STRONG>.  Il est particulier parce qu'il
+   ne s'utilise que dans un <STRONG>pigment</STRONG>, et parce qu'il prend ses
+   couleurs dans les couleurs d'origine de l'image, et pas dans une palette.</P>
+<PRE>
+pigment {
+image_map {
+           png / tga / ppm / pgm / jpeg / tiff / sys 
+           "Nom_du_Fichier"
+           (map_type 0 / 1 / 2 / 5)
+           (once)
+           (interpolate 2 / 4)
+
+           (filter Index,F / all)
+           (transmit Index,T / all)
+ }
+}
+</PRE>
+<P>Pour la première partie de la syntaxe, voyez la page du motif <STRONG>image_pattern</STRONG>.</P>
+<P>Les mots clés <STRONG>filter</STRONG> et <STRONG>transmit</STRONG> permettent de spécifier
+   une transparence de l'image.  Si l'image possède une palette de couleurs indexées (typiquement,
+   une image en 256 couleurs), on pourra faire ceci par exemple :</P>
+<PRE>
+pigment {
+image_map {
+            ...
+           filter 2,0.5
+           transmit 15,1
+ }
+}
+</PRE>
+<P>...ce qui apliquera une transparence filtrée de 50% aux pixels dont l'index de couleur
+est 2, et une transparence non-filtrée aux pixels dont l'index est 15.</P>
+<P>Pour appliquer une transparence à toute l'image, on écrira <STRONG>filter all</STRONG>
+   ou <STRONG>transmit all</STRONG>.  N'oubliez pas que <STRONG>filter</STRONG> est sans
+   effet sur le noir !</P>
+<P>Si l'image possède un canal alpha, celui-ci sera interprété comme des valeurs de 
+   <STRONG>transmit</STRONG>.</P>
+<H2>quick_color</H2>
+<P>En sus de toute autre définition, on peut toujours ajouter à un pigment une 'couleur
+   rapide' (<STRONG>quick_color</STRONG>), qui sera utilisée lorsque la qualité de rendu
+   choisie ne permet pas de rendre le pigment dans toute sa complexité :</P>
+<PRE>pigment {
+      ...
+      quick_color Red
+}</PRE>
+<P>De nos jours, ce procédé est un peu désuet, et on lui préférera une gestion
+   intelligente de la complexité des textures (en enclenchant l'utilisation de
+   définition simplifiées, par exemple).</P>
+
+</BODY>
+</HTML>

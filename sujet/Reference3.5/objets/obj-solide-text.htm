@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>text - documentation POV-Ray en français		</TITLE>
+	</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A></P>
+
+<H1>l'objet texte</H1>
+<p class="noindent">
+<I> - oooh, tu sais écrire !  Et tu sais écrire Maman ?</I><BR>
+ - voui !<BR>
+<I> - montre-moi comment tu écris Maman...</I><BR>
+ - text {ttf "times.ttf" "Maman" ...<BR>
+<I> - euuuh, et c'est qui le monsieur à côté de ta Maman ?</I>
+</P>
+<H2>objectif</H2>
+<p>
+Créer un texte en 3D.
+</P>
+<img src="illref-text-00.jpg">
+<H2>compatibilité</H2>
+<p>POV-Ray 3.0 + sup
+</P>
+
+<h2>syntaxe</H2>
+<pre>
+text { ttf "MaPoliceDeCaracteres.ttf"
+      "Mon Texte"  <SPAN class="comm">// Chaîne</SPAN>
+       Epaisseur,  <SPAN class="comm">// Décimal</SPAN>
+       Espacement  <SPAN class="comm">// Vecteur</SPAN>
+
+       (..modificateurs d'objets..)
+       (..transformations..)
+       (..mat&eacute;riau..)
+}
+</pre>
+<p>Pour l'instant seule les polices Truetype (.ttf) sont support&eacute;es.</P>
+<P>Afin d'obtenir un rendu correct des caractères spéciaux ou accentués (pour ne pas avoir l'accent tué), il faut, dans les <STRONG>global_settings</STRONG>, utiliser le jeu de caractères <STRONG>utf8</STRONG> (unicode).
+Voyez la page des chaînes de caractères pour plus de détails.</P>
+
+<PRE>global_settings { charset utf8 }</PRE>
+
+<P>Les caract&egrave;res retour chariot, saut de ligne, tabulation etc. ne sont pas support&eacute;s.</P>
+
+<P>L'alignement inf&eacute;rieur gauche du premier caract&egrave;re est en &lt;0,0,0&gt;.  
+   Le reste du mot s'&eacute;tendra sur l'axe X (le texte est donc lisible par une caméra située
+   en -Z, et regardant vers +Z).</P>
+<P>L'&eacute;paisseur est sur l'axe Z, la face sur le plan X-Y.</P>
+<P>L'espacement est le décalage successif de chaque caractère, un peu comme une translation.  
+   En g&eacute;n&eacute;ral l'espacement est &agrave; de &lt;0,0,0&gt;, mais on ne peut 
+   d&eacute;caler les caract&egrave;res que sur les axes X et Y (Z sera ignoré).</P>
+<P>En principe, 1 unit&eacute; d'espace vertical correspondra à la hauteur d'une ligne de texte,
+   interligne comprise (à condition que la fonte soit réalisée rigoureusement).</P>
+<img src="illref-text-01.jpg">
+<P>L'espacement horizontal (crénage) est g&eacute;r&eacute; en interne par POV-Ray en incluant 
+   les informations de la police. Le vecteur obligatoire Espacement peut définir un 
+   d&eacute;placement suppl&eacute;mentaire entre chaque caract&egrave;re. 
+   Le plus souvent, vous devrez sp&eacute;cifier un z&eacute;ro pour cette valeur.  Seuls
+   les dépacements en X et en Y sont pris en compte. 
+   Par exemple, spécifier 0.1*x ajoutera 0.1 unit&eacute; d'espace entre chaque caract&egrave;re.</P>
+
+<h2>Exemple</h2>
+<pre>
+global_settings {
+ charset utf8
+}
+
+text { ttf "arial.ttf"
+           "bonjour," .1,0
+            pigment {OrangeRed} 
+            }
+
+text { ttf "times.ttf"
+           "enchant\u00E9" 10,<.1,-.1>
+            pigment {YellowGreen} 
+            translate y*-1
+            }
+</pre>
+<img src="illref-text-02.jpg" alt="Image Texte Bonjour" border="2">
+
+<H2>remarque</H2>
+<P>Pour accéder facilement à vos fontes, spécifiez le chemin dans votre fichier .ini. 
+Par exemple: <PRE>Library_Path=C:\WINDOWS\Fonts</PRE></P>
+<P><I>En principe, on peut aussi directement spécifier le chemin en donnant le nom
+de la police à utiliser, mais vous aurez des problèmes si votre chemin comporte des
+espaces, accents, ...</I></P>
+
+<H2>macros standard de POV-Ray 3.5</H2>
+<P>dans "shapes.inc" :</P>
+<P class="noindent">
+<STRONG>Bevelled_Text(Font, String, Cuts, BevelAng, BevelDepth, Depth, Offset, UseMerge)</STRONG> calcule la largeur d'un texte. : 
+créer du texte dont les bords sont chanfreinés.
+</P>
+<IMG src="povfr-txt-02.jpg">
+<P class="noindent">
+<STRONG>Text_Space(Font, String, Size, Spacing)</STRONG> : calcule la largeur d'un texte.
+</P>
+<P class="noindent">
+<STRONG>Text_Width(Font, String, Size, Spacing)</STRONG> : calcule la largeur d'un texte.
+</P>
+<P class="noindent">
+<STRONG>Circle_Text(Font, String, Size, Spacing, Depth, Radius, Inverted, Justification, Angle)</STRONG> : créer
+du texte disposé en cercle.
+</P>
+<IMG src="povfr-txt-03.jpg">
+
+<P><I>auteurs : Martial Rameaux / Ferdinand / Fabien Mosen</I></P>
+	</BODY>
+	
+</HTML>

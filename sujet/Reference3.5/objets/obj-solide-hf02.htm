@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"> 
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>height_field - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> /
+<A href="index-obj.htm">vers l'index des objets</A> / 
+<A href="obj-solide-hf01.htm">vers la page des height_fields</A></P>
+
+<H1>height_fields en 16 bits</H1>
+<P>Nous allons voir comment travailler avec des <STRONG>height_field</STRONG>s dont les hauteurs sont
+   codées sur 16 bits, c'est-à-dire 65 536 niveaux.</P>
+
+<H2>à partir d'une image en 16 millions de couleurs ("true color")</H2> 
+ <P>Quel que soit le format graphique utilisé (TGA, PNG,..), une image en "true
+    color" code ses couleurs sur 8 bits (un octet) par canal, sur trois canaux (rouge, 
+    vert et bleu), ce qui donne un total de 24 bits.  Oublions le canal alpha, qui n'a
+    aucune incidence sur les <STRONG>height_field</STRONG>s.</P>
+ <P>Lorsqu'un tel fichier est employé dans un <STRONG>height_field</STRONG>, seuls les deux premiers
+    octets (rouge et vert) sont employés pour déterminer la hauteur.  On obtient donc
+    un codage sur 2 octets, ou 16 bits, qui donnent 65 536 niveaux possibles.  Le
+    premier octet est dit "de poids fort" et le deuxième est dit "de poids faible"</P>
+ <P>Cela veut dire qu'il est vain d'utiliser une image "normale", car sa gradation
+    ne sera pas tout à fait linéaire, puisque ses valeurs de rouge et vert sont indépendantes.
+    Voici, pour une gradation régulière, l'allure du fichier "true color" correspondant :</P>
+ <TABLE>
+ <TR><TD><IMG src="hf-gray-01.jpg" border=2 alt=""></TD><TD><IMG src="hf-gray-02.jpg" border=2 alt=""></TD></TR>
+ <TR><TD>la gradation réelle</TD><TD>l'image 'true color'</TD></TR>
+ </TABLE>
+ <P>On comprend dès lors qu'il est inimaginable de générer manuellement un tel fichier.
+    Il doit donc être généré à partir de données (courbes de niveaux, etc..) ou par
+    un utilitaire spécialisé (tel que Gforge, etc..), ou même, et surtout, POV-Ray lui-même !</P>
+<H3>comment générer une telle image à partir de POV-Ray ?</H3>
+<P>C'est très simple !  Définissez un pigment dont la color_map est composée de niveaux
+   de gris, et utilisez-le dans cette toute petite scène :</P>
+<pre>
+#declare MonPigment = pigment {...}
+
+camera {location &lt;.5,.5,-1&gt; right x*1 up y*1 look_at &lt;.5,.5,0&gt; orthographic}
+plane {z,0 pigment {MonPigment}}
+global_settings {ambient_light 10 hf_gray_16}
+</pre>
+<P>Veillez à spécifier TGA (ou PNG) comme format de sortie (option <STRONG>+ft</STRONG> ou <STRONG>+fn</STRONG>), et voilà !
+   Pendant le rendu, l'affichage se fera en niveau de gris, mais le fichier sera bel
+   et bien une bouillie rouge et verte !  Si la color_map contenait des couleurs, 
+   elles seront automatiquement converties en niveaux de gris suivant les coefficients
+   suivants : rouge*0.30, vert*0.59 et bleu*0.11.</P>
+ <TABLE>
+ <TR><TD><IMG src="hf-gray-03.jpg" border=2 alt=""></TD><TD><IMG src="hf-gray-04.jpg" border=2 alt=""></TD></TR>
+ <TR><TD>la gradation</TD><TD>l'image 'true color'</TD></TR>
+ </TABLE>
+<P>Le fichier résultant, éventuellement converti dans un autre format "true color", pourra
+   être utilisé comme générateur de <STRONG>height_field</STRONG>s.</P>
+<H2>à partir d'une image en 65 536 niveaux de gris</H2> 
+<P>Le format PNG (et lui seul) permet de coder des images en 65 536 niveaux de gris,
+   directement, sans recourir à l'artifice décrit ci-dessus.  Cependant, peu de logiciels
+   ont la capacité de manipuler ce mode.</P>
+<p></P><H3>comment générer une telle image avec POV-Ray ?</H3>
+<P>Tout simplement comme dans l'exemple précédent, mis en prenant soin de spécifier <STRONG>+fn16</STRONG>
+   (sortie en PNG 16 bits par canal) dans les options.  La plupart des logiciels de visualisation
+   afficheront l'image résultante comme du 256 niveaux de gris, mais POV-Ray exploitera les
+   65 536 paliers pour ses <STRONG>height_field</STRONG>s.</P>
+
+  <P><I>Rédacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"><html><head>
+ <link href="../povdocfr_style.css" rel="stylesheet" type="text/css"><title>Référence POV-Ray - licence d'utilisation</title></head> 
+
+
+<body>   
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+<A href="index-fct.htm">vers l'index des données et fonctions</A></P>
+
+	<h1>fonctions manipulant des vecteurs</h1>
+
+<P>
+<STRONG>vaxis_rotate(A,B,F)</STRONG> : fait effectuer au vecteur A une rotation de F degr&eacute;s autour
+        de l'axe d&eacute;fini par le vecteur F.<BR>
+</P>
+
+<P>
+<STRONG>vcross(A,B)</STRONG> : produit crois&eacute; des vecteurs A et B.  Le vecteur r&eacute;sultant est
+perpendiculaire &agrave; A et B, et sa longueur est proportionnelle &agrave; l'angle entre ces vecteurs.<BR>
+</P>
+
+<P>
+<STRONG>vnormalize(A)</STRONG> : retourne un vecteur dont le sens et la direction sont &eacute;gaux
+&agrave; ceux de A, mais dont la longeur vaut 1 unit&eacute;.<BR>
+</P>
+
+<P>
+<STRONG>vrotate(A,B)</STRONG> : fait effectuer au vecteur A une rotation sp&eacute;cifi&eacute;e par le vecteur
+B (comme une rotation "classique" avec <STRONG>rotate</STRONG>).
+</P>
+
+<P>
+<STRONG>vdot (Vec1,Vec2)</STRONG> retourne le produit scalaire (somme de la multiplication de chaque composant) des deux vecteurs sp&eacute;cifi&eacute;s.
+                 En clair&nbsp;: <STRONG>vdot (&lt;a,b,c&gt;,&lt;d,e,f&gt;)</STRONG> = a*d + b*e + c*f<BR>
+                 Cette fonction retourne un nombre décimal.
+</P>
+
+<P>
+<STRONG>vlenght (Vect)</STRONG> retourne la longueur du vecteur Vect (distance entre l'origine et le point &lt;x,y,z&gt;).
+                 Cette fonction retourne un nombre décimal.
+</P>
+<P>
+<STRONG>vturbulence(Lambda, Omega, Octaves, A)</STRONG> : prend un point A et le déplace suivant
+une fonction de turbulence.  Voyez la page du modificateur de motif <STRONG>warp</STRONG>
+pour plus de détails sur les principes et les paramètres.
+</P>
+
+
+<H2>macros standard de POV-Ray 3.5</H2>
+<P>Dans "transforms.inc" :</P>
+<P><STRONG>vtransform(Vect, Trans)</STRONG> : transformer la position d'un point à l'aide des transformations spatiales (scale, rotate,..).</P>
+<P><STRONG>vinv_transform(Vect, Trans)</STRONG> : idem que la précédente, mais effectue la transformation inverse.</P>
+
+<H2>remarque</H2>
+<P>La plupart de ces fonctions, sauf exception signalée, renvoient des vecteurs, ce qui les
+   rend inutilisables dans une définition de fonction classique.  Vous devrez, dans ce cas,
+   utiliser les opérateurs .x, .y, .z, .gray, ou une autre fonction spéciale qui transforme
+   un vecteur en nombre décimal.</P>
+</body>
+</html>

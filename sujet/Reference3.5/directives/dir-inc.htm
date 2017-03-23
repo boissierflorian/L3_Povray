@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+
+<HEAD>
+ <LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+ <TITLE>messages - documentation francophone de POV-Ray</TITLE>
+</HEAD>
+
+<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+<H1>#include</H1>
+
+<H2>objectif</H2>
+ <P>Permettre l'inclusion du contenu d'un autre fichier (contenant des intructions dans
+    le langage de POV-Ray) dans le script courant.</P>
+
+<H2>syntaxe</H2>
+<P>&Agrave; n'importe quel endroit du script, y compris, si n&eacute;cessaire, dans les tr&eacute;fonds des
+   plus obscures structures&nbsp;:</P>
+<PRE>#include "nom_du_fichier.inc"</PRE>
+<P>Le fichier peut avoir n'importe quelle extension, mais ".inc" est une convention
+   ultra-r&eacute;pandue dans le monde de POV-Ray, et officiellement pr&eacute;conis&eacute;e.  POV-Ray est
+   livr&eacute; avec de nombreux fichiers ".inc" concernant surtout les textures : "colors.inc",
+   "woods.inc", "metals.inc",...</P>
+
+<H2>fonctionnement</H2>
+  <P>Il faut consid&eacute;rer <STRONG>#include</STRONG> comme une simple commande de copier-coller.
+     Tout se passe comme si vous aviez tap&eacute; le contenu du fichier &agrave; l'endroit o&ugrave; vous invoquez
+     <STRONG>#include</STRONG>.</P>
+  <P>En cons&eacute;quence, si vous faites r&eacute;f&eacute;rence &agrave; un &eacute;l&eacute;ment d&eacute;fini dans un fichier externe,
+     il est imp&eacute;ratif que ce fichier ait &eacute;t&eacute; inclus AVANT cette r&eacute;f&eacute;rence !</P>
+  <P>Les variables locales (d&eacute;clar&eacute;es par <STRONG>#local</STRONG>) ont un champ d'action
+     limit&eacute; au fichier dans lequel elles sont d&eacute;clar&eacute;es et manipul&eacute;es.</P>
+
+<H2>strat&eacute;gie I</H2>
+ <P>Bien entendu, vous pouvez organiser vos scripts comme vous l'entendez, mais il est
+    bon de prendre soin de rendre les choses aussi claires que possible.  Si vous travaillez
+    sur une sc&egrave;ne nomm&eacute;e "chateau.pov", ce serait une bonne id&eacute;e de regrouper toutes les
+    d&eacute;finitions de textures dans un fichier nomm&eacute; "chateau_tex.inc", toutes les d&eacute;finitions
+    d'objets dans "chateau_obj.inc", et toutes les macros dans "chateau_mac.inc" ou encore
+    "chateau.mcr".  Alors, le script principal commencerait logiquement par :</P>
+  <pre>
+#include "colors.inc"
+#include "chateau_tex.inc"
+#include "chateau.mcr"
+#include "chateau_obj.inc"
+</pre>
+
+<H2>strat&eacute;gie II</H2>
+<P>Afin d'éviter qu'un fichier inclus appelle à son tour un autre fichier qui a déjà été inclus (occasionnant une petite perte
+   de temps et de mémoire), voire pire, deux fichiers s'appellant l'un l'autre, indéfiniment, il existe une technique simple,
+qui est par ailleurs utilisée dans les fichiers .inc standard de POV-Ray.</P>
+<P>Cette technique consiste à définir une variable dans le fichier à inclure, et de conditionner la lecture du contenu 
+   du fichier inclus à la non-existence préalable de cette variable.  Comme ceci :</P>
+<PRE>
+//---- debut du fichier "essai.inc" -----//
+#ifndef (Inclus_Essai)
+
+  #declare Inclus_Essai = 1;
+
+  (...contenu du fichier...)
+
+#end
+//---- fin du fichier "essai.inc" -----//
+</PRE>
+<P>La première fois que POV-Ray lit ce fichier, il se demande (<STRONG>#ifndef</STRONG>) si la variable
+Inclus_Essai existe.  Comme c'est la première fois, elle n'existe pas, et il poursuit donc la lecture
+du contenu du fichier, qui commence par la définition de cette variable !  Ensuite, si jamais
+le fichier "essai.inc" était à nouveau inclus, la réponse à la première question sera différente (puisque,
+désormais, la variable existe), et POV-Ray ne lira PAS le contenu du fichier une nouvelle fois !</P>
+
+<H2>remarque</H2>
+  <P>Avant l'apparition de POV-Ray 3.1 et ses macros, il &eacute;tait courant d'utiliser des
+fichiers ".inc" s'appelant eux-m&ecirc;mes, pour cr&eacute;er des structures r&eacute;cursives (arbres..),
+o&ugrave; des objets param&eacute;trables.  Certains, comme Chris Colefax, ont excell&eacute; dans l'&eacute;criture
+de scripts pouvant faire des choses dont on aurait m&ecirc;me pas os&eacute; r&ecirc;ver.  Les macros
+ont rendu ce proc&eacute;d&eacute; obsol&egrave;te, et la plupart de ces scripts ont &eacute;t&eacute;, depuis, convertis
+en macros, plus souples et plus rapides.</P>
+
+
+  <P><I>R&eacute;dacteur: Fabien Mosen</I></P>
+  
+</BODY>
+
+</HTML>

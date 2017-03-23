@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+	
+	<HEAD>
+		<LINK href="../povdocfr_style.css" rel="stylesheet" type="text/css">
+		<TITLE>
+			d&eacute;clarations - documentation POV-Ray en fran&ccedil;ais		</TITLE>
+	</HEAD>
+
+	
+	<BODY>
+<P><A href="../index.htm">vers l'index g&eacute;n&eacute;ral de l'aide</A> / 
+   <A href="index-dir.htm">vers l'index des directives</A></P>
+
+		<H1>
+     d&eacute;clarations 
+		</H1>
+		
+		<H2>
+     Objectif
+ 		</H2>
+		<P>
+     Créer ou modifier des variables contenant des choses très variées : nombres, vecteurs,
+     objets, textures, tableaux...
+    </P>
+		<H2>
+		 Compatibilit&eacute;
+		</H2>
+		<P>
+		POV-Ray 3.1+sup.<BR>
+  </P>
+		
+		<H2>
+			Syntaxe
+   	</H2>
+    <H3>#declare</H3>
+    <P>Une simple d&eacute;claration de variable, valable dans tout le script, toutes les macros
+       et tous les fichiers .inc appel&eacute;s apr&egrave;s la d&eacute;claration.  On appelle ces variables
+       des "variables globales".  Un point-virgule est requis &agrave; la fin de toute d&eacute;claration
+       de nombre ou de vecteur.</P> 
+    <PRE>
+    #declare Variable1 = 24.83;
+    #declare Variable2 = <14,2,74>;
+    #declare Variable3 = "bla bla bla"
+    ...
+    </PRE>
+    <P>
+	  Une d&eacute;claration de variable peut bien entendu faire appel &agrave; d'autres variables, &agrave; 
+    des fonctions, ou &agrave; elle-m&ecirc;me.     
+    </P>
+    <PRE>
+    #declare Variable4 = 63.02;
+    #declare Variable4 = sin (Variable4 + Variable1);
+    ...
+    </PRE>
+    <A name="local">
+    <H3>#local</H3>
+    <P>#local s'utilise exactement comme #declare, mais la variable n'a pas d'effet en dehors
+       de la "zone" o&ugrave; elle est d&eacute;clar&eacute;e, c'est une "variable locale".  Une telle variable
+       n'aura, en particulier, pas d'effet en dehors des macros et fichiers .inc &agrave; l'int&eacute;rieur
+       desquels elle est d&eacute;clar&eacute;e.  Les param&egrave;tres d'une macro (ceux &agrave; c&ocirc;t&eacute; du nom de la macro)
+       sont automatiquement des variables locales.</P>
+    <PRE>
+    #macro (...)
+     #local Var1 = ...
+     #declare Var1B = ...
+    #end
+     
+     #declare Var2 = Var1 // &lt;- ne marchera pas !  Var1 n'existe pas en
+                          // dehors de la macro
+     #declare Var2 = Var1B // &lt;- correct, puisque Var1B a &eacute;t&eacute; initialis&eacute;e avec
+                           //#declare, et est donc une variable globale            
+    </PRE>
+
+		<H2>
+		 Remarque
+		</H2>
+ <P>Afin d'&eacute;viter tout conflit avec des mots cl&eacute;s ou des variables pr&eacute;d&eacute;finies, il est
+    fortement conseill&eacute; de toujours faire commencer une nouvelle variable par une majuscule.
+    Les mots cl&eacute;s et variables pr&eacute;d&eacute;finies de POV-Ray &eacute;tant toujours en pleines minuscules,
+    on a ainsi la certitude d'&eacute;viter tout parasitage.</P>
+<PRE>
+    #declare sphere = object {...} //erreur !  on empi&egrave;te sur un mot cl&eacute;
+    #declare Sphere = object {...} //voil&agrave;, c'est mieux !
+</PRE>
+
+<P><I>auteur : Fabien Mosen</I>		</P>
+	</BODY>
+	
+</HTML>
