@@ -1,25 +1,54 @@
 // inclusion des couleurs prédéfinies
 #include "colors.inc"
+// inclusion de textures
+#include "stones.inc"
 
 // définition de la couleur de fond
 background { color Cyan }
 
 // positionnement de la caméra
 camera {
-  location <0, 2, -3>
-  look_at <0, 1, 2>
+  location <0, 8, -10>
+  look_at <0, 0, 0>
 }
 
 // définition d'une source
 light_source { 
-  <2, 4, -3>
+  <-2, 14, -10>
    color White
 }
 
-// définition d'une sphère
-sphere {
-   <0, 1, 2>, 2
-   texture {
-     pigment { color Yellow }
-   }
+difference {
+ // définition d'un cône creux
+ cone {
+  <0, 0, 0>,
+  1.5,
+  <0, 1.75, 0>,
+  2
+  //open
+  texture { pigment { color Orange } }
+ }
+  
+ cone {
+   <0, 0, 0>,
+   1.4,
+   <0, 1.75, 0>,
+   1.95
+   open
+   texture { pigment { color Silver } }
+ }
+}
+
+// définition du fond du cône (cylindre)
+cylinder {
+  <0, 0, 0>,
+  <0, 0.05, 0>,
+  1.4
+  texture { pigment { color Silver } }
+}
+
+// ajout du sol
+plane {
+  <0, 1, 0>, 0
+  texture { T_Stone1 }
 }
