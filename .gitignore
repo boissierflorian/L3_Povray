@@ -1,0 +1,6 @@
+# Exclusion des fichiers temporaires d'emacs
+*~
+# Exclusion des images
+*.png
+*.jpg
+*.jpeg
