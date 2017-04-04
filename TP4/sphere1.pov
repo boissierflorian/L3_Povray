@@ -31,30 +31,15 @@ plane {
   <0, 1, 0>, 0
   pigment {Grey}
 }
-
-//-------------------------------------------
-// Macros
-//-------------------------------------------
-#macro Cos_r(Rayon, Angle)
-  Rayon * cos(radians(Angle))
-#end // fin Cos_r
-
-#macro Sin_r(Rayon, Angle)
-  Rayon * sin(radians(Angle))
-#end // fin Sin_r
-
 //-------------------------------------------
 // Objets
 //-------------------------------------------
-// données de la sphère
-#declare R = 0.65;
-#declare THETA = 0;
-
 // définition de la sphère
 #declare Oeuf = sphere {
   <0, 1.25, 0>, 1.25
   texture { pigment {color Bronze} }
-  scale <Cos_r(R, THETA), 1, Sin_r(R, THETA)>
+  //scale <Cos_r(R, THETA), 1, Sin_r(R, THETA)>
+  scale <0.7, 1.1, 1>
   finish {
     phong 0.5
     diffuse 0.7
