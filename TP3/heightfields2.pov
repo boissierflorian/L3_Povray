@@ -18,7 +18,6 @@ intersection {
     height_field {
       jpeg "../sujet/Images/HF01.jpg"
       smooth
-      pigment {LightWood}
       scale <1000, 300, 1000>
       translate <-500, -300, -500>
     }
@@ -26,7 +25,8 @@ intersection {
     // définition d'une boîte
     box {
       <0, 0, 0>, <1000, 300, 1000>
-      pigment {color Orange}
       translate <-500, -450, -490>
     }
+  
+  pigment {color Orange}
 }

@@ -6,3 +6,5 @@
 *.jpeg
 # Exclusion des vidéos
 *.avi
+# Exclusion du répertoire test
+/Tests/*
