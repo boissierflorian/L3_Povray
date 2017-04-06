@@ -1,58 +1,46 @@
-// inclusion des couleurs prédéfinies
 #include "colors.inc"
 
-// positionnement de la caméra
-camera {
-  location <500, 400, -700>
-  // pointe vers le centre de la chaîne de montagnes
-  look_at <500, 150, 500> 
+
+background { color Black }
+
+camera{
+	location <0,800,-1000>
+	look_at <0,-200,1000>
 }
 
-// définition d'une source
-light_source { 
-  <1, 200, 0>
-   color White
+light_source{
+	<500,1000,-500>
+	color White
 }
 
-// déclaration d'un champ de montagnes
-#declare hf = height_field {
-  jpeg "../sujet/Images/HF01.jpg"
-  smooth
-  scale <1000, 300, 1000>
+#declare HF = height_field {
+ jpeg "../sujet/Images/HF01.jpg"
+ smooth
+ scale <1000, 300, 1000>
+ translate <-500, 0, -500>
+ rotate <0, 180, 0>
 };
 
-union {
-  height_field {
-    jpeg "../sujet/Images/HF01.jpg"
-    smooth 
-    water_level 0.5
-    scale <1000, 300, 1000>
-    pigment {White}
-  }
-  
-  intersection {
-    object { hf }
-    box {
-      <0, 0, 0>, <1000, 150, 1000>
-    }
-    pigment {LightWood}
-  }
-  
-  intersection {
-    object {hf inverse}
-    box {
-      <0, 0, 0>, <1000, 110, 1000>
-      pigment {Green}
-    }
-  }
-  
-  intersection {
-    object {hf inverse}
-    box {
-      <0, 0, 0>, <1000, 110, 1000>
-      pigment {Red}
-    }
-  }
+intersection {
+  object {HF}
+  box { <-600, 150, 0>, <600, 450, 600> }
+  texture { pigment { color White } }
+} 
+
+intersection {
+  object {HF}
+  box { <-600, 100, 0>, <600, 150, 600> }
+  texture { pigment { color LightWood} }
 }
 
+intersection {
+  object {HF}
+  box { <-600, 50, 0>, <600, 100, 600> }
+  texture { pigment { color Green } }
+}
 
+intersection {
+  object {HF}
+  box { <-600, 0, 0>, <600, 50, 600> }
+  texture { pigment { color ForestGreen } }
+}
